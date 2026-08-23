@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snapshot CRO — The Real Heroes of Ecommerce</title>
+  <meta name="description" content="Snapshot CRO: diagnose problem pages, uncover roadblocks and friction, and A/B test solutions — one Shopify app, one workflow.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: #1a1a1a;
+      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    main {
+      max-width: 720px;
+      margin: 0;
+      padding: 56px 24px 96px;
+    }
+    .crumb { color: #999; font-size: 13px; margin: 0 0 40px; }
+    .crumb a { color: #999; }
+    h1.title {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+    .tagline { color: #666; margin: 0 0 48px; }
+    h1 {
+      font-size: 15px;
+      font-weight: 500;
+      margin: 56px 0 8px;
+    }
+    h1::before { content: "## "; color: #999; }
+    h2 {
+      font-size: 15px;
+      font-weight: 500;
+      margin: 32px 0 8px;
+    }
+    h2::before { content: "### "; color: #999; }
+    p { margin: 0 0 16px; }
+    ul { list-style: none; margin: 0 0 16px; padding: 0; }
+    li::before { content: "- "; color: #999; }
+    a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; }
+    a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
+    .muted { color: #999; }
+    code {
+      background: #f4f4f4;
+      padding: 1px 5px;
+      font-size: 13.5px;
+    }
+
+    /* --- app view recreations --- */
+    .app-view {
+      border: 1px solid #d8d8d8;
+      margin: 20px 0 28px;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+    .app-view .bar-title {
+      background: #f4f4f4;
+      border-bottom: 1px solid #d8d8d8;
+      padding: 6px 12px;
+      color: #666;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      white-space: nowrap;
+    }
+    .app-view .body { padding: 12px; min-width: 520px; }
+    .caption { color: #999; font-size: 12.5px; margin: -20px 0 28px; }
+    table { border-collapse: collapse; width: 100%; }
+    th {
+      text-align: left;
+      font-weight: 500;
+      color: #999;
+      border-bottom: 1px solid #e2e2e2;
+      padding: 4px 14px 4px 0;
+      white-space: nowrap;
+    }
+    td { padding: 4px 14px 4px 0; white-space: nowrap; }
+    td.num, th.num { text-align: right; }
+    tr.flag td { background: #fff8ee; }
+    .bar { color: #1a1a1a; letter-spacing: -1px; }
+    .bar .rest { color: #e2e2e2; }
+    .ok { color: #1a7f37; }
+    .warn { color: #b35900; }
+    .bad { color: #c0392b; }
+    .cta {
+      display: inline-block;
+      border: 1px solid #1a1a1a;
+      padding: 10px 18px;
+      margin: 8px 0 0;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    footer {
+      margin-top: 72px;
+      color: #999;
+      font-size: 13px;
+    }
+    footer a { color: #999; }
+  </style>
+</head>
+<body>
+<main>
+
+  <p class="crumb"><a href="index.html">~</a> / snapshot-cro</p>
+
+  <h1 class="title">Snapshot CRO</h1>
+  <p class="tagline">// behavioral analytics + a/b testing for Shopify. one app, one workflow, zero session recordings of people typing their address.</p>
+
+  <p>Most CRO stacks are three subscriptions duct-taped together: an analytics tool that tells you <em>something</em> is wrong, a heatmap tool that shows you <em>where</em> it might be wrong, and a testing tool that lets you guess at a fix. Snapshot CRO does the whole loop in one place: <strong>diagnose problem pages → uncover roadblocks and friction → a/b test solutions</strong>. Each step feeds the next, so your tests come from evidence instead of vibes.</p>
+
+  <ul>
+    <li>runs on Shopify's web pixel. no theme code edits, no render-blocking script tag.</li>
+    <li>counts and aggregates only. no session replays, no keystroke logging, no stored customer PII. <span class="muted">(see the <a href="privacy-policy.html">privacy policy</a> — it's short because we collect little.)</span></li>
+    <li>built for real stores with real traffic numbers, i.e. not 500k sessions/month. snapshot methodology gets low-traffic stores to usable answers.</li>
+  </ul>
+
+  <h1>step 0: filter the fake traffic</h1>
+
+  <p>Before any diagnosis, every session gets scored: <code>real</code>, <code>zombie</code>, or <code>bot</code>. Bots are datacenter and automation traffic. Zombies are "sessions" that load one page, touch nothing, and leave — technically human-shaped, analytically useless. Your platform analytics counts all of them as visitors, which is one reason your conversion rate looks worse than it is and your tests never reach significance.</p>
+
+  <div class="app-view">
+    <div class="bar-title"><span>session scoring — last 30 days</span><span>n=12,847</span></div>
+    <div class="body">
+      <table>
+        <tr><th>class</th><th class="num">sessions</th><th class="num">share</th><th></th></tr>
+        <tr><td class="ok">real</td><td class="num">8,412</td><td class="num">65.5%</td><td class="bar">█████████████<span class="rest">███████</span></td></tr>
+        <tr><td class="warn">zombie</td><td class="num">2,905</td><td class="num">22.6%</td><td class="bar">█████<span class="rest">███████████████</span></td></tr>
+        <tr><td class="bad">bot</td><td class="num">1,530</td><td class="num">11.9%</td><td class="bar">██<span class="rest">██████████████████</span></td></tr>
+      </table>
+      <p style="margin:10px 0 0;" class="muted">→ 34.5% of "traffic" excluded from analysis. you're welcome.</p>
+    </div>
+  </div>
+  <p class="caption">^ recreation of the app's session scoring view, sample data.</p>
+
+  <h1>1. diagnose problem pages</h1>
+
+  <p>The Store Audit ranks every page by traffic, conversion, and revenue, then flags the mismatches — pages that get plenty of visitors and quietly do nothing with them. That delta between "should convert" and "does convert" is your leak. You don't need to audit 200 pages; you need to audit the three that are bleeding.</p>
+
+  <div class="app-view">
+    <div class="bar-title"><span>store audit — pages by leak</span><span>real sessions only</span></div>
+    <div class="body">
+      <table>
+        <tr><th>page</th><th class="num">sessions</th><th class="num">cvr</th><th class="num">revenue</th><th class="num">leak</th></tr>
+        <tr class="flag"><td>/products/trail-runner-v2</td><td class="num">3,204</td><td class="num bad">0.8%</td><td class="num">$4,110</td><td class="num bad">-$9,340</td></tr>
+        <tr class="flag"><td>/collections/sale</td><td class="num">2,118</td><td class="num bad">1.1%</td><td class="num">$3,890</td><td class="num bad">-$5,120</td></tr>
+        <tr><td>/products/daily-trainer</td><td class="num">1,867</td><td class="num ok">3.4%</td><td class="num">$11,240</td><td class="num muted">—</td></tr>
+        <tr><td>/collections/new</td><td class="num">1,411</td><td class="num ok">2.9%</td><td class="num">$7,205</td><td class="num muted">—</td></tr>
+      </table>
+      <p style="margin:10px 0 0;" class="muted">→ leak = expected revenue at store-median cvr minus actual. two pages, $14.5k/mo on the table.</p>
+    </div>
+  </div>
+  <p class="caption">^ recreation of the store audit view, sample data.</p>
+
+  <h1>2. uncover roadblocks and friction</h1>
+
+  <p>Take a Page Snapshot of a flagged page and the app audits what actually happens on it: clicks by zone, exit paths, scroll depth, and what people type into search when the page fails them. No pixel-blob heatmap you squint at like a horoscope — counted interactions per zone, ranked.</p>
+
+  <div class="app-view">
+    <div class="bar-title"><span>page snapshot — /products/trail-runner-v2</span><span>n=1,000 real sessions</span></div>
+    <div class="body">
+      <table>
+        <tr><th>zone</th><th class="num">clicks/session</th><th></th><th>signal</th></tr>
+        <tr><td>size selector</td><td class="num">4.7</td><td class="bar">██████████<span class="rest">██</span></td><td class="bad">rage territory</td></tr>
+        <tr><td>image gallery</td><td class="num">2.1</td><td class="bar">█████<span class="rest">███████</span></td><td class="muted">normal</td></tr>
+        <tr><td>size chart link</td><td class="num">1.8</td><td class="bar">████<span class="rest">████████</span></td><td class="warn">opens pdf. on mobile. in 2026.</td></tr>
+        <tr><td>add to cart</td><td class="num">0.3</td><td class="bar">█<span class="rest">███████████</span></td><td class="bad">the point of the page</td></tr>
+      </table>
+      <p style="margin:12px 0 0;">top exit path: <code>size chart pdf → gone (41%)</code></p>
+      <p style="margin:2px 0 0;">top on-site search from this page: <code>"trail runner sizing" (188×)</code></p>
+      <p style="margin:10px 0 0;" class="muted">→ hypothesis writes itself: sizing info is the roadblock. put it on the page.</p>
+    </div>
+  </div>
+  <p class="caption">^ recreation of the page snapshot view, sample data.</p>
+
+  <h1>3. a/b test solutions</h1>
+
+  <p>Now test the fix — in the same app, against the same scored traffic. Results are Bayesian: instead of a p-value you explain to no one, you get the probability that the variant beats control, plus revenue per session so a "winner" that sells more $12 socks and fewer $140 shoes gets caught. Snapshot-based testing means low-traffic stores get honest answers in weeks, not quarters.</p>
+
+  <div class="app-view">
+    <div class="bar-title"><span>a/b test — inline size chart vs. pdf link</span><span>day 18 of 21</span></div>
+    <div class="body">
+      <table>
+        <tr><th>variant</th><th class="num">sessions</th><th class="num">cvr</th><th class="num">rev/session</th><th class="num">p(beat control)</th></tr>
+        <tr><td>A — control (pdf link)</td><td class="num">1,506</td><td class="num">0.9%</td><td class="num">$1.28</td><td class="num muted">—</td></tr>
+        <tr class="flag"><td>B — inline size chart</td><td class="num">1,494</td><td class="num ok">2.2%</td><td class="num ok">$3.04</td><td class="num ok">97.4%</td></tr>
+      </table>
+      <p style="margin:10px 0 0;" class="muted">→ ship B. close the loop. open the next leak from step 1.</p>
+    </div>
+  </div>
+  <p class="caption">^ recreation of the a/b test results view, sample data.</p>
+
+  <h1>pricing</h1>
+  <ul>
+    <li><strong>free</strong> — 1 store snapshot, 3 page snapshots, 1,000 visitors/snapshot. enough to find your first leak.</li>
+    <li><strong>whisper, $49.99/mo</strong> — 5 store snapshots, 50 page snapshots, 5 a/b tests, 5,000 visitors.</li>
+    <li><strong>signal, $99.99/mo</strong> — 20 store snapshots, 250 page snapshots, 25 a/b tests, 25,000 visitors.</li>
+  </ul>
+
+  <h1>install</h1>
+  <p>It's on the Shopify App Store. Installs via web pixel, uninstalls cleanly, and the data practices are documented in plain language in the <a href="privacy-policy.html">privacy policy</a>.</p>
+  <p><a class="cta" href="https://apps.shopify.com/mousewhisperer">→ install snapshot cro on shopify</a></p>
+
+  <footer>
+    <a href="index.html">← back to index</a> &middot; &copy; 2026 the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>
+  </footer>
+
+</main>
+</body>
+</html>
