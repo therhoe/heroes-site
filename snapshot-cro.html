@@ -23,8 +23,16 @@
       margin: 0;
       padding: 56px 24px 96px;
     }
-    .crumb { color: #999; font-size: 13px; margin: 0 0 40px; }
-    .crumb a { color: #999; }
+    .topnav {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 48px;
+      font-size: 13px;
+    }
+    .topnav img { display: block; height: 26px; width: auto; }
+    .topnav a { color: #999; }
+    .topnav a:hover { background: none; color: #1a1a1a; }
     h1.title {
       font-size: 22px;
       font-weight: 600;
@@ -110,7 +118,10 @@
 <body>
 <main>
 
-  <p class="crumb"><a href="index.html">~</a> / snapshot-cro</p>
+  <nav class="topnav">
+    <a href="index.html"><img src="logo.png" alt="The Real Heroes of Ecommerce"></a>
+    <a href="index.html">← return to home</a>
+  </nav>
 
   <h1 class="title">Snapshot CRO</h1>
   <p class="tagline">// behavioral analytics + a/b testing for Shopify. one app, one workflow, zero session recordings of people typing their address.</p>

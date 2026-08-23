@@ -56,10 +56,25 @@
       padding: 14px 18px;
       margin: 20px 0;
     }
+    .topnav {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 40px;
+      font-size: 13px;
+    }
+    .topnav img { display: block; height: 26px; width: auto; }
+    .topnav a { color: var(--muted); text-decoration: none; }
+    .topnav a:hover { color: var(--text); }
   </style>
 </head>
 <body>
 <main>
+  <nav class="topnav">
+    <a href="index.html"><img src="logo.png" alt="The Real Heroes of Ecommerce"></a>
+    <a href="index.html">&larr; return to home</a>
+  </nav>
+
   <h1>Privacy Policy</h1>
   <p class="effective">Snapshot CRO &middot; Effective date: August 23, 2026</p>
 
