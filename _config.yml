@@ -1,0 +1,23 @@
+url: "https://therealheroesofecommerce.com"
+title: The Real Heroes of Ecommerce
+description: CRO, Shopify, and building in public.
+
+collections:
+  perspectives:
+    output: true
+    permalink: /perspectives/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: perspectives
+    values:
+      layout: perspective
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+exclude:
+  - .claude
+  - README.md

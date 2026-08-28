@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% seo %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: #1a1a1a;
+      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    main {
+      max-width: 720px;
+      margin: 0;
+      padding: 56px 24px 96px;
+    }
+    .topnav {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 48px;
+      font-size: 13px;
+    }
+    .topnav img { display: block; height: 26px; width: auto; }
+    .topnav a { color: #999; }
+    .topnav a:hover { background: none; color: #1a1a1a; }
+    h1.title {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+    .tagline { color: #666; margin: 0 0 8px; }
+    .dateline { color: #999; font-size: 13px; margin: 0 0 48px; }
+    .content h1,
+    .content h2 {
+      font-size: 15px;
+      font-weight: 500;
+      margin: 56px 0 8px;
+    }
+    .content h1::before,
+    .content h2::before { content: "## "; color: #999; }
+    .content h3 {
+      font-size: 15px;
+      font-weight: 500;
+      margin: 32px 0 8px;
+    }
+    .content h3::before { content: "### "; color: #999; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding: 0; }
+    ul { list-style: none; }
+    ul li::before { content: "- "; color: #999; }
+    ol { list-style-position: inside; }
+    a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; }
+    a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
+    .muted { color: #999; }
+    code {
+      background: #f4f4f4;
+      padding: 1px 5px;
+      font-size: 13.5px;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 12px;
+      overflow-x: auto;
+      margin: 0 0 16px;
+    }
+    pre code { background: none; padding: 0; }
+    blockquote {
+      margin: 0 0 16px;
+      padding: 0 0 0 16px;
+      border-left: 2px solid #d8d8d8;
+      color: #666;
+    }
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #d8d8d8;
+      margin: 20px 0 28px;
+    }
+    table { border-collapse: collapse; width: 100%; margin: 0 0 16px; }
+    th {
+      text-align: left;
+      font-weight: 500;
+      color: #999;
+      border-bottom: 1px solid #e2e2e2;
+      padding: 4px 14px 4px 0;
+    }
+    td { padding: 4px 14px 4px 0; }
+    hr { border: none; border-top: 1px solid #e2e2e2; margin: 32px 0; }
+    footer {
+      margin-top: 72px;
+      color: #999;
+      font-size: 13px;
+    }
+    footer a { color: #999; }
+  </style>
+</head>
+<body>
+<main>
+
+  <nav class="topnav">
+    <a href="/"><img src="/logo.png" alt="The Real Heroes of Ecommerce"></a>
+    <a href="/">&larr; return to home</a>
+  </nav>
+
+  <h1 class="title">{{ page.title }}</h1>
+  {% if page.description %}<p class="tagline">// {{ page.description }}</p>{% endif %}
+  <p class="dateline">{{ page.date | date: "%B %Y" | downcase }}</p>
+
+  <div class="content">
+    {{ content }}
+  </div>
+
+  <footer>
+    <a href="/">&larr; back to index</a> &middot; &copy; {{ page.date | date: "%Y" }} the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>
+  </footer>
+
+</main>
+</body>
+</html>
