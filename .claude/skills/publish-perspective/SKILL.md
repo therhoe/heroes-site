@@ -1,33 +1,41 @@
 ---
 name: publish-perspective
-description: Publish a Google Doc as a new "perspectives" article on therealheroesofecommerce.com. Use when Shep says "publish [doc name]", "publish my new article", or wants a Google Doc turned into a page on the site.
+description: Publish a Google Doc as a new "perspectives" article on therealheroesofecommerce.com. Use when Shep shares a Google Docs link to publish, says "publish [doc name]", or wants a Google Doc turned into a page on the site.
 ---
 
 # Publish a perspective
 
 Convert a Google Doc into a Jekyll perspective page and push it live. The site is this repo, deployed by GitHub Pages on push to `main` (Jekyll builds automatically — there is no local build).
 
-## Steps
+## Getting the doc (preferred: pasted link)
 
-1. **Find the doc.** Use the Google Drive connector (`search_files` / `list_recent_files`, then `read_file_content` or `download_file_content`) to locate the doc by the name Shep gave. If multiple docs match, list them and ask which one.
+Shep's preferred flow is pasting the doc's URL. The doc must be link-shared ("anyone with the link can view").
 
-2. **Convert to Markdown.** Clean conversion, preserving headings (doc H1/H2 → `##`, H3 → `###`), links, lists, bold/italic, and blockquotes. Keep Shep's voice and wording — fix only unambiguous typos, and mention any fixes made. Site style is lowercase-leaning; do not force it onto the article body.
+1. Extract the file ID from the URL (`docs.google.com/document/d/<FILE_ID>/...`).
+2. Download the full doc with images: `https://docs.google.com/document/d/<FILE_ID>/export?format=docx` (plain `Invoke-WebRequest`/`curl` works — no auth needed for link-shared docs). If it fails with 401/403, the doc isn't link-shared — ask Shep to set "anyone with the link can view" and retry.
+3. The `.docx` is a zip: copy to `.zip`, extract, images are in `word/media/`. For the text and structure (heading levels, image positions), either parse `word/document.xml` or load `https://docs.google.com/document/d/<FILE_ID>/mobilebasic` in the browser tool and read the rendered page.
 
-3. **Front matter.** Create:
-   - `title:` from the doc title (or first heading)
+Fallback (only if the Drive connector has full access — as of 2026-08 it can only see files Claude created, so search does NOT work): find the doc by name via `search_files` and read it directly.
+
+## Converting
+
+1. **Markdown conversion.** Preserve heading hierarchy (doc H2 → `##`, H3/H4 → `##`/`###` as depth suggests), links, lists, bold/italic, blockquotes, and image positions. Keep Shep's voice and wording — fix only unambiguous typos, and list the fixes in the summary. Never "fix" deliberate jokes. Multi-line chants/verses need `<br>` line breaks. Literal heading-tag demos in the text should become code blocks, not real headings.
+2. **Front matter.**
+   - `title:` from the doc title
    - `date:` today (YYYY-MM-DD)
-   - `description:` draft a ≤160-character meta description from the content — show it to Shep for confirmation before publishing, along with the slug
-   - Slug: kebab-case from the title, short and keyword-bearing (e.g. `ab-test-sample-pollution`). File goes to `_perspectives/<slug>.md`. URL will be `/perspectives/<slug>/`.
+   - `description:` draft a ≤160-char meta description — confirm it and the slug with Shep before pushing
+   - Slug: kebab-case, short and keyword-bearing. File: `_perspectives/<slug>.md` → URL `/perspectives/<slug>/`.
+3. **Images** go to `assets/perspectives/<slug>/` with descriptive filenames and meaningful alt text, referenced as `/assets/perspectives/<slug>/<name>.<ext>`.
+4. **Sanity checks before publishing:** flag an abruptly-ending draft to Shep instead of silently publishing it; link mentions of Snapshot CRO / Mouse Whisperer to `/snapshot-cro.html`.
 
-4. **Images.** If the doc has images, export them to `assets/perspectives/<slug>/` and reference as `/assets/perspectives/<slug>/<name>.png` with meaningful alt text. If image export isn't possible via the connector, ask Shep to save them into that folder and reference them anyway.
+## Publishing
 
-5. **Publish.** Commit the new file(s) with a message like `Add perspective: <title>` and push to `main`.
-
-6. **Verify.** Wait for the Pages build (~1 min; check with `gh api repos/{owner}/{repo}/pages/builds/latest`), then confirm in the browser that `https://therealheroesofecommerce.com/perspectives/<slug>/` renders and the article appears in the homepage "perspectives" list.
+1. Commit with a message like `Add perspective: <title>` and push to `main`.
+2. Wait ~1 min for the Pages build, then verify in the browser: `https://therealheroesofecommerce.com/perspectives/<slug>/` renders, images load (`document.images` all `complete` with `naturalWidth > 0`), and the article appears at the top of the homepage "perspectives" list.
 
 ## Notes
 
-- Articles live in `_perspectives/`, layout is `_layouts/perspective.html` (applied by default via `_config.yml` — no `layout:` needed in front matter).
-- Homepage listing is automatic (Liquid loop in `index.html`), newest first by `date`. Never hand-edit the homepage list.
-- To edit a published article: edit its `.md` file and push. To unpublish: delete the file and push.
-- Don't mirror Substack posts here (duplicate content hurts SEO) — perspectives should be original/evergreen pieces.
+- Articles live in `_perspectives/`, layout `_layouts/perspective.html` (applied by default via `_config.yml`).
+- Homepage listing is automatic (Liquid loop in `index.html`), newest first by `date`. Never hand-edit that list.
+- To edit a published article: edit its `.md` and push. To unpublish: delete the file and push.
+- Don't mirror Substack posts here (duplicate content hurts SEO) — perspectives should be original/evergreen. If a doc references Substack or looks like a newsletter draft, mention the tradeoff once.
