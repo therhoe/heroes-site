@@ -2,6 +2,7 @@
 title: welcome to perspectives
 description: what this section is, who it's for, and why it exists.
 date: 2026-08-28
+tags: [meta]
 ---
 
 This is the perspectives library — an ever-expanding collection of ideas, frameworks, and contrarian takes for CRO specialists and ecommerce pros.

@@ -2,6 +2,7 @@
 title: Blame it on the MTV
 description: Marketing acronyms aren't even acronyms — and every one of them has the same two sides, the customer side and the technical side.
 date: 2026-08-29
+tags: [marketing, seo, cro]
 ---
 
 ![pixel-art comic: a marketer says "Blame it on the MTV"; a superhero replies "Got it, but what if it doesn't?"](/assets/perspectives/blame-it-on-the-mtv/comic-1.png)

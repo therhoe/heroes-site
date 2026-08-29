@@ -1,0 +1,163 @@
+---
+permalink: /perspectives/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perspectives — The Real Heroes of Ecommerce</title>
+  <meta name="description" content="An ever-expanding library of CRO and ecommerce ideas: evergreen frameworks, testing methodology, and contrarian takes for conversion specialists and store operators.">
+  <link rel="canonical" href="https://therealheroesofecommerce.com/perspectives/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: #1a1a1a;
+      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    main {
+      max-width: 560px;
+      margin: 0;
+      padding: 56px 24px 96px;
+    }
+    .topnav {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 48px;
+      font-size: 13px;
+    }
+    .topnav img { display: block; height: 26px; width: auto; }
+    .topnav a { color: #999; }
+    .topnav a:hover { background: none; color: #1a1a1a; }
+    h1.title {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+    .tagline { color: #666; margin: 0 0 40px; }
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    li { margin: 0; }
+    #plist li::before { content: "- "; color: #999; }
+    a {
+      color: #1a1a1a;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
+    .note { color: #999; }
+    #q {
+      width: 100%;
+      font: inherit;
+      color: inherit;
+      background: #ffffff;
+      border: 1px solid #1a1a1a;
+      padding: 8px 12px;
+      margin: 0 0 12px;
+    }
+    #q:focus { outline: 2px solid #1a1a1a; outline-offset: -1px; }
+    .chips { margin: 0 0 28px; }
+    .chip {
+      font: inherit;
+      font-size: 13px;
+      color: #666;
+      background: #ffffff;
+      border: 1px solid #d8d8d8;
+      padding: 2px 10px;
+      margin: 0 6px 8px 0;
+      cursor: pointer;
+    }
+    .chip:hover { border-color: #1a1a1a; color: #1a1a1a; }
+    .chip.active { background: #1a1a1a; border-color: #1a1a1a; color: #ffffff; }
+    #empty { color: #999; display: none; }
+    footer {
+      margin-top: 72px;
+      color: #999;
+      font-size: 13px;
+    }
+    footer a { color: #999; }
+  </style>
+</head>
+<body>
+<main>
+
+  <nav class="topnav">
+    <a href="/"><img src="/logo.png" alt="The Real Heroes of Ecommerce"></a>
+    <a href="/">← return to home</a>
+  </nav>
+
+  <h1 class="title">Perspectives</h1>
+  <p class="tagline">// an ever-expanding library of evergreen ideas, frameworks, and contrarian takes for CRO specialists and ecommerce operators.</p>
+
+  <input id="q" type="search" placeholder="search by keyword…" aria-label="search perspectives">
+
+  <div class="chips" id="chips">
+    <button class="chip active" data-tag="">all</button>
+    {% assign all_tags = "" | split: "" %}
+    {% for p in site.perspectives %}{% assign all_tags = all_tags | concat: p.tags %}{% endfor %}
+    {% assign all_tags = all_tags | uniq | sort %}
+    {% for t in all_tags %}
+    <button class="chip" data-tag="{{ t }}">{{ t }}</button>
+    {% endfor %}
+  </div>
+
+  <ul id="plist">
+    {% assign perspectives = site.perspectives | sort: "date" | reverse %}
+    {% for p in perspectives %}
+    <li data-tags="{{ p.tags | join: ' ' }}" data-search="{{ p.title | downcase }} {{ p.description | downcase }} {{ p.tags | join: ' ' | downcase }}">
+      <a href="{{ p.url }}">{{ p.title }}</a> <span class="note">({{ p.date | date: "%b %Y" | downcase }})</span>
+    </li>
+    {% endfor %}
+  </ul>
+  <p id="empty">// nothing matches. try fewer letters.</p>
+
+  <footer>
+    <a href="/">← back to index</a> &middot; &copy; 2026 the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>
+  </footer>
+
+</main>
+<script>
+(function () {
+  var q = document.getElementById('q');
+  var chips = document.querySelectorAll('.chip');
+  var items = document.querySelectorAll('#plist li');
+  var empty = document.getElementById('empty');
+  var activeTag = '';
+
+  function apply() {
+    var text = q.value.trim().toLowerCase();
+    var shown = 0;
+    items.forEach(function (li) {
+      var okText = !text || li.getAttribute('data-search').indexOf(text) !== -1;
+      var okTag = !activeTag || (' ' + li.getAttribute('data-tags') + ' ').indexOf(' ' + activeTag + ' ') !== -1;
+      var show = okText && okTag;
+      li.style.display = show ? '' : 'none';
+      if (show) shown++;
+    });
+    empty.style.display = shown ? 'none' : '';
+  }
+
+  q.addEventListener('input', apply);
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      activeTag = c.getAttribute('data-tag');
+      chips.forEach(function (x) { x.classList.remove('active'); });
+      c.classList.add('active');
+      apply();
+    });
+  });
+})();
+</script>
+</body>
+</html>

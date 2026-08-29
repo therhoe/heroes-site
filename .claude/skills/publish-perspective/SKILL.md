@@ -24,6 +24,7 @@ Fallback (only if the Drive connector has full access — as of 2026-08 it can o
    - `title:` from the doc title
    - `date:` today (YYYY-MM-DD)
    - `description:` draft a ≤160-char meta description — confirm it and the slug with Shep before pushing
+   - `tags:` 1–3 lowercase topics, reusing existing tags where possible (check other files in `_perspectives/` first — tags become filter chips on `/perspectives/`, so avoid near-duplicates like `ab-testing` vs `testing`)
    - Slug: kebab-case, short and keyword-bearing. File: `_perspectives/<slug>.md` → URL `/perspectives/<slug>/`.
 3. **Images** go to `assets/perspectives/<slug>/` with descriptive filenames and meaningful alt text, referenced as `/assets/perspectives/<slug>/<name>.<ext>`.
 4. **Sanity checks before publishing:** flag an abruptly-ending draft to Shep instead of silently publishing it; link mentions of Snapshot CRO / Mouse Whisperer to `/snapshot-cro.html`.
@@ -36,6 +37,6 @@ Fallback (only if the Drive connector has full access — as of 2026-08 it can o
 ## Notes
 
 - Articles live in `_perspectives/`, layout `_layouts/perspective.html` (applied by default via `_config.yml`).
-- Homepage listing is automatic (Liquid loop in `index.html`), newest first by `date`. Never hand-edit that list.
+- The `/perspectives/` hub page (`perspectives.html`) lists all articles automatically with client-side keyword search and tag filters; the homepage links to the hub plus the latest article. All of it is Liquid-driven — never hand-edit those lists.
 - To edit a published article: edit its `.md` and push. To unpublish: delete the file and push.
 - Don't mirror Substack posts here (duplicate content hurts SEO) — perspectives should be original/evergreen. If a doc references Substack or looks like a newsletter draft, mention the tradeoff once.
