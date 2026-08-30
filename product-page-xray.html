@@ -294,6 +294,7 @@
       var ref = sec.className + ' ' + sec.id;
       var isHeader = /header-group|__header|announcement/i.test(ref);
       var isFooter = /footer-group|__footer/i.test(ref);
+      if (isHeader || isFooter) return;
       var hasBuyBox = !!sec.querySelector('form[action*="/cart/add"]');
       var lines = textLines(sec, isHeader);
       var imgs = sectionImages(sec, target.toString());
@@ -315,28 +316,15 @@
         body += '<p class="sectext muted">( nothing in the static html — this only appears when scripts run in a real browser )</p>';
       }
 
-      if (isHeader || isFooter || isWidget) {
-        var name, preview;
-        if (isWidget) {
-          name = vendor || 'app widget ( third-party content, rendered by javascript )';
-          preview = '';
-        } else if (isHeader) {
-          name = /announcement/i.test(ref) ? 'announcement bar' : 'header';
-          var menu = topMenu(sec);
-          preview = menu.length
-            ? ' <span class="muted">// ' + esc(menu.join(' - ')) + '</span>'
-            : ' <span class="muted">( ' + lines.length + ' lines · ' + imgs.length + ' images )</span>';
-        } else {
-          name = 'footer';
-          preview = ' <span class="muted">( ' + lines.length + ' lines · ' + imgs.length + ' images )</span>';
-        }
-        parts.push('<details class="secd"><summary><span class="tri"></span>' + esc(name) + preview + '</summary><div class="inner">' + body + '</div></details>');
+      if (isWidget) {
+        var name = vendor || 'app widget ( third-party content, rendered by javascript )';
+        parts.push('<details class="secd"><summary><span class="tri"></span>' + esc(name) + '</summary><div class="inner">' + body + '</div></details>');
       } else {
         parts.push(body);
       }
     });
     blocksEl.innerHTML = parts.join('<p class="sep">/</p>');
-    summaryEl.textContent = '// ' + secs.length + ' sections, top to bottom. design removed, content remaining. [+] sections are collapsed — click to expand.';
+    summaryEl.textContent = '// ' + parts.length + ' content sections, top to bottom. header, footer, and design removed. [+] widgets are collapsed — click to expand.';
     results.style.display = 'block';
     pitch.style.display = 'block';
   }
