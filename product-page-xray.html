@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Page X-Ray — Free Shopify CRO Tool — The Real Heroes of Ecommerce</title>
+  <meta name="description" content="Free CRO tool: paste your Shopify product page URL and see its structure block by block — sections, buy box position, reviews, app scripts, and the leaks a CRO would flag.">
+  <link rel="canonical" href="https://therealheroesofecommerce.com/product-page-xray.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: #1a1a1a;
+      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    main {
+      max-width: 720px;
+      margin: 0;
+      padding: 56px 24px 96px;
+    }
+    .topnav {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 48px;
+      font-size: 13px;
+    }
+    .topnav img { display: block; height: 26px; width: auto; }
+    .topnav a { color: #999; }
+    .topnav a:hover { background: none; color: #1a1a1a; }
+    h1.title {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+    .tagline { color: #666; margin: 0 0 40px; }
+    h1 {
+      font-size: 15px;
+      font-weight: 500;
+      margin: 56px 0 8px;
+    }
+    h1::before { content: "## "; color: #999; }
+    p { margin: 0 0 16px; }
+    ul { list-style: none; margin: 0 0 16px; padding: 0; }
+    li::before { content: "- "; color: #999; }
+    a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; }
+    a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
+    .muted { color: #999; }
+    .ok { color: #1a7f37; }
+    .warn { color: #b35900; }
+    .bad { color: #c0392b; }
+
+    form.xray { display: flex; gap: 10px; margin: 0 0 8px; flex-wrap: wrap; }
+    #url {
+      flex: 1 1 320px;
+      font: inherit;
+      color: inherit;
+      background: #ffffff;
+      border: 1px solid #1a1a1a;
+      padding: 10px 12px;
+    }
+    #url:focus { outline: 2px solid #1a1a1a; outline-offset: -1px; }
+    button.go {
+      font: inherit;
+      font-weight: 500;
+      color: #1a1a1a;
+      background: #ffffff;
+      border: 1px solid #1a1a1a;
+      padding: 10px 18px;
+      cursor: pointer;
+    }
+    button.go:hover { background: #1a1a1a; color: #ffffff; }
+    button.go:disabled { opacity: 0.5; cursor: wait; }
+    #status { margin: 8px 0 0; }
+
+    .block {
+      border: 1px solid #d8d8d8;
+      margin: 0 0 14px;
+      font-size: 13.5px;
+    }
+    .block .bar-title {
+      background: #f4f4f4;
+      border-bottom: 1px solid #d8d8d8;
+      padding: 6px 12px;
+      color: #666;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .block .bar-title strong { color: #1a1a1a; font-weight: 500; }
+    .block .body { padding: 10px 12px; }
+    .block .facts { color: #666; margin: 0 0 6px; }
+    .block .note { margin: 0; }
+    .cta {
+      display: inline-block;
+      border: 1px solid #1a1a1a;
+      padding: 10px 18px;
+      margin: 8px 12px 0 0;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    #results, #pitch { display: none; }
+    footer {
+      margin-top: 72px;
+      color: #999;
+      font-size: 13px;
+    }
+    footer a { color: #999; }
+  </style>
+</head>
+<body>
+<main>
+
+  <nav class="topnav">
+    <a href="/"><img src="/logo.png" alt="The Real Heroes of Ecommerce"></a>
+    <a href="/">← return to home</a>
+  </nav>
+
+  <h1 class="title">Product Page X-Ray</h1>
+  <p class="tagline">// paste a shopify product page url. see its skeleton, block by block, the way a CRO reads it. free, no signup, nothing stored.</p>
+
+  <form class="xray" id="form">
+    <input id="url" type="url" placeholder="https://yourstore.com/products/your-product" aria-label="shopify product page url" required>
+    <button class="go" id="go" type="submit">→ x-ray it</button>
+  </form>
+  <p id="status" class="muted"></p>
+
+  <div id="results">
+    <h1>the skeleton</h1>
+    <p id="summary" class="muted"></p>
+    <div id="blocks"></div>
+    <h1>page-level flags</h1>
+    <ul id="flags"></ul>
+  </div>
+
+  <div id="pitch">
+    <h1>now the hard part</h1>
+    <p>This is your page's skeleton — the static anatomy. What it can't show you: which blocks your real visitors actually use, where they rage-click, where they bail, and whether any of it converts. That's behavioral data, and it's what <a href="/snapshot-cro.html">Snapshot CRO</a> measures — or what we do for you <a href="/hire-cro-agency.html">on retainer</a>.</p>
+    <p>
+      <a class="cta" href="https://apps.shopify.com/mousewhisperer">→ install snapshot cro</a>
+      <a class="cta" href="/hire-cro-agency.html">→ hire the cro agency</a>
+    </p>
+  </div>
+
+  <footer>
+    <a href="/">← back to index</a> &middot; &copy; 2026 the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>
+  </footer>
+
+</main>
+<script>
+(function () {
+  // set this to the deployed Cloudflare Worker URL (see cloudflare-worker/README.md)
+  var PROXY = 'PASTE_WORKER_URL_HERE';
+
+  var form = document.getElementById('form');
+  var input = document.getElementById('url');
+  var go = document.getElementById('go');
+  var status = document.getElementById('status');
+  var results = document.getElementById('results');
+  var pitch = document.getElementById('pitch');
+  var blocksEl = document.getElementById('blocks');
+  var flagsEl = document.getElementById('flags');
+  var summaryEl = document.getElementById('summary');
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function say(msg, cls) {
+    status.className = cls || 'muted';
+    status.textContent = msg;
+  }
+
+  function cleanText(el) {
+    var clone = el.cloneNode(true);
+    Array.prototype.forEach.call(clone.querySelectorAll('style, script, noscript, template'), function (n) { n.parentNode.removeChild(n); });
+    return (clone.textContent || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function words(text) {
+    return text ? text.split(/\s+/).length : 0;
+  }
+
+  function labelFor(sec, info) {
+    var suffix = (sec.id.split('__')[1] || sec.id.replace('shopify-section-', ''));
+    if (!/^[0-9a-f-]{10,}$/i.test(suffix.replace(/-/g, ''))) {
+      return suffix.replace(/[-_]/g, ' ');
+    }
+    if (info.buyBox) return 'product buy box';
+    if (info.words === 0 && info.imgs === 0) return 'app-rendered section';
+    if (/review|rating/i.test(info.heading)) return 'reviews';
+    if (/recommend|you may also|related|pairs well|goes great|complete the/i.test(info.heading)) return 'product recommendations';
+    if (info.reviews && info.words > 60) return 'reviews';
+    if (info.price && info.imgs > 2) return 'product recommendations';
+    if (/sign\s?up|newsletter|subscribe|email/i.test(info.text) && info.words < 60) return 'email capture';
+    if (info.imgs > 0 && info.words < 80) return 'image banner';
+    return 'content section';
+  }
+
+  function analyze(doc) {
+    var secs = Array.prototype.slice.call(doc.querySelectorAll('.shopify-section'));
+    var model = { sections: [], buyBoxIndex: -1, reviewsAnywhere: false };
+
+    secs.forEach(function (sec, i) {
+      var h = sec.querySelector('h1,h2,h3');
+      var text = cleanText(sec);
+      var info = {
+        i: i,
+        group: /header-group|shopify-section-header|announcement/.test(sec.className + sec.id) ? 'header'
+             : /footer-group|shopify-section-footer/.test(sec.className + sec.id) ? 'footer' : 'template',
+        heading: h ? h.textContent.trim().replace(/\s+/g, ' ').slice(0, 60) : '',
+        imgs: sec.querySelectorAll('img').length,
+        videos: sec.querySelectorAll('video, iframe[src*="youtube"], iframe[src*="vimeo"]').length,
+        buyBox: !!sec.querySelector('form[action*="/cart/add"]'),
+        price: !!sec.querySelector('[class*="price" i]'),
+        reviews: /judge\.?me|loox|okendo|yotpo|stamped|star-rating|\breviews?\b/i.test(sec.innerHTML),
+        accordions: sec.querySelectorAll('details, [class*="accordion" i], [class*="collapsible" i]').length,
+        text: text,
+        words: words(text)
+      };
+      info.label = labelFor(sec, info);
+      if (info.buyBox && model.buyBoxIndex === -1) model.buyBoxIndex = i;
+      if (info.reviews) model.reviewsAnywhere = true;
+      model.sections.push(info);
+    });
+
+    var host = '';
+    try { host = new URL(input.value).hostname; } catch (e) {}
+    var appHosts = [];
+    Array.prototype.forEach.call(doc.querySelectorAll('script[src]'), function (s) {
+      try {
+        var hn = new URL(s.getAttribute('src'), 'https://' + host).hostname;
+        if (hn && hn !== host && !/shopify|shopifycdn/.test(hn) && appHosts.indexOf(hn) === -1) appHosts.push(hn);
+      } catch (e) {}
+    });
+    model.appHosts = appHosts;
+    model.h1s = doc.querySelectorAll('h1').length;
+    var imgs = doc.querySelectorAll('img');
+    model.totalImgs = imgs.length;
+    model.imgsNoAlt = Array.prototype.filter.call(imgs, function (im) { return !im.getAttribute('alt'); }).length;
+    return model;
+  }
+
+  function noteFor(s, model) {
+    if (s.buyBox) {
+      var extras = [];
+      if (s.accordions > 0) extras.push('<span class="ok">collapsible info in the buy box — good, answers objections without pushing the button down.</span>');
+      if (!s.reviews) extras.push('<span class="warn">no review stars near the price — social proof belongs where the money decision happens.</span>');
+      if (s.imgs < 3) extras.push('<span class="warn">only ' + s.imgs + ' image(s) — people can\'t touch the product, photos are the substitute.</span>');
+      if (s.words < 50) extras.push('<span class="warn">thin description (' + s.words + ' words) — thin answers create exits.</span>');
+      return extras.length ? extras.join('<br>') : '<span class="ok">buy box has price, form, and content. skeleton looks healthy.</span>';
+    }
+    if (s.label === 'app-rendered section') return '<span class="muted">empty in the raw html — an app fills this in with javascript at load time. invisible to this x-ray, and to some crawlers. worth knowing what lives here.</span>';
+    if (s.label === 'reviews') return '<span class="ok">dedicated reviews block found.</span>';
+    if (s.label === 'product recommendations') return '<span class="muted">cross-sell block. worth testing what\'s actually recommended.</span>';
+    if (s.label === 'email capture') return '<span class="muted">email capture. fine — as long as it isn\'t a popup tackling people at hello.</span>';
+    if (s.group === 'header' && s.label !== 'announcement bar' && s.imgs > 8) return '<span class="warn">' + s.imgs + ' images in the header — heavy menus slow the first paint.</span>';
+    return '';
+  }
+
+  function render(model) {
+    blocksEl.innerHTML = model.sections.map(function (s) {
+      var facts = [];
+      if (s.heading) facts.push('"' + esc(s.heading) + '"');
+      if (s.imgs) facts.push(s.imgs + ' img');
+      if (s.videos) facts.push(s.videos + ' video');
+      if (s.accordions) facts.push(s.accordions + ' collapsible');
+      if (s.price) facts.push('price');
+      if (s.reviews) facts.push('review markup');
+      facts.push(s.words + ' words');
+      var note = noteFor(s, model);
+      return '<div class="block">' +
+        '<div class="bar-title"><span>block ' + (s.i + 1) + ' — <strong>' + esc(s.label) + '</strong></span><span>' + s.group + '</span></div>' +
+        '<div class="body"><p class="facts">' + facts.join(' · ') + '</p>' +
+        (note ? '<p class="note">' + note + '</p>' : '') +
+        '</div></div>';
+    }).join('');
+
+    var flags = [];
+    if (model.buyBoxIndex === -1) {
+      flags.push('<span class="bad">no add-to-cart form found in any section — if this is a headless or heavily customized theme, the x-ray can\'t see through it.</span>');
+    } else {
+      var templateBefore = model.sections.filter(function (s) { return s.i < model.buyBoxIndex && s.group === 'template'; }).length;
+      if (templateBefore > 0) flags.push('<span class="warn">' + templateBefore + ' content block(s) sit above the buy box — every one is a scroll between the visitor and the button.</span>');
+      else flags.push('<span class="ok">buy box is the first content block after the header. as it should be.</span>');
+    }
+    if (!model.reviewsAnywhere) flags.push('<span class="warn">no review markup anywhere on the page. social proof is not optional in 2026.</span>');
+    if (model.h1s === 0) flags.push('<span class="warn">no h1 tag — search engines are guessing what this page is about.</span>');
+    if (model.h1s > 1) flags.push('<span class="warn">' + model.h1s + ' h1 tags — there can be only one. search engines get confused by ties.</span>');
+    if (model.totalImgs > 0 && model.imgsNoAlt / model.totalImgs > 0.2) {
+      flags.push('<span class="warn">' + model.imgsNoAlt + ' of ' + model.totalImgs + ' images have no alt text — bad for accessibility and image search.</span>');
+    }
+    if (model.appHosts.length > 6) {
+      flags.push('<span class="warn">' + model.appHosts.length + ' third-party script sources in the html (' + esc(model.appHosts.slice(0, 4).join(', ')) + '…) — every app script is a tax on load time.</span>');
+    } else if (model.appHosts.length > 0) {
+      flags.push('<span class="muted">' + model.appHosts.length + ' third-party script source(s) in the html.</span>');
+    }
+    flags.push('<span class="muted">static skeleton only — scripts don\'t run in an x-ray, so app widgets injected at load time and anything personalized are invisible here.</span>');
+    flagsEl.innerHTML = flags.map(function (f) { return '<li>' + f + '</li>'; }).join('');
+
+    summaryEl.textContent = '// ' + model.sections.length + ' sections detected, top to bottom:';
+    results.style.display = 'block';
+    pitch.style.display = 'block';
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    results.style.display = 'none';
+    pitch.style.display = 'none';
+
+    if (PROXY.indexOf('workers.dev') === -1 && PROXY.indexOf('https://') !== 0) {
+      say('// the x-ray machine is still being plugged in. check back shortly.', 'warn');
+      return;
+    }
+
+    var target;
+    try { target = new URL(input.value.trim()); } catch (err) {
+      say('// that isn\'t a valid url.', 'bad'); return;
+    }
+    if (target.pathname.indexOf('/products/') === -1) {
+      say('// that doesn\'t look like a product page — the url should contain /products/.', 'bad'); return;
+    }
+
+    go.disabled = true;
+    say('// fetching ' + target.hostname + '…');
+
+    fetch(PROXY + '?url=' + encodeURIComponent(target.toString()))
+      .then(function (r) {
+        if (!r.ok) throw new Error('the store answered http ' + r.status + ' — page missing, password-protected, or it blocked the fetch.');
+        return r.text();
+      })
+      .then(function (html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        var secs = doc.querySelectorAll('.shopify-section');
+        if (secs.length === 0) {
+          if (/cdn\.shopify\.com|Shopify\./.test(html)) {
+            throw new Error('this is a shopify store, but a headless/custom storefront — no standard sections to x-ray.');
+          }
+          throw new Error('this doesn\'t look like a shopify store. the x-ray only reads shopify product pages.');
+        }
+        say('// x-ray of ' + target.hostname + target.pathname, 'muted');
+        render(analyze(doc));
+      })
+      .catch(function (err) {
+        say('// ' + err.message, 'bad');
+      })
+      .then(function () { go.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>
