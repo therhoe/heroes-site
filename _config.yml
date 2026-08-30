@@ -21,4 +21,3 @@ plugins:
 exclude:
   - .claude
   - README.md
-  - cloudflare-worker
