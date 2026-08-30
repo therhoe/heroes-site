@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product Page X-Ray — Free Shopify CRO Tool — The Real Heroes of Ecommerce</title>
-  <meta name="description" content="Free CRO tool: paste your Shopify product page URL and see its structure block by block — sections, buy box position, reviews, app scripts, and the leaks a CRO would flag.">
+  <meta name="description" content="Free CRO tool: paste your Shopify product page URL and see it stripped to plain text and images, section by section — read your page the way shoppers scan it.">
   <link rel="canonical" href="https://therealheroesofecommerce.com/product-page-xray.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,14 +47,11 @@
     }
     h1::before { content: "## "; color: #999; }
     p { margin: 0 0 16px; }
-    ul { list-style: none; margin: 0 0 16px; padding: 0; }
-    li::before { content: "- "; color: #999; }
     a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; }
     a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
     .muted { color: #999; }
-    .ok { color: #1a7f37; }
-    .warn { color: #b35900; }
     .bad { color: #c0392b; }
+    .warn { color: #b35900; }
 
     form.xray { display: flex; gap: 10px; margin: 0 0 8px; flex-wrap: wrap; }
     #url {
@@ -79,81 +76,29 @@
     button.go:disabled { opacity: 0.5; cursor: wait; }
     #status { margin: 8px 0 0; }
 
-    /* --- wireframe --- */
-    .chrome {
+    .sectext {
+      white-space: pre-line;
+      overflow-wrap: break-word;
+      margin: 0 0 12px;
+    }
+    .thumbs {
       display: flex;
-      align-items: center;
-      gap: 6px;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: flex-start;
+      margin: 0 0 12px;
+    }
+    .thumbs img {
+      height: 64px;
+      width: auto;
+      max-width: 160px;
+      object-fit: cover;
       border: 1px solid #d8d8d8;
-      border-bottom: none;
-      background: #f4f4f4;
-      padding: 5px 10px;
-      width: 42%;
-      min-width: 200px;
-      font-size: 11px;
+      display: block;
+    }
+    .sep {
       color: #999;
-    }
-    .chrome .dot { width: 7px; height: 7px; border-radius: 50%; background: #d8d8d8; }
-    .row { display: flex; align-items: stretch; }
-    .wf-cell { width: 42%; min-width: 200px; display: flex; flex-shrink: 0; }
-    .wf {
-      flex: 1;
-      border: 1px solid #d8d8d8;
-      margin-top: -1px;
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      overflow: hidden;
-    }
-    .wf.dashed { border-style: dashed; align-items: center; justify-content: center; color: #bbb; font-size: 12px; }
-    .an-cell {
-      flex: 1;
-      padding: 2px 0 14px 16px;
-      font-size: 13.5px;
-      min-width: 0;
-    }
-    .an-cell .name { color: #1a1a1a; font-weight: 500; }
-    .an-cell .name::before { content: "◂ "; color: #d8d8d8; }
-    .an-cell .facts { color: #999; margin: 0 0 4px; font-size: 12.5px; }
-    .an-cell .note { margin: 0; }
-    /* wireframe primitives */
-    .l { height: 7px; background: #e2e2e2; }
-    .l.short { width: 40%; }
-    .l.mid { width: 65%; }
-    .l.center { margin: 0 auto; width: 50%; }
-    .wf-hrow { display: flex; align-items: center; gap: 8px; }
-    .wf-hrow .logo-dot { width: 22px; height: 12px; background: #cfcfcf; }
-    .wf-hrow .l { flex: 0 0 34px; height: 6px; }
-    .wf-hrow .spacer { flex: 1; }
-    .imgbox {
-      background: #f4f4f4;
-      border: 1px solid #e2e2e2;
-      position: relative;
-      overflow: hidden;
-    }
-    .imgbox::before, .imgbox::after {
-      content: "";
-      position: absolute;
-      left: -10%; right: -10%; top: 50%;
-      border-top: 1px solid #e2e2e2;
-    }
-    .imgbox::before { transform: rotate(18deg); }
-    .imgbox::after { transform: rotate(-18deg); }
-    .wf-cols { display: flex; gap: 10px; }
-    .wf-cols > div { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-    .buy { display: flex; gap: 10px; }
-    .buy .imgbox { flex: 0 0 44%; min-height: 84px; }
-    .buy .col { flex: 1; display: flex; flex-direction: column; gap: 6px; }
-    .btnbar { height: 20px; background: #1a1a1a; margin-top: 4px; }
-    .pricebar { height: 9px; width: 34%; background: #cfcfcf; }
-    .stars { color: #cfcfcf; font-size: 13px; letter-spacing: 2px; line-height: 1; }
-    .inputrow { display: flex; gap: 6px; }
-    .inputrow .field { flex: 1; height: 18px; border: 1px solid #d8d8d8; background: #fff; }
-    .inputrow .btn { width: 52px; height: 18px; background: #1a1a1a; }
-    @media (max-width: 560px) {
-      .wf-cell, .chrome { width: 46%; min-width: 140px; }
-      .an-cell { font-size: 12.5px; padding-left: 10px; }
+      margin: 20px 0;
     }
     .cta {
       display: inline-block;
@@ -181,7 +126,7 @@
   </nav>
 
   <h1 class="title">Product Page X-Ray</h1>
-  <p class="tagline">// paste a shopify product page url. see its skeleton, block by block, the way a CRO reads it. free, no signup, nothing stored.</p>
+  <p class="tagline">// paste a shopify product page url. see it stripped to just the words and images, section by section — your page the way shoppers actually scan it. free, no signup, nothing stored.</p>
 
   <form class="xray" id="form">
     <input id="url" type="url" placeholder="https://yourstore.com/products/your-product" aria-label="shopify product page url" required>
@@ -190,16 +135,14 @@
   <p id="status" class="muted"></p>
 
   <div id="results">
-    <h1>the skeleton</h1>
+    <h1>the page, stripped</h1>
     <p id="summary" class="muted"></p>
     <div id="blocks"></div>
-    <h1>page-level flags</h1>
-    <ul id="flags"></ul>
   </div>
 
   <div id="pitch">
     <h1>now the hard part</h1>
-    <p>This is your page's skeleton — the static anatomy. What it can't show you: which blocks your real visitors actually use, where they rage-click, where they bail, and whether any of it converts. That's behavioral data, and it's what <a href="/snapshot-cro.html">Snapshot CRO</a> measures — or what we do for you <a href="/hire-cro-agency.html">on retainer</a>.</p>
+    <p>That's everything your page actually says. What this can't show you: which of it your real visitors read, where they rage-click, where they bail, and whether any of it converts. That's behavioral data, and it's what <a href="/snapshot-cro.html">Snapshot CRO</a> measures — or what we do for you <a href="/hire-cro-agency.html">on retainer</a>.</p>
     <p>
       <a class="cta" href="https://apps.shopify.com/mousewhisperer">→ install snapshot cro</a>
       <a class="cta" href="/hire-cro-agency.html">→ hire the cro agency</a>
@@ -213,7 +156,7 @@
 </main>
 <script>
 (function () {
-  // set this to the deployed Cloudflare Worker URL (see cloudflare-worker/README.md)
+  // deployed Cloudflare Worker fetch proxy (see cloudflare-worker/README.md)
   var PROXY = 'https://xray-proxy.shep-d6f.workers.dev/';
 
   var form = document.getElementById('form');
@@ -223,7 +166,6 @@
   var results = document.getElementById('results');
   var pitch = document.getElementById('pitch');
   var blocksEl = document.getElementById('blocks');
-  var flagsEl = document.getElementById('flags');
   var summaryEl = document.getElementById('summary');
 
   function esc(s) {
@@ -237,174 +179,76 @@
     status.textContent = msg;
   }
 
-  function cleanText(el) {
-    var clone = el.cloneNode(true);
-    Array.prototype.forEach.call(clone.querySelectorAll('style, script, noscript, template'), function (n) { n.parentNode.removeChild(n); });
-    return (clone.textContent || '').replace(/\s+/g, ' ').trim();
-  }
-
-  function words(text) {
-    return text ? text.split(/\s+/).length : 0;
-  }
-
-  function labelFor(sec, info) {
-    var suffix = (sec.id.split('__')[1] || sec.id.replace('shopify-section-', ''));
-    if (!/^[0-9a-f-]{10,}$/i.test(suffix.replace(/-/g, ''))) {
-      return suffix.replace(/[-_]/g, ' ');
-    }
-    if (info.buyBox) return 'product buy box';
-    if (info.words === 0 && info.imgs === 0) return 'app-rendered section';
-    if (/review|rating/i.test(info.heading)) return 'reviews';
-    if (/recommend|you may also|related|pairs well|goes great|complete the/i.test(info.heading)) return 'product recommendations';
-    if (info.reviews && info.words > 60) return 'reviews';
-    if (info.price && info.imgs > 2) return 'product recommendations';
-    if (/sign\s?up|newsletter|subscribe|email/i.test(info.text) && info.words < 60) return 'email capture';
-    if (info.imgs > 0 && info.words < 80) return 'image banner';
-    return 'content section';
-  }
-
-  function analyze(doc) {
-    var secs = Array.prototype.slice.call(doc.querySelectorAll('.shopify-section'));
-    var model = { sections: [], buyBoxIndex: -1, reviewsAnywhere: false };
-
-    secs.forEach(function (sec, i) {
-      var h = sec.querySelector('h1,h2,h3');
-      var text = cleanText(sec);
-      var info = {
-        i: i,
-        group: /header-group|shopify-section-header|announcement/.test(sec.className + sec.id) ? 'header'
-             : /footer-group|shopify-section-footer/.test(sec.className + sec.id) ? 'footer' : 'template',
-        heading: h ? h.textContent.trim().replace(/\s+/g, ' ').slice(0, 60) : '',
-        imgs: sec.querySelectorAll('img').length,
-        videos: sec.querySelectorAll('video, iframe[src*="youtube"], iframe[src*="vimeo"]').length,
-        buyBox: !!sec.querySelector('form[action*="/cart/add"]'),
-        price: !!sec.querySelector('[class*="price" i]'),
-        reviews: /judge\.?me|loox|okendo|yotpo|stamped|star-rating|\breviews?\b/i.test(sec.innerHTML),
-        accordions: sec.querySelectorAll('details, [class*="accordion" i], [class*="collapsible" i]').length,
-        text: text,
-        words: words(text)
-      };
-      info.label = labelFor(sec, info);
-      if (info.buyBox && model.buyBoxIndex === -1) model.buyBoxIndex = i;
-      if (info.reviews) model.reviewsAnywhere = true;
-      model.sections.push(info);
+  // section's visible text, one line per block-level element, deduped
+  function textLines(sec) {
+    var clone = sec.cloneNode(true);
+    Array.prototype.forEach.call(clone.querySelectorAll('style, script, noscript, template, svg, [hidden], .visually-hidden, .sr-only, .screen-reader-text, .skip-to-content-link'), function (n) {
+      n.parentNode.removeChild(n);
     });
-
-    var host = '';
-    try { host = new URL(input.value).hostname; } catch (e) {}
-    var appHosts = [];
-    Array.prototype.forEach.call(doc.querySelectorAll('script[src]'), function (s) {
-      try {
-        var hn = new URL(s.getAttribute('src'), 'https://' + host).hostname;
-        if (hn && hn !== host && !/shopify|shopifycdn/.test(hn) && appHosts.indexOf(hn) === -1) appHosts.push(hn);
-      } catch (e) {}
+    var MARK = '\u0001';
+    var html = clone.innerHTML
+      .replace(/<(br|hr)[^>]*>/gi, MARK)
+      .replace(/<\/(p|div|li|h[1-6]|tr|section|article|ul|ol|table|details|summary|figcaption|blockquote|option|label|button)>/gi, MARK + '$&');
+    var tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    var lines = [];
+    tmp.textContent.split(MARK).forEach(function (raw) {
+      var t = raw.replace(/\s+/g, ' ').trim();
+      if (!t) return;
+      if (lines.length && lines[lines.length - 1] === t) return;
+      lines.push(t);
     });
-    model.appHosts = appHosts;
-    model.h1s = doc.querySelectorAll('h1').length;
-    var imgs = doc.querySelectorAll('img');
-    model.totalImgs = imgs.length;
-    model.imgsNoAlt = Array.prototype.filter.call(imgs, function (im) { return !im.getAttribute('alt'); }).length;
-    return model;
+    return lines;
   }
 
-  function noteFor(s, model) {
-    if (s.buyBox) {
-      var extras = [];
-      if (s.accordions > 0) extras.push('<span class="ok">collapsible info in the buy box — good, answers objections without pushing the button down.</span>');
-      if (!s.reviews) extras.push('<span class="warn">no review stars near the price — social proof belongs where the money decision happens.</span>');
-      if (s.imgs < 3) extras.push('<span class="warn">only ' + s.imgs + ' image(s) — people can\'t touch the product, photos are the substitute.</span>');
-      if (s.words < 50) extras.push('<span class="warn">thin description (' + s.words + ' words) — thin answers create exits.</span>');
-      return extras.length ? extras.join('<br>') : '<span class="ok">buy box has price, form, and content. skeleton looks healthy.</span>';
-    }
-    if (s.label === 'app-rendered section') return '<span class="muted">empty in the raw html — an app fills this in with javascript at load time. invisible to this x-ray, and to some crawlers. worth knowing what lives here.</span>';
-    if (s.label === 'reviews') return '<span class="ok">dedicated reviews block found.</span>';
-    if (s.label === 'product recommendations') return '<span class="muted">cross-sell block. worth testing what\'s actually recommended.</span>';
-    if (s.label === 'email capture') return '<span class="muted">email capture. fine — as long as it isn\'t a popup tackling people at hello.</span>';
-    if (s.group === 'header' && s.label !== 'announcement bar' && s.imgs > 8) return '<span class="warn">' + s.imgs + ' images in the header — heavy menus slow the first paint.</span>';
-    return '';
-  }
-
-  function lines(n, cls) {
-    var out = '';
-    var widths = ['', ' mid', ' short'];
-    for (var k = 0; k < n; k++) out += '<div class="l' + widths[k % 3] + (cls ? ' ' + cls : '') + '"></div>';
+  // real image URLs, handling lazy-load attributes; deduped by path
+  function sectionImages(sec, base) {
+    var seen = {};
+    var out = [];
+    Array.prototype.forEach.call(sec.querySelectorAll('img'), function (img) {
+      var cand = img.getAttribute('src') || img.getAttribute('data-src') || img.getAttribute('data-original') || '';
+      if (!cand || cand.indexOf('data:') === 0) {
+        var ss = img.getAttribute('srcset') || img.getAttribute('data-srcset') || '';
+        cand = ss.split(',')[0].trim().split(/\s+/)[0] || '';
+      }
+      if (!cand || cand.indexOf('data:') === 0) return;
+      var u;
+      try { u = new URL(cand, base); } catch (e) { return; }
+      var key = u.hostname + u.pathname;
+      if (seen[key]) return;
+      seen[key] = true;
+      if (/cdn\.shopify\.com$/.test(u.hostname) || u.pathname.indexOf('/cdn/shop/') !== -1) {
+        u.searchParams.delete('height');
+        u.searchParams.set('width', '240');
+      }
+      out.push(u.toString());
+    });
     return out;
   }
 
-  function artFor(s) {
-    if (s.label === 'app-rendered section') return { cls: ' dashed', h: 54, html: 'js renders this' };
-    if (s.label === 'announcement bar') return { h: 24, html: '<div class="l center"></div>' };
-    if (/header/.test(s.label) && s.group === 'header') {
-      return { h: 46, html: '<div class="wf-hrow"><div class="logo-dot"></div><div class="spacer"></div><div class="l"></div><div class="l"></div><div class="l"></div></div>' };
-    }
-    if (s.label === 'product buy box') {
-      return { h: 150, html:
-        '<div class="buy"><div class="imgbox"></div><div class="col">' +
-        '<div class="l mid"></div>' + (s.reviews ? '<div class="stars">★★★★★</div>' : '') +
-        '<div class="pricebar"></div><div class="l"></div><div class="l short"></div>' +
-        '<div class="btnbar"></div></div></div>' +
-        (s.accordions ? lines(Math.min(s.accordions, 3)) : '') };
-    }
-    if (s.label === 'reviews') return { h: 90, html: '<div class="stars">★★★★★</div>' + lines(3) };
-    if (s.label === 'product recommendations') {
-      return { h: 82, html: '<div class="wf-cols"><div><div class="imgbox" style="height:34px"></div><div class="l"></div></div><div><div class="imgbox" style="height:34px"></div><div class="l"></div></div><div><div class="imgbox" style="height:34px"></div><div class="l"></div></div></div>' };
-    }
-    if (s.label === 'email capture') return { h: 62, html: '<div class="l mid"></div><div class="inputrow"><div class="field"></div><div class="btn"></div></div>' };
-    if (/footer/.test(s.label)) return { h: 88, html: '<div class="wf-cols"><div>' + lines(3) + '</div><div>' + lines(3) + '</div><div>' + lines(2) + '</div></div>' };
-    if (s.label === 'image banner') return { h: 72, html: '<div class="imgbox" style="flex:1;min-height:52px"></div>' };
-    var h = Math.max(56, Math.min(160, 40 + s.words / 4 + s.imgs * 10));
-    var html = (s.imgs > 0 ? '<div class="imgbox" style="height:30px"></div>' : '') + lines(Math.max(2, Math.min(5, Math.round(s.words / 40))));
-    return { h: h, html: html };
-  }
-
-  function render(model) {
-    var host = '';
-    try { host = new URL(input.value).hostname; } catch (e) {}
-    var rows = model.sections.map(function (s) {
-      var facts = [];
-      if (s.heading) facts.push('"' + esc(s.heading) + '"');
-      if (s.imgs) facts.push(s.imgs + ' img');
-      if (s.videos) facts.push(s.videos + ' video');
-      if (s.accordions) facts.push(s.accordions + ' collapsible');
-      if (s.price) facts.push('price');
-      if (s.reviews) facts.push('review markup');
-      facts.push(s.words + ' words');
-      var note = noteFor(s, model);
-      var art = artFor(s);
-      return '<div class="row">' +
-        '<div class="wf-cell"><div class="wf' + (art.cls || '') + '" style="min-height:' + art.h + 'px">' + art.html + '</div></div>' +
-        '<div class="an-cell">' +
-        '<p style="margin:0" class="name">' + esc(s.label) + ' <span class="muted">(block ' + (s.i + 1) + ')</span></p>' +
-        '<p class="facts">' + facts.join(' · ') + '</p>' +
-        (note ? '<p class="note">' + note + '</p>' : '') +
-        '</div></div>';
-    }).join('');
-    blocksEl.innerHTML =
-      '<div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span>' + esc(host) + '</span></div>' + rows;
-
-    var flags = [];
-    if (model.buyBoxIndex === -1) {
-      flags.push('<span class="bad">no add-to-cart form found in any section — if this is a headless or heavily customized theme, the x-ray can\'t see through it.</span>');
-    } else {
-      var templateBefore = model.sections.filter(function (s) { return s.i < model.buyBoxIndex && s.group === 'template'; }).length;
-      if (templateBefore > 0) flags.push('<span class="warn">' + templateBefore + ' content block(s) sit above the buy box — every one is a scroll between the visitor and the button.</span>');
-      else flags.push('<span class="ok">buy box is the first content block after the header. as it should be.</span>');
-    }
-    if (!model.reviewsAnywhere) flags.push('<span class="warn">no review markup anywhere on the page. social proof is not optional in 2026.</span>');
-    if (model.h1s === 0) flags.push('<span class="warn">no h1 tag — search engines are guessing what this page is about.</span>');
-    if (model.h1s > 1) flags.push('<span class="warn">' + model.h1s + ' h1 tags — there can be only one. search engines get confused by ties.</span>');
-    if (model.totalImgs > 0 && model.imgsNoAlt / model.totalImgs > 0.2) {
-      flags.push('<span class="warn">' + model.imgsNoAlt + ' of ' + model.totalImgs + ' images have no alt text — bad for accessibility and image search.</span>');
-    }
-    if (model.appHosts.length > 6) {
-      flags.push('<span class="warn">' + model.appHosts.length + ' third-party script sources in the html (' + esc(model.appHosts.slice(0, 4).join(', ')) + '…) — every app script is a tax on load time.</span>');
-    } else if (model.appHosts.length > 0) {
-      flags.push('<span class="muted">' + model.appHosts.length + ' third-party script source(s) in the html.</span>');
-    }
-    flags.push('<span class="muted">static skeleton only — scripts don\'t run in an x-ray, so app widgets injected at load time and anything personalized are invisible here.</span>');
-    flagsEl.innerHTML = flags.map(function (f) { return '<li>' + f + '</li>'; }).join('');
-
-    summaryEl.textContent = '// ' + model.sections.length + ' sections detected, top to bottom:';
+  function render(doc, target) {
+    var secs = Array.prototype.slice.call(doc.querySelectorAll('.shopify-section'));
+    var parts = [];
+    secs.forEach(function (sec, i) {
+      var lines = textLines(sec);
+      var imgs = sectionImages(sec, target.toString());
+      var chunk = '';
+      if (lines.length) {
+        chunk += '<p class="sectext">' + esc(lines.join('\n')) + '</p>';
+      } else if (!imgs.length) {
+        chunk += '<p class="sectext muted">( empty in the html — an app renders this section with javascript )</p>';
+      }
+      if (imgs.length) {
+        var shown = imgs.slice(0, 12);
+        chunk += '<div class="thumbs">' + shown.map(function (u) {
+          return '<img src="' + esc(u) + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display=\'none\'">';
+        }).join('') + '</div>';
+        if (imgs.length > shown.length) chunk += '<p class="muted">( +' + (imgs.length - shown.length) + ' more images )</p>';
+      }
+      parts.push(chunk);
+    });
+    blocksEl.innerHTML = parts.join('<p class="sep">/</p>');
+    summaryEl.textContent = '// ' + secs.length + ' sections, top to bottom. design removed, content remaining:';
     results.style.display = 'block';
     pitch.style.display = 'block';
   }
@@ -445,7 +289,7 @@
           throw new Error('this doesn\'t look like a shopify store. the x-ray only reads shopify product pages.');
         }
         say('// x-ray of ' + target.hostname + target.pathname, 'muted');
-        render(analyze(doc));
+        render(doc, target);
       })
       .catch(function (err) {
         say('// ' + err.message, 'bad');
