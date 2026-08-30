@@ -79,25 +79,82 @@
     button.go:disabled { opacity: 0.5; cursor: wait; }
     #status { margin: 8px 0 0; }
 
-    .block {
-      border: 1px solid #d8d8d8;
-      margin: 0 0 14px;
-      font-size: 13.5px;
-    }
-    .block .bar-title {
-      background: #f4f4f4;
-      border-bottom: 1px solid #d8d8d8;
-      padding: 6px 12px;
-      color: #666;
+    /* --- wireframe --- */
+    .chrome {
       display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #d8d8d8;
+      border-bottom: none;
+      background: #f4f4f4;
+      padding: 5px 10px;
+      width: 42%;
+      min-width: 200px;
+      font-size: 11px;
+      color: #999;
     }
-    .block .bar-title strong { color: #1a1a1a; font-weight: 500; }
-    .block .body { padding: 10px 12px; }
-    .block .facts { color: #666; margin: 0 0 6px; }
-    .block .note { margin: 0; }
+    .chrome .dot { width: 7px; height: 7px; border-radius: 50%; background: #d8d8d8; }
+    .row { display: flex; align-items: stretch; }
+    .wf-cell { width: 42%; min-width: 200px; display: flex; flex-shrink: 0; }
+    .wf {
+      flex: 1;
+      border: 1px solid #d8d8d8;
+      margin-top: -1px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow: hidden;
+    }
+    .wf.dashed { border-style: dashed; align-items: center; justify-content: center; color: #bbb; font-size: 12px; }
+    .an-cell {
+      flex: 1;
+      padding: 2px 0 14px 16px;
+      font-size: 13.5px;
+      min-width: 0;
+    }
+    .an-cell .name { color: #1a1a1a; font-weight: 500; }
+    .an-cell .name::before { content: "◂ "; color: #d8d8d8; }
+    .an-cell .facts { color: #999; margin: 0 0 4px; font-size: 12.5px; }
+    .an-cell .note { margin: 0; }
+    /* wireframe primitives */
+    .l { height: 7px; background: #e2e2e2; }
+    .l.short { width: 40%; }
+    .l.mid { width: 65%; }
+    .l.center { margin: 0 auto; width: 50%; }
+    .wf-hrow { display: flex; align-items: center; gap: 8px; }
+    .wf-hrow .logo-dot { width: 22px; height: 12px; background: #cfcfcf; }
+    .wf-hrow .l { flex: 0 0 34px; height: 6px; }
+    .wf-hrow .spacer { flex: 1; }
+    .imgbox {
+      background: #f4f4f4;
+      border: 1px solid #e2e2e2;
+      position: relative;
+      overflow: hidden;
+    }
+    .imgbox::before, .imgbox::after {
+      content: "";
+      position: absolute;
+      left: -10%; right: -10%; top: 50%;
+      border-top: 1px solid #e2e2e2;
+    }
+    .imgbox::before { transform: rotate(18deg); }
+    .imgbox::after { transform: rotate(-18deg); }
+    .wf-cols { display: flex; gap: 10px; }
+    .wf-cols > div { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+    .buy { display: flex; gap: 10px; }
+    .buy .imgbox { flex: 0 0 44%; min-height: 84px; }
+    .buy .col { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .btnbar { height: 20px; background: #1a1a1a; margin-top: 4px; }
+    .pricebar { height: 9px; width: 34%; background: #cfcfcf; }
+    .stars { color: #cfcfcf; font-size: 13px; letter-spacing: 2px; line-height: 1; }
+    .inputrow { display: flex; gap: 6px; }
+    .inputrow .field { flex: 1; height: 18px; border: 1px solid #d8d8d8; background: #fff; }
+    .inputrow .btn { width: 52px; height: 18px; background: #1a1a1a; }
+    @media (max-width: 560px) {
+      .wf-cell, .chrome { width: 46%; min-width: 140px; }
+      .an-cell { font-size: 12.5px; padding-left: 10px; }
+    }
     .cta {
       display: inline-block;
       border: 1px solid #1a1a1a;
@@ -267,8 +324,43 @@
     return '';
   }
 
+  function lines(n, cls) {
+    var out = '';
+    var widths = ['', ' mid', ' short'];
+    for (var k = 0; k < n; k++) out += '<div class="l' + widths[k % 3] + (cls ? ' ' + cls : '') + '"></div>';
+    return out;
+  }
+
+  function artFor(s) {
+    if (s.label === 'app-rendered section') return { cls: ' dashed', h: 54, html: 'js renders this' };
+    if (s.label === 'announcement bar') return { h: 24, html: '<div class="l center"></div>' };
+    if (/header/.test(s.label) && s.group === 'header') {
+      return { h: 46, html: '<div class="wf-hrow"><div class="logo-dot"></div><div class="spacer"></div><div class="l"></div><div class="l"></div><div class="l"></div></div>' };
+    }
+    if (s.label === 'product buy box') {
+      return { h: 150, html:
+        '<div class="buy"><div class="imgbox"></div><div class="col">' +
+        '<div class="l mid"></div>' + (s.reviews ? '<div class="stars">★★★★★</div>' : '') +
+        '<div class="pricebar"></div><div class="l"></div><div class="l short"></div>' +
+        '<div class="btnbar"></div></div></div>' +
+        (s.accordions ? lines(Math.min(s.accordions, 3)) : '') };
+    }
+    if (s.label === 'reviews') return { h: 90, html: '<div class="stars">★★★★★</div>' + lines(3) };
+    if (s.label === 'product recommendations') {
+      return { h: 82, html: '<div class="wf-cols"><div><div class="imgbox" style="height:34px"></div><div class="l"></div></div><div><div class="imgbox" style="height:34px"></div><div class="l"></div></div><div><div class="imgbox" style="height:34px"></div><div class="l"></div></div></div>' };
+    }
+    if (s.label === 'email capture') return { h: 62, html: '<div class="l mid"></div><div class="inputrow"><div class="field"></div><div class="btn"></div></div>' };
+    if (/footer/.test(s.label)) return { h: 88, html: '<div class="wf-cols"><div>' + lines(3) + '</div><div>' + lines(3) + '</div><div>' + lines(2) + '</div></div>' };
+    if (s.label === 'image banner') return { h: 72, html: '<div class="imgbox" style="flex:1;min-height:52px"></div>' };
+    var h = Math.max(56, Math.min(160, 40 + s.words / 4 + s.imgs * 10));
+    var html = (s.imgs > 0 ? '<div class="imgbox" style="height:30px"></div>' : '') + lines(Math.max(2, Math.min(5, Math.round(s.words / 40))));
+    return { h: h, html: html };
+  }
+
   function render(model) {
-    blocksEl.innerHTML = model.sections.map(function (s) {
+    var host = '';
+    try { host = new URL(input.value).hostname; } catch (e) {}
+    var rows = model.sections.map(function (s) {
       var facts = [];
       if (s.heading) facts.push('"' + esc(s.heading) + '"');
       if (s.imgs) facts.push(s.imgs + ' img');
@@ -278,12 +370,17 @@
       if (s.reviews) facts.push('review markup');
       facts.push(s.words + ' words');
       var note = noteFor(s, model);
-      return '<div class="block">' +
-        '<div class="bar-title"><span>block ' + (s.i + 1) + ' — <strong>' + esc(s.label) + '</strong></span><span>' + s.group + '</span></div>' +
-        '<div class="body"><p class="facts">' + facts.join(' · ') + '</p>' +
+      var art = artFor(s);
+      return '<div class="row">' +
+        '<div class="wf-cell"><div class="wf' + (art.cls || '') + '" style="min-height:' + art.h + 'px">' + art.html + '</div></div>' +
+        '<div class="an-cell">' +
+        '<p style="margin:0" class="name">' + esc(s.label) + ' <span class="muted">(block ' + (s.i + 1) + ')</span></p>' +
+        '<p class="facts">' + facts.join(' · ') + '</p>' +
         (note ? '<p class="note">' + note + '</p>' : '') +
         '</div></div>';
     }).join('');
+    blocksEl.innerHTML =
+      '<div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span>' + esc(host) + '</span></div>' + rows;
 
     var flags = [];
     if (model.buyBoxIndex === -1) {
