@@ -21,3 +21,4 @@ plugins:
 exclude:
   - .claude
   - README.md
+  - CLAUDE.md
