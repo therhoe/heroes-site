@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hire a Shopify CRO Agency — The Real Heroes of Ecommerce</title>
-  <meta name="description" content="A monthly CRO retainer for Shopify stores: diagnose problem pages, uncover roadblocks and friction, and A/B test solutions — done for you, every month.">
+  <title>CRO Service for Shopify Stores — The Real Heroes of Ecommerce</title>
+  <meta name="description" content="Conversion optimization for Shopify stores: audit for page performance, find leaks, remove roadblocks, test everything. Ongoing retainers, scoped projects, or DIY with CRO training.">
+  <link rel="canonical" href="https://therealheroesofecommerce.com/hire-cro-agency.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -51,14 +52,37 @@
     a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; }
     a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
     .muted { color: #999; }
-    .cta {
-      display: inline-block;
+    .ok { color: #1a7f37; }
+    .bad { color: #c0392b; }
+    .warn { color: #b35900; }
+
+    form.lead { max-width: 480px; }
+    .field { margin: 0 0 14px; }
+    .field label { display: block; color: #666; font-size: 13px; margin: 0 0 4px; }
+    .field input, .field textarea {
+      width: 100%;
+      font: inherit;
+      color: inherit;
+      background: #ffffff;
+      border: 1px solid #1a1a1a;
+      padding: 9px 12px;
+    }
+    .field textarea { min-height: 110px; resize: vertical; }
+    .field input:focus, .field textarea:focus { outline: 2px solid #1a1a1a; outline-offset: -1px; }
+    .hp { position: absolute; left: -9999px; top: -9999px; }
+    button.send {
+      font: inherit;
+      font-weight: 500;
+      color: #1a1a1a;
+      background: #ffffff;
       border: 1px solid #1a1a1a;
       padding: 10px 18px;
-      margin: 8px 0 0;
-      text-decoration: none;
-      font-weight: 500;
+      cursor: pointer;
     }
+    button.send:hover { background: #1a1a1a; color: #ffffff; }
+    button.send:disabled { opacity: 0.5; cursor: wait; }
+    #formstatus { margin: 10px 0 0; }
+
     footer {
       margin-top: 72px;
       color: #999;
@@ -71,34 +95,96 @@
 <main>
 
   <nav class="topnav">
-    <a href="index.html"><img src="logo.png" alt="The Real Heroes of Ecommerce"></a>
-    <a href="index.html">← return to home</a>
+    <a href="/"><img src="/logo.png" alt="The Real Heroes of Ecommerce"></a>
+    <a href="/">← return to home</a>
   </nav>
 
-  <h1 class="title">Hire the CRO Agency</h1>
-  <p class="tagline">// done-for-you conversion optimization for Shopify stores. one workflow, monthly, on retainer.</p>
+  <h1 class="title">CRO Service</h1>
+  <p class="tagline">// conversion optimization for shopify stores.</p>
 
-  <p>This is the same workflow behind <a href="snapshot-cro.html">Snapshot CRO</a> — <strong>diagnose problem pages → uncover roadblocks and friction → a/b test solutions</strong> — run for you as a monthly engagement. You keep running the store; we find the leaks, build the test hypotheses from evidence, run the tests, and tell you plainly what won and why.</p>
-
-  <h1>what a month looks like</h1>
+  <p>Our workflow is the same one we built into the <a href="/snapshot-cro.html">Snapshot CRO</a> shopify app:</p>
   <ul>
-    <li>store audit: every page ranked by traffic, conversion, and revenue — flagged where money is leaking.</li>
-    <li>page-level diagnosis of the worst offenders: clicks by zone, exit paths, on-site searches. the roadblocks, counted.</li>
-    <li>a/b tests built from that evidence, launched and monitored. no testing vibes, no guessing.</li>
-    <li>a plain-language monthly report: what we found, what we tested, what won, what's next.</li>
+    <li>Audit your store for page performance</li>
+    <li>Audit pages for leaks and opportunities</li>
+    <li>Remove roadblocks and smooth out the buying process</li>
+    <li>Test everything</li>
   </ul>
 
-  <h1>who it's for</h1>
-  <p>Real Shopify stores with real traffic numbers — you don't need 500k sessions a month, you need a methodology built for the traffic you have. If you'd rather own the results than operate the tooling, this is the version where we do the operating.</p>
+  <h1>how we work with clients</h1>
+  <ul>
+    <li>on-going / feedback loop-based</li>
+    <li>scoped, short term projects</li>
+    <li>diy / snapshot app + cro training</li>
+  </ul>
 
-  <h1>get in touch</h1>
-  <p>Monthly retainer, limited slots so every store gets actual attention. Tell me about your store and where you think it's leaking:</p>
-  <p><a class="cta" href="mailto:shep@therealheroesofecommerce.com">→ shep@therealheroesofecommerce.com</a></p>
+  <h1>how you can get started</h1>
+  <form class="lead" id="leadform">
+    <div class="field">
+      <label for="f-name">name</label>
+      <input id="f-name" name="name" type="text" autocomplete="name" required>
+    </div>
+    <div class="field">
+      <label for="f-email">email</label>
+      <input id="f-email" name="email" type="email" autocomplete="email" required>
+    </div>
+    <div class="field">
+      <label for="f-brand">brand / store</label>
+      <input id="f-brand" name="brand" type="text" autocomplete="organization">
+    </div>
+    <div class="field">
+      <label for="f-looking">looking for</label>
+      <textarea id="f-looking" name="looking" placeholder="what's leaking, what have you tried, what do you want to happen…"></textarea>
+    </div>
+    <div class="hp" aria-hidden="true">
+      <label for="f-company">company</label>
+      <input id="f-company" name="company" type="text" tabindex="-1" autocomplete="off">
+    </div>
+    <button class="send" id="sendbtn" type="submit">→ send it</button>
+    <p id="formstatus" class="muted"></p>
+  </form>
+
+  <p>Or just email me at <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a></p>
 
   <footer>
-    <a href="index.html">← back to index</a> &middot; &copy; 2026 the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>
+    <a href="/">← back to index</a> &middot; &copy; 2026 the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>
   </footer>
 
 </main>
+<script>
+(function () {
+  // Google Apps Script web app URL (bound to the rhoe-cro-leads sheet)
+  var ENDPOINT = 'PASTE_APPS_SCRIPT_URL_HERE';
+
+  var form = document.getElementById('leadform');
+  var btn = document.getElementById('sendbtn');
+  var status = document.getElementById('formstatus');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (ENDPOINT.indexOf('https://') !== 0) {
+      status.className = 'warn';
+      status.textContent = '// the form isn\'t wired up yet — use the email below instead.';
+      return;
+    }
+    btn.disabled = true;
+    status.className = 'muted';
+    status.textContent = '// sending…';
+    fetch(ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: new URLSearchParams(new FormData(form))
+    }).then(function () {
+      status.className = 'ok';
+      status.textContent = '// got it. we\'ll be in touch — usually within a day.';
+      form.reset();
+      btn.disabled = false;
+    }).catch(function () {
+      status.className = 'bad';
+      status.textContent = '// that didn\'t go through — email me instead: shep@therealheroesofecommerce.com';
+      btn.disabled = false;
+    });
+  });
+})();
+</script>
 </body>
 </html>
