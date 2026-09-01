@@ -19,7 +19,7 @@ Fallback (only if the Drive connector has full access — as of 2026-08 it can o
 
 ## Converting
 
-1. **Markdown conversion.** Preserve heading hierarchy (doc H2 → `##`, H3/H4 → `##`/`###` as depth suggests), links, lists, bold/italic, blockquotes, and image positions. Keep Shep's voice and wording — fix only unambiguous typos, and list the fixes in the summary. Never "fix" deliberate jokes. Multi-line chants/verses need `<br>` line breaks. Literal heading-tag demos in the text should become code blocks, not real headings.
+1. **Markdown conversion.** Preserve heading hierarchy (doc H2 → `##`, H3/H4 → `##`/`###` as depth suggests), links, lists, bold/italic, blockquotes, and image positions. Keep Shep's voice and wording — publish the text VERBATIM, including typos. Never fix typos, grammar, punctuation, or jokes; Shep wants his writing untouched (his explicit preference, 2026-09). If a typo looks bad, mention it in the summary but do not change it. Multi-line chants/verses need `<br>` line breaks. Literal heading-tag demos in the text should become code blocks, not real headings.
    **Formatting/capitalization comes from the Google Doc, verbatim.** The site-wide lowercase style rule (see repo `CLAUDE.md`) does NOT apply to perspectives article content — posts keep exactly the casing Shep wrote in the doc, including capitalized headings and sentence case.
 2. **Front matter.**
    - `title:` from the doc title

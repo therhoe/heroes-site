@@ -17,7 +17,7 @@ Even Google's famously colorful logo uses blue twice. BIG G and lil g…
 
 ![Google logo — the big G and little g are both blue](/assets/perspectives/psychology-of-colors/google-logo.png)
 
-This is not by accident. Our brains pick up on signals and cues when we assess something new. Color is one of those signals. We don't consciously think about it, but colors can and do play a role in how we perceive a brand or company.
+This is not by accident. Our brains pick up on signals and cues when we assess something new. Color is one of those signals. We don't consciously think about it, but colors can and do play a role if how we perceive a brand or company.
 
 So when it comes to design and branding, it is important to know what's going on behind these colors.
 
@@ -27,7 +27,7 @@ Feel free to bend the rules to your will.
 
 So…
 
-- Let's look at each of these colors and how they affect our perception
+- Let's look at each of these colors and how they affect out perception
 - Then I will show you how and why I change my website's colors
 - And then a look at one of the best color scheme changes by one of America's most well known brands
 
@@ -37,9 +37,9 @@ Now… back to the *blue-washing* of these tech, health, and financial firm logo
 
 As I sit here and write this, I look down and see that my shirt is blue. My sweater is blue. My blue jeans are blue. And my shoes are grey though. One might assume that I like blue a lot.
 
-Blue is associated with tranquility, calm, and serenity. However, the Zuck, Dorsey, Goldman, or his Sachs didn't choose blue because they are chill. They chose it because blue is also ***perceived as dependable and trustworthy***.
+Blue is associated with tranquility, calm, and serenity. However, the Zuck, Dorsey, Goldman, or his Sachs didn't choose blue because they are chill. They chose it because it is blue is also ***perceived as dependable and trustworthy***.
 
-Blue is the color of the sky and the seas… two things in nature that you can trust to show up day in and day out, tide in and tide out. There is an innate trust in blue.
+Blue is the color of the sky and the seas… two things nature that you can trust to show up day in and day out, tide in and tide out. There is an innate trust in blue.
 
 It makes sense for these companies to brand with blue.
 
@@ -63,19 +63,19 @@ If you want to energize your audience, get them excited, or be seen as action-or
 
 Do people *see red* when they get angry? Do bulls charge when they see red? Does the color red enrage us or make those bulls want to gore their poor victims?
 
-As far as the bulls are concerned, red has [nothing to do with them charging](https://www.livescience.com/33700-bulls-charge-red.html). They are colorblind to red. It is the *movement* that attracts their attention… the brosef going "come at me bruh" is what enrages them…
+As far as the bulls are concerned, red has [nothing to do with them charging](https://www.livescience.com/33700-bulls-charge-red.html). They are colorblind to red. It is the that *movement* attracts their attention… the brosef going "come at me bruh" is what enrages them…
 
 Can we blame 'em?
 
 ![A runner taunting a charging bull](/assets/perspectives/psychology-of-colors/bull-charge.jpg)
 
-Red is the color of passion, love, and violence. Visible when nature gives life and absent when it takes it away. Seeing it elicits a heightened sense of excitement and urgency.
+Red is the color of passion, love, and violence. Visible when nature gives life and absent when it takes it away. Seeing it elicits a heighten sense of excitement and urgency.
 
-It's not in and of itself a call-to-action, but it is a *call-to-attention*.
+It's not in an of itself a call-to-action, but it is a *call-to-attention*.
 
 Perhaps the reason the Spanish matadors taunt the bulls with a red *muleta* is not because it enrages the bull, but because it excites the audience…
 
-Scientists tested [the effect of red & blue light](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6396577/) on people with hypertension. They found that red raises our blood pressure, and blue decreases our blood pressure.
+Scientist tested [the effect of red & blue light](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6396577/) on people with hypertension. They found that red raises our blood pressure, and blue decreases our blood pressure.
 
 ![Red brand logos: Target, Coca-Cola, Nintendo, Red Bull](/assets/perspectives/psychology-of-colors/red-brand-logos.jpg)
 
@@ -99,15 +99,15 @@ Being bold is not good for all industries. Banking, advisors, and others who mit
 
 ![Yellow](/assets/perspectives/psychology-of-colors/yellow.png)
 
-*Look at the stars. How they shine for you… And they were all yellow.*
+*Look at the stars. How they shine for your… And they were all yellow.*
 
 Yellow is positive. It is sunshine and clarity. It represents happiness and contentment. It is energetic. That is why I chose the accent color of this newsletter to be yellow.
 
 But yellow has a dark side…
 
-Did you feel irritation and aggression when you read those Coldplay lyrics just now?
+Did you feel irritation and aggression when you to read those Coldplay lyrics just now?
 
-Probably… the color yellow is known to [elicit irritation and aggression](https://www.verywellmind.com/the-color-psychology-of-yellow-2795823) in some. It is the most fatiguing color due to the amount of light it reflects. So it can be bothersome.
+Probably… the color yellow is known to [elicit irritation and aggression](https://www.verywellmind.com/the-color-psychology-of-yellow-2795823) in some. It is the most fatiguing color due to the amount of light reflects. So it can be bothersome.
 
 ![Yellow brand logos: McDonald's, Subway, IKEA, Best Buy](/assets/perspectives/psychology-of-colors/yellow-brand-logos.jpg)
 
@@ -141,7 +141,7 @@ Shopify wants its merchants to associate owning an ecommerce store with financia
 
 Use it for eco-friendly, sustainability, or future-oriented business.
 
-Industries: All natural goods, finance, health.
+Industries: All natural good, finance, health.
 
 ### When not to use Green:
 
@@ -151,7 +151,7 @@ If you want to seem action oriented, don't use green. Or if you are an oil compa
 
 ![Orange](/assets/perspectives/psychology-of-colors/orange.png)
 
-Now here is a fun color… Orange is popular in marketing and on websites. It has the energy and excitement of red with the happiness of yellow. It's playful and reminds us of our childhood.
+Now here is a fun color… Orange is popular in marketing and on websites. It has the energy and excitement of red with the happiness of yellow. It's playful and reminds us of our childhood
 
 Orange sparks creativity and freedom. Not the freedom of William Wallace…
 
@@ -175,7 +175,7 @@ Finance should steer clear… as well as funeral homes.
 
 ![Black](/assets/perspectives/psychology-of-colors/black.png)
 
-Black is the *power* color. It is in contrast to light. It is finality. It is exclusive, sophisticated, and mysterious.
+Black is the *power* color. It is in contrast to light. It is finality. It is exclusive, sophisticate and, mysterious.
 
 The little black dress is popular for a reason. It is elegant and gives you an air of confidence.
 
@@ -201,7 +201,7 @@ We know from earlier, red and blue have opposing psychological and physiological
 
 Purple has also been adopted by Gen Z.
 
-We played Nintendo as kids, and became adults who work in the big blue corporate world. Gen Z doesn't seem to like labels or strict dichotomy so much. They don't agree that everything is black or white, red or blue.
+We played Nintendo as kids, and became adults who work in the big blue corporate world. Gen Z doesn't seem to like labels or strict dichotomy so much. They don't agree that every thing is black or white, red or blue.
 
 Maybe that is why Taco Bell rebranded to purple? Because purple doesn't evoke taco-ness. It is definitely why Twitch is purple though. That I am sure of.
 
@@ -235,9 +235,9 @@ Toilet paper brands.
 
 ## Walking through a color scheme…
 
-I have a new appreciation for designers' use of the psychology of colors and how it shapes the way we perceive a brand, product, or service.
+I have a new appreciation for designers' use psychology of colors and how it shapes the way we perceive a brand, product, or service.
 
-For the longest time, my website was mostly blue and white. With black text. Kind of boring when I think about it. But as I already mentioned, I like blue.
+For the longest time, my website was mostly blue and white. With black text. Kind of boring when I think about. But as I already mentioned, I like blue.
 
 However, what I like isn't what is important. What *is* important is what others feel when they visit my website.
 
@@ -271,6 +271,6 @@ This shift in their marketing strategy is to re-introduce Baskin Robbins with th
 
 Kids want ice cream, but it is the millennial and Gen X parents who decide where to get it… those nostalgic colors are therefore quite important to the brand. Those colors speak louder than the goofy font.
 
-There are no hard or fast rules when it comes to choosing a color for your logo, branding, or packaging.
+There are no hard or fast rule when it comes to choosing a color for your logo, branding, or packaging.
 
 Just remember that it is never about you or what you like. It is about how you want the customer to perceive you.
