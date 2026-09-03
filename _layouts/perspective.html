@@ -18,13 +18,29 @@
       line-height: 1.7;
     }
     main {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 56px 24px 96px;
+      max-width: 728px;
+      margin: 0 auto 80px;
+      padding: 48px 44px 64px;
+      background: #ffffff;
+      border: 1px solid #d8d8d8;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
     }
     .topnav {
-      margin: 0 0 48px;
+      max-width: 728px;
+      margin: 40px auto 24px;
       font-size: 13px;
+    }
+    @media (max-width: 640px) {
+      main {
+        margin: 0 0 48px;
+        padding: 36px 20px 48px;
+        border-left: none;
+        border-right: none;
+      }
+      .topnav {
+        margin: 24px 0 16px;
+        padding: 0 20px;
+      }
     }
     .topnav img {
       display: block;
@@ -34,6 +50,7 @@
       margin: 0 0 10px;
       border: none;
     }
+    .topnav a { margin-right: 10px; }
     .content iframe { max-width: 100%; }
     .topnav a { color: #999; }
     .topnav a:hover { background: none; color: #1a1a1a; }
@@ -58,6 +75,12 @@
       margin: 32px 0 8px;
     }
     .content h3::before { content: "### "; color: #999; }
+    .content h4 {
+      font-size: 15px;
+      font-weight: 500;
+      margin: 32px 0 8px;
+    }
+    .content h4::before { content: "#### "; color: #999; }
     .subhead {
       font-size: 15px;
       font-weight: 500;
@@ -97,6 +120,8 @@
       border: 1px solid #d8d8d8;
       margin: 20px 0 28px;
     }
+    figure { margin: 0 0 16px; }
+    figcaption { color: #999; font-size: 13px; margin: -20px 0 28px; }
     table { border-collapse: collapse; width: 100%; margin: 0 0 16px; }
     th {
       text-align: left;
@@ -116,12 +141,14 @@
   </style>
 </head>
 <body>
-<main>
 
-  <nav class="topnav">
-    <a href="/"><img src="/logo.png" alt="The Real Heroes of Ecommerce"></a>
-    <a href="/">&larr; return to home</a>
-  </nav>
+<nav class="topnav">
+  <a href="/"><img src="/logo.png" alt="The Real Heroes of Ecommerce"></a>
+  <a href="/perspectives/">&larr; back to perspectives</a>
+  <a href="/">home</a>
+</nav>
+
+<main>
 
   <h1 class="title">{{ page.title }}</h1>
   {% if page.description %}<p class="tagline">// {{ page.description }}</p>{% endif %}
@@ -135,7 +162,7 @@
   {% include subscribe-email.html %}
 
   <footer>
-    <a href="/">&larr; back to index</a> &middot; &copy; {{ page.date | date: "%Y" }} the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>
+    <a href="/perspectives/">&larr; back to perspectives</a> &middot; &copy; {{ page.date | date: "%Y" }} the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>
   </footer>
 
 </main>
