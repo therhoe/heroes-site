@@ -1,2 +1,6 @@
 .claude/settings.local.json
 _site/
+
+# raw substack export data — contains subscriber emails + analytics, must NEVER be committed/published
+substack export/
+posts.csv

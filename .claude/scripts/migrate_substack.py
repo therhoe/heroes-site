@@ -3,6 +3,7 @@
 
 Usage:
     python .claude/scripts/migrate_substack.py path/to/export.zip [--dry-run]
+    python .claude/scripts/migrate_substack.py path/to/unzipped-export-dir [--dry-run]
 
 Reads the Substack export zip (posts.csv + posts/*.html), and for each
 published post:
@@ -80,6 +81,19 @@ def ext_from_response(resp, url: str) -> str:
     return ext
 
 
+UA = {"User-Agent": "Mozilla/5.0 (site migration; therealheroesofecommerce.com)"}
+
+
+def fetchable_url(src: str) -> str:
+    """Old posts point at Substack's raw S3 bucket, which 403s direct requests.
+    Route those through the substackcdn image-fetch proxy instead."""
+    if "bucketeer-" in src and "s3.amazonaws.com" in src and "substackcdn.com" not in src:
+        from urllib.parse import quote
+        return ("https://substackcdn.com/image/fetch/f_auto,q_auto:good/"
+                + quote(src, safe=""))
+    return src
+
+
 def download_images(soup: BeautifulSoup, slug: str, dry_run: bool):
     """Download every <img>, rewrite src to /assets/newsletter/<slug>/..."""
     imgs = soup.find_all("img")
@@ -100,8 +114,12 @@ def download_images(soup: BeautifulSoup, slug: str, dry_run: bool):
             if dry_run:
                 img["src"] = f"/assets/newsletter/{slug}/{base}.ext"
                 continue
-            resp = requests.get(src, timeout=60)
-            resp.raise_for_status()
+            try:
+                resp = requests.get(fetchable_url(src), timeout=60, headers=UA)
+                resp.raise_for_status()
+            except Exception as exc:
+                print(f"  !! {slug}: image {i} failed ({exc}); keeping remote url")
+                continue
             slug_dir.mkdir(parents=True, exist_ok=True)
             local = slug_dir / (base + ext_from_response(resp, src))
             local.write_bytes(resp.content)
@@ -196,14 +214,38 @@ def convert_post(zf: zipfile.ZipFile, html_name: str, row: dict, dry_run: bool):
     return slug, date, n_imgs, weight, big
 
 
+class DirSource:
+    """Duck-types the bits of ZipFile this script uses, over an unzipped dir."""
+
+    def __init__(self, root):
+        self.root = Path(root)
+
+    def namelist(self):
+        return [p.relative_to(self.root).as_posix()
+                for p in self.root.rglob("*") if p.is_file()]
+
+    def read(self, name):
+        return (self.root / name).read_bytes()
+
+    def open(self, name):
+        return (self.root / name).open("rb")
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return False
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     dry_run = "--dry-run" in sys.argv
     if not args:
-        sys.exit("usage: migrate_substack.py path/to/export.zip [--dry-run]")
+        sys.exit("usage: migrate_substack.py path/to/export[.zip] [--dry-run]")
     zip_path = Path(args[0])
+    source = DirSource(zip_path) if zip_path.is_dir() else zipfile.ZipFile(zip_path)
 
-    with zipfile.ZipFile(zip_path) as zf:
+    with source as zf:
         csv_name = next(n for n in zf.namelist() if n.endswith("posts.csv"))
         rows = {}
         with zf.open(csv_name) as fh:
@@ -212,7 +254,8 @@ def main():
                 rows[row["post_id"]] = row
 
         html_files = [n for n in zf.namelist()
-                      if n.endswith(".html") and "/posts/" in n or n.startswith("posts/")]
+                      if n.endswith(".html")
+                      and (n.startswith("posts/") or "/posts/" in n)]
 
         results, skipped = [], []
         for name in sorted(html_files):
@@ -225,7 +268,7 @@ def main():
             if (row.get("is_published") or "").lower() != "true":
                 skipped.append((name, "not published"))
                 continue
-            if row.get("type") not in ("newsletter", "post", "", None):
+            if row.get("type") not in ("newsletter", "post", "podcast", "", None):
                 skipped.append((name, f"type={row.get('type')}"))
                 continue
             results.append(convert_post(zf, name, row, dry_run))
