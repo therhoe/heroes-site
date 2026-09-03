@@ -27,8 +27,9 @@ around the Snapshot CRO Shopify app.
   rule below does NOT apply, same as perspectives.
 - Migration script: `.claude/scripts/migrate_substack.py` (takes the
   Substack export zip).
-- `_includes/subscribe-substack.html` is the email-capture embed, used on
-  the homepage and both article layouts.
+- `_includes/subscribe-email.html` is the email-capture form (posts email
+  only to the same Apps Script endpoint as the CRO lead form), used on the
+  homepage, the newsletter hub, and both article layouts.
 - SEO stance: migrated newsletter pages self-canonicalize via `{% seo %}`.
   The Substack copies stay live and also self-claim (Substack can't emit
   cross-domain canonicals). This is intentional — do not "fix" it with

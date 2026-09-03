@@ -1,0 +1,67 @@
+<style>
+  .sublead { display: flex; gap: 8px; max-width: 480px; }
+  .sublead input[type="email"] {
+    flex: 1;
+    min-width: 0;
+    font: inherit;
+    color: inherit;
+    background: #ffffff;
+    border: 1px solid #1a1a1a;
+    padding: 9px 12px;
+  }
+  .sublead input[type="email"]:focus { outline: 2px solid #1a1a1a; outline-offset: -1px; }
+  .sublead button {
+    font: inherit;
+    font-weight: 500;
+    color: #1a1a1a;
+    background: #ffffff;
+    border: 1px solid #1a1a1a;
+    padding: 9px 16px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .sublead button:hover { background: #1a1a1a; color: #ffffff; }
+  .sublead button:disabled { opacity: 0.5; cursor: wait; }
+  .sublead-hp { position: absolute; left: -9999px; top: -9999px; }
+  #substatus { margin: 8px 0 0; font-size: 13px; color: #999; }
+  #substatus.ok { color: #1a7f37; }
+  #substatus.bad { color: #c0392b; }
+</style>
+<form class="sublead" id="subform">
+  <input type="email" name="email" required placeholder="your@email.com" aria-label="email address" autocomplete="email">
+  <div class="sublead-hp" aria-hidden="true">
+    <input name="company" type="text" tabindex="-1" autocomplete="off">
+  </div>
+  <button type="submit">→ subscribe</button>
+</form>
+<p id="substatus">// no spam. unsubscribe anytime.</p>
+<script>
+(function () {
+  // same Apps Script endpoint as the CRO lead form (rhoe-cro-leads sheet);
+  // only the email column gets populated
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyLFgWFPjj3ml9LRYgYggpHXpb4NG8pCHk_Dertri-Q86tgFzbd_zdprpsK_7c3PJlJ/exec';
+  var form = document.getElementById('subform');
+  var btn = form.querySelector('button');
+  var status = document.getElementById('substatus');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    btn.disabled = true;
+    status.className = '';
+    status.textContent = '// sending…';
+    fetch(ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: new URLSearchParams(new FormData(form))
+    }).then(function () {
+      status.className = 'ok';
+      status.textContent = '// got it. you\'re on the list.';
+      form.reset();
+      btn.disabled = false;
+    }).catch(function () {
+      status.className = 'bad';
+      status.textContent = '// that didn\'t go through — email shep@therealheroesofecommerce.com';
+      btn.disabled = false;
+    });
+  });
+})();
+</script>
