@@ -33,11 +33,12 @@ Fallback (only if the Drive connector has full access — as of 2026-08 it can o
 ## Publishing
 
 1. Commit with a message like `Add perspective: <title>` and push to `main`.
-2. Wait ~1 min for the Pages build, then verify in the browser: `https://therealheroesofecommerce.com/perspectives/<slug>/` renders, images load (`document.images` all `complete` with `naturalWidth > 0`), and the article appears at the top of the homepage "perspectives" list.
+2. Wait ~1 min for the Pages build, then verify in the browser: `https://therealheroesofecommerce.com/perspectives/<slug>/` renders, images load (`document.images` all `complete` with `naturalWidth > 0`), and the article appears at the top of the `/perspectives/` hub list. (The homepage links to the hub but does not list individual articles.)
 
 ## Notes
 
 - Articles live in `_perspectives/`, layout `_layouts/perspective.html` (applied by default via `_config.yml`).
-- The `/perspectives/` hub page (`perspectives.html`) lists all articles automatically with client-side keyword search and tag filters; the homepage links to the hub plus the latest article. All of it is Liquid-driven — never hand-edit those lists.
+- The `/perspectives/` hub page (`perspectives.html`) lists all articles automatically with client-side keyword search and tag filters; the homepage links to the hub. All of it is Liquid-driven — never hand-edit those lists.
 - To edit a published article: edit its `.md` and push. To unpublish: delete the file and push.
-- Don't mirror Substack posts here (duplicate content hurts SEO) — perspectives should be original/evergreen. If a doc references Substack or looks like a newsletter draft, mention the tradeoff once.
+- Newsletter-shaped content does NOT belong in perspectives. The site has a separate newsletter archive: `_newsletter/<slug>.html` → `/newsletter/<slug>/`, layout `newsletter`, front matter `title`/`description`/`date`/`substack_url`. Perspectives stay original/evergreen; if a doc reads like a newsletter issue, suggest the archive instead.
+- Link mentions of Snapshot CRO to `/snapshot-cro.html`. The Shopify App Store URL is `https://apps.shopify.com/snapshot-cro` (the old `/mousewhisperer` handle is dead).
