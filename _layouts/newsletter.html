@@ -92,6 +92,8 @@
       border: 1px solid #d8d8d8;
       margin: 20px 0 28px;
     }
+    figure { margin: 0 0 16px; }
+    figcaption { color: #999; font-size: 13px; margin: -20px 0 28px; }
     table { border-collapse: collapse; width: 100%; margin: 0 0 16px; }
     th {
       text-align: left;
@@ -115,22 +117,27 @@
 
   <nav class="topnav">
     <a href="/"><img src="/logo.png" alt="The Real Heroes of Ecommerce"></a>
-    <a href="/">&larr; return to home</a>
+    <a href="/newsletter/">&larr; back to the archive</a>
+    <a href="/">home</a>
   </nav>
 
   <h1 class="title">{{ page.title }}</h1>
   {% if page.description %}<p class="tagline">// {{ page.description }}</p>{% endif %}
-  <p class="dateline">{{ page.date | date: "%B %Y" | downcase }}</p>
+  <p class="dateline">{{ page.date | date: "%B %-d, %Y" | downcase }}</p>
 
   <div class="content">
     {{ content }}
   </div>
 
-  <p class="subhead">get more of these by email</p>
+  {% if page.substack_url %}
+  <p class="muted">// originally sent as an email — <a href="{{ page.substack_url }}">view on substack</a></p>
+  {% endif %}
+
+  <p class="subhead">get the next one</p>
   {% include subscribe-substack.html %}
 
   <footer>
-    <a href="/">&larr; back to index</a> &middot; &copy; {{ page.date | date: "%Y" }} the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>
+    <a href="/newsletter/">&larr; back to the archive</a> &middot; &copy; {{ page.date | date: "%Y" }} the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>
   </footer>
 
 </main>
