@@ -80,14 +80,16 @@
     <li><a href="https://www.linkedin.com/in/jasonsdshepherd/">linkedin</a> <span class="note">(contact me)</span></li>
   </ul>
 
-  <h1>notable posts</h1>
-  <ul>
-    <li><a href="/newsletter/day-9-finally-the-good-stuff-cro/">day #9 — finally, the good stuff… (cro test no.1)</a></li>
-    <li><a href="/newsletter/day-13-this-is-whats-missing-in-ab/">day #13 — this is what's missing in ab tests</a></li>
-    <li><a href="/newsletter/day-15-its-not-a-redesign-its-a-reset/">day #15 — it's not a redesign, it's a reset</a></li>
-    <li><a href="/newsletter/day-20-step-2-in-the-cro-workflow/">day #20 — step 2 in the cro workflow</a></li>
-    <li><a href="/newsletter/day-22-product-page-audits-via-page/">day #22 — product page audits via page snapshots</a></li>
+  <h1>latest posts</h1>
+  <ul id="latest">
+    {% assign issues = site.newsletter | sort: "date" | reverse %}
+    {% for p in issues %}
+    <li{% if forloop.index > 9 %} hidden{% endif %}>
+      <a href="{{ p.url }}">{{ p.title }}</a> <span class="note">({{ p.date | date: "%b %Y" | downcase }})</span>
+    </li>
+    {% endfor %}
   </ul>
+  <p id="showmore-line"><a href="#" id="showmore">→ show all {{ site.newsletter | size }} posts</a></p>
 
   <h1>subscribe</h1>
   {% include subscribe-substack.html %}
@@ -97,5 +99,19 @@
   </footer>
 
 </main>
+<script>
+(function () {
+  var btn = document.getElementById('showmore');
+  if (!btn) return;
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelectorAll('#latest li[hidden]').forEach(function (li) {
+      li.removeAttribute('hidden');
+    });
+    var line = document.getElementById('showmore-line');
+    line.parentNode.removeChild(line);
+  });
+})();
+</script>
 </body>
 </html>
