@@ -6,6 +6,9 @@ collections:
   perspectives:
     output: true
     permalink: /perspectives/:name/
+  newsletter:
+    output: true
+    permalink: /newsletter/:name/
 
 defaults:
   - scope:
@@ -13,10 +16,21 @@ defaults:
       type: perspectives
     values:
       layout: perspective
+  - scope:
+      path: ""
+      type: newsletter
+    values:
+      layout: newsletter
 
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-feed
+
+feed:
+  collections:
+    - newsletter
+    - perspectives
 
 exclude:
   - .claude
