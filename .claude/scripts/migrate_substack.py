@@ -135,10 +135,23 @@ def download_images(soup: BeautifulSoup, slug: str, dry_run: bool):
     return count, total_bytes, big_files
 
 
-def clean_body(soup: BeautifulSoup) -> BeautifulSoup:
+def clean_body(soup: BeautifulSoup, slug: str) -> BeautifulSoup:
     for sel in STRIP_SELECTORS:
         for node in soup.select(sel):
             node.decompose()
+
+    # substack-hosted video/audio: media is not in the export and the
+    # placeholder renders as nothing — link to the original instead
+    for kind, verb in ((".native-video-embed", "watch"),
+                      (".native-audio-embed", "listen")):
+        for node in soup.select(kind):
+            p = soup.new_tag("p")
+            p["class"] = "muted"
+            p.append(f"// there's a {kind.split('-')[1]} here — ")
+            a = soup.new_tag("a", href=SUBSTACK_BASE + slug)
+            a.string = f"{verb} on substack"
+            p.append(a)
+            node.replace_with(p)
 
     # collapse captioned-image containers to plain <figure><img><figcaption>
     for container in soup.select(".captioned-image-container"):
@@ -160,6 +173,51 @@ def clean_body(soup: BeautifulSoup) -> BeautifulSoup:
     for a in soup.find_all("a", class_="image-link"):
         img = a.find("img")
         a.replace_with(img.extract()) if img else a.decompose()
+
+    # substack image galleries: images live only in a JSON data-attrs blob
+    # and render as nothing without substack's JS — expand to plain figures
+    for gal in soup.select(".image-gallery-embed"):
+        try:
+            data = json.loads(gal.get("data-attrs") or "{}")
+            srcs = [im.get("src") for im in data.get("gallery", {}).get("images", [])
+                    if im.get("src")]
+        except (ValueError, AttributeError):
+            srcs = []
+        if srcs:
+            wrapper = soup.new_tag("div")
+            for s in srcs:
+                fig = soup.new_tag("figure")
+                fig.append(soup.new_tag("img", src=s, alt=""))
+                wrapper.append(fig)
+            caption = (json.loads(gal.get("data-attrs") or "{}")
+                       .get("caption") if gal.get("data-attrs") else None)
+            gal.replace_with(wrapper)
+            wrapper.unwrap()
+        else:
+            gal.decompose()
+
+    # twitter embed cards: keep the text + a link to the tweet
+    for tw in soup.select(".twitter-embed"):
+        try:
+            data = json.loads(tw.get("data-attrs") or "{}")
+        except ValueError:
+            data = {}
+        url = data.get("url")
+        if url:
+            quote_p = soup.new_tag("blockquote")
+            text = (data.get("full_text") or "").strip()
+            who = data.get("name") or data.get("username") or ""
+            body_p = soup.new_tag("p")
+            body_p.string = text if text else url
+            quote_p.append(body_p)
+            link_p = soup.new_tag("p")
+            a = soup.new_tag("a", href=url)
+            a.string = f"— {who} on twitter" if who else url
+            link_p.append(a)
+            quote_p.append(link_p)
+            tw.replace_with(quote_p)
+        else:
+            tw.decompose()
 
     # JS-dependent embeds degrade to plain links
     for tw in soup.select(".tweet, .twitter-tweet"):
@@ -184,7 +242,7 @@ def convert_post(zf: zipfile.ZipFile, html_name: str, row: dict, dry_run: bool):
     slug = slug_from_filename(html_name)
     raw = zf.read(html_name).decode("utf-8", errors="replace")
     soup = BeautifulSoup(raw, "html.parser")
-    soup = clean_body(soup)
+    soup = clean_body(soup, slug)
     n_imgs, weight, big = download_images(soup, slug, dry_run)
 
     body = soup.decode().strip()

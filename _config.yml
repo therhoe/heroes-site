@@ -37,4 +37,5 @@ exclude:
   - README.md
   - CLAUDE.md
   - substack export
+  - substacks
   - posts.csv
