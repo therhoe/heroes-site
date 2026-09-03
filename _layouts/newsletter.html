@@ -11,7 +11,7 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      background: #f4f4f4;
+      background: #ffffff;
       color: #1a1a1a;
       font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
       font-size: 15px;
@@ -19,11 +19,16 @@
     }
     main {
       max-width: 728px;
-      margin: 40px auto 80px;
+      margin: 0 auto 80px;
       padding: 48px 44px 64px;
       background: #ffffff;
       border: 1px solid #d8d8d8;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    }
+    .topnav {
+      max-width: 728px;
+      margin: 40px auto 24px;
+      font-size: 13px;
     }
     @media (max-width: 640px) {
       main {
@@ -32,10 +37,10 @@
         border-left: none;
         border-right: none;
       }
-    }
-    .topnav {
-      margin: 0 0 48px;
-      font-size: 13px;
+      .topnav {
+        margin: 24px 0 16px;
+        padding: 0 20px;
+      }
     }
     .topnav img {
       display: block;
@@ -136,13 +141,14 @@
   </style>
 </head>
 <body>
-<main>
 
-  <nav class="topnav">
-    <a href="/"><img src="/logo.png" alt="The Real Heroes of Ecommerce"></a>
-    <a href="/newsletter/">&larr; back to the archive</a>
-    <a href="/">home</a>
-  </nav>
+<nav class="topnav">
+  <a href="/"><img src="/logo.png" alt="The Real Heroes of Ecommerce"></a>
+  <a href="/newsletter/">&larr; back to the archive</a>
+  <a href="/">home</a>
+</nav>
+
+<main>
 
   <h1 class="title">{{ page.title }}</h1>
   {% if page.description %}<p class="tagline">// {{ page.description }}</p>{% endif %}
