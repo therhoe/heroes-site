@@ -24,7 +24,7 @@
   .sublead button:disabled { opacity: 0.5; cursor: wait; }
   .sublead-hp { position: absolute; left: -9999px; top: -9999px; }
   #substatus { margin: 8px 0 0; font-size: 13px; color: #999; }
-  #substatus.ok { color: #1a7f37; }
+  #substatus.ok { color: #c0392b; } /* red on purpose — the joke continues */
   #substatus.bad { color: #c0392b; }
 </style>
 <form class="sublead" id="subform">
@@ -54,7 +54,7 @@
       body: new URLSearchParams(new FormData(form))
     }).then(function () {
       status.className = 'ok';
-      status.textContent = '// got it. you\'re on the list.';
+      status.textContent = '// my. god. what have you done...';
       form.reset();
       btn.disabled = false;
     }).catch(function () {
