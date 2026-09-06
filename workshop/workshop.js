@@ -1,0 +1,199 @@
+(function () {
+  // Google Apps Script web app URL for workshop submissions.
+  // Deploy .claude/scripts/workshop-apps-script.gs, then paste the /exec URL here.
+  var ENDPOINT = '';
+
+  // sha256 hashes of allowed emails (lowercased, trimmed).
+  // To add someone: printf '%s' "their@email.com" | sha256sum
+  var HASHES = [
+    '9838eef7c7d94b5d7eba0b242de827d19769c40509f090b57a9176f5b7f229e3' // shep
+  ];
+
+  // the hub page every session starts from and returns to
+  var CONTENTS = 'contents.html';
+
+  // one array per session — arrows flow within a session only;
+  // past either end you land back on the contents page.
+  var SESSIONS = [
+    ['pace.html', 'pace-p.html', 'pace-a.html', 'pace-c.html', 'pace-e.html'],
+    ['analytics.html'],
+    ['testing.html'],
+    ['confidence.html']
+  ];
+
+  var STORE_KEY = 'workshop_email';
+
+  function sha256(str) {
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+        return ('0' + b.toString(16)).slice(-2);
+      }).join('');
+    });
+  }
+
+  function storedEmail() {
+    try { return localStorage.getItem(STORE_KEY) || ''; } catch (e) { return ''; }
+  }
+
+  function checkEmail(email) {
+    return sha256(email.trim().toLowerCase()).then(function (hash) {
+      return HASHES.indexOf(hash) !== -1;
+    });
+  }
+
+  // --- gate ---------------------------------------------------------------
+  // Slides carry <body data-gated hidden>. Verify the stored email or bounce
+  // to the gate page. The gate page itself carries <body data-gate>.
+  var body = document.body;
+
+  if (body.hasAttribute('data-gated')) {
+    var email = storedEmail();
+    if (!email) {
+      location.replace('index.html');
+    } else {
+      checkEmail(email).then(function (ok) {
+        if (ok) { body.removeAttribute('hidden'); initSlide(); }
+        else { location.replace('index.html'); }
+      });
+    }
+  }
+
+  if (body.hasAttribute('data-gate')) {
+    var gateForm = document.getElementById('gateform');
+    var gateStatus = document.getElementById('gatestatus');
+    // already unlocked? skip straight to the first slide
+    var known = storedEmail();
+    if (known) {
+      checkEmail(known).then(function (ok) { if (ok) location.replace(CONTENTS); });
+    }
+    gateForm.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var email = gateForm.email.value.trim().toLowerCase();
+      checkEmail(email).then(function (ok) {
+        if (ok) {
+          try { localStorage.setItem(STORE_KEY, email); } catch (e) {}
+          location.href = CONTENTS;
+        } else {
+          gateStatus.className = 'status bad';
+          gateStatus.textContent = "// that email isn't on the list";
+        }
+      });
+    });
+  }
+
+  // --- slide nav ----------------------------------------------------------
+  function initSlide() {
+    var here = location.pathname.split('/').pop() || 'index.html';
+
+    var session = null, i = -1;
+    SESSIONS.forEach(function (s) {
+      var idx = s.indexOf(here);
+      if (idx !== -1) { session = s; i = idx; }
+    });
+
+    document.querySelectorAll('form.exercise').forEach(wireExercise);
+    if (!session) return;
+
+    // past either end of a session you land back on contents
+    var prev = i > 0 ? session[i - 1] : CONTENTS;
+    var next = i < session.length - 1 ? session[i + 1] : CONTENTS;
+
+    var nav = document.createElement('div');
+    nav.className = 'slidenav';
+    nav.innerHTML =
+      '<a href="' + prev + '">&#8592;</a>' +
+      '<span class="count">' + (i + 1) + ' / ' + session.length + '</span>' +
+      '<a href="' + next + '">&#8594;</a>';
+    document.body.appendChild(nav);
+
+    document.addEventListener('keydown', function (ev) {
+      var tag = (ev.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea') return;
+      if (ev.key === 'ArrowLeft') location.href = prev;
+      if (ev.key === 'ArrowRight') location.href = next;
+    });
+  }
+
+  // --- exercise submissions ----------------------------------------------
+  // <form class="exercise" data-exercise="name"> — text inputs, textareas,
+  // and file inputs (screenshots) are collected and posted as JSON.
+  function wireExercise(form) {
+    var btn = form.querySelector('button.send');
+    var status = form.querySelector('.status');
+
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      if (!ENDPOINT) {
+        status.className = 'status bad';
+        status.textContent = '// submissions are not wired up yet (no endpoint)';
+        return;
+      }
+      btn.disabled = true;
+      status.className = 'status muted';
+      status.textContent = '// sending…';
+
+      var answers = {};
+      var imagePromises = [];
+      Array.prototype.forEach.call(form.elements, function (el) {
+        if (!el.name) return;
+        if (el.type === 'file') {
+          Array.prototype.forEach.call(el.files, function (file) {
+            imagePromises.push(shrinkImage(file).then(function (img) {
+              img.field = el.name;
+              return img;
+            }));
+          });
+        } else if (el.tagName !== 'BUTTON') {
+          answers[el.name] = el.value;
+        }
+      });
+
+      Promise.all(imagePromises).then(function (images) {
+        return fetch(ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: JSON.stringify({
+            email: storedEmail(),
+            page: location.pathname.split('/').pop(),
+            exercise: form.getAttribute('data-exercise') || '',
+            answers: answers,
+            images: images
+          })
+        });
+      }).then(function () {
+        status.className = 'status ok';
+        status.textContent = '// got it. saved.';
+        btn.disabled = false;
+      }).catch(function () {
+        status.className = 'status bad';
+        status.textContent = '// something broke — email it to shep@therealheroesofecommerce.com instead';
+        btn.disabled = false;
+      });
+    });
+  }
+
+  // downscale big screenshots client-side so uploads stay fast
+  function shrinkImage(file) {
+    var MAX = 1600;
+    return new Promise(function (resolve, reject) {
+      var img = new Image();
+      var url = URL.createObjectURL(file);
+      img.onload = function () {
+        URL.revokeObjectURL(url);
+        var scale = Math.min(1, MAX / Math.max(img.width, img.height));
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        var dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        resolve({
+          name: file.name,
+          type: 'image/jpeg',
+          data: dataUrl.split(',')[1]
+        });
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('bad image')); };
+      img.src = url;
+    });
+  }
+})();
