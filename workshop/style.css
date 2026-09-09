@@ -44,6 +44,24 @@ code {
   font-size: 13.5px;
 }
 
+/* --- centered slide statements --- */
+.slide-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 50vh;
+}
+.slide-big {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.4;
+  max-width: 560px;
+  margin: 0 0 16px;
+}
+.slide-sub { color: #666; max-width: 560px; }
+
 /* --- slide nav arrows (top right) --- */
 .slidenav {
   position: fixed;

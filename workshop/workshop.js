@@ -9,7 +9,8 @@
   // one array per session — arrows flow within a session only;
   // past either end you land back on the contents page.
   var SESSIONS = [
-    ['pace.html', 'pace-p.html', 'pace-a.html', 'pace-c.html', 'pace-e.html'],
+    ['journey-1.html', 'journey-2.html', 'journey-3.html', 'pace-intro.html',
+     'pace.html', 'pace-p.html', 'pace-a.html', 'pace-c.html', 'pace-e.html'],
     ['analytics.html'],
     ['testing.html'],
     ['confidence.html']
