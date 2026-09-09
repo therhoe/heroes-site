@@ -10,7 +10,8 @@
   // past either end you land back on the contents page.
   var SESSIONS = [
     ['journey-1.html', 'journey-2.html', 'journey-3.html', 'pace-intro.html',
-     'pace.html', 'pace-p.html', 'pace-a.html', 'pace-c.html', 'pace-e.html'],
+     'pace.html', 'pace-overview.html',
+     'pace-p.html', 'pace-a.html', 'pace-c.html', 'pace-e.html'],
     ['analytics.html'],
     ['testing.html'],
     ['confidence.html']
