@@ -3,14 +3,8 @@
   // Deploy .claude/scripts/workshop-apps-script.gs, then paste the /exec URL here.
   var ENDPOINT = '';
 
-  // sha256 hashes of allowed emails (lowercased, trimmed).
-  // To add someone: printf '%s' "their@email.com" | sha256sum
-  var HASHES = [
-    '9838eef7c7d94b5d7eba0b242de827d19769c40509f090b57a9176f5b7f229e3' // shep
-  ];
-
   // the hub page every session starts from and returns to
-  var CONTENTS = 'contents.html';
+  var CONTENTS = 'index.html';
 
   // one array per session — arrows flow within a session only;
   // past either end you land back on the contents page.
@@ -21,65 +15,15 @@
     ['confidence.html']
   ];
 
+  // left over from the old email gate — still read so submissions from
+  // people who unlocked the gate before it was removed keep their email
   var STORE_KEY = 'workshop_email';
-
-  function sha256(str) {
-    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function (buf) {
-      return Array.prototype.map.call(new Uint8Array(buf), function (b) {
-        return ('0' + b.toString(16)).slice(-2);
-      }).join('');
-    });
-  }
 
   function storedEmail() {
     try { return localStorage.getItem(STORE_KEY) || ''; } catch (e) { return ''; }
   }
 
-  function checkEmail(email) {
-    return sha256(email.trim().toLowerCase()).then(function (hash) {
-      return HASHES.indexOf(hash) !== -1;
-    });
-  }
-
-  // --- gate ---------------------------------------------------------------
-  // Slides carry <body data-gated hidden>. Verify the stored email or bounce
-  // to the gate page. The gate page itself carries <body data-gate>.
-  var body = document.body;
-
-  if (body.hasAttribute('data-gated')) {
-    var email = storedEmail();
-    if (!email) {
-      location.replace('index.html');
-    } else {
-      checkEmail(email).then(function (ok) {
-        if (ok) { body.removeAttribute('hidden'); initSlide(); }
-        else { location.replace('index.html'); }
-      });
-    }
-  }
-
-  if (body.hasAttribute('data-gate')) {
-    var gateForm = document.getElementById('gateform');
-    var gateStatus = document.getElementById('gatestatus');
-    // already unlocked? skip straight to the first slide
-    var known = storedEmail();
-    if (known) {
-      checkEmail(known).then(function (ok) { if (ok) location.replace(CONTENTS); });
-    }
-    gateForm.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      var email = gateForm.email.value.trim().toLowerCase();
-      checkEmail(email).then(function (ok) {
-        if (ok) {
-          try { localStorage.setItem(STORE_KEY, email); } catch (e) {}
-          location.href = CONTENTS;
-        } else {
-          gateStatus.className = 'status bad';
-          gateStatus.textContent = "// that email isn't on the list";
-        }
-      });
-    });
-  }
+  initSlide();
 
   // --- slide nav ----------------------------------------------------------
   function initSlide() {
