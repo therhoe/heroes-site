@@ -87,20 +87,6 @@ sitemap: false
     <li><a href="https://www.linkedin.com/in/jasonsdshepherd/">contact me</a> <span class="note">(via linkedin)</span></li>
   </ul>
 
-  <h1>cro videos</h1>
-  <p class="note">// coming soon</p>
-
-  <h1>perspectives</h1>
-  <ul>
-    {% assign persp = site.perspectives | sort: "date" | reverse %}
-    {% for p in persp %}
-    <li><a href="{{ p.url }}">{{ p.title }}</a> <span class="note">({{ p.date | date: "%b %Y" | downcase }})</span></li>
-    {% endfor %}
-  </ul>
-
-  <h1>app recs</h1>
-  <p class="note">// coming soon</p>
-
   <h1>the rhoe posts</h1>
   <ul id="latest">
     {% assign issues = site.newsletter | sort: "date" | reverse %}

@@ -17,14 +17,13 @@ around the Snapshot CRO Shopify app.
 
 ## Content collections
 
-- `_perspectives/*.md` → `/perspectives/<slug>/`, layout `perspective`,
-  hub `perspectives.html`. Evergreen articles from Google Docs
-  (see `.claude/skills/publish-perspective/SKILL.md`).
 - `_newsletter/*.html` → `/newsletter/<slug>/`, layout `newsletter`, hub
   `newsletter.html`. Migrated + future Substack issues. Docs are cleaned
   HTML (not markdown) wrapped in `{% raw %}`; front matter: `title`,
   `description`, `date`, `substack_url`. Content is verbatim — the casing
-  rule below does NOT apply, same as perspectives.
+  rule below does NOT apply.
+- The former `perspectives` collection was deleted on purpose (2026-09-06,
+  Shep's call) — don't resurrect it from git history.
 - Migration script: `.claude/scripts/migrate_substack.py` (takes the
   Substack export zip).
 - `_includes/subscribe-email.html` is the email-capture form (posts email
@@ -50,6 +49,5 @@ The site mimics a rendered markdown/terminal document. Casing rules:
 Shep writes with auto-capitalizing tools and pastes copy in inconsistently —
 normalizing pasted copy to this pattern is Claude's job, every time.
 
-**EXCEPTION: perspectives posts** (`_perspectives/*.md`) keep the exact
-formatting and capitalization of Shep's source Google Doc. Never restyle
-article content — see `.claude/skills/publish-perspective/SKILL.md`.
+**EXCEPTION: newsletter posts** (`_newsletter/*.html`) keep their exact
+source formatting and capitalization. Never restyle article content.

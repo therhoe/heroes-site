@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Real Heroes of Ecommerce</title>
-  <meta name="description" content="The Real Heroes of Ecommerce — a boutique CRO agency for Shopify stores. CRO services, the Snapshot CRO app, and a library of perspectives for ecommerce operators.">
+  <meta name="description" content="The Real Heroes of Ecommerce — a boutique CRO agency for Shopify stores. CRO services, the Snapshot CRO app, and the rhoe newsletter for ecommerce operators.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -78,22 +78,6 @@
     <li><a href="/newsletter/">the rhoe newsletter</a> <span class="note">(all posts)</span></li>
     <li><a href="https://www.linkedin.com/in/jasonsdshepherd/">contact me</a> <span class="note">(via linkedin)</span></li>
   </ul>
-
-  {% comment %} in progress — visible on /preview-home.html until ready
-  <h1>cro videos</h1>
-  <p class="note">// coming soon</p>
-
-  <h1>perspectives</h1>
-  <ul>
-    {% assign persp = site.perspectives | sort: "date" | reverse %}
-    {% for p in persp %}
-    <li><a href="{{ p.url }}">{{ p.title }}</a> <span class="note">({{ p.date | date: "%b %Y" | downcase }})</span></li>
-    {% endfor %}
-  </ul>
-
-  <h1>app recs</h1>
-  <p class="note">// coming soon</p>
-  {% endcomment %}
 
   <h1>the rhoe posts</h1>
   <ul id="latest">

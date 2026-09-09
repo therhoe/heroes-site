@@ -3,19 +3,11 @@ title: The Real Heroes of Ecommerce
 description: CRO, Shopify, and building in public.
 
 collections:
-  perspectives:
-    output: true
-    permalink: /perspectives/:name/
   newsletter:
     output: true
     permalink: /newsletter/:name/
 
 defaults:
-  - scope:
-      path: ""
-      type: perspectives
-    values:
-      layout: perspective
   - scope:
       path: ""
       type: newsletter
@@ -30,7 +22,6 @@ plugins:
 feed:
   collections:
     - newsletter
-    - perspectives
 
 exclude:
   - .claude
