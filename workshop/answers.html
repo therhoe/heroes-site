@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>The Answers — Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .team { border: 1px solid #d8d8d8; padding: 20px 24px; margin: 0 0 24px; }
+    .team h2 { margin: 0 0 12px; }
+    .team dt { color: #999; font-size: 15px; margin: 14px 0 2px; }
+    .team dd { margin: 0; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+<main>
+
+  <h1 class="title">The Answers</h1>
+  <p class="tagline">// what the teams found. updates on its own.</p>
+
+  <div id="list"><p class="muted">// loading…</p></div>
+
+</main>
+<script src="workshop.js"></script>
+<script>
+(function () {
+  var EP = window.WORKSHOP_ENDPOINT || '';
+  var list = document.getElementById('list');
+  var FIELDS = [['prognosis', 'Prognosis'], ['activity', 'Activity'], ['criteria', 'Criteria'], ['event', 'Event']];
+
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s == null ? '' : String(s);
+    return d.innerHTML;
+  }
+
+  function render(subs) {
+    if (!subs.length) {
+      list.innerHTML = '<p class="muted">// no submissions yet. waiting on the teams…</p>';
+      return;
+    }
+    list.innerHTML = subs.map(function (s) {
+      var a = s.answers || {};
+      var head = esc(a.brand || 'team') + (a.product ? ' — ' + esc(a.product) : '');
+      var rows = FIELDS.map(function (f) {
+        return '<dt>' + f[1] + '</dt><dd>' + (esc(a[f[0]]) || '<span class="muted">—</span>') + '</dd>';
+      }).join('');
+      return '<div class="team"><h2>' + head + '</h2><dl>' + rows + '</dl></div>';
+    }).join('');
+  }
+
+  function localOnly() {
+    try {
+      var mine = JSON.parse(sessionStorage.getItem('workshop_last_submission') || 'null');
+      if (mine) { render([{ answers: mine.answers }]); return; }
+    } catch (e) {}
+    list.innerHTML = '<p class="muted">// the endpoint is not wired up yet.</p>';
+  }
+
+  function load() {
+    if (!EP) { localOnly(); return; }
+    fetch(EP + '?exercise=pace-workshop').then(function (r) { return r.json(); })
+      .then(render)
+      .catch(function () {
+        list.innerHTML = '<p class="muted bad">// could not load submissions — retrying…</p>';
+      });
+  }
+
+  load();
+  setInterval(load, 12000);
+})();
+</script>
+</body>
+</html>

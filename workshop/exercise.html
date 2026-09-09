@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Workshop It! — Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+
+  <h1 class="title">Workshop it!</h1>
+  <p class="tagline">// run the pace framework on a brand with your team</p>
+
+  <form class="exercise" data-exercise="pace-workshop" data-next="answers.html">
+    <div class="field">
+      <label for="f-brand">brand</label>
+      <input id="f-brand" name="brand" type="text" required>
+    </div>
+    <div class="field">
+      <label for="f-product">product</label>
+      <input id="f-product" name="product" type="text" required>
+    </div>
+    <div class="field">
+      <label for="f-prognosis">Prognosis</label>
+      <textarea id="f-prognosis" name="prognosis"></textarea>
+    </div>
+    <div class="field">
+      <label for="f-activity">Activity</label>
+      <textarea id="f-activity" name="activity"></textarea>
+    </div>
+    <div class="field">
+      <label for="f-criteria">Criteria</label>
+      <textarea id="f-criteria" name="criteria"></textarea>
+    </div>
+    <div class="field">
+      <label for="f-event">Event</label>
+      <textarea id="f-event" name="event"></textarea>
+    </div>
+    <button class="send" type="submit">→ send it</button>
+    <p class="status muted"></p>
+  </form>
+
+</main>
+<script src="workshop.js"></script>
+</body>
+</html>

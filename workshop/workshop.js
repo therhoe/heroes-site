@@ -2,6 +2,7 @@
   // Google Apps Script web app URL for workshop submissions.
   // Deploy .claude/scripts/workshop-apps-script.gs, then paste the /exec URL here.
   var ENDPOINT = '';
+  window.WORKSHOP_ENDPOINT = ENDPOINT; // answers.html reads submissions from here
 
   // the hub page every session starts from and returns to
   var CONTENTS = 'index.html';
@@ -113,6 +114,16 @@
         status.className = 'status ok';
         status.textContent = '// got it. saved.';
         btn.disabled = false;
+        var next = form.getAttribute('data-next');
+        if (next) {
+          try {
+            sessionStorage.setItem('workshop_last_submission', JSON.stringify({
+              exercise: form.getAttribute('data-exercise') || '',
+              answers: answers
+            }));
+          } catch (e) {}
+          setTimeout(function () { location.href = next; }, 700);
+        }
       }).catch(function () {
         status.className = 'status bad';
         status.textContent = '// something broke — email it to shep@therealheroesofecommerce.com instead';

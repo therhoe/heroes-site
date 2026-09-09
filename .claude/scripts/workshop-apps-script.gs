@@ -9,9 +9,13 @@
  *      - Who has access: Anyone
  * 4. Copy the /exec URL into ENDPOINT at the top of workshop/workshop.js.
  *
- * Each submission appends a row: timestamp, email, page, exercise,
- * answers (one per line), and Drive links to any uploaded screenshots.
- * Screenshots land in a Drive folder named "workshop-submissions".
+ * doPost appends a row per submission: timestamp, email, page, exercise,
+ * answers (one per line), Drive links to any uploaded screenshots, and
+ * the raw answers as JSON (used by doGet).
+ *
+ * doGet returns submissions as JSON for the answers page
+ * (?exercise=pace-workshop filters). Emails are NEVER included in the
+ * doGet output — the endpoint is public.
  */
 
 var FOLDER_NAME = 'workshop-submissions';
@@ -43,10 +47,27 @@ function doPost(e) {
     data.page || '',
     data.exercise || '',
     answerText,
-    links.join('\n')
+    links.join('\n'),
+    JSON.stringify(answers)
   ]);
 
   return ContentService.createTextOutput('ok');
+}
+
+function doGet(e) {
+  var rows = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0].getDataRange().getValues();
+  var want = (e.parameter && e.parameter.exercise) || '';
+  var out = [];
+  rows.forEach(function (r) {
+    // columns: 0 timestamp, 1 email, 2 page, 3 exercise, 4 text, 5 links, 6 json
+    if (!r[0] || !r[6]) return;
+    if (want && r[3] !== want) return;
+    var answers = {};
+    try { answers = JSON.parse(r[6]); } catch (err) { return; }
+    out.push({ t: String(r[0]), exercise: r[3], answers: answers });
+  });
+  return ContentService.createTextOutput(JSON.stringify(out))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function getFolder_() {
