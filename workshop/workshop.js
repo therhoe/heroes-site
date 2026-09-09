@@ -11,7 +11,8 @@
   var SESSIONS = [
     ['journey-1.html', 'journey-2.html', 'journey-3.html', 'pace-intro.html',
      'pace.html', 'pace-overview.html',
-     'pace-p.html', 'pace-a.html', 'pace-c.html', 'pace-e.html'],
+     'pace-p.html', 'pace-a.html', 'pace-c.html', 'pace-e.html',
+     'together.html', 'together-p.html', 'together-a.html', 'together-c.html', 'together-e.html'],
     ['analytics.html'],
     ['testing.html'],
     ['confidence.html']
