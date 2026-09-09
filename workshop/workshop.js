@@ -1,7 +1,7 @@
 (function () {
   // Google Apps Script web app URL for workshop submissions.
   // Deploy .claude/scripts/workshop-apps-script.gs, then paste the /exec URL here.
-  var ENDPOINT = '';
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwbEk18wCCbw1P3vqsI1s82Hteb4u_SLfa1WeWnzzfodorKr1eihNI6lOaiNJscnbbE-Q/exec';
   window.WORKSHOP_ENDPOINT = ENDPOINT; // answers.html reads submissions from here
 
   // the hub page every session starts from and returns to
