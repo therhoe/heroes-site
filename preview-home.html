@@ -90,15 +90,14 @@ sitemap: false
     .btn:hover { filter: brightness(0.9); }
     .btn.active { filter: brightness(0.85); }
 
-    /* --- expandable panels (roll down smoothly) --- */
+    /* --- expandable panels (roll down smoothly, height animated in JS) --- */
     .panel {
-      display: grid;
-      grid-template-rows: 0fr;
+      height: 0;
+      overflow: hidden;
       margin: 0;
-      transition: grid-template-rows 0.45s ease, margin 0.45s ease;
+      transition: height 0.45s ease, margin 0.45s ease;
     }
-    .panel.open { grid-template-rows: 1fr; margin: 20px 0 8px; }
-    .panel-inner { overflow: hidden; min-height: 0; }
+    .panel.open { margin: 20px 0 8px; }
     .panel-content {
       border-top: 1px dashed #d8d8d8;
       padding-top: 24px;
@@ -274,14 +273,31 @@ sitemap: false
 (function () {
   // toggle buttons — one panel open at a time, active button stays pressed
   var toggles = document.querySelectorAll('.btn[data-panel]');
+
+  function openPanel(p) {
+    p.classList.add('open');
+    p.style.height = p.scrollHeight + 'px';
+    p.addEventListener('transitionend', function done(e) {
+      if (e.propertyName !== 'height') return;
+      if (p.classList.contains('open')) p.style.height = 'auto';
+      p.removeEventListener('transitionend', done);
+    });
+  }
+  function closePanel(p) {
+    p.style.height = p.scrollHeight + 'px';
+    void p.offsetHeight; /* flush so the shrink animates */
+    p.style.height = '0px';
+    p.classList.remove('open');
+  }
+
   toggles.forEach(function (btn) {
     btn.addEventListener('click', function () {
       var target = document.getElementById(btn.getAttribute('data-panel'));
       var wasOpen = target.classList.contains('open');
-      document.querySelectorAll('.panel.open').forEach(function (p) { p.classList.remove('open'); });
+      document.querySelectorAll('.panel.open').forEach(closePanel);
       toggles.forEach(function (b) { b.classList.remove('active'); });
       if (!wasOpen) {
-        target.classList.add('open');
+        openPanel(target);
         btn.classList.add('active');
       }
     });
