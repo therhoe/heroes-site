@@ -75,7 +75,7 @@ sitemap: false
       margin: 0 0 24px;
     }
 
-    /* --- colored link/toggle buttons --- */
+    /* --- colored toggle buttons --- */
     .btnlinks { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 8px; }
     .btn {
       display: inline-block;
@@ -85,15 +85,25 @@ sitemap: false
       background: var(--c);
       border: 1px solid #1a1a1a;
       padding: 10px 18px;
-      text-decoration: none;
       cursor: pointer;
     }
-    .btn:hover { background: var(--c); color: #1a1a1a; filter: brightness(0.9); text-decoration: none; }
+    .btn:hover { filter: brightness(0.9); }
+    .btn.active { filter: brightness(0.85); }
 
-    /* --- expandable panels under the buttons --- */
-    .panel { display: none; margin: 28px 0 8px; }
-    .panel.open { display: block; }
-    .panel > h1:first-child { margin-top: 0; }
+    /* --- expandable panels (roll down smoothly) --- */
+    .panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      margin: 0;
+      transition: grid-template-rows 0.45s ease, margin 0.45s ease;
+    }
+    .panel.open { grid-template-rows: 1fr; margin: 20px 0 8px; }
+    .panel-inner { overflow: hidden; min-height: 0; }
+    .panel-content {
+      border-top: 1px dashed #d8d8d8;
+      padding-top: 24px;
+    }
+    .panel-content > h1:first-child { margin-top: 0; }
 
     /* lead form (same as the services page) */
     form.lead { max-width: 480px; }
@@ -147,14 +157,14 @@ sitemap: false
 
   <div class="btnlinks">
     <button class="btn" style="--c:#E25749" data-panel="panel-services" type="button">ecommerce cro</button>
-    <a class="btn" style="--c:#4A90D9" href="snapshot-cro.html">snapshot cro</a>
+    <button class="btn" style="--c:#4A90D9" data-panel="panel-snapshot" type="button">snapshot cro</button>
     <button class="btn" style="--c:#FFC42A" data-panel="panel-posts" type="button">the rhoe newsletter</button>
-    <a class="btn" style="--c:#58B368" href="/workshop/">the workshop</a>
+    <button class="btn" style="--c:#58B368" data-panel="panel-workshop" type="button">the workshop</button>
     <button class="btn" style="--c:#F28C28" data-panel="panel-contact" type="button">contact me</button>
   </div>
 
   <!-- services, inline from the services page -->
-  <div class="panel" id="panel-services">
+  <div class="panel" id="panel-services"><div class="panel-inner"><div class="panel-content">
     <p>We built our optimization workflow into our Shopify app — <a href="/snapshot-cro.html">Snapshot CRO</a>:</p>
     <ul>
       <li>audit your store for page performance</li>
@@ -191,10 +201,22 @@ sitemap: false
       <button class="send" type="submit">→ send it</button>
       <p class="formstatus muted"></p>
     </form>
-  </div>
+  </div></div></div>
+
+  <!-- snapshot cro app -->
+  <div class="panel" id="panel-snapshot"><div class="panel-inner"><div class="panel-content">
+    <p>Snapshot CRO is our Shopify app — behavioral analytics + a/b testing built for small stores doing conversion rate optimization.</p>
+    <ul>
+      <li>store snapshot shows you which page to optimize next</li>
+      <li>behavioral data shows you what on the page to fix</li>
+      <li>a/b testing lets template battle template</li>
+    </ul>
+    <p><a href="https://apps.shopify.com/snapshot-cro">→ install Snapshot CRO on Shopify</a></p>
+    <p><a href="/snapshot-cro.html">→ read more about the app</a></p>
+  </div></div></div>
 
   <!-- latest posts -->
-  <div class="panel" id="panel-posts">
+  <div class="panel" id="panel-posts"><div class="panel-inner"><div class="panel-content">
     <p><a href="/newsletter/">→ see full list of nonsense</a></p>
     <ul>
       {% assign issues = site.newsletter | sort: "date" | reverse %}
@@ -202,10 +224,17 @@ sitemap: false
       <li><a href="{{ p.url }}">{{ p.title }}</a> <span class="note">({{ p.date | date: "%b %Y" | downcase }})</span></li>
       {% endfor %}
     </ul>
-  </div>
+  </div></div></div>
+
+  <!-- workshop -->
+  <div class="panel" id="panel-workshop"><div class="panel-inner"><div class="panel-content">
+    <p>The workshop is a live training we run with ecommerce teams — four sessions on understanding the customer journey, research &amp; analysis, roadmapping, and testing &amp; confidence. Slides, exercises, and homework included.</p>
+    <p class="muted">// placeholder copy — real pitch coming</p>
+    <p><a href="/workshop/">→ get started</a></p>
+  </div></div></div>
 
   <!-- contact -->
-  <div class="panel" id="panel-contact">
+  <div class="panel" id="panel-contact"><div class="panel-inner"><div class="panel-content">
     <p><a href="https://www.linkedin.com/in/jasonsdshepherd/">→ find me on linkedin</a></p>
     <form class="lead">
       <div class="field">
@@ -231,25 +260,30 @@ sitemap: false
       <button class="send" type="submit">→ send it</button>
       <p class="formstatus muted"></p>
     </form>
-  </div>
+  </div></div></div>
 
   <h1>subscribe to spam</h1>
   {% include subscribe-email.html %}
 
   <footer>
-    &copy; 2026 the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>
+    &copy; 2026 the real heroes of ecommerce
   </footer>
 
 </main>
 <script>
 (function () {
-  // toggle buttons — one panel open at a time
-  document.querySelectorAll('.btn[data-panel]').forEach(function (btn) {
+  // toggle buttons — one panel open at a time, active button stays pressed
+  var toggles = document.querySelectorAll('.btn[data-panel]');
+  toggles.forEach(function (btn) {
     btn.addEventListener('click', function () {
       var target = document.getElementById(btn.getAttribute('data-panel'));
       var wasOpen = target.classList.contains('open');
       document.querySelectorAll('.panel.open').forEach(function (p) { p.classList.remove('open'); });
-      if (!wasOpen) target.classList.add('open');
+      toggles.forEach(function (b) { b.classList.remove('active'); });
+      if (!wasOpen) {
+        target.classList.add('open');
+        btn.classList.add('active');
+      }
     });
   });
 
@@ -274,7 +308,7 @@ sitemap: false
         btn.disabled = false;
       }).catch(function () {
         status.className = 'formstatus bad';
-        status.textContent = '// that didn\'t go through — email me instead: shep@therealheroesofecommerce.com';
+        status.textContent = '// that didn\'t go through — try linkedin instead.';
         btn.disabled = false;
       });
     });
