@@ -49,5 +49,10 @@ The site mimics a rendered markdown/terminal document. Casing rules:
 Shep writes with auto-capitalizing tools and pastes copy in inconsistently —
 normalizing pasted copy to this pattern is Claude's job, every time.
 
+**Typos in Shep's copy**: fix a missing word or mis-capitalization that
+breaks the meaning. Do NOT "fix" grammatical quirks that could be
+deliberate, or creative spellings ("secret layer", "tons of nonsense") —
+when in doubt, keep it verbatim and flag it instead.
+
 **EXCEPTION: newsletter posts** (`_newsletter/*.html`) keep their exact
 source formatting and capitalization. Never restyle article content.
