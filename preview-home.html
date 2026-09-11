@@ -154,11 +154,19 @@ sitemap: false
   </div>
 
   <div class="btnlinks">
+    <button class="btn" data-panel="panel-home" type="button" aria-label="home" title="home"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="display:block" aria-hidden="true"><path d="M2 7.5 8 2l6 5.5"/><path d="M3.5 7v6.5h9V7"/><path d="M6.5 13.5V9.5h3v4"/></svg></button>
     <button class="btn" data-panel="panel-learn" type="button">learn cro</button>
     <button class="btn" data-panel="panel-services" type="button">services</button>
     <button class="btn" data-panel="panel-posts" type="button">newsletter</button>
     <button class="btn" data-panel="panel-contact" type="button">say hello</button>
   </div>
+
+  <!-- home (auto-open on landing) -->
+  <div class="panel" id="panel-home"><div class="panel-inner"><div class="panel-content">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p class="muted">// placeholder — shep writes this</p>
+  </div></div></div>
 
   <!-- learn cro -->
   <div class="panel" id="panel-learn"><div class="panel-inner"><div class="panel-content">
@@ -288,6 +296,15 @@ sitemap: false
       }
     });
   });
+
+  // land on the home panel, already open (no roll-down on load)
+  var home = document.getElementById('panel-home');
+  home.classList.add('open');
+  home.style.transition = 'none';
+  home.style.height = 'auto';
+  void home.offsetHeight;
+  home.style.transition = '';
+  document.querySelector('.btn[data-panel="panel-home"]').classList.add('active');
 
   // lead forms — same Apps Script endpoint as the services page (rhoe-cro-leads sheet)
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyLFgWFPjj3ml9LRYgYggpHXpb4NG8pCHk_Dertri-Q86tgFzbd_zdprpsK_7c3PJlJ/exec';
