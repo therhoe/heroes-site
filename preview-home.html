@@ -69,26 +69,24 @@ sitemap: false
 
     .whatis img {
       display: block;
-      max-width: 560px;
       width: 100%;
       height: auto;
       margin: 0 0 24px;
     }
 
-    /* --- colored toggle buttons --- */
+    /* --- toggle buttons --- */
     .btnlinks { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 8px; }
     .btn {
       display: inline-block;
       font: inherit;
       font-weight: 500;
       color: #1a1a1a;
-      background: var(--c);
+      background: transparent;
       border: 1px solid #1a1a1a;
       padding: 10px 18px;
       cursor: pointer;
     }
-    .btn:hover { filter: brightness(0.9); }
-    .btn.active { filter: brightness(0.85); }
+    .btn:hover, .btn.active { background: #FFC42A; }
 
     /* --- expandable panels (roll down smoothly, height animated in JS) --- */
     .panel {
@@ -155,12 +153,18 @@ sitemap: false
   </div>
 
   <div class="btnlinks">
-    <button class="btn" style="--c:#E25749" data-panel="panel-services" type="button">ecommerce cro</button>
-    <button class="btn" style="--c:#4A90D9" data-panel="panel-snapshot" type="button">snapshot cro</button>
-    <button class="btn" style="--c:#FFC42A" data-panel="panel-posts" type="button">the rhoe newsletter</button>
-    <button class="btn" style="--c:#58B368" data-panel="panel-workshop" type="button">the workshop</button>
-    <button class="btn" style="--c:#F28C28" data-panel="panel-contact" type="button">contact me</button>
+    <button class="btn" data-panel="panel-learn" type="button">learn cro</button>
+    <button class="btn" data-panel="panel-services" type="button">services</button>
+    <button class="btn" data-panel="panel-posts" type="button">newsletter</button>
+    <button class="btn" data-panel="panel-contact" type="button">say hello</button>
   </div>
+
+  <!-- learn cro -->
+  <div class="panel" id="panel-learn"><div class="panel-inner"><div class="panel-content">
+    <p>Everything we know about conversion rate optimization, taught the way we actually do it — finding problems before guessing at solutions.</p>
+    <p class="muted">// placeholder copy — real pitch coming</p>
+    <p><a href="/learn-cro.html">→ start learning</a></p>
+  </div></div></div>
 
   <!-- services, inline from the services page -->
   <div class="panel" id="panel-services"><div class="panel-inner"><div class="panel-content">
@@ -202,18 +206,6 @@ sitemap: false
     </form>
   </div></div></div>
 
-  <!-- snapshot cro app -->
-  <div class="panel" id="panel-snapshot"><div class="panel-inner"><div class="panel-content">
-    <p>Snapshot CRO is our Shopify app — behavioral analytics + a/b testing built for small stores doing conversion rate optimization.</p>
-    <ul>
-      <li>store snapshot shows you which page to optimize next</li>
-      <li>behavioral data shows you what on the page to fix</li>
-      <li>a/b testing lets template battle template</li>
-    </ul>
-    <p><a href="https://apps.shopify.com/snapshot-cro">→ install Snapshot CRO on Shopify</a></p>
-    <p><a href="/snapshot-cro.html">→ read more about the app</a></p>
-  </div></div></div>
-
   <!-- latest posts -->
   <div class="panel" id="panel-posts"><div class="panel-inner"><div class="panel-content">
     <p><a href="/newsletter/">→ see full list of nonsense</a></p>
@@ -223,13 +215,6 @@ sitemap: false
       <li><a href="{{ p.url }}">{{ p.title }}</a> <span class="note">({{ p.date | date: "%b %Y" | downcase }})</span></li>
       {% endfor %}
     </ul>
-  </div></div></div>
-
-  <!-- workshop -->
-  <div class="panel" id="panel-workshop"><div class="panel-inner"><div class="panel-content">
-    <p>The workshop is a live training we run with ecommerce teams — four sessions on understanding the customer journey, research &amp; analysis, roadmapping, and testing &amp; confidence. Slides, exercises, and homework included.</p>
-    <p class="muted">// placeholder copy — real pitch coming</p>
-    <p><a href="/workshop/">→ get started</a></p>
   </div></div></div>
 
   <!-- contact -->
