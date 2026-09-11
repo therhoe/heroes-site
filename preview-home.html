@@ -61,6 +61,17 @@ sitemap: false
     }
     a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
     .note { color: #999; }
+    .btnlinks { display: flex; flex-direction: column; gap: 10px; max-width: 420px; margin: 12px 0 0; }
+    .btnlinks a {
+      display: block;
+      border: 1px solid #1a1a1a;
+      padding: 10px 18px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .btnlinks a .note { font-weight: 400; }
+    .btnlinks a:hover { background: #1a1a1a; color: #ffffff; }
+    .btnlinks a:hover .note { color: #d8d8d8; }
     footer {
       margin-top: 72px;
       color: #999;
@@ -80,12 +91,13 @@ sitemap: false
   <p class="tagline">// conversion rate optimization experts for shopify.</p>
 
   <h1>links</h1>
-  <ul>
-    <li><a href="hire-cro-agency.html">ecommerce cro</a> <span class="note">(our service)</span></li>
-    <li><a href="snapshot-cro.html">snapshot cro</a> <span class="note">(shopify app)</span></li>
-    <li><a href="/newsletter/">the rhoe newsletter</a> <span class="note">(all posts)</span></li>
-    <li><a href="https://www.linkedin.com/in/jasonsdshepherd/">contact me</a> <span class="note">(via linkedin)</span></li>
-  </ul>
+  <div class="btnlinks">
+    <a href="hire-cro-agency.html">ecommerce cro <span class="note">(our service)</span></a>
+    <a href="snapshot-cro.html">snapshot cro <span class="note">(shopify app)</span></a>
+    <a href="/newsletter/">the rhoe newsletter <span class="note">(all posts)</span></a>
+    <a href="/workshop/">the workshop <span class="note">(live presentation)</span></a>
+    <a href="https://www.linkedin.com/in/jasonsdshepherd/">contact me <span class="note">(via linkedin)</span></a>
+  </div>
 
   <h1>the rhoe posts</h1>
   <ul id="latest">
