@@ -54,6 +54,33 @@
     a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; }
     a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
     .muted { color: #999; }
+    .note { color: #999; }
+
+    /* --- toggle buttons + panels (same as homepage preview) --- */
+    .btnlinks { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 8px; }
+    .btn {
+      display: inline-block;
+      font: inherit;
+      font-weight: 500;
+      color: #1a1a1a;
+      background: transparent;
+      border: 1px solid #1a1a1a;
+      padding: 10px 18px;
+      cursor: pointer;
+    }
+    .btn:hover, .btn.active { background: #FFC42A; }
+    .panel {
+      height: 0;
+      overflow: hidden;
+      margin: 0;
+      transition: height 0.45s ease, margin 0.45s ease;
+    }
+    .panel.open { margin: 20px 0 8px; }
+    .panel-content {
+      border-top: 1px dashed #d8d8d8;
+      padding-top: 24px;
+    }
+
     footer {
       margin-top: 72px;
       color: #999;
@@ -73,12 +100,105 @@
   <h1 class="title">Learn CRO</h1>
   <p class="tagline">// conversion rate optimization, taught the way we actually do it</p>
 
-  <p class="muted">// placeholder — this page is under construction</p>
+  <h1>PACE framework</h1>
+  <div class="btnlinks">
+    <button class="btn" data-panel="panel-prognosis" type="button">prognosis</button>
+    <button class="btn" data-panel="panel-activity" type="button">activity</button>
+    <button class="btn" data-panel="panel-criteria" type="button">criteria</button>
+    <button class="btn" data-panel="panel-event" type="button">event</button>
+  </div>
+
+  <div class="panel" id="panel-prognosis"><div class="panel-inner"><div class="panel-content">
+    <p>This is rooted in the "Jobs To Be Done" concept:</p>
+    <p>The Jobs-to-be-Done (JTBD) framework is a customer-centric mindset that states people do not just buy products; they "hire" them to make progress and solve specific problems in their lives. <span class="muted">(credit to Clayton Christensen)</span></p>
+    <p>Framing JTBD for product types:</p>
+    <ul>
+      <li>Problem -- Solve</li>
+      <li>Pain Point -- Relieve</li>
+      <li>Promise -- Attract</li>
+    </ul>
+  </div></div></div>
+
+  <div class="panel" id="panel-activity"><div class="panel-inner"><div class="panel-content">
+    <p>Based on the product type, you will seek out information in various ways, or a brand will be seeking you out. This can be on social, search, ads, friend recommendations, forums, articles &amp; media...</p>
+    <p>Where do you go?</p>
+    <p>What do you do?</p>
+  </div></div></div>
+
+  <div class="panel" id="panel-criteria"><div class="panel-inner"><div class="panel-content">
+    <p>What do you think the product needs to have in order for it to be the right one? And vice versa, what might disqualify a product from being right for you?</p>
+    <ul>
+      <li>Specs &amp; Features</li>
+      <li>Disqualifiers</li>
+    </ul>
+  </div></div></div>
+
+  <div class="panel" id="panel-event"><div class="panel-inner"><div class="panel-content">
+    <p>What pushes you to make the final decision to purchase</p>
+    <ul>
+      <li>Are you waiting for something?</li>
+      <li>Do you need a nudge?</li>
+      <li>Is it time sensitive or urgent?</li>
+      <li>Can a competitor poach them?</li>
+      <li>Is this product a commodity to be chosen on a marketplace?</li>
+    </ul>
+  </div></div></div>
+
+  <h1>quant analysis</h1>
+  <ul>
+    <li><a href="https://analytics.google.com/">Google Analytics</a></li>
+    <li><a href="https://www.shopify.com/analytics">Shopify Analytics</a></li>
+    <li><a href="/snapshot-cro.html">Snapshot CRO</a></li>
+    <li><a href="https://clarity.microsoft.com/">Microsoft Clarity</a></li>
+  </ul>
+
+  <h1>qual research</h1>
+  <ul>
+    <li><a href="#">customer interviews</a> <span class="note">(coming soon)</span></li>
+    <li><a href="#">tools &amp; apps</a> <span class="note">(coming soon)</span></li>
+  </ul>
+
+  <h1>experimentation</h1>
+  <p class="muted">// coming soon</p>
 
   <footer>
     <a href="/">← back to index</a> &middot; &copy; 2026 the real heroes of ecommerce
   </footer>
 
 </main>
+<script>
+(function () {
+  var toggles = document.querySelectorAll('.btn[data-panel]');
+
+  function openPanel(p) {
+    p.classList.add('open');
+    p.style.height = p.scrollHeight + 'px';
+    p.addEventListener('transitionend', function done(e) {
+      if (e.propertyName !== 'height') return;
+      if (p.classList.contains('open')) p.style.height = 'auto';
+      p.removeEventListener('transitionend', done);
+    });
+  }
+  function closePanel(p) {
+    p.style.height = p.scrollHeight + 'px';
+    void p.offsetHeight;
+    p.style.height = '0px';
+    p.classList.remove('open');
+  }
+
+  toggles.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var target = document.getElementById(btn.getAttribute('data-panel'));
+      var wasOpen = target.classList.contains('open');
+      document.querySelectorAll('.panel.open').forEach(closePanel);
+      toggles.forEach(function (b) { b.classList.remove('active'); });
+      if (!wasOpen) {
+        openPanel(target);
+        btn.classList.add('active');
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
