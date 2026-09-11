@@ -103,6 +103,20 @@ sitemap: false
       padding-top: 24px;
     }
     .panel-content > h1:first-child { margin-top: 0; }
+    .panel-content ul { margin: 0 0 16px; }
+
+    /* newsletter archive search (same as /newsletter/) */
+    #q {
+      width: 100%;
+      font: inherit;
+      color: inherit;
+      background: #ffffff;
+      border: 1px solid #1a1a1a;
+      padding: 8px 12px;
+      margin: 0 0 28px;
+    }
+    #q:focus { outline: 2px solid #1a1a1a; outline-offset: -1px; }
+    #empty { color: #999; display: none; }
 
     /* lead form (same as the services page) */
     form.lead { max-width: 480px; }
@@ -219,15 +233,19 @@ sitemap: false
     </form>
   </div></div></div>
 
-  <!-- latest posts -->
+  <!-- newsletter archive (same as /newsletter/) -->
   <div class="panel" id="panel-posts"><div class="panel-inner"><div class="panel-content">
-    <p><a href="/newsletter/">→ see full list of nonsense</a></p>
-    <ul>
+    <p class="muted">// the building-in-public archive. new issues go out by email.</p>
+    <input id="q" type="search" placeholder="search by keyword…" aria-label="search newsletter archive">
+    <ul id="plist">
       {% assign issues = site.newsletter | sort: "date" | reverse %}
-      {% for p in issues limit:5 %}
-      <li><a href="{{ p.url }}">{{ p.title }}</a> <span class="note">({{ p.date | date: "%b %Y" | downcase }})</span></li>
+      {% for p in issues %}
+      <li data-search="{{ p.title | downcase }} {{ p.description | downcase }}">
+        <a href="{{ p.url }}">{{ p.title }}</a> <span class="note">({{ p.date | date: "%b %Y" | downcase }})</span>
+      </li>
       {% endfor %}
     </ul>
+    <p id="empty">// nothing matches. try fewer letters.</p>
   </div></div></div>
 
   <!-- contact -->
@@ -309,6 +327,21 @@ sitemap: false
   void home.offsetHeight;
   home.style.transition = '';
   document.querySelector('.btn[data-panel="panel-home"]').classList.add('active');
+
+  // newsletter archive search (same behavior as /newsletter/)
+  var q = document.getElementById('q');
+  var items = document.querySelectorAll('#plist li');
+  var empty = document.getElementById('empty');
+  q.addEventListener('input', function () {
+    var text = q.value.trim().toLowerCase();
+    var shown = 0;
+    items.forEach(function (li) {
+      var show = !text || li.getAttribute('data-search').indexOf(text) !== -1;
+      li.style.display = show ? '' : 'none';
+      if (show) shown++;
+    });
+    empty.style.display = shown ? 'none' : '';
+  });
 
   // lead forms — same Apps Script endpoint as the services page (rhoe-cro-leads sheet)
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyLFgWFPjj3ml9LRYgYggpHXpb4NG8pCHk_Dertri-Q86tgFzbd_zdprpsK_7c3PJlJ/exec';
