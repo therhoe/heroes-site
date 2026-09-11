@@ -30,10 +30,11 @@
       max-width: 190px;
       width: 100%;
       height: auto;
+      margin: 0 0 28px;
     }
-    .tagline {
-      color: #666;
-      margin: 12px 0 56px;
+    .home-headline {
+      color: #1a1a1a;
+      margin: 0 0 20px;
     }
     h1 {
       font-size: 15px;
@@ -55,6 +56,76 @@
     }
     a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
     .note { color: #999; }
+    .muted { color: #999; }
+    .ok { color: #1a7f37; }
+    .bad { color: #c0392b; }
+    .warn { color: #b35900; }
+    p { margin: 0 0 16px; }
+
+    .whatis img {
+      display: block;
+      max-width: 560px;
+      width: 100%;
+      height: auto;
+      margin: 0 0 24px;
+    }
+
+    /* --- toggle buttons (the menu) --- */
+    .btnlinks { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 8px; }
+    .btn {
+      display: inline-block;
+      font: inherit;
+      font-weight: 500;
+      color: #1a1a1a;
+      background: transparent;
+      border: 1px solid #1a1a1a;
+      padding: 10px 18px;
+      cursor: pointer;
+    }
+    .btn:hover, .btn.active { background: #FFC42A; }
+
+    /* --- expandable panels (roll down smoothly, height animated in JS) --- */
+    .panel {
+      height: 0;
+      overflow: hidden;
+      margin: 0;
+      transition: height 0.45s ease, margin 0.45s ease;
+    }
+    .panel.open { margin: 20px 0 8px; }
+    .panel-content {
+      border-top: 1px dashed #d8d8d8;
+      padding-top: 24px;
+    }
+    .panel-content > h1:first-child { margin-top: 0; }
+
+    /* lead form (same as the services page) */
+    form.lead { max-width: 480px; }
+    .field { margin: 0 0 14px; }
+    .field label { display: block; color: #666; font-size: 13px; margin: 0 0 4px; }
+    .field input, .field textarea {
+      width: 100%;
+      font: inherit;
+      color: inherit;
+      background: #ffffff;
+      border: 1px solid #1a1a1a;
+      padding: 9px 12px;
+    }
+    .field textarea { min-height: 110px; resize: vertical; }
+    .field input:focus, .field textarea:focus { outline: 2px solid #1a1a1a; outline-offset: -1px; }
+    .hp { position: absolute; left: -9999px; top: -9999px; }
+    button.send {
+      font: inherit;
+      font-weight: 500;
+      color: #1a1a1a;
+      background: #ffffff;
+      border: 1px solid #1a1a1a;
+      padding: 10px 18px;
+      cursor: pointer;
+    }
+    button.send:hover { background: #1a1a1a; color: #ffffff; }
+    button.send:disabled { opacity: 0.5; cursor: wait; }
+    .formstatus { margin: 10px 0 0; }
+
     footer {
       margin-top: 72px;
       color: #999;
@@ -69,45 +140,189 @@
   <div class="logo">
     <img src="logo.png" alt="The Real Heroes of Ecommerce">
   </div>
-  <h1>links</h1>
-  <ul>
-    <li><a href="hire-cro-agency.html">ecommerce cro</a> <span class="note">(our service)</span></li>
-    <li><a href="snapshot-cro.html">snapshot cro</a> <span class="note">(shopify app)</span></li>
-    <li><a href="/newsletter/">the rhoe newsletter</a> <span class="note">(all posts)</span></li>
-    <li><a href="/workshop/intro.html">the workshop</a> <span class="note">(live presentation)</span></li>
-    <li><a href="https://www.linkedin.com/in/jasonsdshepherd/">contact me</a> <span class="note">(via linkedin)</span></li>
-  </ul>
 
-  <h1>the rhoe posts</h1>
-  <ul id="latest">
-    {% assign issues = site.newsletter | sort: "date" | reverse %}
-    {% for p in issues %}
-    <li{% if forloop.index > 9 %} hidden{% endif %}>
-      <a href="{{ p.url }}">{{ p.title }}</a> <span class="note">({{ p.date | date: "%b %Y" | downcase }})</span>
-    </li>
-    {% endfor %}
-  </ul>
-  <p id="showmore-line"><a href="#" id="showmore">→ show all {{ site.newsletter | size }} posts</a></p>
+  <div class="btnlinks">
+    <button class="btn" data-panel="panel-home" type="button" aria-label="home" title="home"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="display:block" aria-hidden="true"><path d="M2 7.5 8 2l6 5.5"/><path d="M3.5 7v6.5h9V7"/><path d="M6.5 13.5V9.5h3v4"/></svg></button>
+    <button class="btn" data-panel="panel-learn" type="button">learn cro</button>
+    <button class="btn" data-panel="panel-services" type="button">services</button>
+    <button class="btn" data-panel="panel-posts" type="button">newsletter</button>
+    <button class="btn" data-panel="panel-contact" type="button">say hello</button>
+  </div>
+
+  <!-- home (auto-open on landing) -->
+  <div class="panel" id="panel-home"><div class="panel-inner"><div class="panel-content">
+    <p class="home-headline">// welcome to The Real Heroes of Ecommerce</p>
+    <div class="whatis">
+      <img src="what-is-this-place.png" alt="pixel comic: what is this place? It's our secret layer…">
+    </div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p class="muted">// placeholder — shep writes this</p>
+  </div></div></div>
+
+  <!-- learn cro -->
+  <div class="panel" id="panel-learn"><div class="panel-inner"><div class="panel-content">
+    <p>Everything we know about conversion rate optimization, taught the way we actually do it — finding problems before guessing at solutions.</p>
+    <p class="muted">// placeholder copy — real pitch coming</p>
+    <p><a href="/learn-cro.html">→ start learning</a></p>
+  </div></div></div>
+
+  <!-- services, inline from the services page -->
+  <div class="panel" id="panel-services"><div class="panel-inner"><div class="panel-content">
+    <p>We built our optimization workflow into our Shopify app — <a href="/snapshot-cro.html">Snapshot CRO</a>:</p>
+    <ul>
+      <li>audit your store for page performance</li>
+      <li>audit pages for leaks and opportunities</li>
+      <li>remove roadblocks and smooth out the buying process</li>
+      <li>test everything</li>
+    </ul>
+    <p>We offer complete CRO services on both an ongoing or project basis.</p>
+    <p>Pricing is based on scope, but for a reference, ongoing cro starts at $3,000/month.</p>
+    <p>There is just two of us — a seasoned cro + an amazing dev — so you talk to the people who are doing the cro, not a bunch of back and forth.</p>
+
+    <h1>how you can get started</h1>
+    <form class="lead">
+      <div class="field">
+        <label for="s-name">name</label>
+        <input id="s-name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="s-email">email</label>
+        <input id="s-email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="s-brand">brand / store</label>
+        <input id="s-brand" name="brand" type="text" autocomplete="organization">
+      </div>
+      <div class="field">
+        <label for="s-looking">what's up</label>
+        <textarea id="s-looking" name="looking"></textarea>
+      </div>
+      <div class="hp" aria-hidden="true">
+        <label for="s-company">company</label>
+        <input id="s-company" name="company" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <button class="send" type="submit">→ send it</button>
+      <p class="formstatus muted"></p>
+    </form>
+  </div></div></div>
+
+  <!-- latest posts -->
+  <div class="panel" id="panel-posts"><div class="panel-inner"><div class="panel-content">
+    <p><a href="/newsletter/">→ see full list of nonsense</a></p>
+    <ul>
+      {% assign issues = site.newsletter | sort: "date" | reverse %}
+      {% for p in issues limit:5 %}
+      <li><a href="{{ p.url }}">{{ p.title }}</a> <span class="note">({{ p.date | date: "%b %Y" | downcase }})</span></li>
+      {% endfor %}
+    </ul>
+  </div></div></div>
+
+  <!-- contact -->
+  <div class="panel" id="panel-contact"><div class="panel-inner"><div class="panel-content">
+    <p><a href="https://www.linkedin.com/in/jasonsdshepherd/">→ find me on linkedin</a></p>
+    <form class="lead">
+      <div class="field">
+        <label for="c-name">name</label>
+        <input id="c-name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="c-email">email</label>
+        <input id="c-email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="c-brand">brand / store</label>
+        <input id="c-brand" name="brand" type="text" autocomplete="organization">
+      </div>
+      <div class="field">
+        <label for="c-looking">what's up</label>
+        <textarea id="c-looking" name="looking"></textarea>
+      </div>
+      <div class="hp" aria-hidden="true">
+        <label for="c-company">company</label>
+        <input id="c-company" name="company" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <button class="send" type="submit">→ send it</button>
+      <p class="formstatus muted"></p>
+    </form>
+  </div></div></div>
 
   <h1>subscribe to spam</h1>
   {% include subscribe-email.html %}
 
   <footer>
-    &copy; 2026 the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>
+    &copy; 2026 the real heroes of ecommerce
   </footer>
 
 </main>
 <script>
 (function () {
-  var btn = document.getElementById('showmore');
-  if (!btn) return;
-  btn.addEventListener('click', function (e) {
-    e.preventDefault();
-    document.querySelectorAll('#latest li[hidden]').forEach(function (li) {
-      li.removeAttribute('hidden');
+  // toggle buttons — one panel open at a time, active button stays pressed
+  var toggles = document.querySelectorAll('.btn[data-panel]');
+
+  function openPanel(p) {
+    p.classList.add('open');
+    p.style.height = p.scrollHeight + 'px';
+    p.addEventListener('transitionend', function done(e) {
+      if (e.propertyName !== 'height') return;
+      if (p.classList.contains('open')) p.style.height = 'auto';
+      p.removeEventListener('transitionend', done);
     });
-    var line = document.getElementById('showmore-line');
-    line.parentNode.removeChild(line);
+  }
+  function closePanel(p) {
+    p.style.height = p.scrollHeight + 'px';
+    void p.offsetHeight; /* flush so the shrink animates */
+    p.style.height = '0px';
+    p.classList.remove('open');
+  }
+
+  toggles.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var target = document.getElementById(btn.getAttribute('data-panel'));
+      var wasOpen = target.classList.contains('open');
+      document.querySelectorAll('.panel.open').forEach(closePanel);
+      toggles.forEach(function (b) { b.classList.remove('active'); });
+      if (!wasOpen) {
+        openPanel(target);
+        btn.classList.add('active');
+      }
+    });
+  });
+
+  // land on the home panel, already open (no roll-down on load)
+  var home = document.getElementById('panel-home');
+  home.classList.add('open');
+  home.style.transition = 'none';
+  home.style.height = 'auto';
+  void home.offsetHeight;
+  home.style.transition = '';
+  document.querySelector('.btn[data-panel="panel-home"]').classList.add('active');
+
+  // lead forms — same Apps Script endpoint as the services page (rhoe-cro-leads sheet)
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyLFgWFPjj3ml9LRYgYggpHXpb4NG8pCHk_Dertri-Q86tgFzbd_zdprpsK_7c3PJlJ/exec';
+  document.querySelectorAll('form.lead').forEach(function (form) {
+    var btn = form.querySelector('button.send');
+    var status = form.querySelector('.formstatus');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      btn.disabled = true;
+      status.className = 'formstatus muted';
+      status.textContent = '// sending…';
+      fetch(ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams(new FormData(form))
+      }).then(function () {
+        status.className = 'formstatus ok';
+        status.textContent = '// got it. we\'ll be in touch — usually within a day.';
+        form.reset();
+        btn.disabled = false;
+      }).catch(function () {
+        status.className = 'formstatus bad';
+        status.textContent = '// that didn\'t go through — try linkedin instead.';
+        btn.disabled = false;
+      });
+    });
   });
 })();
 </script>
