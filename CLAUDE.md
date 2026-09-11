@@ -34,6 +34,13 @@ around the Snapshot CRO Shopify app.
   cross-domain canonicals). This is intentional — do not "fix" it with
   noindex or by deleting either copy.
 
+## Workshop data decisions
+
+- Scale target is ~100 low-concurrency users: Google Sheets + Apps Script
+  is the right backend — do NOT propose Firebase/Supabase/auth systems.
+- Email-as-identity is fine (Shep's explicit call, 2026-09-11): no
+  passwords, honor system. Nothing sensitive is collected.
+
 ## Site style rule (apply to ALL pages)
 
 The site mimics a rendered markdown/terminal document. Casing rules:
@@ -53,6 +60,11 @@ normalizing pasted copy to this pattern is Claude's job, every time.
 breaks the meaning. Do NOT "fix" grammatical quirks that could be
 deliberate, or creative spellings ("secret layer", "tons of nonsense") —
 when in doubt, keep it verbatim and flag it instead.
+
+**Long lists**: the homepage newsletter panel deliberately shows ALL
+posts uncapped — the length "shows commitment" (Shep). Don't truncate,
+paginate, or scroll-cap it. That's specific to the newsletter archive;
+don't assume other sections want the same.
 
 **EXCEPTION: newsletter posts** (`_newsletter/*.html`) keep their exact
 source formatting and capitalization. Never restyle article content.
