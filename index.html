@@ -142,6 +142,7 @@
       font-size: 13px;
     }
     footer a { color: #999; }
+    footer .copyright { margin: 16px 0 0; }
   </style>
 </head>
 <body>
@@ -265,11 +266,9 @@
     </form>
   </div></div></div>
 
-  <h1>subscribe now</h1>
-  {% include subscribe-email.html %}
-
   <footer>
-    &copy; 2026 the real heroes of ecommerce
+    {% include subscribe-email.html %}
+    <p class="copyright">&copy; 2026 the real heroes of ecommerce</p>
   </footer>
 
 </main>

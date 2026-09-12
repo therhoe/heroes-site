@@ -138,6 +138,7 @@
       font-size: 13px;
     }
     footer a { color: #999; }
+    footer .copyright { margin: 16px 0 0; }
 
     /* Spectral (substack's reading font) for body copy; mono stays for headings/chrome/code */
     .content,
@@ -179,11 +180,9 @@
   <p class="muted">// originally sent as an email — <a href="{{ page.substack_url }}">view on substack</a></p>
   {% endif %}
 
-  <p class="subhead">get the next one</p>
-  {% include subscribe-email.html %}
-
   <footer>
-    <a href="/newsletter/">&larr; back to the archive</a> &middot; &copy; {{ page.date | date: "%Y" }} the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>
+    {% include subscribe-email.html %}
+    <p class="copyright"><a href="/newsletter/">&larr; back to the archive</a> &middot; &copy; {{ page.date | date: "%Y" }} the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a></p>
   </footer>
 
 </main>
