@@ -27,15 +27,18 @@
     }
     .logo img {
       display: block;
-      max-width: 190px;
+      max-width: 400px;
       width: 100%;
       height: auto;
       margin: 0 0 28px;
     }
-    .home-headline {
+    h1.home-headline {
+      font-size: 22px;
+      font-weight: 600;
       color: #1a1a1a;
       margin: 0 0 20px;
     }
+    h1.home-headline::before { content: none; }
     h1 {
       font-size: 15px;
       font-weight: 500;
@@ -165,10 +168,10 @@
 
   <!-- home (auto-open on landing) -->
   <div class="panel" id="panel-home"><div class="panel-inner"><div class="panel-content">
-    <p class="home-headline">// welcome to The Real Heroes of Ecommerce</p>
     <div class="whatis">
       <img src="what-is-this-place.png" alt="pixel comic: what is this place? It's our secret layer…">
     </div>
+    <h1 class="home-headline">// Welcome to The Real Heroes of Ecommerce</h1>
     <p>You have stumbled upon the real heroes' secret layer, where we are stock-piling tons of resources for you, the heroes, to hone your craft in conversion optimization and analytics.</p>
     <p>We will be adding things all the time. If you want to hear about new stuff we add, subscribe to <a href="https://heroesofecommerce.substack.com/">The Real Heroes of Ecommerce</a>. Or just come back all the time. Good luck and godspeed!</p>
   </div></div></div>
