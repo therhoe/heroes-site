@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} — Perspectives — The Real Heroes of Ecommerce</title>
+  {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
+  {% if page.source_url %}<link rel="canonical" href="{{ page.source_url }}">{% endif %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: #1a1a1a;
+      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .topnav {
+      max-width: 728px;
+      margin: 40px auto 24px;
+      padding: 0 44px;
+      font-size: 13px;
+    }
+    .topnav img {
+      display: block;
+      max-width: 190px;
+      width: 100%;
+      height: auto;
+      margin: 0 0 10px;
+      border: none;
+    }
+    .topnav a { color: #999; margin-right: 10px; }
+    .topnav a:hover { background: none; color: #1a1a1a; }
+
+    /* the site-voice zone: title, byline, intro — plain, no frame */
+    .lede {
+      max-width: 728px;
+      margin: 0 auto 32px;
+      padding: 0 44px;
+    }
+    h1.title {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+    .byline { color: #999; font-size: 13px; margin: 0 0 24px; }
+    .byline a { color: #999; }
+    .intro p { margin: 0 0 16px; }
+
+    /* the republished piece: paper card, reads like a rhoe post */
+    main {
+      max-width: 728px;
+      margin: 0 auto 80px;
+      padding: 48px 44px 64px;
+      background: #ffffff;
+      border: 1px solid #d8d8d8;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    }
+    @media (max-width: 640px) {
+      main {
+        margin: 0 0 48px;
+        padding: 36px 20px 48px;
+        border-left: none;
+        border-right: none;
+      }
+      .topnav { margin: 24px 0 16px; padding: 0 20px; }
+      .lede { padding: 0 20px; }
+    }
+    .content h1,
+    .content h2 {
+      font-size: 15px;
+      font-weight: 500;
+      margin: 56px 0 8px;
+    }
+    .content h1::before,
+    .content h2::before { content: "## "; color: #999; }
+    .content h3, .content h4 {
+      font-size: 15px;
+      font-weight: 500;
+      margin: 32px 0 8px;
+    }
+    .content h3::before, .content h4::before { content: "### "; color: #999; }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px; padding: 0; }
+    ul { list-style: none; }
+    ul li::before { content: "- "; color: #999; }
+    ol { list-style-position: inside; }
+    a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; }
+    a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
+    .muted { color: #999; }
+    .content iframe { max-width: 100%; }
+    code {
+      background: #f4f4f4;
+      padding: 1px 5px;
+      font-size: 13.5px;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 12px;
+      overflow-x: auto;
+      margin: 0 0 16px;
+    }
+    pre code { background: none; padding: 0; }
+    blockquote {
+      margin: 0 0 16px;
+      padding: 0 0 0 16px;
+      border-left: 2px solid #d8d8d8;
+      color: #666;
+    }
+    .content img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #d8d8d8;
+      margin: 20px 0 28px;
+    }
+    figure { margin: 0 0 16px; }
+    figcaption { color: #999; font-size: 13px; margin: -20px 0 28px; }
+    .callout-block {
+      background: #f4f4f4;
+      padding: 16px 20px;
+      margin: 0 0 16px;
+    }
+    hr { border: none; border-top: 1px solid #e2e2e2; margin: 32px 0; }
+
+    /* Spectral for the reading copy, mono for headings/chrome/code */
+    .content,
+    .content p,
+    .content ul,
+    .content ol,
+    .content blockquote {
+      font-family: "Spectral", Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .content h1, .content h2, .content h3, .content h4 {
+      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+    }
+    .content code, .content pre {
+      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+    }
+
+    footer {
+      max-width: 728px;
+      margin: 0 auto;
+      padding: 0 44px 96px;
+      color: #999;
+      font-size: 13px;
+    }
+    @media (max-width: 640px) { footer { padding: 0 20px 64px; } }
+    footer a { color: #999; }
+    footer .copyright { margin: 16px 0 0; }
+  </style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="/"><img src="/logo.png" alt="The Real Heroes of Ecommerce"></a>
+  <a href="/perspectives/">&larr; all perspectives</a>
+  <a href="/">home</a>
+</nav>
+
+<div class="lede">
+  <h1 class="title">{{ page.title }}</h1>
+  <p class="byline">by {{ page.author }} &middot; republished with permission{% if page.source_url %} &middot; <a href="{{ page.source_url }}">original post</a>{% endif %}</p>
+  <div class="intro">
+    {{ page.intro | markdownify }}
+  </div>
+</div>
+
+<main>
+  <div class="content">
+    {{ content }}
+  </div>
+</main>
+
+<footer>
+  {% include subscribe-email.html %}
+  <p class="copyright"><a href="/perspectives/">&larr; all perspectives</a> &middot; &copy; {{ page.date | date: "%Y" }} the real heroes of ecommerce</p>
+</footer>
+
+</body>
+</html>

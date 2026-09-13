@@ -1,0 +1,110 @@
+---
+permalink: /perspectives/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perspectives — The Real Heroes of Ecommerce</title>
+  <meta name="description" content="Favorite pieces from writers we rate — republished with permission, with our take on why each one matters.">
+  <link rel="canonical" href="https://therealheroesofecommerce.com/perspectives/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: #1a1a1a;
+      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    main {
+      max-width: 728px;
+      margin: 0 auto;
+      padding: 56px 24px 96px;
+    }
+    .topnav {
+      margin: 0 0 48px;
+      font-size: 13px;
+    }
+    .topnav img {
+      display: block;
+      max-width: 190px;
+      width: 100%;
+      height: auto;
+      margin: 0 0 10px;
+    }
+    .topnav a { color: #999; }
+    .topnav a:hover { background: none; color: #1a1a1a; }
+    h1.title {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+    .tagline { color: #666; margin: 0 0 40px; }
+    a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; }
+    a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
+    .muted { color: #999; }
+
+    /* --- cards --- */
+    .cards { display: flex; flex-direction: column; gap: 16px; }
+    a.card {
+      display: block;
+      border: 1px solid #d8d8d8;
+      padding: 20px 24px;
+      text-decoration: none;
+      color: #1a1a1a;
+    }
+    a.card:hover {
+      background: #ffffff;
+      color: #1a1a1a;
+      border-color: #1a1a1a;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    }
+    .card .author { color: #999; font-size: 13px; margin: 0 0 4px; }
+    .card .cardtitle { font-weight: 600; margin: 0 0 8px; }
+    .card .blurb { color: #666; margin: 0; }
+
+    footer {
+      margin-top: 72px;
+      color: #999;
+      font-size: 13px;
+    }
+    footer a { color: #999; }
+    footer .copyright { margin: 16px 0 0; }
+  </style>
+</head>
+<body>
+<main>
+
+  <nav class="topnav">
+    <a href="/"><img src="/logo.png" alt="The Real Heroes of Ecommerce"></a>
+    <a href="/">← return to home</a>
+  </nav>
+
+  <h1 class="title">Perspectives</h1>
+  <p class="tagline">// favorite pieces from writers we rate — republished with permission, with our take</p>
+
+  <div class="cards">
+    {% assign pieces = site.perspectives | sort: "date" | reverse %}
+    {% for p in pieces %}
+    <a class="card" href="{{ p.url }}">
+      <p class="author">{{ p.author }}</p>
+      <p class="cardtitle">{{ p.title }}</p>
+      <p class="blurb">{{ p.description }}</p>
+    </a>
+    {% endfor %}
+  </div>
+
+  <footer>
+    {% include subscribe-email.html %}
+    <p class="copyright"><a href="/">← back to index</a> &middot; &copy; 2026 the real heroes of ecommerce</p>
+  </footer>
+
+</main>
+</body>
+</html>

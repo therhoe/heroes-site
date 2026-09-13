@@ -22,8 +22,16 @@ around the Snapshot CRO Shopify app.
   HTML (not markdown) wrapped in `{% raw %}`; front matter: `title`,
   `description`, `date`, `substack_url`. Content is verbatim — the casing
   rule below does NOT apply.
-- The former `perspectives` collection was deleted on purpose (2026-09-06,
-  Shep's call) — don't resurrect it from git history.
+- `_perspectives/*.html` → `/perspectives/<slug>/`, layout `perspective`,
+  hub `perspectives.html` (card list). This is the SECOND incarnation
+  (2026-09-12): other writers' pieces republished WITH WRITTEN CONSENT,
+  Shep's intro/commentary above the piece (site voice, no frame), the
+  article itself in the rhoe-post paper card, `source_url` front matter
+  emits rel=canonical to the original. Front matter: title, author, date,
+  source_url, description (card blurb), intro (multiline, markdownified).
+  Never publish a piece without Shep confirming he has the writer's
+  consent. (The first incarnation — Shep's own Google-Doc articles — was
+  deleted 2026-09-06; don't resurrect those from git history.)
 - Migration script: `.claude/scripts/migrate_substack.py` (takes the
   Substack export zip).
 - `_includes/subscribe-email.html` is the email-capture form (posts email

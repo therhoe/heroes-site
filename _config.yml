@@ -6,6 +6,9 @@ collections:
   newsletter:
     output: true
     permalink: /newsletter/:name/
+  perspectives:
+    output: true
+    permalink: /perspectives/:name/
 
 defaults:
   - scope:
@@ -13,6 +16,11 @@ defaults:
       type: newsletter
     values:
       layout: newsletter
+  - scope:
+      path: ""
+      type: perspectives
+    values:
+      layout: perspective
 
 plugins:
   - jekyll-sitemap
