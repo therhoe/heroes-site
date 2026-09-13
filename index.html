@@ -177,7 +177,9 @@
     <button class="btn" data-panel="panel-learn" type="button">learn cro</button>
     <button class="btn" data-panel="panel-services" type="button">services</button>
     <button class="btn" data-panel="panel-posts" type="button">newsletter</button>
+    {% comment %} hidden until perspectives has ~10 pieces
     <button class="btn" data-panel="panel-perspectives" type="button">perspectives</button>
+    {% endcomment %}
   </div>
 
   <!-- home (auto-open on landing) -->
@@ -256,6 +258,7 @@
   </div></div></div>
 
   <!-- perspectives -->
+  {% comment %} hidden until perspectives has ~10 pieces
   <div class="panel" id="panel-perspectives"><div class="panel-inner"><div class="panel-content">
     <p class="muted">// favorite pieces from writers we rate — republished with permission, with our take</p>
     <div class="cards">
@@ -269,6 +272,7 @@
       {% endfor %}
     </div>
   </div></div></div>
+  {% endcomment %}
 
   <footer>
     {% include subscribe-email.html %}

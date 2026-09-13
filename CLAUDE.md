@@ -31,7 +31,9 @@ around the Snapshot CRO Shopify app.
   emits rel=canonical to the original. Front matter: title, author, date,
   source_url, description (card blurb), intro (multiline, markdownified).
   Never publish a piece without Shep confirming he has the writer's
-  consent. (The first incarnation — Shep's own Google-Doc articles — was
+  consent. The whole section is UNLISTED until it has ~10 pieces
+  (2026-09-13): homepage button/panel commented out, noindex on hub and
+  posts, out of sitemap — un-hide only when Shep says launch. (The first incarnation — Shep's own Google-Doc articles — was
   deleted 2026-09-06; don't resurrect those from git history.)
 - Migration script: `.claude/scripts/migrate_substack.py` (takes the
   Substack export zip).

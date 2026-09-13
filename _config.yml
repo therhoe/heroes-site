@@ -21,6 +21,7 @@ defaults:
       type: perspectives
     values:
       layout: perspective
+      sitemap: false
 
 plugins:
   - jekyll-sitemap
