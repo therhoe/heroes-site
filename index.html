@@ -108,6 +108,26 @@
     #q:focus { outline: 2px solid #1a1a1a; outline-offset: -1px; }
     #empty { color: #999; display: none; }
 
+
+    /* perspectives cards (same as /perspectives/) */
+    .cards { display: flex; flex-direction: column; gap: 16px; }
+    a.card {
+      display: block;
+      border: 1px solid #d8d8d8;
+      padding: 20px 24px;
+      text-decoration: none;
+      color: #1a1a1a;
+    }
+    a.card:hover {
+      background: #ffffff;
+      color: #1a1a1a;
+      border-color: #1a1a1a;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    }
+    .card .author { color: #999; font-size: 13px; margin: 0 0 4px; }
+    .card .cardtitle { font-weight: 600; margin: 0 0 8px; }
+    .card .blurb { color: #666; margin: 0; }
+
     /* lead form (same as the services page) */
     form.lead { max-width: 480px; }
     .field { margin: 0 0 14px; }
@@ -157,7 +177,7 @@
     <button class="btn" data-panel="panel-learn" type="button">learn cro</button>
     <button class="btn" data-panel="panel-services" type="button">services</button>
     <button class="btn" data-panel="panel-posts" type="button">newsletter</button>
-    <button class="btn" data-panel="panel-contact" type="button">say hello</button>
+    <button class="btn" data-panel="panel-perspectives" type="button">perspectives</button>
   </div>
 
   <!-- home (auto-open on landing) -->
@@ -191,9 +211,7 @@
       <li>remove roadblocks and smooth out the buying process</li>
       <li>test everything</li>
     </ul>
-    <p>We offer complete CRO services on both an ongoing or project basis.</p>
-    <p>Pricing is based on scope, but for a reference, ongoing cro starts at $3,000/month.</p>
-    <p>There is just two of us — a seasoned cro + an amazing dev — so you talk to the people who are doing the cro, not a bunch of back and forth.</p>
+    <p>We offer complete CRO services on both an ongoing or project basis. Pricing based on scope. Let us know what you are looking for and we will get back to you promptly.</p>
 
     <h1>how you can get started</h1>
     <form class="lead">
@@ -237,33 +255,19 @@
     <p id="empty">// nothing matches. try fewer letters.</p>
   </div></div></div>
 
-  <!-- contact -->
-  <div class="panel" id="panel-contact"><div class="panel-inner"><div class="panel-content">
-    <p>let's talk about cro and how we can help get you started. fill out the form below or <a href="https://www.linkedin.com/in/jasonsdshepherd/">find me on linkedin→</a></p>
-    <form class="lead">
-      <div class="field">
-        <label for="c-name">name</label>
-        <input id="c-name" name="name" type="text" autocomplete="name" required>
-      </div>
-      <div class="field">
-        <label for="c-email">email</label>
-        <input id="c-email" name="email" type="email" autocomplete="email" required>
-      </div>
-      <div class="field">
-        <label for="c-brand">brand / store</label>
-        <input id="c-brand" name="brand" type="text" autocomplete="organization">
-      </div>
-      <div class="field">
-        <label for="c-looking">what's up</label>
-        <textarea id="c-looking" name="looking"></textarea>
-      </div>
-      <div class="hp" aria-hidden="true">
-        <label for="c-company">company</label>
-        <input id="c-company" name="company" type="text" tabindex="-1" autocomplete="off">
-      </div>
-      <button class="send" type="submit">→ send it</button>
-      <p class="formstatus muted"></p>
-    </form>
+  <!-- perspectives -->
+  <div class="panel" id="panel-perspectives"><div class="panel-inner"><div class="panel-content">
+    <p class="muted">// favorite pieces from writers we rate — republished with permission, with our take</p>
+    <div class="cards">
+      {% assign pieces = site.perspectives | sort: "date" | reverse %}
+      {% for pp in pieces %}
+      <a class="card" href="{{ pp.url }}">
+        <p class="author">{{ pp.author }}</p>
+        <p class="cardtitle">{{ pp.title }}</p>
+        <p class="blurb">{{ pp.description }}</p>
+      </a>
+      {% endfor %}
+    </div>
   </div></div></div>
 
   <footer>

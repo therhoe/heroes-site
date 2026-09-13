@@ -10,8 +10,9 @@ around the Snapshot CRO Shopify app.
 - App: **Snapshot CRO**, `https://apps.shopify.com/snapshot-cro` (old
   `/mousewhisperer` handle is dead). Pricing: starter (free) + advanced
   $199/mo with a 30-day trial. No middle tier.
-- CRO service: ongoing engagements start around $3,000/mo (stated publicly
-  on `hire-cro-agency.html` on purpose — it filters leads).
+- CRO service: pricing is "based on scope" — the public $3,000/mo
+  reference price was removed 2026-09-12 (Shep's call). Don't reintroduce
+  a number without asking.
 - Substack (`heroesofecommerce.substack.com`) is the email delivery channel
   only; this site is the canonical content home.
 
