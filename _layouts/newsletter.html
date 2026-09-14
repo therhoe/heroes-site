@@ -6,14 +6,14 @@
   {% seo %}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
       background: #ffffff;
       color: #1a1a1a;
-      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-family: "Inter", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       font-size: 15px;
       line-height: 1.7;
     }
@@ -67,31 +67,21 @@
       font-weight: 500;
       margin: 56px 0 8px;
     }
-    .content h1::before,
-    .content h2::before { content: "## "; color: #999; }
     .content h3 {
       font-size: 15px;
       font-weight: 500;
       margin: 32px 0 8px;
-    }
-    .content h3::before { content: "### "; color: #999; }
-    .content h4 {
+    }    .content h4 {
       font-size: 15px;
       font-weight: 500;
       margin: 32px 0 8px;
-    }
-    .content h4::before { content: "#### "; color: #999; }
-    .subhead {
+    }    .subhead {
       font-size: 15px;
       font-weight: 500;
       margin: 56px 0 8px;
-    }
-    .subhead::before { content: "## "; color: #999; }
-    p { margin: 0 0 16px; }
+    }    p { margin: 0 0 16px; }
     ul, ol { margin: 0 0 16px; padding: 0; }
-    ul { list-style: none; }
-    ul li::before { content: "- "; color: #999; }
-    ol { list-style-position: inside; }
+    ul { list-style: none; }    ol { list-style-position: inside; }
     a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; }
     a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
     .muted { color: #999; }
@@ -151,7 +141,7 @@
       line-height: 1.6;
     }
     .content h1, .content h2, .content h3, .content h4 {
-      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-family: "Inter", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
     .content code, .content pre {
       font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
@@ -169,7 +159,7 @@
 <main>
 
   <h1 class="title">{{ page.title }}</h1>
-  {% if page.description %}<p class="tagline">// {{ page.description }}</p>{% endif %}
+  {% if page.description %}<p class="tagline">{{ page.description }}</p>{% endif %}
   <p class="dateline">{{ page.date | date: "%B %-d, %Y" | downcase }}</p>
 
   <div class="content">
@@ -177,7 +167,7 @@
   </div>
 
   {% if page.substack_url %}
-  <p class="muted">// originally sent as an email — <a href="{{ page.substack_url }}">view on substack</a></p>
+  <p class="muted">originally sent as an email — <a href="{{ page.substack_url }}">view on substack</a></p>
   {% endif %}
 
   <footer>

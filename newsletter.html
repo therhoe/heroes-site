@@ -11,14 +11,14 @@ permalink: /newsletter/
   <link rel="canonical" href="https://therealheroesofecommerce.com/newsletter/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
       background: #ffffff;
       color: #1a1a1a;
-      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-family: "Inter", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       font-size: 15px;
       line-height: 1.7;
     }
@@ -50,16 +50,12 @@ permalink: /newsletter/
       font-size: 15px;
       font-weight: 500;
       margin: 56px 0 8px;
-    }
-    .subhead::before { content: "## "; color: #999; }
-    ul {
+    }    ul {
       list-style: none;
       margin: 0;
       padding: 0;
     }
-    li { margin: 0; }
-    #plist li::before { content: "- "; color: #999; }
-    a {
+    li { margin: 0; }    a {
       color: #1a1a1a;
       text-decoration: underline;
       text-underline-offset: 3px;
@@ -95,7 +91,7 @@ permalink: /newsletter/
   </nav>
 
   <h1 class="title">Newsletter</h1>
-  <p class="tagline">// the building-in-public archive. new issues go out by email.</p>
+  <p class="tagline">the building-in-public archive. new issues go out by email.</p>
 
   <input id="q" type="search" placeholder="search by keyword…" aria-label="search newsletter archive">
 
@@ -107,7 +103,7 @@ permalink: /newsletter/
     </li>
     {% endfor %}
   </ul>
-  <p id="empty">// nothing matches. try fewer letters.</p>
+  <p id="empty">nothing matches. try fewer letters.</p>
 
   <footer>
     {% include subscribe-email.html %}

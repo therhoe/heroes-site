@@ -8,14 +8,14 @@
   <link rel="canonical" href="https://therealheroesofecommerce.com/hire-cro-agency.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
       background: #ffffff;
       color: #1a1a1a;
-      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-family: "Inter", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       font-size: 15px;
       line-height: 1.7;
     }
@@ -47,12 +47,8 @@
       font-size: 15px;
       font-weight: 500;
       margin: 56px 0 8px;
-    }
-    h1::before { content: "## "; color: #999; }
-    p { margin: 0 0 16px; }
-    ul { list-style: none; margin: 0 0 16px; padding: 0; }
-    li::before { content: "- "; color: #999; }
-    a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; }
+    }    p { margin: 0 0 16px; }
+    ul { list-style: none; margin: 0 0 16px; padding: 0; }    a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; }
     a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
     .muted { color: #999; }
     .ok { color: #1a7f37; }
@@ -103,7 +99,7 @@
   </nav>
 
   <h1 class="title">CRO Service</h1>
-  <p class="tagline">// conversion optimization for shopify stores.</p>
+  <p class="tagline">conversion optimization for shopify stores.</p>
 
   <p>We built our optimization workflow into our Shopify app — <a href="/snapshot-cro.html">Snapshot CRO</a>:</p>
   <ul>
@@ -161,24 +157,24 @@
     e.preventDefault();
     if (ENDPOINT.indexOf('https://') !== 0) {
       status.className = 'warn';
-      status.textContent = '// the form isn\'t wired up yet — use the email below instead.';
+      status.textContent = 'the form isn\'t wired up yet — use the email below instead.';
       return;
     }
     btn.disabled = true;
     status.className = 'muted';
-    status.textContent = '// sending…';
+    status.textContent = 'sending…';
     fetch(ENDPOINT, {
       method: 'POST',
       mode: 'no-cors',
       body: new URLSearchParams(new FormData(form))
     }).then(function () {
       status.className = 'ok';
-      status.textContent = '// got it. we\'ll be in touch — usually within a day.';
+      status.textContent = 'got it. we\'ll be in touch — usually within a day.';
       form.reset();
       btn.disabled = false;
     }).catch(function () {
       status.className = 'bad';
-      status.textContent = '// that didn\'t go through — email me instead: shep@therealheroesofecommerce.com';
+      status.textContent = 'that didn\'t go through — email me instead: shep@therealheroesofecommerce.com';
       btn.disabled = false;
     });
   });

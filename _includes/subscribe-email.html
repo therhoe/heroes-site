@@ -47,19 +47,19 @@
     e.preventDefault();
     btn.disabled = true;
     status.className = '';
-    status.textContent = '// sending…';
+    status.textContent = 'sending…';
     fetch(ENDPOINT, {
       method: 'POST',
       mode: 'no-cors',
       body: new URLSearchParams(new FormData(form))
     }).then(function () {
       status.className = 'ok';
-      status.textContent = '// my. god. what have you done...';
+      status.textContent = 'my. god. what have you done...';
       form.reset();
       btn.disabled = false;
     }).catch(function () {
       status.className = 'bad';
-      status.textContent = '// that didn\'t go through — email shep@therealheroesofecommerce.com';
+      status.textContent = 'that didn\'t go through — email shep@therealheroesofecommerce.com';
       btn.disabled = false;
     });
   });

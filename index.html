@@ -43,16 +43,12 @@
       font-size: 15px;
       font-weight: 500;
       margin: 48px 0 8px;
-    }
-    h1::before { content: "## "; color: #999; }
-    ul {
+    }    ul {
       list-style: none;
       margin: 0;
       padding: 0;
     }
-    li { margin: 0; }
-    li::before { content: "- "; color: #999; }
-    a {
+    li { margin: 0; }    a {
       color: #1a1a1a;
       text-decoration: underline;
       text-underline-offset: 3px;
@@ -244,7 +240,7 @@
 
   <!-- newsletter archive (same as /newsletter/) -->
   <div class="panel" id="panel-posts"><div class="panel-inner"><div class="panel-content">
-    <p class="muted">// the building-in-public archive. new issues go out by email.</p>
+    <p class="muted">the building-in-public archive. new issues go out by email.</p>
     <input id="q" type="search" placeholder="search by keyword…" aria-label="search newsletter archive">
     <ul id="plist">
       {% assign issues = site.newsletter | sort: "date" | reverse %}
@@ -254,13 +250,13 @@
       </li>
       {% endfor %}
     </ul>
-    <p id="empty">// nothing matches. try fewer letters.</p>
+    <p id="empty">nothing matches. try fewer letters.</p>
   </div></div></div>
 
   <!-- perspectives -->
   {% comment %} hidden until perspectives has ~10 pieces
   <div class="panel" id="panel-perspectives"><div class="panel-inner"><div class="panel-content">
-    <p class="muted">// favorite pieces from writers we rate — republished with permission, with our take</p>
+    <p class="muted">favorite pieces from writers we rate — republished with permission, with our take</p>
     <div class="cards">
       {% assign pieces = site.perspectives | sort: "date" | reverse %}
       {% for pp in pieces %}
@@ -347,19 +343,19 @@
       e.preventDefault();
       btn.disabled = true;
       status.className = 'formstatus muted';
-      status.textContent = '// sending…';
+      status.textContent = 'sending…';
       fetch(ENDPOINT, {
         method: 'POST',
         mode: 'no-cors',
         body: new URLSearchParams(new FormData(form))
       }).then(function () {
         status.className = 'formstatus ok';
-        status.textContent = '// got it. we\'ll be in touch — usually within a day.';
+        status.textContent = 'got it. we\'ll be in touch — usually within a day.';
         form.reset();
         btn.disabled = false;
       }).catch(function () {
         status.className = 'formstatus bad';
-        status.textContent = '// that didn\'t go through — try linkedin instead.';
+        status.textContent = 'that didn\'t go through — try linkedin instead.';
         btn.disabled = false;
       });
     });
