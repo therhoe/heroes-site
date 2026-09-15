@@ -30,6 +30,7 @@
 (function () {
   var EP = window.WORKSHOP_ANALYTICS_ENDPOINT || '';
   var list = document.getElementById('list');
+  var loadedOnce = false;
   var FIELDS = [['insight', 'Data insight'], ['hypothesis', 'Hypothesis'], ['design', 'Test design'], ['audience', 'Target audience'], ['goal', 'Goal or expectation']];
 
   function esc(s) {
@@ -64,9 +65,12 @@
   function load() {
     if (!EP) { localOnly(); return; }
     fetch(EP + '?exercise=experimentation').then(function (r) { return r.json(); })
-      .then(render)
+      .then(function (subs) { loadedOnce = true; render(subs); })
       .catch(function () {
-        list.innerHTML = '<p class="muted bad">// could not load submissions — retrying…</p>';
+        // transient Apps Script hiccup — keep showing the last good list
+        if (!loadedOnce) {
+          list.innerHTML = '<p class="muted bad">// could not load submissions — retrying…</p>';
+        }
       });
   }
 
