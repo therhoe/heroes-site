@@ -51,6 +51,13 @@ around the Snapshot CRO Shopify app.
   is the right backend — do NOT propose Firebase/Supabase/auth systems.
 - Email-as-identity is fine (Shep's explicit call, 2026-09-11): no
   passwords, honor system. Nothing sensitive is collected.
+- Each workshop session gets its OWN Apps Script deployment + sheet
+  (Shep's call, 2026-09-15). Pace workshop → `rhoe-workshop-submissions`
+  (`ENDPOINT` in workshop.js, answers.html); analytics workshop →
+  `rhoe-analytics-workshop-submissions` (`ANALYTICS_ENDPOINT`,
+  analytics-answers.html). Don't consolidate them; follow the same
+  pattern for future sessions (script template:
+  `.claude/scripts/analytics-workshop-apps-script.gs`).
 
 ## Site style rule (apply to ALL pages)
 
