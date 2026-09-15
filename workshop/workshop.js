@@ -16,7 +16,7 @@
      'pace-p.html', 'pace-a.html', 'pace-c.html', 'pace-e.html',
      'together.html', 'together-p.html', 'together-a.html', 'together-c.html', 'together-e.html',
      'together-quadrant.html'],
-    ['analytics.html'],
+    ['analytics.html', 'analytics-2.html', 'analytics-3.html', 'analytics-4.html', 'analytics-5.html'],
     ['testing.html'],
     ['confidence.html']
   ];
