@@ -16,15 +16,34 @@
   <h1 class="title">Experimentation</h1>
   <p class="tagline">// analytics for CRO</p>
 
-  <p style="margin-top: 40px; font-weight: 500;">Inputs:</p>
-  <ul>
-    <li>Experiment Title</li>
-    <li>Data Insight</li>
-    <li>Hypothesis</li>
-    <li>Test Design</li>
-    <li>Target Audience (if different from ALL)</li>
-    <li>Goal or expectation</li>
-  </ul>
+  <form class="exercise" data-exercise="experimentation" data-endpoint="analytics" data-next="analytics-submitted.html">
+    <div class="field">
+      <label for="f-title">experiment title</label>
+      <input id="f-title" name="title" type="text" required>
+    </div>
+    <div class="field">
+      <label for="f-insight">data insight</label>
+      <textarea id="f-insight" name="insight"></textarea>
+    </div>
+    <div class="field">
+      <label for="f-hypothesis">hypothesis</label>
+      <textarea id="f-hypothesis" name="hypothesis"></textarea>
+    </div>
+    <div class="field">
+      <label for="f-design">test design</label>
+      <textarea id="f-design" name="design"></textarea>
+    </div>
+    <div class="field">
+      <label for="f-audience">target audience (if different from ALL)</label>
+      <input id="f-audience" name="audience" type="text">
+    </div>
+    <div class="field">
+      <label for="f-goal">goal or expectation</label>
+      <textarea id="f-goal" name="goal"></textarea>
+    </div>
+    <button class="send" type="submit">→ send it</button>
+    <p class="status muted"></p>
+  </form>
 
 </main>
 <script src="workshop.js"></script>

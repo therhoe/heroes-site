@@ -20,7 +20,7 @@
 <main>
 
   <h1 class="title">The Answers</h1>
-  <p class="tagline">// shop at your own pace.</p>
+  <p class="tagline">// analytics for CRO</p>
 
   <div id="list"><p class="muted">// loading…</p></div>
 
@@ -28,10 +28,10 @@
 <script src="workshop.js"></script>
 <script>
 (function () {
-  var EP = window.WORKSHOP_ENDPOINT || '';
+  var EP = window.WORKSHOP_ANALYTICS_ENDPOINT || '';
   var list = document.getElementById('list');
   var loadedOnce = false;
-  var FIELDS = [['prognosis', 'Prognosis'], ['activity', 'Activity'], ['criteria', 'Criteria'], ['event', 'Event']];
+  var FIELDS = [['insight', 'Data insight'], ['hypothesis', 'Hypothesis'], ['design', 'Test design'], ['audience', 'Target audience'], ['goal', 'Goal or expectation']];
 
   function esc(s) {
     var d = document.createElement('div');
@@ -46,7 +46,7 @@
     }
     list.innerHTML = subs.map(function (s) {
       var a = s.answers || {};
-      var head = esc(a.brand || 'team') + (a.product ? ' — ' + esc(a.product) : '');
+      var head = esc(a.title || 'experiment');
       var rows = FIELDS.map(function (f) {
         return '<dt>' + f[1] + '</dt><dd>' + (esc(a[f[0]]) || '<span class="muted">—</span>') + '</dd>';
       }).join('');
@@ -64,7 +64,7 @@
 
   function load() {
     if (!EP) { localOnly(); return; }
-    fetch(EP + '?exercise=pace-workshop').then(function (r) { return r.json(); })
+    fetch(EP + '?exercise=experimentation').then(function (r) { return r.json(); })
       .then(function (subs) { loadedOnce = true; render(subs); })
       .catch(function () {
         // transient Apps Script hiccup — keep showing the last good list

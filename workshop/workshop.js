@@ -4,6 +4,16 @@
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwbEk18wCCbw1P3vqsI1s82Hteb4u_SLfa1WeWnzzfodorKr1eihNI6lOaiNJscnbbE-Q/exec';
   window.WORKSHOP_ENDPOINT = ENDPOINT; // answers.html reads submissions from here
 
+  // Analytics workshop — SEPARATE sheet + deployment on purpose.
+  // Deploy .claude/scripts/analytics-workshop-apps-script.gs, paste the /exec URL here.
+  var ANALYTICS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwoehsgPtDzZORlrZ4q2Qf0NTN0KargpD32jrVkr7oe502X27d0PP9VgR3HUp2mB84lsw/exec';
+  window.WORKSHOP_ANALYTICS_ENDPOINT = ANALYTICS_ENDPOINT; // analytics-answers.html reads from here
+
+  // forms with data-endpoint="analytics" post to the analytics deployment
+  function endpointFor(form) {
+    return form.getAttribute('data-endpoint') === 'analytics' ? ANALYTICS_ENDPOINT : ENDPOINT;
+  }
+
   // the hub page every session starts from and returns to
   var CONTENTS = 'index.html';
 
@@ -73,7 +83,8 @@
 
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
-      if (!ENDPOINT) {
+      var endpoint = endpointFor(form);
+      if (!endpoint) {
         status.className = 'status bad';
         status.textContent = '// submissions are not wired up yet (no endpoint)';
         return;
@@ -99,7 +110,7 @@
       });
 
       Promise.all(imagePromises).then(function (images) {
-        return fetch(ENDPOINT, {
+        return fetch(endpoint, {
           method: 'POST',
           mode: 'no-cors',
           body: JSON.stringify({

@@ -8,11 +8,17 @@ sitemap: false
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <title>Homepage Preview — The Real Heroes of Ecommerce</title>
+  <meta name="description" content="The Real Heroes of Ecommerce — a boutique CRO agency for Shopify stores. CRO services, the Snapshot CRO app, and the rhoe newsletter for ecommerce operators.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
+    .preview-banner {
+      color: #b35900;
+      font-size: 13px;
+      margin: 0 0 24px;
+    }
     body {
       margin: 0;
       background: #ffffff;
@@ -25,11 +31,6 @@ sitemap: false
       max-width: 728px;
       margin: 0 auto;
       padding: 56px 24px 96px;
-    }
-    .preview-banner {
-      color: #b35900;
-      font-size: 13px;
-      margin: 0 0 24px;
     }
     .logo img {
       display: block;
@@ -76,7 +77,7 @@ sitemap: false
       margin: 4px 0 24px;
     }
 
-    /* --- toggle buttons --- */
+    /* --- toggle buttons (the menu) --- */
     .btnlinks { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 8px; }
     .btn {
       display: inline-block;
@@ -185,14 +186,17 @@ sitemap: false
 <body>
 <main>
 
-  <p class="preview-banner">preview — this is not the live homepage.</p>
+  <p class="preview-banner">preview — this is the real homepage while the live one redirects to substack.</p>
 
   <div class="logo">
     <img src="logo.png" alt="The Real Heroes of Ecommerce">
   </div>
+
   <div class="btnlinks">
     <button class="btn" data-panel="panel-home" type="button" aria-label="home" title="home"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="display:block" aria-hidden="true"><path d="M2 7.5 8 2l6 5.5"/><path d="M3.5 7v6.5h9V7"/><path d="M6.5 13.5V9.5h3v4"/></svg></button>
+    {% comment %} hidden 2026-09-15 (Shep) — un-hide when he says so
     <button class="btn" data-panel="panel-learn" type="button">learn cro</button>
+    {% endcomment %}
     <button class="btn" data-panel="panel-services" type="button">services</button>
     <button class="btn" data-panel="panel-posts" type="button">newsletter</button>
     {% comment %} hidden until perspectives has ~10 pieces
@@ -206,11 +210,9 @@ sitemap: false
       <img src="heroes-lineup.png" alt="pixel art lineup of the real heroes of ecommerce">
     </div>
     <h1 class="home-headline">Welcome to The Real Heroes of Ecommerce</h1>
-    <p>We are a bunch of conversion optimization nerds. You probably are too if you found your way to this site. Or at the very least, you are nerd-adjacent. So let’s have some fun with it.</p>
-    <p>There are a bunch of articles about ecommerce, some videos, and how-to's on the site already, and some workshops will be added soon.</p>
-    <p>The Real Heroes of Ecommerce started as a newsletter, but we now offer CRO as a service for Shopify stores. We have been in the industry for over a decade with dozens of stores and thousands of experiments under our belt.</p>
-    <p>We hope you get all that you can from this site, and reach out if you need to pick a brain.</p>
-    <p>Godspeed!</p>
+    <p>I am a conversion optimization nerd. You probably are too if you found your way to this site. Or at the very least, you are nerd-adjacent. So let’s have some fun with it.</p>
+    <p>The Real Heroes of Ecommerce started as a newsletter, and now I do CRO as a service for Shopify stores. I've been in the industry for over a decade with dozens of stores and hundreds of experiments under my belt. So if you are looking to learn more about CRO, subscribe or send me a message.</p>
+    <p>Cheers,<br>Shep</p>
   </div></div></div>
 
   <!-- learn cro -->
