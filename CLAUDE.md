@@ -2,6 +2,13 @@
 
 GitHub Pages + Jekyll. Push to `main` = live in ~1 min. No local build needed.
 
+**PAUSE MODE (since 2026-09-15)**: the homepage (`index.html`) is a
+redirect stub to the Substack while Shep reworks the site in the
+background. The real homepage lives at `preview-home.html` — make all
+homepage changes THERE. Deeper URLs (workshop, newsletter, learn) stay
+live and unaffected. To relaunch: copy preview-home back to index.html
+(minus the preview banner / noindex / sitemap:false), delete the stub.
+
 Marketing site for a boutique CRO agency (Shep + one other person), built
 around the Snapshot CRO Shopify app.
 
