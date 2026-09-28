@@ -36,7 +36,7 @@
      'together-quadrant.html'],
     ['analytics.html', 'analytics-2.html', 'analytics-3.html', 'analytics-4.html', 'analytics-5.html'],
     ['roadmaps.html', 'review.html', 'review-pace.html',
-     'review-p.html', 'review-a.html', 'review-c.html', 'review-e.html',
+     'review-pdp.html', 'review-e.html',
      'roadmaps-intro.html', 'roadmaps-planner.html'],
     ['confidence.html']
   ];
@@ -118,6 +118,13 @@
 
   function initReview() {
     var store = reviewStore();
+
+    // Enter in a review text box shouldn't send a half-finished review
+    document.querySelectorAll('form[data-review] input').forEach(function (el) {
+      el.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter') ev.preventDefault();
+      });
+    });
 
     document.querySelectorAll('input[data-key]:not(.q input)').forEach(function (el) {
       el.value = store[el.getAttribute('data-key')] || '';

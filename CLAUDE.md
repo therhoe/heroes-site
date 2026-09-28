@@ -56,8 +56,8 @@ around the Snapshot CRO Shopify app.
   `rhoe-analytics-workshop-submissions` (`ANALYTICS_ENDPOINT`,
   analytics-answers.html); expert review & roadmaps workshop (session 3,
   `roadmaps.html` + `review-*.html`) → `rhoe-roadmaps-workshop-submissions`
-  (`ROADMAPS_ENDPOINT`; the PDP review spans slides via localStorage and
-  sends as one `pdp-review` row from review-c.html). Don't consolidate them; follow the same
+  (`ROADMAPS_ENDPOINT`; the PDP review is one page, review-pdp.html,
+  saved to localStorage as they click and sent as one `pdp-review` row). Don't consolidate them; follow the same
   pattern for future sessions (script template:
   `.claude/scripts/analytics-workshop-apps-script.gs`).
 
