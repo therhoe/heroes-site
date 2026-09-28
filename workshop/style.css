@@ -112,6 +112,43 @@ button.send:hover { background: #1a1a1a; color: #ffffff; }
 button.send:disabled { opacity: 0.5; cursor: wait; }
 .status { margin: 10px 0 0; }
 
+/* --- expert review questions (one row of choices per question) --- */
+.q-prompt { font-weight: 600; margin: 32px 0 16px; }
+.q {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  transition: opacity 0.15s;
+}
+.q.locked { opacity: 0.3; }
+.q-label { min-width: 170px; color: #666; font-size: 15px; }
+button.opt {
+  font: inherit;
+  font-size: 16px;
+  color: #1a1a1a;
+  background: #ffffff;
+  border: 1px solid #1a1a1a;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+button.opt:hover { background: #f4f4f4; }
+button.opt.on { background: #ffc42a; color: #1a1a1a; }
+button.opt:disabled { cursor: default; background: #ffffff; }
+.q input {
+  flex: 1;
+  min-width: 240px;
+  font: inherit;
+  font-size: 16px;
+  color: inherit;
+  background: #ffffff;
+  border: 1px solid #1a1a1a;
+  padding: 8px 12px;
+}
+.q input:focus { outline: 2px solid #1a1a1a; outline-offset: -1px; }
+.note { color: #666; font-size: 15px; }
+
 footer {
   margin-top: 72px;
   color: #999;
