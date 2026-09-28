@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Snapshot Demo — A/B test detail report</title>
+<link rel="stylesheet" href="assets/admin.css">
+<style>
+  .tbl.gray-head th { background: #f6f6f7; }
+  .sstat {
+    padding: 16px; border-radius: 8px; border: 1px solid var(--border);
+    background: #f6f6f7;
+  }
+  .sstat .l { font-size: 12px; color: var(--text-subdued); font-weight: 600; }
+  .sstat .v { font-size: 18px; font-weight: 650; margin-top: 4px; }
+  .vtabs { display: flex; border-bottom: 1px solid var(--border-subdued); }
+  .vtab { padding: 12px 16px; font-size: 13px; font-weight: 550; color: var(--text-subdued); background: none; border: 0; cursor: pointer; }
+  .vtab.active { color: var(--text); box-shadow: inset 0 -3px 0 #1a1a1a; }
+  .qbar { display: flex; height: 10px; border-radius: 999px; overflow: hidden; }
+</style>
+</head>
+<body>
+<div id="shell"></div>
+
+<main class="main">
+  <div class="app-frame">
+    <div id="app-chrome"></div>
+
+    <div class="page" style="max-width:960px;">
+      <a class="back-link" href="ab-tests.html">‹ A/B tests</a>
+      <div class="page-head">
+        <span class="page-title" style="font-size:24px;">Homepage template test — “Hero v2”</span>
+        <div class="actions"><a class="btn" href="ab-tests.html">Close</a></div>
+        <div style="width:100%;" class="row wrap">
+          <span class="badge success">live</span>
+          <span class="badge">Homepage</span>
+          <span class="badge">conversion</span>
+          <span class="subdued">50/50 traffic split</span>
+          <span class="subdued">Dawn theme</span>
+        </div>
+      </div>
+
+      <!-- Summary card -->
+      <div class="card stack" style="gap:16px;">
+        <div class="row between start">
+          <div class="row" style="gap:8px;">
+            <h2 style="font-size:16px;">B is leading</h2>
+            <span class="badge success">B ahead</span>
+          </div>
+          <div style="text-align:right;">
+            <span class="badge info">Conversion Rate</span>
+            <div class="subdued" style="margin-top:4px;">Primary goal: Conversion rate</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr)); gap:12px;">
+          <div class="sstat"><div class="l">Original (A)</div><div class="v">3.1%</div></div>
+          <div class="sstat"><div class="l">Variant (B)</div><div class="v">3.9%</div></div>
+          <div class="sstat"><div class="l">B vs A</div><div class="v">+0.8 pts</div></div>
+          <div class="sstat"><div class="l">Sample</div><div class="v">3,486</div><div class="l" style="font-weight:400; margin-top:2px;">A 1,748 · B 1,738</div></div>
+        </div>
+
+        <span class="subdued">Hero v2 is ahead on conversion rate.</span>
+      </div>
+
+      <!-- Trend chart -->
+      <div class="card stack" style="gap:12px;">
+        <div class="row between">
+          <div class="row" style="gap:6px;">
+            <h3>Conversion rate over time</h3>
+            <span class="tip" tabindex="0">
+              <svg class="info-icon" width="15" height="15" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><rect x="9.2" y="8.6" width="1.6" height="5" rx=".8" fill="currentColor"/><circle cx="10" cy="6.3" r="1" fill="currentColor"/></svg>
+              <span class="tip-body">Cumulative result for visitors assigned to each variant. Live visitors are assigned once per session.</span>
+            </span>
+          </div>
+          <span class="legend" style="font-size:12px;">
+            <span style="color:#2563EB;"><span class="line" style="background:#2563EB; width:12px;"></span>A · Original</span>
+            <span style="color:#7C3AED;"><span class="line" style="background:#7C3AED; width:12px;"></span>B · Hero v2</span>
+          </span>
+        </div>
+
+        <div style="border:1px solid var(--border-subdued); border-radius:10px; padding:14px;">
+          <div class="row between" style="margin-bottom:8px; font-size:12px;">
+            <strong>Sep 19, 2026</strong>
+            <span class="subdued">A 3.1% · B 3.9%</span>
+          </div>
+          <svg viewBox="0 0 920 270" width="100%" height="230">
+            <g stroke="#ececec" stroke-width="1">
+              <line x1="46" y1="230" x2="900" y2="230"/><line x1="46" y1="178" x2="900" y2="178"/>
+              <line x1="46" y1="126" x2="900" y2="126"/><line x1="46" y1="74" x2="900" y2="74"/>
+              <line x1="46" y1="22" x2="900" y2="22"/>
+            </g>
+            <g font-size="11" fill="#9aa4ab" text-anchor="end">
+              <text x="40" y="234">0%</text><text x="40" y="182">1.5%</text><text x="40" y="130">3%</text>
+              <text x="40" y="78">4.5%</text><text x="40" y="26">6%</text>
+            </g>
+            <path d="M46 208 C 140 150, 240 128, 340 124 S 600 122, 720 123 S 860 122, 900 122" fill="none" stroke="#2563EB" stroke-width="3"/>
+            <path d="M46 198 C 140 132, 240 106, 340 100 S 600 96, 720 96 S 860 95, 900 95" fill="none" stroke="#7C3AED" stroke-width="3"/>
+            <circle cx="900" cy="122" r="5" fill="#2563EB" stroke="#fff" stroke-width="2"/>
+            <circle cx="900" cy="95" r="5" fill="#7C3AED" stroke="#fff" stroke-width="2"/>
+            <g font-size="11" fill="#7a8891">
+              <text x="46" y="256" text-anchor="start">Sep 2</text>
+              <text x="260" y="256" text-anchor="middle">Sep 6</text>
+              <text x="473" y="256" text-anchor="middle">Sep 10</text>
+              <text x="686" y="256" text-anchor="middle">Sep 14</text>
+              <text x="900" y="256" text-anchor="end">Sep 19</text>
+            </g>
+          </svg>
+        </div>
+
+        <details style="font-size:12px; color:var(--text-subdued);">
+          <summary style="cursor:pointer;">View chart data</summary>
+          <table class="tbl" style="margin-top:8px;">
+            <caption style="text-align:left; padding:4px 0;" class="subdued">Cumulative conversion rate by variant</caption>
+            <thead><tr><th>Date</th><th class="num">A · Original</th><th class="num">B · Hero v2</th></tr></thead>
+            <tbody>
+              <tr><td>Sep 2</td><td class="num">1.2%</td><td class="num">1.6%</td></tr>
+              <tr><td>Sep 6</td><td class="num">2.4%</td><td class="num">3.0%</td></tr>
+              <tr><td>Sep 10</td><td class="num">2.9%</td><td class="num">3.6%</td></tr>
+              <tr><td>Sep 14</td><td class="num">3.0%</td><td class="num">3.8%</td></tr>
+              <tr><td>Sep 19</td><td class="num">3.1%</td><td class="num">3.9%</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </div>
+
+      <!-- Variant comparison -->
+      <div class="card" style="padding:0;">
+        <div style="padding:16px 20px; border-bottom:1px solid var(--border-subdued);">
+          <h3>Variant comparison</h3>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="tbl gray-head" style="min-width:840px;">
+            <thead>
+              <tr>
+                <th style="padding:10px 16px;">Variant</th>
+                <th class="num" style="padding:10px 16px;">Real visitors</th>
+                <th class="num" style="padding:10px 16px;">Add to cart</th>
+                <th class="num" style="padding:10px 16px;">Conversion rate</th>
+                <th class="num" style="padding:10px 16px;">Orders</th>
+                <th class="num" style="padding:10px 16px;">Revenue</th>
+                <th class="num" style="padding:10px 16px;">Revenue / visitor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:14px 16px;"><div style="font-weight:600;">A · Original</div><div class="subdued">home.default</div></td>
+                <td class="num" style="padding:14px 16px;">1,748</td>
+                <td class="num" style="padding:14px 16px;">142 · 8.1%</td>
+                <td class="num" style="padding:14px 16px;">3.1%</td>
+                <td class="num" style="padding:14px 16px;">54</td>
+                <td class="num" style="padding:14px 16px;">$4,761</td>
+                <td class="num" style="padding:14px 16px;">$2.72</td>
+              </tr>
+              <tr>
+                <td style="padding:14px 16px;"><div style="font-weight:600;">B · Hero v2</div><div class="subdued">home.hero-v2 · ?view=hero-v2</div></td>
+                <td class="num" style="padding:14px 16px;">1,738</td>
+                <td class="num" style="padding:14px 16px;">169 · 9.7%</td>
+                <td class="num" style="padding:14px 16px;">3.9%</td>
+                <td class="num" style="padding:14px 16px;">68</td>
+                <td class="num" style="padding:14px 16px;">$5,824</td>
+                <td class="num" style="padding:14px 16px;">$3.35</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Variant page snapshots -->
+      <div class="card" style="padding:0;">
+        <div style="padding:16px 20px;">
+          <div class="row" style="gap:6px;">
+            <h2 style="font-size:16px;">Variant page snapshots</h2>
+            <span class="tip" tabindex="0">
+              <svg class="info-icon" width="15" height="15" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><rect x="9.2" y="8.6" width="1.6" height="5" rx=".8" fill="currentColor"/><circle cx="10" cy="6.3" r="1" fill="currentColor"/></svg>
+              <span class="tip-body">These reports use A/B-assigned visits, not blended Page Snapshot traffic.</span>
+            </span>
+          </div>
+        </div>
+        <div class="vtabs" id="variant-tabs-row">
+          <button class="vtab active" onclick="showVariant('A')">Control A</button>
+          <button class="vtab" onclick="showVariant('B')">Variant B</button>
+        </div>
+
+        <div id="variant-A" style="padding:20px;" class="stack">
+          <div class="row between start">
+            <div>
+              <span class="badge info">Control A</span>
+              <h3 style="margin-top:6px; font-size:16px;">Original snapshot</h3>
+              <div class="subdued">home.default</div>
+            </div>
+            <span class="badge">Read-only snapshot</span>
+          </div>
+          <div class="row" style="gap:6px;">
+            <span class="subdued">1 captured page</span>
+            <span class="tip" tabindex="0">
+              <svg class="info-icon" width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><rect x="9.2" y="8.6" width="1.6" height="5" rx=".8" fill="currentColor"/><circle cx="10" cy="6.3" r="1" fill="currentColor"/></svg>
+              <span class="tip-body">Template-wide homepage behavior for visitors assigned to this variant during the test.</span>
+            </span>
+          </div>
+          <div class="qbar">
+            <span style="width:71%; background:#008060;"></span>
+            <span style="width:17%; background:#8a6116;"></span>
+            <span style="width:9%; background:#b5371f;"></span>
+            <span style="width:3%; background:#8c9196;"></span>
+          </div>
+          <div class="legend">
+            <span><span class="dot" style="background:#008060;"></span>Real 1,748</span>
+            <span><span class="dot" style="background:#8a6116;"></span>Zombies 201</span>
+            <span><span class="dot" style="background:#b5371f;"></span>Bots 112</span>
+            <span><span class="dot" style="background:#8c9196;"></span>Pending 42</span>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:12px;">
+            <div class="sstat" style="background:#fff;"><div class="l">Real visitors</div><div class="v">1,748</div></div>
+            <div class="sstat" style="background:#fff;"><div class="l">Page views</div><div class="v">4,206</div></div>
+            <div class="sstat" style="background:#fff;"><div class="l">Add to cart</div><div class="v">8.1%</div></div>
+            <div class="sstat" style="background:#fff;"><div class="l">CVR</div><div class="v">3.1%</div></div>
+            <div class="sstat" style="background:#fff;"><div class="l">Revenue</div><div class="v">$4,761</div></div>
+            <div class="sstat" style="background:#fff;"><div class="l">Avg. scroll</div><div class="v">61.2%</div></div>
+            <div class="sstat" style="background:#fff;"><div class="l">Avg. time</div><div class="v">1m 51s</div></div>
+            <div class="sstat" style="background:#fff;"><div class="l">Interactions</div><div class="v">3,914</div></div>
+          </div>
+        </div>
+
+        <div id="variant-B" style="padding:20px; display:none;" class="stack">
+          <div class="row between start">
+            <div>
+              <span class="badge warning">Variant B</span>
+              <h3 style="margin-top:6px; font-size:16px;">Hero v2 snapshot</h3>
+              <div class="subdued">home.hero-v2 · ?view=hero-v2</div>
+            </div>
+            <span class="badge">Read-only snapshot</span>
+          </div>
+          <div class="row" style="gap:6px;">
+            <span class="subdued">1 captured page</span>
+            <span class="tip" tabindex="0">
+              <svg class="info-icon" width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><rect x="9.2" y="8.6" width="1.6" height="5" rx=".8" fill="currentColor"/><circle cx="10" cy="6.3" r="1" fill="currentColor"/></svg>
+              <span class="tip-body">Template-wide homepage behavior for visitors assigned to this variant during the test.</span>
+            </span>
+          </div>
+          <div class="qbar">
+            <span style="width:72%; background:#008060;"></span>
+            <span style="width:16%; background:#8a6116;"></span>
+            <span style="width:9%; background:#b5371f;"></span>
+            <span style="width:3%; background:#8c9196;"></span>
+          </div>
+          <div class="legend">
+            <span><span class="dot" style="background:#008060;"></span>Real 1,738</span>
+            <span><span class="dot" style="background:#8a6116;"></span>Zombies 198</span>
+            <span><span class="dot" style="background:#b5371f;"></span>Bots 108</span>
+            <span><span class="dot" style="background:#8c9196;"></span>Pending 39</span>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:12px;">
+            <div class="sstat" style="background:#fff;"><div class="l">Real visitors</div><div class="v">1,738</div></div>
+            <div class="sstat" style="background:#fff;"><div class="l">Page views</div><div class="v">4,512</div></div>
+            <div class="sstat" style="background:#fff;"><div class="l">Add to cart</div><div class="v">9.7%</div></div>
+            <div class="sstat" style="background:#fff;"><div class="l">CVR</div><div class="v">3.9%</div></div>
+            <div class="sstat" style="background:#fff;"><div class="l">Revenue</div><div class="v">$5,824</div></div>
+            <div class="sstat" style="background:#fff;"><div class="l">Avg. scroll</div><div class="v">66.8%</div></div>
+            <div class="sstat" style="background:#fff;"><div class="l">Avg. time</div><div class="v">2m 06s</div></div>
+            <div class="sstat" style="background:#fff;"><div class="l">Interactions</div><div class="v">4,278</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="assets/admin.js"></script>
+<script>
+  AdminDemo.init("ab");
+  function showVariant(which) {
+    document.getElementById("variant-A").style.display = which === "A" ? "" : "none";
+    document.getElementById("variant-B").style.display = which === "B" ? "" : "none";
+    var tabs = document.querySelectorAll("#variant-tabs-row .vtab");
+    tabs[0].classList.toggle("active", which === "A");
+    tabs[1].classList.toggle("active", which === "B");
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Snapshot Demo — Channel Snapshots</title>
+<link rel="stylesheet" href="assets/admin.css">
+<style>
+  .tbl.gray-head th { background: #f6f6f7; }
+  .kpi3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 10px 0; }
+  .kpi3 > div { padding: 0 16px; }
+  .kpi3 > div:first-child { padding-left: 0; }
+  .kpi3 > div + div { border-left: 1px solid var(--border); }
+  .kpi3 .v { font-size: 22px; font-weight: 650; }
+</style>
+</head>
+<body>
+<div id="shell"></div>
+
+<main class="main">
+  <div class="app-frame">
+    <div id="app-chrome"></div>
+
+    <div class="page">
+      <a class="back-link" href="index.html">‹ Dashboard</a>
+      <div class="page-head">
+        <span class="page-title">Channel Snapshots</span>
+        <div class="actions">
+          <a class="pill" href="#">Signal · 22/250 snapshots</a>
+          <a class="btn primary" href="channel-snapshot-report.html">View active snapshot</a>
+        </div>
+      </div>
+
+      <!-- Channel performance -->
+      <div class="card stack" style="gap:14px;">
+        <div class="row between start">
+          <div>
+            <h2 style="font-size:16px;">Channel performance</h2>
+            <div class="subdued">Paid social push</div>
+          </div>
+          <div class="row">
+            <span class="badge">Snapshot tracking</span>
+            <span class="badge success">Active</span>
+          </div>
+        </div>
+
+        <div class="kpi3">
+          <div>
+            <div class="subdued">Human sessions</div>
+            <div class="v">6,431</div>
+          </div>
+          <div>
+            <div class="subdued">Real traffic</div>
+            <div class="v">71.42%</div>
+          </div>
+          <div>
+            <div class="subdued">Converted sessions</div>
+            <div class="v">148</div>
+            <div class="subdued">2.3% conversion rate</div>
+          </div>
+        </div>
+
+        <div class="row between start">
+          <div>
+            <div class="row" style="gap:6px;">
+              <span style="font-weight:600;">Human sessions by channel</span>
+              <span class="tip" tabindex="0">
+                <svg class="info-icon" width="15" height="15" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><rect x="9.2" y="8.6" width="1.6" height="5" rx=".8" fill="currentColor"/><circle cx="10" cy="6.3" r="1" fill="currentColor"/></svg>
+                <span class="tip-body">Human sessions are Real + Zombie; real traffic share is Real ÷ all captured sessions. Each acquisition session is counted once, in its first captured time bucket. Conversion rate is converted human sessions ÷ human sessions (gaps mean no human sessions). While the snapshot is active, the current bucket may be partial.</span>
+              </span>
+            </div>
+            <div class="subdued" style="margin-top:2px;">Sep 8–Sep 19, 2026 · Daily · UTC</div>
+          </div>
+          <select class="select" style="min-width:156px;"><option selected>Human sessions</option><option>Conversion rate</option></select>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <svg viewBox="0 0 860 220" width="100%" height="190" style="min-width:560px;">
+            <g stroke="#ececec" stroke-width="1">
+              <line x1="44" y1="180" x2="848" y2="180"/><line x1="44" y1="140" x2="848" y2="140"/>
+              <line x1="44" y1="100" x2="848" y2="100"/><line x1="44" y1="60" x2="848" y2="60"/>
+              <line x1="44" y1="20" x2="848" y2="20"/>
+            </g>
+            <g font-size="11" fill="#9aa4ab" text-anchor="end">
+              <text x="38" y="184">0</text><text x="38" y="144">100</text><text x="38" y="104">200</text>
+              <text x="38" y="64">300</text><text x="38" y="24">400</text>
+            </g>
+            <path d="M44 158 C 130 132, 210 108, 300 96 S 500 52, 590 46 S 780 66, 848 58" fill="none" stroke="#bf4080" stroke-width="2.25"/>
+            <path d="M44 166 C 130 156, 210 148, 300 142 S 500 118, 590 122 S 780 108, 848 112" fill="none" stroke="#008060" stroke-width="2.25"/>
+            <path d="M44 170 C 130 164, 210 160, 300 156 S 500 146, 590 148 S 780 138, 848 136" fill="none" stroke="#2463eb" stroke-width="2.25"/>
+            <path d="M44 176 C 130 172, 210 170, 300 168 S 500 162, 590 164 S 780 156, 848 154" fill="none" stroke="#b66b00" stroke-width="2.25"/>
+            <g font-size="11" fill="#7a8891">
+              <text x="44" y="206" text-anchor="start">Sep 8</text>
+              <text x="245" y="206" text-anchor="middle">Sep 11</text>
+              <text x="446" y="206" text-anchor="middle">Sep 14</text>
+              <text x="647" y="206" text-anchor="middle">Sep 17</text>
+              <text x="848" y="206" text-anchor="end">Sep 19</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="legend">
+          <span><span class="line" style="background:#bf4080;"></span>Paid Social</span>
+          <span><span class="line" style="background:#008060;"></span>Organic Search</span>
+          <span><span class="line" style="background:#2463eb;"></span>Direct</span>
+          <span><span class="line" style="background:#b66b00;"></span>Email</span>
+        </div>
+
+        <div aria-live="polite" style="min-height:34px; font-size:12px; color:var(--text-subdued); display:flex; flex-wrap:wrap; gap:4px 12px;">
+          <strong style="color:var(--text);">Sep 19, 2026 UTC</strong>
+          <span>Paid Social: 342</span>
+          <span>Organic Search: 178</span>
+          <span>Direct: 121</span>
+          <span>Email: 64</span>
+        </div>
+
+        <div class="row" style="justify-content:flex-end; gap:16px;">
+          <a class="btn plain" href="channel-snapshot-report.html">View report</a>
+          <button class="btn plain">Refresh graph</button>
+        </div>
+      </div>
+
+      <!-- Snapshot history -->
+      <div class="card" style="padding:0;">
+        <div class="row between" style="padding:16px 20px; border-bottom:1px solid var(--border-subdued);">
+          <h3>Snapshot history</h3>
+          <span class="subdued">3 snapshots</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="tbl gray-head" style="min-width:760px;" aria-label="Channel snapshot history">
+            <thead>
+              <tr>
+                <th style="padding:10px 20px;">Snapshot</th>
+                <th style="padding:10px 20px;">Status</th>
+                <th class="num" style="padding:10px 20px;">Captured sessions</th>
+                <th style="padding:10px 20px;">Completion</th>
+                <th style="padding:10px 20px;">Started</th>
+                <th style="padding:10px 20px;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:14px 20px;"><a href="channel-snapshot-report.html" style="color:inherit; font-weight:600;">Paid social push</a></td>
+                <td style="padding:14px 20px;"><span class="badge success">Active</span></td>
+                <td class="num" style="padding:14px 20px;">8,912</td>
+                <td style="padding:14px 20px;">10,000 human sessions</td>
+                <td style="padding:14px 20px;">Sep 8, 2026</td>
+                <td class="num" style="padding:14px 20px;"><a class="btn slim" href="channel-snapshot-report.html">Open</a></td>
+              </tr>
+              <tr>
+                <td style="padding:14px 20px;"><a href="channel-snapshot-report.html" style="color:inherit; font-weight:600;">August traffic quality</a></td>
+                <td style="padding:14px 20px;"><span class="badge info">Completed</span></td>
+                <td class="num" style="padding:14px 20px;">12,406</td>
+                <td style="padding:14px 20px;">10,000 human sessions</td>
+                <td style="padding:14px 20px;">Aug 4, 2026</td>
+                <td class="num" style="padding:14px 20px;"><a class="btn slim" href="channel-snapshot-report.html">Open</a></td>
+              </tr>
+              <tr>
+                <td style="padding:14px 20px;"><a href="channel-snapshot-report.html" style="color:inherit; font-weight:600;">July window</a></td>
+                <td style="padding:14px 20px;"><span class="badge info">Completed</span></td>
+                <td class="num" style="padding:14px 20px;">9,884</td>
+                <td style="padding:14px 20px;">14 days</td>
+                <td style="padding:14px 20px;">Jul 7, 2026</td>
+                <td class="num" style="padding:14px 20px;"><a class="btn slim" href="channel-snapshot-report.html">Open</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Fine print -->
+      <div class="subdued">Dates are shown in UTC.</div>
+      <details style="color:var(--text-subdued); font-size:12px;">
+        <summary style="cursor:pointer;">How channel traffic is measured</summary>
+        <p style="margin:8px 0 0;">Snapshot tracking counts an acquisition session once and keeps its arrival channel across internal page views. A fresh external or campaign arrival, or 30 minutes of inactivity, starts a new session. Historical traffic is not imported.</p>
+        <p style="margin:8px 0 0;">Human sessions are Real + Zombie. Conversion rate uses converted human sessions ÷ human sessions; real traffic share uses Real ÷ all sessions. These are Snapshot metrics, not Shopify Analytics. The graph shows one capture only, with conversions assigned to the session’s first captured time bucket. Channel and page snapshots share the existing snapshot allowance.</p>
+      </details>
+    </div>
+  </div>
+</main>
+
+<script src="assets/admin.js"></script>
+<script>AdminDemo.init("channel");</script>
+</body>
+</html>

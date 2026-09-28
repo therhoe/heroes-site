@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Snapshot Demo — Fall drop — Meta ads</title>
+<link rel="stylesheet" href="assets/admin.css">
+<style>
+  .tbl.gray-head th { background: #f6f6f7; }
+  .overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 80;
+    display: flex; align-items: flex-start; justify-content: center; padding: 40px 16px;
+  }
+  .modal {
+    background: #fff; border-radius: 12px; width: 100%; max-width: 720px;
+    max-height: calc(100vh - 80px); overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,.3);
+  }
+  .modal-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+    font-weight: 650; font-size: 15px;
+    position: sticky; top: 0; background: #fff;
+  }
+  .jrow { display: grid; grid-template-columns: 78px 1fr; gap: 16px; padding-bottom: 22px; }
+  .jrow .body { border-left: 2px solid #b6d8f5; padding-left: 18px; }
+  .jrow .body h4 { font-size: 13px; font-weight: 650; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<div id="shell"></div>
+
+<main class="main">
+  <div class="app-frame">
+    <div id="app-chrome"></div>
+
+    <div class="page">
+      <a class="back-link" href="customer-snapshots.html">‹ Customer Snapshots</a>
+      <div class="page-head">
+        <span class="page-title">Fall drop — Meta ads</span>
+        <span class="badge success">Collecting</span>
+        <div class="actions">
+          <button class="btn">Refresh</button>
+          <button class="btn">Complete snapshot</button>
+          <button class="btn primary">Pause snapshot</button>
+        </div>
+        <div class="page-sub">facebook · fall-drop-01 · Ad 120384</div>
+      </div>
+
+      <!-- Journey overview -->
+      <div class="card stack" style="gap:14px;">
+        <div class="row between">
+          <div class="row" style="gap:6px;">
+            <h3>Journey overview</h3>
+            <span class="tip" tabindex="0">
+              <svg class="info-icon" width="15" height="15" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><rect x="9.2" y="8.6" width="1.6" height="5" rx=".8" fill="currentColor"/><circle cx="10" cy="6.3" r="1" fill="currentColor"/></svg>
+              <span class="tip-body">Cart, checkout, and purchase totals count human sessions once. Conversion rate = purchasing human sessions ÷ human sessions (Real + Zombie).</span>
+            </span>
+          </div>
+          <span class="subdued">Sep 12 – Sep 26 · UTC</span>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:16px;">
+          <div><div class="subdued">Captured sessions</div><div style="font-size:20px; font-weight:650;">1,284</div></div>
+          <div><div class="subdued">Human sessions</div><div style="font-size:20px; font-weight:650;">1,190</div></div>
+          <div><div class="subdued">Added to cart</div><div style="font-size:20px; font-weight:650;">142</div></div>
+          <div><div class="subdued">Started checkout</div><div style="font-size:20px; font-weight:650;">61</div></div>
+          <div><div class="subdued">Purchased</div><div style="font-size:20px; font-weight:650;">31</div></div>
+          <div><div class="subdued">Conversion rate</div><div style="font-size:20px; font-weight:650;">2.6%</div></div>
+        </div>
+        <span class="subdued">1,284 / 2,000 matching sessions</span>
+      </div>
+
+      <!-- Campaign link (collapsed by default) -->
+      <div class="card stack" style="gap:12px;">
+        <div class="row between">
+          <h3>Campaign link</h3>
+          <button class="btn plain" id="setup-btn" onclick="AdminDemo.toggle('setup-body'); this.textContent = this.textContent === 'Show setup' ? 'Hide setup' : 'Show setup';">Show setup</button>
+        </div>
+        <div id="setup-body" style="display:none;" class="stack">
+          <label style="font-size:12px; font-weight:600;">Use this link in your campaign
+            <textarea readonly rows="2" style="width:100%; margin-top:4px; font:12px monospace; padding:8px 12px; border:1px solid #c9cccf; border-radius:8px; resize:none;">https://hero-outfitters.com/?utm_source=facebook&amp;utm_medium=paid_social&amp;utm_campaign=fall-drop-01&amp;ad_id=120384</textarea>
+          </label>
+          <div class="row"><button class="btn">Copy link</button></div>
+          <label style="font-size:12px; font-weight:600;">Test tracking link
+            <input type="text" placeholder="Paste the final URL after clicking your ad" style="width:100%; margin-top:4px; font-size:13px; padding:8px 12px; border:1px solid #c9cccf; border-radius:8px;">
+          </label>
+          <div class="row"><button class="btn">Check link tags</button></div>
+          <span class="subdued">Matching arrivals must start after this snapshot was created. Untagged ad IDs cannot be inferred from a click ID.</span>
+        </div>
+      </div>
+
+      <!-- Visitor journeys -->
+      <div class="card stack" style="gap:14px;">
+        <div class="row between">
+          <div class="row" style="gap:6px;">
+            <h3>Visitor journeys</h3>
+            <span class="tip" tabindex="0">
+              <svg class="info-icon" width="15" height="15" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><rect x="9.2" y="8.6" width="1.6" height="5" rx=".8" fill="currentColor"/><circle cx="10" cy="6.3" r="1" fill="currentColor"/></svg>
+              <span class="tip-body">Anonymous sessions end after 30 minutes of inactivity. Tracking depends on consent and browser delivery. Form contents and private account paths are excluded. These are recorded events, not a video replay.</span>
+            </span>
+          </div>
+          <span class="subdued">1,284 sessions</span>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="tbl gray-head">
+            <thead>
+              <tr>
+                <th style="padding:12px;">Session · UTC</th>
+                <th style="padding:12px;">Landing page</th>
+                <th style="padding:12px;">Quality</th>
+                <th class="num" style="padding:12px;">Pages</th>
+                <th style="padding:12px;">Outcome</th>
+                <th style="padding:12px;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:16px 12px;">19 Sep, 14:22</td>
+                <td style="padding:16px 12px; max-width:260px; overflow-wrap:anywhere;">/products/trail-runner-2</td>
+                <td style="padding:16px 12px;">Real</td>
+                <td class="num" style="padding:16px 12px;">7</td>
+                <td style="padding:16px 12px;"><span class="badge success">Purchased</span></td>
+                <td class="num" style="padding:16px 12px;"><button class="btn slim" onclick="AdminDemo.toggle('journey-modal')">View journey</button></td>
+              </tr>
+              <tr>
+                <td style="padding:16px 12px;">19 Sep, 13:58</td>
+                <td style="padding:16px 12px;">/products/summit-jacket</td>
+                <td style="padding:16px 12px;">Real</td>
+                <td class="num" style="padding:16px 12px;">3</td>
+                <td style="padding:16px 12px;"><span class="badge info">Added to cart</span></td>
+                <td class="num" style="padding:16px 12px;"><button class="btn slim" onclick="AdminDemo.toggle('journey-modal')">View journey</button></td>
+              </tr>
+              <tr>
+                <td style="padding:16px 12px;">19 Sep, 13:41</td>
+                <td style="padding:16px 12px;">/</td>
+                <td style="padding:16px 12px;">Zombie</td>
+                <td class="num" style="padding:16px 12px;">1</td>
+                <td style="padding:16px 12px;"><span class="badge info">Browsing</span></td>
+                <td class="num" style="padding:16px 12px;"><button class="btn slim" onclick="AdminDemo.toggle('journey-modal')">View journey</button></td>
+              </tr>
+              <tr>
+                <td style="padding:16px 12px;">19 Sep, 13:12</td>
+                <td style="padding:16px 12px;">/collections/new-arrivals</td>
+                <td style="padding:16px 12px;">Real</td>
+                <td class="num" style="padding:16px 12px;">5</td>
+                <td style="padding:16px 12px;"><span class="badge info">Checkout</span></td>
+                <td class="num" style="padding:16px 12px;"><button class="btn slim" onclick="AdminDemo.toggle('journey-modal')">View journey</button></td>
+              </tr>
+              <tr>
+                <td style="padding:16px 12px;">19 Sep, 12:47</td>
+                <td style="padding:16px 12px;">/products/trail-runner-2</td>
+                <td style="padding:16px 12px;">Assessing</td>
+                <td class="num" style="padding:16px 12px;">2</td>
+                <td style="padding:16px 12px;"><span class="badge info">Browsing</span></td>
+                <td class="num" style="padding:16px 12px;"><button class="btn slim" onclick="AdminDemo.toggle('journey-modal')">View journey</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row" style="justify-content:center;"><span class="subdued">Page 1 of 129</span></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Journey modal -->
+<div class="overlay" id="journey-modal" style="display:none;" onclick="if(event.target===this)AdminDemo.toggle('journey-modal')">
+  <div class="modal">
+    <div class="modal-head">
+      <span>Visitor journey</span>
+      <div class="row">
+        <button class="btn slim">Export journey</button>
+        <button class="btn slim" onclick="AdminDemo.toggle('journey-modal')">✕</button>
+      </div>
+    </div>
+    <div class="stack" style="padding:20px; gap:16px;">
+      <div class="row">
+        <span class="badge info">facebook</span>
+        <span class="badge">fall-drop-01</span>
+        <span class="badge">Ad 120384</span>
+      </div>
+      <span class="subdued">19 Sep, 14:22 · UTC · 9 recorded events</span>
+      <ol style="list-style:none;">
+        <li class="jrow">
+          <span class="subdued">14:22:04</span>
+          <div class="body"><h4>Viewed page</h4><div class="subdued">42s active · 82% scroll</div><div style="font-size:12px; color:var(--text-subdued); overflow-wrap:anywhere;">/products/trail-runner-2</div></div>
+        </li>
+        <li class="jrow">
+          <span class="subdued">14:23:11</span>
+          <div class="body"><h4>Clicked</h4><p style="font-size:13px;">Product gallery — photo 3</p><div style="font-size:12px; color:var(--text-subdued);">/products/trail-runner-2</div></div>
+        </li>
+        <li class="jrow">
+          <span class="subdued">14:24:40</span>
+          <div class="body"><h4>Viewed page</h4><div class="subdued">51s active · 94% scroll</div><div style="font-size:12px; color:var(--text-subdued);">/products/trail-runner-2 → /pages/size-guide</div></div>
+        </li>
+        <li class="jrow">
+          <span class="subdued">14:25:58</span>
+          <div class="body"><h4>Clicked</h4><p style="font-size:13px;">Size selector — US 10</p><div style="font-size:12px; color:var(--text-subdued);">/products/trail-runner-2</div></div>
+        </li>
+        <li class="jrow">
+          <span class="subdued">14:26:15</span>
+          <div class="body"><h4>Added to cart</h4><p style="font-size:13px;">Trail Runner 2 — US 10</p><div style="font-size:12px;">$84.00</div></div>
+        </li>
+        <li class="jrow">
+          <span class="subdued">14:27:02</span>
+          <div class="body"><h4>Started checkout</h4><div style="font-size:12px; color:var(--text-subdued);">/cart → /checkouts</div></div>
+        </li>
+        <li class="jrow">
+          <span class="subdued">14:28:16</span>
+          <div class="body"><h4>Purchased</h4><div style="font-size:12px;">$84.00</div></div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<script src="assets/admin.js"></script>
+<script>AdminDemo.init("customer");</script>
+</body>
+</html>

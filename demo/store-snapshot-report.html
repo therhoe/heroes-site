@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Snapshot Demo — September baseline</title>
+<link rel="stylesheet" href="assets/admin.css">
+<style>
+  .vstat {
+    border: 1px solid var(--border-subdued); border-radius: 8px;
+    padding: 16px 18px; border-left: 4px solid var(--accent, #2c6ecb);
+  }
+  .vstat .value { font-size: 26px; font-weight: 650; margin-top: 2px; }
+  .mtile {
+    border: 1px solid var(--border-subdued); border-radius: 8px;
+    padding: 14px 16px; min-height: 124px;
+    display: grid; grid-template-rows: 22px 44px minmax(30px, auto); row-gap: 8px;
+  }
+  .mtile .t { font-size: 12px; color: var(--text-subdued); font-weight: 600; cursor: help; }
+  .mtile .v { font-size: 20px; font-weight: 650; }
+  .rec-scroll { display: flex; gap: 14px; overflow-x: auto; padding: 4px 4px 14px 0; }
+  .rec-card {
+    flex: 0 0 268px; border: 1px solid #dfe3e8; border-radius: 8px; padding: 14px;
+    background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.06); min-height: 260px;
+    display: flex; flex-direction: column; gap: 12px; font-size: 12px;
+  }
+  .rec-metrics { border-top: 1px solid var(--border-subdued); border-bottom: 1px solid var(--border-subdued); padding: 10px 0; }
+  .rec-metrics div { display: flex; justify-content: space-between; padding: 3px 0; }
+  .frow { padding: 14px 20px; border-bottom: 1px solid #ebebeb; display: flex; gap: 24px; align-items: center; }
+  .frow:last-child { border-bottom: 0; }
+  .frow:hover { background: #fafbfb; }
+  .minibar { height: 6px; border-radius: 3px; background: #e4e5e7; overflow: hidden; }
+  .minibar > div { height: 100%; }
+  .tbl.gray-head th { background: #f6f6f7; }
+  .qmark {
+    width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--border);
+    background: #fff; color: var(--text-subdued); font-size: 12px; line-height: 16px;
+    text-align: center; display: inline-block; cursor: help;
+  }
+</style>
+</head>
+<body>
+<div id="shell"></div>
+
+<main class="main">
+  <div class="app-frame">
+    <div id="app-chrome"></div>
+
+    <div class="page">
+      <!-- Page header -->
+      <a class="back-link" href="index.html">‹ Dashboard</a>
+      <div class="page-head">
+        <span class="page-title">September baseline</span>
+        <div class="actions">
+          <button class="btn">Refresh analysis</button>
+          <button class="btn" style="color:var(--critical);">Delete</button>
+        </div>
+        <div class="page-sub">1,000 unique human visitor snapshot · completed · started 9/10/2026</div>
+      </div>
+
+      <!-- Storefront tracking status -->
+      <div class="row between">
+        <span class="row" style="gap:10px;">
+          <span class="subdued" style="font-size:13px;">Rich storefront tracking</span>
+          <span class="badge success">Active</span>
+        </span>
+        <span class="subdued" style="font-size:13px;">hero-outfitters.myshopify.com</span>
+      </div>
+
+      <!-- Traffic Breakdown -->
+      <div class="card stack" style="gap:16px;">
+        <div class="row between start">
+          <h3>Traffic Breakdown</h3>
+          <span class="badge info">1,000 unique human visitor snapshot</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:16px;">
+          <div class="vstat" style="--accent:#2c6ecb;">
+            <div style="font-weight:600; font-size:13px;">Total visitors</div>
+            <div class="value">5,298</div>
+          </div>
+          <div class="vstat" style="--accent:#008060;">
+            <span class="tip" tabindex="0" style="cursor:help;"><span style="font-weight:600; font-size:13px;">Humans</span>
+              <span class="tip-body">Engaged real visitors</span></span>
+            <div class="value">3,274</div>
+          </div>
+          <div class="vstat" style="--accent:#8a6116;">
+            <span class="tip" tabindex="0" style="cursor:help;"><span style="font-weight:600; font-size:13px;">Zombies</span>
+              <span class="tip-body">Unengaged visitors</span></span>
+            <div class="value">1,192</div>
+          </div>
+          <div class="vstat" style="--accent:#b5371f;">
+            <span class="tip" tabindex="0" style="cursor:help;"><span style="font-weight:600; font-size:13px;">Bots</span>
+              <span class="tip-body">Automated / non-human traffic</span></span>
+            <div class="value">832</div>
+          </div>
+        </div>
+
+        <div class="quality-bar">
+          <span style="width:61.8%; background:#008060;"></span>
+          <span style="width:22.5%; background:#8a6116;"></span>
+          <span style="width:15.7%; background:#b5371f;"></span>
+        </div>
+        <div class="legend">
+          <span><span class="dot" style="background:#008060; border-radius:3px;"></span>Humans 3,274 (61.8%)</span>
+          <span><span class="dot" style="background:#8a6116; border-radius:3px;"></span>Zombies 1,192 (22.5%)</span>
+          <span><span class="dot" style="background:#b5371f; border-radius:3px;"></span>Bots 832 (15.7%)</span>
+        </div>
+      </div>
+
+      <!-- Engagement + Conversions -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:16px;">
+        <div class="card stack" style="gap:12px;">
+          <h3>Engagement</h3>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:12px;">
+            <div class="mtile"><span class="tip" tabindex="0"><span class="t">Scroll</span><span class="tip-body">Average scroll depth across real visitor page views.</span></span><span class="v">58.4%</span><span><span class="badge success">+6.2%</span></span></div>
+            <div class="mtile"><span class="tip" tabindex="0"><span class="t">Duration</span><span class="tip-body">Average session duration from the first to last tracked store snapshot page view for each real visitor.</span></span><span class="v">2m 41s</span><span><span class="badge success">+18s</span></span></div>
+            <div class="mtile"><span class="tip" tabindex="0"><span class="t">Searches</span><span class="tip-body">Unique real visitor sessions where an on-site search query was detected.</span></span><span class="v">412</span><span><span class="badge success">+37</span></span></div>
+            <div class="mtile"><span class="tip" tabindex="0"><span class="t">CTR</span><span class="tip-body">Click-through rate: percentage of real visitor sessions with at least one link or button click.</span></span><span class="v">44.1%</span><span><span class="badge" style="background:#fbd3cb; color:#8a1f0f;">-1.8%</span></span></div>
+            <div class="mtile"><span class="tip" tabindex="0"><span class="t">Filters</span><span class="tip-body">Collection filter interactions captured during real visitor sessions.</span></span><span class="v">209</span><span><span class="badge success">+24</span></span></div>
+            <div class="mtile"><span class="tip" tabindex="0"><span class="t">TPV</span><span class="tip-body">Total Page Views: all tracked store snapshot page loads, including humans, zombies, bots, and pending visits.</span></span><span class="v">12,847</span><span><span class="badge success">+1,102</span></span></div>
+          </div>
+        </div>
+        <div class="card stack" style="gap:12px;">
+          <h3>Conversions</h3>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:12px;">
+            <div class="mtile"><span class="tip" tabindex="0"><span class="t">ATC</span><span class="tip-body">Add-to-cart rate: percentage of real visitor sessions where an add-to-cart event was captured.</span></span><span class="v">8.9%</span><span><span class="badge success">+1.1%</span></span></div>
+            <div class="mtile"><span class="tip" tabindex="0"><span class="t">RCC</span><span class="tip-body">Reached Checkout Count: unique real visitor sessions where checkout started. Older visits can also count when the only available signal is an exit toward checkout.</span></span><span class="v">214</span><span><span class="badge success">+31</span></span></div>
+            <div class="mtile"><span class="tip" tabindex="0"><span class="t">CVR</span><span class="tip-body">Conversion rate: percentage of real visitor sessions attributed to an order.</span></span><span class="v">3.2%</span><span><span class="badge success">+0.4%</span></span></div>
+            <div class="mtile"><span class="tip" tabindex="0"><span class="t">Orders</span><span class="tip-body">Orders attributed to real visitor sessions captured during this store snapshot.</span></span><span class="v">104</span><span><span class="badge success">+22</span></span></div>
+            <div class="mtile"><span class="tip" tabindex="0"><span class="t">Revenue</span><span class="tip-body">Order revenue attributed to real visitor sessions captured during this store snapshot.</span></span><span class="v">$9,318</span><span><span class="badge success">+2,404</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommended next snapshots -->
+      <div class="card stack" style="gap:12px;">
+        <div class="row between">
+          <h3>Recommended next snapshots</h3>
+          <span class="badge info">4 recommendations</span>
+        </div>
+        <div class="rec-scroll">
+          <article class="rec-card">
+            <div class="row between"><span class="badge info">Product</span><span class="badge success">86% confidence</span></div>
+            <div style="font-weight:650; font-size:13px;">Trail Runner 2</div>
+            <div class="rec-metrics">
+              <div><span class="subdued">Sessions</span><strong>1,204</strong></div>
+              <div><span class="subdued">CTR</span><strong>38.2%</strong></div>
+              <div><span class="subdued">CVR</span><strong>2.1%</strong></div>
+            </div>
+            <div><strong>Audit product page: Trail Runner 2</strong><br><span class="subdued">1,204 human sessions with 6.8% ATC and 2.1% CVR. This product has enough traffic to diagnose product-page friction.</span></div>
+            <button class="btn" style="margin-top:auto; width:100%;">Run product snapshot</button>
+          </article>
+          <article class="rec-card">
+            <div class="row between"><span class="badge info">Product</span><span class="badge success">74% confidence</span></div>
+            <div style="font-weight:650; font-size:13px;">Summit Jacket</div>
+            <div class="rec-metrics">
+              <div><span class="subdued">Sessions</span><strong>742</strong></div>
+              <div><span class="subdued">CTR</span><strong>31.6%</strong></div>
+              <div><span class="subdued">CVR</span><strong>1.4%</strong></div>
+            </div>
+            <div><strong>Audit product page: Summit Jacket</strong><br><span class="subdued">742 human sessions with 5.2% ATC and 1.4% CVR. Conversion trails similar products in this store.</span></div>
+            <button class="btn" style="margin-top:auto; width:100%;">Run product snapshot</button>
+          </article>
+          <article class="rec-card">
+            <div class="row between"><span class="badge success">Collection</span><span class="badge warning">68% confidence</span></div>
+            <div style="font-weight:650; font-size:13px;">New Arrivals</div>
+            <div class="rec-metrics">
+              <div><span class="subdued">Sessions</span><strong>986</strong></div>
+              <div><span class="subdued">CTR</span><strong>27.4%</strong></div>
+              <div><span class="subdued">CVR</span><strong>—</strong></div>
+            </div>
+            <div><strong>Audit collection page: New Arrivals</strong><br><span class="subdued">986 human sessions with a below-average product click-through rate for a top collection.</span></div>
+            <button class="btn" style="margin-top:auto; width:100%;">Run collection snapshot</button>
+          </article>
+          <article class="rec-card">
+            <div class="row between"><span class="badge">Home</span><span class="badge warning">52% confidence</span></div>
+            <div style="font-weight:650; font-size:13px;">Homepage</div>
+            <div class="rec-metrics">
+              <div><span class="subdued">Sessions</span><strong>1,876</strong></div>
+              <div><span class="subdued">CTR</span><strong>44.7%</strong></div>
+              <div><span class="subdued">CVR</span><strong>3.8%</strong></div>
+            </div>
+            <div><strong>Audit homepage</strong><br><span class="subdued">1,876 human sessions. High entry share makes homepage friction expensive.</span></div>
+            <button class="btn" style="margin-top:auto; width:100%;">Run homepage snapshot</button>
+          </article>
+        </div>
+      </div>
+
+      <!-- Focused snapshots -->
+      <div class="card" style="padding:0;">
+        <div class="row between" style="padding:16px 20px; border-bottom:1px solid var(--border-subdued);">
+          <h3>Focused snapshots created from this store snapshot</h3>
+          <span class="badge info">2 focused snapshots</span>
+        </div>
+        <a class="frow" href="page-snapshots.html" style="color:inherit;">
+          <div style="flex:1 1 220px; min-width:0;">
+            <span style="font-weight:700; font-size:13px;">Trail Runner 2</span> <span class="badge info">Product</span>
+            <div class="subdued">Snapshot 3 · /products/trail-runner-2</div>
+          </div>
+          <div style="flex:1 1 180px; max-width:240px;">
+            <div class="row between" style="margin-bottom:4px;"><span class="subdued">1,000/1,000</span><span class="badge info">Done</span></div>
+            <div class="minibar"><div style="width:100%; background:#29845a;"></div></div>
+          </div>
+          <div class="row" style="gap:24px;">
+            <div style="text-align:center; min-width:82px;"><div class="subdued">ATC</div><div style="font-weight:600;">6.8%</div></div>
+            <div style="text-align:center; min-width:82px;"><div class="subdued">CVR</div><div style="font-weight:600;">2.1%</div></div>
+            <div style="text-align:center; min-width:82px;"><div class="subdued">REV</div><div style="font-weight:600;">$1,204</div></div>
+          </div>
+        </a>
+        <a class="frow" href="page-snapshots.html" style="color:inherit;">
+          <div style="flex:1 1 220px; min-width:0;">
+            <span style="font-weight:700; font-size:13px;">New Arrivals</span> <span class="badge success">Collection</span>
+            <div class="subdued">Snapshot 1 · /collections/new-arrivals</div>
+          </div>
+          <div style="flex:1 1 180px; max-width:240px;">
+            <div class="row between" style="margin-bottom:4px;"><span class="subdued">412/1,000</span><span class="badge success">Active</span></div>
+            <div class="minibar"><div style="width:41%; background:#2c6ecb;"></div></div>
+          </div>
+          <div class="row" style="gap:24px;">
+            <div style="text-align:center; min-width:82px;"><div class="subdued">Links</div><div style="font-weight:600;">233</div></div>
+            <div style="text-align:center; min-width:82px;"><div class="subdued">Searches</div><div style="font-weight:600;">88</div></div>
+            <div style="text-align:center; min-width:82px;"><div class="subdued">Product CTR</div><div style="font-weight:600;">31%</div></div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Sessions by Page -->
+      <div class="card" style="padding:0;">
+        <div class="row between start" style="padding:20px; gap:20px; flex-wrap:wrap;">
+          <h3>Sessions by Page</h3>
+          <div class="row">
+            <button class="btn primary" disabled style="opacity:.55; cursor:default;">Create snapshot</button>
+          </div>
+        </div>
+        <div class="row between" style="padding:14px 20px 16px; background:#f6f6f7; border-top:1px solid var(--border-subdued); align-items:flex-end; flex-wrap:wrap; gap:12px;">
+          <div class="row wrap" style="gap:10px; align-items:flex-end;">
+            <label style="font-size:12px;">Show<br><select class="select" style="width:190px; margin-top:4px;"><option selected>Human sessions only</option><option>All pages</option></select></label>
+            <label style="font-size:12px;">Sort by<br><select class="select" style="width:190px; margin-top:4px;"><option>Page</option><option>Type</option><option selected>Sessions</option><option>CTR</option><option>CVR</option><option>Revenue</option><option>Weakness</option></select></label>
+            <label style="font-size:12px;">Direction<br><select class="select" style="width:170px; margin-top:4px;"><option selected>Descending</option><option>Ascending</option></select></label>
+          </div>
+          <span class="subdued">Showing 1-8 of 8 pages</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="tbl gray-head" style="min-width:900px;">
+            <thead>
+              <tr>
+                <th style="width:52px; padding:10px 0 10px 20px;"><input type="checkbox" aria-label="Select visible pages"></th>
+                <th style="padding:10px 20px;">Page</th>
+                <th class="num" style="padding:10px 20px;">Type</th>
+                <th class="num" style="padding:10px 20px;">Sessions</th>
+                <th class="num" style="padding:10px 20px;">CTR</th>
+                <th class="num" style="padding:10px 20px;">CVR</th>
+                <th class="num" style="padding:10px 20px;">Revenue</th>
+                <th class="num" style="padding:10px 20px;">
+                  <span class="row" style="justify-content:flex-end; gap:6px;">Weakness
+                    <span class="tip tip-right" tabindex="0"><span class="qmark" aria-label="What weakness means">?</span>
+                      <span class="tip-body">Weakness is a 0-100 score estimating page friction from engagement signals like scroll depth, clicks, exits, bot/zombie traffic, add-to-cart rate, conversion rate, and search/filter behavior. Higher means the page is a stronger candidate for a focused audit.</span>
+                    </span>
+                  </span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:14px 0 14px 20px;"><input type="checkbox" aria-label="Select Trail Runner 2"></td>
+                <td style="padding:14px 20px; font-weight:600;">Trail Runner 2</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge info">Product</span></td>
+                <td class="num" style="padding:14px 20px;">1,204</td>
+                <td class="num" style="padding:14px 20px;">38.2%</td>
+                <td class="num" style="padding:14px 20px;">2.1%</td>
+                <td class="num" style="padding:14px 20px;">$2,412</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge" style="background:#fbd3cb; color:#8a1f0f;">78</span></td>
+              </tr>
+              <tr>
+                <td style="padding:14px 0 14px 20px;"><input type="checkbox" aria-label="Select Homepage"></td>
+                <td style="padding:14px 20px; font-weight:600;">Homepage</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge">Home</span></td>
+                <td class="num" style="padding:14px 20px;">1,876</td>
+                <td class="num" style="padding:14px 20px;">44.7%</td>
+                <td class="num" style="padding:14px 20px;">3.8%</td>
+                <td class="num" style="padding:14px 20px;">$3,981</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge success">21</span></td>
+              </tr>
+              <tr>
+                <td style="padding:14px 0 14px 20px;"><input type="checkbox" aria-label="Select New Arrivals"></td>
+                <td style="padding:14px 20px; font-weight:600;">New Arrivals</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge success">Collection</span></td>
+                <td class="num" style="padding:14px 20px;">986</td>
+                <td class="num" style="padding:14px 20px;">27.4%</td>
+                <td class="num" style="padding:14px 20px;">—</td>
+                <td class="num" style="padding:14px 20px;">—</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge warning">54</span></td>
+              </tr>
+              <tr>
+                <td style="padding:14px 0 14px 20px;"><input type="checkbox" aria-label="Select Summit Jacket"></td>
+                <td style="padding:14px 20px; font-weight:600;">Summit Jacket</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge info">Product</span></td>
+                <td class="num" style="padding:14px 20px;">742</td>
+                <td class="num" style="padding:14px 20px;">31.6%</td>
+                <td class="num" style="padding:14px 20px;">1.4%</td>
+                <td class="num" style="padding:14px 20px;">$914</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge" style="background:#fbd3cb; color:#8a1f0f;">84</span></td>
+              </tr>
+              <tr>
+                <td style="padding:14px 0 14px 20px;"><input type="checkbox" aria-label="Select Basecamp Tee"></td>
+                <td style="padding:14px 20px; font-weight:600;">Basecamp Tee</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge info">Product</span></td>
+                <td class="num" style="padding:14px 20px;">655</td>
+                <td class="num" style="padding:14px 20px;">41.9%</td>
+                <td class="num" style="padding:14px 20px;">3.9%</td>
+                <td class="num" style="padding:14px 20px;">$1,730</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge success">18</span></td>
+              </tr>
+              <tr>
+                <td style="padding:14px 0 14px 20px;"><input type="checkbox" aria-label="Select Size Guide"></td>
+                <td style="padding:14px 20px; font-weight:600;">Size Guide</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge warning">Page</span></td>
+                <td class="num" style="padding:14px 20px;">490</td>
+                <td class="num" style="padding:14px 20px;">52.2%</td>
+                <td class="num" style="padding:14px 20px;">—</td>
+                <td class="num" style="padding:14px 20px;">—</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge success">22</span></td>
+              </tr>
+              <tr>
+                <td style="padding:14px 0 14px 20px;"><input type="checkbox" aria-label="Select Journal"></td>
+                <td style="padding:14px 20px; font-weight:600;">Journal</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge attention">Blog</span></td>
+                <td class="num" style="padding:14px 20px;">311</td>
+                <td class="num" style="padding:14px 20px;">19.6%</td>
+                <td class="num" style="padding:14px 20px;">—</td>
+                <td class="num" style="padding:14px 20px;">—</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge warning">47</span></td>
+              </tr>
+              <tr>
+                <td style="padding:14px 0 14px 20px;"><input type="checkbox" aria-label="Select Sale"></td>
+                <td style="padding:14px 20px; font-weight:600;">Sale</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge success">Collection</span></td>
+                <td class="num" style="padding:14px 20px;">288</td>
+                <td class="num" style="padding:14px 20px;">33.3%</td>
+                <td class="num" style="padding:14px 20px;">—</td>
+                <td class="num" style="padding:14px 20px;">—</td>
+                <td class="num" style="padding:14px 20px;"><span class="badge warning">39</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row between" style="padding:14px 20px; border-top:1px solid var(--border-subdued);">
+          <span class="subdued">Page 1 of 1</span>
+          <div class="row">
+            <button class="btn slim" disabled style="opacity:.55;">Previous</button>
+            <button class="btn slim" disabled style="opacity:.55;">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="assets/admin.js"></script>
+<script>AdminDemo.init("store");</script>
+</body>
+</html>

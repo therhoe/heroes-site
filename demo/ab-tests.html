@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Snapshot Demo — A/B tests</title>
+<link rel="stylesheet" href="assets/admin.css">
+<style>
+  .kpi3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); border-top: 1px solid var(--border-subdued); border-bottom: 1px solid var(--border-subdued); padding: 10px 0; }
+  .kpi3 > div { padding: 0 16px; }
+  .kpi3 > div:first-child { padding-left: 0; }
+  .kpi3 > div + div { border-left: 1px solid var(--border-subdued); }
+  .kpi3 .v { font-size: 22px; font-weight: 650; }
+  .spill {
+    border-radius: 999px; padding: 8px 13px; font-size: 14px; font-weight: 700;
+    border: 1px solid var(--border); background: #fff; color: #5f6368; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 7px;
+  }
+  .spill .chip { background: #f1f2f3; border-radius: 999px; padding: 1px 8px; font-size: 12px; }
+  .spill.active { background: #303030; color: #fff; border-color: #303030; }
+  .spill.active .chip { background: rgba(255,255,255,.16); }
+  .test-card {
+    border: 1px solid var(--border); border-radius: 12px; background: #fff;
+    box-shadow: 0 1px 0 rgba(0,0,0,.04); padding: 14px; cursor: pointer;
+    display: grid; grid-template-columns: minmax(0,1.35fr) minmax(300px,.95fr); gap: 12px 18px;
+  }
+  @media (max-width: 760px) { .test-card { grid-template-columns: 1fr; } }
+  .thumb {
+    width: 104px; height: 72px; border: 1px solid var(--border); border-radius: 8px;
+    background: #fff; position: relative; overflow: hidden; flex-shrink: 0;
+  }
+  .thumb .sq { position: absolute; left: 8px; top: 8px; width: 26px; height: 26px; background: #e4e5e7; border-radius: 3px; }
+  .thumb .bar { position: absolute; left: 42px; height: 4px; background: #e4e5e7; border-radius: 2px; }
+  .thumb .cta { position: absolute; left: 8px; bottom: 8px; width: 44px; height: 10px; background: #303030; border-radius: 2px; }
+  .thumb .suffix { position: absolute; right: 4px; bottom: 4px; font-size: 9px; background: #f1f1f1; border-radius: 999px; padding: 1px 6px; color: #5f6368; }
+  .mblock .l { font-size: 12px; color: var(--text-subdued); }
+  .mblock .v { font-size: 20px; font-weight: 750; line-height: 1.2; margin-top: 4px; }
+  .minibar { height: 8px; border-radius: 999px; background: #e4e5e7; overflow: hidden; }
+  .minibar > div { height: 100%; border-radius: 999px; }
+</style>
+</head>
+<body>
+<div id="shell"></div>
+
+<main class="main">
+  <div class="app-frame">
+    <div id="app-chrome"></div>
+
+    <div class="page">
+      <div class="page-head">
+        <span class="page-title">A/B tests</span>
+        <div class="actions">
+          <button class="btn primary">Create a test</button>
+        </div>
+      </div>
+
+      <!-- A/B Tests performance -->
+      <div class="card stack" style="gap:12px;">
+        <div class="row between start">
+          <div>
+            <h2 style="font-size:16px;">A/B Tests performance</h2>
+            <div class="subdued">Across all live tests</div>
+          </div>
+          <span class="row" style="gap:7px;">
+            <span style="width:7px; height:7px; border-radius:50%; background:#008060; display:inline-block;"></span>
+            <span class="subdued">1 live test</span>
+          </span>
+        </div>
+
+        <div class="kpi3">
+          <div><div class="subdued">Real visitors</div><div class="v">3.5K</div></div>
+          <div><div class="subdued">Tests ready</div><div class="v">1</div></div>
+          <div><div class="subdued">Variants</div><div class="v">2</div></div>
+        </div>
+
+        <div class="row between">
+          <div>
+            <span style="font-weight:600;">Conversion rate</span>
+            <div class="subdued">Homepage template test — “Hero v2”</div>
+          </div>
+          <span class="legend" style="font-size:11px;">
+            <span><span class="line" style="background:#2463eb; width:14px;"></span>Variant B</span>
+            <span><span style="display:inline-block; width:14px; border-top:2px dashed #8c9196; vertical-align:3px; margin-right:7px;"></span>Control A</span>
+          </span>
+        </div>
+
+        <svg viewBox="0 0 600 112" width="100%" height="88" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="fillB" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2c6ecb" stop-opacity="0.24"/>
+              <stop offset="1" stop-color="#2c6ecb" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <g stroke="#e3e3e3" stroke-width="1">
+            <line x1="0" y1="24" x2="600" y2="24"/><line x1="0" y1="64" x2="600" y2="64"/><line x1="0" y1="104" x2="600" y2="104"/>
+          </g>
+          <path d="M0 96 C 90 76, 170 62, 260 56 S 440 48, 520 46 S 570 46, 600 45 L 600 112 L 0 112 Z" fill="url(#fillB)"/>
+          <path d="M0 96 C 90 76, 170 62, 260 56 S 440 48, 520 46 S 570 46, 600 45" fill="none" stroke="#2463eb" stroke-width="2.5"/>
+          <path d="M0 98 C 90 86, 170 78, 260 74 S 440 68, 520 68 S 570 67, 600 66" fill="none" stroke="#8c9196" stroke-width="2" stroke-dasharray="6 6"/>
+        </svg>
+        <div class="row between" style="font-size:11px; color:var(--text-subdued);">
+          <span>Start</span><span>Variant progress</span><span>100%</span>
+        </div>
+      </div>
+
+      <!-- Main list card -->
+      <div class="card stack" style="gap:16px;">
+        <div class="row between wrap" style="gap:12px;">
+          <div class="row wrap" style="gap:8px;">
+            <button class="spill active">▷ Live <span class="chip">1</span></button>
+            <button class="spill">Ⅱ Paused <span class="chip">0</span></button>
+            <button class="spill">✎ Draft <span class="chip">1</span></button>
+            <button class="spill">▣ Ended <span class="chip">3</span></button>
+          </div>
+          <div class="row wrap" style="gap:8px;">
+            <a class="pill" href="#">Signal · 4/25 A/B tests</a>
+            <div style="width:260px;">
+              <input type="text" aria-label="Search tests" placeholder="Search" style="width:100%; font-size:13px; padding:7px 12px; border:1px solid #c9cccf; border-radius:8px;">
+            </div>
+            <select class="select" aria-label="Sort tests" style="min-width:140px;">
+              <option selected>Newest</option><option>Visitors</option><option>Lift</option><option>Progress</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Test card -->
+        <div class="test-card" role="button" tabindex="0" onclick="window.location='ab-test-report.html'">
+          <div class="stack" style="gap:10px;">
+            <div class="row start" style="gap:14px;">
+              <div class="thumb">
+                <span class="sq"></span>
+                <span class="bar" style="top:10px; width:48px;"></span>
+                <span class="bar" style="top:18px; width:40px;"></span>
+                <span class="bar" style="top:26px; width:44px;"></span>
+                <span class="cta"></span>
+                <span class="suffix">hero-v2</span>
+              </div>
+              <div class="stack" style="gap:8px; min-width:0;">
+                <div class="row wrap" style="gap:6px;">
+                  <span class="badge success">live</span>
+                  <span class="badge">Homepage</span>
+                  <span class="badge info">Conversion rate</span>
+                  <span class="badge">50/50 split</span>
+                </div>
+                <div style="font-weight:650; font-size:14px;">Homepage template test — “Hero v2”</div>
+                <div class="subdued">Original vs Hero v2 · Started Sep 2</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(3, minmax(104px,1fr)); gap:14px;">
+            <div class="mblock"><div class="l">Visitors</div><div class="v">4,112</div><div class="l">A 2,061 · B 2,051</div></div>
+            <div class="mblock"><div class="l">CVR</div><div class="v">3.9%</div><div class="l">A 3.1%</div></div>
+            <div class="mblock"><div class="l">Lift</div><div class="v" style="color:#008060;">+25.8%</div><div class="l">+0.8 pts · B leading</div></div>
+          </div>
+
+          <div style="grid-column:1 / -1; display:grid; grid-template-columns:minmax(260px,1fr) auto; gap:12px; align-items:end;">
+            <div>
+              <div class="subdued" style="margin-bottom:4px;">Progress</div>
+              <div class="minibar"><div style="width:100%; background:#008060;"></div></div>
+              <div class="subdued" style="margin-top:4px;">3,486 visitors collected</div>
+            </div>
+            <div class="row" onclick="event.stopPropagation();">
+              <a class="btn slim" href="ab-test-report.html">View details</a>
+              <button class="btn slim">Pause</button>
+              <button class="btn slim">End</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="assets/admin.js"></script>
+<script>AdminDemo.init("ab");</script>
+</body>
+</html>

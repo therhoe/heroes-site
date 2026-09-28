@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Snapshot Demo — Dashboard</title>
+<link rel="stylesheet" href="assets/admin.css">
+<style>
+  .cro-row {
+    display: grid; grid-template-columns: 10px minmax(0,1fr) auto;
+    gap: 12px; align-items: start; padding: 10px 0;
+    border-top: 1px solid var(--border-subdued); font-size: 13px;
+  }
+  .cro-dot { width: 8px; height: 8px; margin-top: 6px; }
+  .store-grid {
+    display: grid; gap: 20px; align-items: center;
+    grid-template-columns: minmax(180px,1.4fr) repeat(3, minmax(110px,0.7fr)) auto;
+  }
+  @media (max-width: 960px) { .store-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<div id="shell"></div>
+
+<main class="main">
+  <div class="app-frame">
+    <div id="app-chrome"></div>
+
+    <div class="page">
+      <!-- Page header: title · plan pill · bell · Create New Audit -->
+      <div class="page-head">
+        <span class="page-title">Dashboard</span>
+        <div class="actions">
+          <a class="pill" href="#">Signal · 22/250 snapshots</a>
+          <span class="bell-wrap" id="bell" onclick="AdminDemo.toggle('notif-pop')">
+            <svg width="24" height="24" viewBox="0 0 20 20" fill="none"><path d="M10 2.8a4.8 4.8 0 0 0-4.8 4.8c0 3.7-1.5 5.1-1.5 5.1h12.6s-1.5-1.4-1.5-5.1A4.8 4.8 0 0 0 10 2.8ZM8.3 15.8a1.8 1.8 0 0 0 3.4 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="bell-badge">24</span>
+            <div class="popover" id="notif-pop" style="display:none;" onclick="event.stopPropagation();">
+              <div class="pop-head">
+                <span>Notifications</span>
+                <button class="btn plain slim">Mark all as read</button>
+              </div>
+              <div style="overflow-y:auto;">
+                <div class="notif-row unread">
+                  <span class="emoji">🏁</span>
+                  <div>
+                    <div style="font-weight:600;">Store snapshot completed</div>
+                    <div class="subdued">September baseline finished collecting 1,000 human visitors.</div>
+                    <div class="subdued">2h ago</div>
+                  </div>
+                </div>
+                <div class="notif-row unread">
+                  <span class="emoji">🏁</span>
+                  <div>
+                    <div style="font-weight:600;">Snapshot completed</div>
+                    <div class="subdued">Trail Runner 2 — PDP audit reached its visitor target.</div>
+                    <div class="subdued">1d ago</div>
+                  </div>
+                </div>
+                <div class="notif-row">
+                  <span class="emoji">🤖</span>
+                  <div>
+                    <div>High bot traffic detected</div>
+                    <div class="subdued">Paid social push saw 38% bot sessions on Sep 14.</div>
+                    <div class="subdued">5d ago</div>
+                  </div>
+                </div>
+              </div>
+              <div style="padding:10px 16px; text-align:center; border-top:1px solid var(--border-subdued);">
+                <button class="btn plain slim">Load more</button>
+              </div>
+            </div>
+          </span>
+          <button class="btn primary">Create New Audit</button>
+        </div>
+      </div>
+
+      <!-- CARD 1: Conversion progress -->
+      <div class="card stack" style="gap:16px;">
+        <div class="row between start">
+          <h2>Conversion progress</h2>
+          <div class="row wrap">
+            <button class="btn slim">Clean graph</button>
+            <div style="width:190px;">
+              <select class="select" style="width:100%;">
+                <option>Week to date</option>
+                <option selected>Month to date</option>
+                <option>Quarter to date</option>
+                <option>Year to date</option>
+              </select>
+            </div>
+            <button class="btn primary">Log optimization</button>
+          </div>
+        </div>
+
+        <div class="panel" style="gap:12px;">
+          <div class="row between start">
+            <div class="stack" style="gap:4px;">
+              <h3>Conversion rate over time</h3>
+              <div class="row" style="gap:10px;">
+                <span class="rate">3.16%</span>
+                <span class="delta-line">↑ Up 1.41 percentage points (1.75% → 3.16%)</span>
+                <span class="tip" tabindex="0">
+                  <svg class="info-icon" width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><rect x="9.2" y="8.6" width="1.6" height="5" rx=".8" fill="currentColor"/><circle cx="10" cy="6.3" r="1" fill="currentColor"/></svg>
+                  <span class="tip-body">735 checkout-completing sessions from 23,291 human online-store sessions. Previous period (Aug 1–Aug 19, 2026): 1.75%.</span>
+                </span>
+              </div>
+              <span class="subdued">Month to date</span>
+            </div>
+            <span class="badge info">Shopify Analytics</span>
+          </div>
+
+          <div role="region" aria-label="Conversion rate chart. Scroll horizontally to see all dates." style="overflow-x:auto;">
+            <svg viewBox="0 0 980 292" width="100%" height="292" style="min-width:680px;">
+              <g stroke="#cbddeb" stroke-width="1">
+                <line x1="58" y1="238" x2="952" y2="238"/><line x1="58" y1="184" x2="952" y2="184"/>
+                <line x1="58" y1="130" x2="952" y2="130"/><line x1="58" y1="76" x2="952" y2="76"/>
+                <line x1="58" y1="22" x2="952" y2="22"/>
+              </g>
+              <g font-size="12" fill="#66727d" text-anchor="end">
+                <text x="46" y="242">0%</text><text x="46" y="188">2%</text>
+                <text x="46" y="134">3%</text><text x="46" y="80">5%</text><text x="46" y="26">6%</text>
+              </g>
+              <!-- A/B test band -->
+              <rect x="105" y="22" width="188" height="216" fill="#7c3aed" opacity="0.07"/>
+              <line x1="105" y1="22" x2="105" y2="238" stroke="#7c3aed" opacity="0.35"/>
+              <!-- previous (dashed) -->
+              <path d="M58 178 C 110 226, 150 118, 210 208 S 320 172, 380 188 S 500 160, 560 180 S 700 160, 780 176 S 910 168, 952 158"
+                    fill="none" stroke="#78c1df" stroke-width="2.5" stroke-dasharray="5 8" stroke-linecap="round"/>
+              <!-- current -->
+              <path d="M58 196 C 110 148, 150 226, 210 202 S 320 152, 380 176 S 470 60, 540 84 S 660 184, 730 168 S 880 148, 952 156"
+                    fill="none" stroke="#149ed5" stroke-width="3" stroke-linecap="round"/>
+              <!-- measurement diamonds near baseline + dashed verticals -->
+              <g>
+                <line x1="470" y1="22" x2="470" y2="238" stroke="#6d7175" stroke-dasharray="2 6" opacity="0.3"/>
+                <line x1="512" y1="22" x2="512" y2="238" stroke="#6d7175" stroke-dasharray="2 6" opacity="0.3"/>
+                <line x1="626" y1="22" x2="626" y2="238" stroke="#6d7175" stroke-dasharray="2 6" opacity="0.3"/>
+                <line x1="700" y1="22" x2="700" y2="238" stroke="#6d7175" stroke-dasharray="2 6" opacity="0.3"/>
+                <line x1="855" y1="22" x2="855" y2="238" stroke="#6d7175" stroke-dasharray="2 6" opacity="0.3"/>
+                <g fill="#6d7175" stroke="#fff" stroke-width="1.5">
+                  <rect x="465" y="226" width="10" height="10" rx="1" transform="rotate(45 470 231)"><title>Store snapshot — September baseline. Sep 10, 2026. Measurement</title></rect>
+                  <rect x="507" y="215" width="10" height="10" rx="1" transform="rotate(45 512 220)"><title>Channel snapshot — Paid social push. Sep 13, 2026. Measurement</title></rect>
+                  <rect x="621" y="226" width="10" height="10" rx="1" transform="rotate(45 626 231)"><title>Page snapshot — Trail Runner 2. Sep 16, 2026. Measurement</title></rect>
+                  <rect x="695" y="215" width="10" height="10" rx="1" transform="rotate(45 700 220)"><title>Page snapshot — New Arrivals. Sep 17, 2026. Measurement</title></rect>
+                  <rect x="850" y="226" width="10" height="10" rx="1" transform="rotate(45 855 231)"><title>Page snapshot — Homepage. Sep 18, 2026. Measurement</title></rect>
+                </g>
+              </g>
+              <g font-size="12" fill="#596b78">
+                <text x="58" y="270" text-anchor="start">Sep 1</text>
+                <text x="207" y="270" text-anchor="middle">Sep 4</text>
+                <text x="356" y="270" text-anchor="middle">Sep 7</text>
+                <text x="505" y="270" text-anchor="middle">Sep 10</text>
+                <text x="654" y="270" text-anchor="middle">Sep 13</text>
+                <text x="803" y="270" text-anchor="middle">Sep 16</text>
+                <text x="952" y="270" text-anchor="end">Sep 19</text>
+              </g>
+            </svg>
+          </div>
+
+          <div style="display:flex; justify-content:center; gap:24px; font-size:12px; color:#596b78; padding-bottom:4px;">
+            <span><span style="display:inline-block; width:24px; border-top:3px solid #149ed5; vertical-align:3px; margin-right:7px;"></span>Current: Sep 1–Sep 19, 2026</span>
+            <span><span style="display:inline-block; width:24px; border-top:3px dashed #78c1df; vertical-align:3px; margin-right:7px;"></span>Previous: Aug 1–Aug 19, 2026</span>
+          </div>
+
+          <div class="legend">
+            <span><span class="swatch-ab"></span>A/B-test period</span>
+            <span><span class="swatch-diamond"></span>Snapshot measurement</span>
+          </div>
+        </div>
+
+        <div class="stack" style="gap:8px;">
+          <div class="row between">
+            <div class="row" style="gap:6px;">
+              <h3>CRO activity</h3>
+              <span class="tip" tabindex="0">
+                <svg class="info-icon" width="15" height="15" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><rect x="9.2" y="8.6" width="1.6" height="5" rx=".8" fill="currentColor"/><circle cx="10" cy="6.3" r="1" fill="currentColor"/></svg>
+                <span class="tip-body">Timeline alignment shows correlation, not proof of causation. Use the A/B test report to measure causal lift.</span>
+              </span>
+            </div>
+            <span class="subdued">6 total in this period</span>
+          </div>
+
+          <div class="tabs" id="cro-tabs">
+            <div class="tab-row">
+              <button class="tab active" data-panel="cro-opt">Optimizations (0)</button>
+              <button class="tab" data-panel="cro-exp">Experiments (1)</button>
+              <button class="tab" data-panel="cro-meas">Measurements (5)</button>
+            </div>
+            <div class="tab-panel" id="cro-opt" style="padding:18px 16px 14px;">
+              No optimizations have been logged in this period. Use “Log optimization” to add an implemented change.
+            </div>
+            <div class="tab-panel" id="cro-exp" style="display:none; padding:0 16px 14px;">
+              <div class="cro-row">
+                <span class="cro-dot" style="background:#7c3aed; border-radius:2px;"></span>
+                <div>
+                  <div class="row" style="gap:8px;">
+                    <span style="font-weight:600; font-size:13px;">Homepage template test — “Hero v2”</span>
+                    <span class="badge">Experiment</span>
+                  </div>
+                  <div class="subdued">Sep 2, 2026 – Sep 6, 2026 · Variant B ahead on conversion rate</div>
+                </div>
+                <span></span>
+              </div>
+            </div>
+            <div class="tab-panel" id="cro-meas" style="display:none; padding:0 16px 14px;">
+              <div class="cro-row">
+                <span class="cro-dot" style="background:#6d7175; border-radius:50%;"></span>
+                <div>
+                  <div class="row" style="gap:8px;"><span style="font-weight:600; font-size:13px;">Store snapshot — September baseline</span><span class="badge">Measurement</span></div>
+                  <div class="subdued">Sep 10, 2026 · 1,000 human visitors captured</div>
+                </div>
+                <span></span>
+              </div>
+              <div class="cro-row">
+                <span class="cro-dot" style="background:#6d7175; border-radius:50%;"></span>
+                <div>
+                  <div class="row" style="gap:8px;"><span style="font-weight:600; font-size:13px;">Channel snapshot — Paid social push</span><span class="badge">Measurement</span></div>
+                  <div class="subdued">Sep 13, 2026 · 8,912 sessions captured</div>
+                </div>
+                <span></span>
+              </div>
+              <div class="cro-row">
+                <span class="cro-dot" style="background:#6d7175; border-radius:50%;"></span>
+                <div>
+                  <div class="row" style="gap:8px;"><span style="font-weight:600; font-size:13px;">Page snapshot — Trail Runner 2</span><span class="badge">Measurement</span></div>
+                  <div class="subdued">Sep 16, 2026 · 1,204 real visitors</div>
+                </div>
+                <span></span>
+              </div>
+              <div class="cro-row">
+                <span class="cro-dot" style="background:#6d7175; border-radius:50%;"></span>
+                <div>
+                  <div class="row" style="gap:8px;"><span style="font-weight:600; font-size:13px;">Page snapshot — New Arrivals</span><span class="badge">Measurement</span></div>
+                  <div class="subdued">Sep 17, 2026 · 986 real visitors</div>
+                </div>
+                <span></span>
+              </div>
+              <div class="cro-row">
+                <span class="cro-dot" style="background:#6d7175; border-radius:50%;"></span>
+                <div>
+                  <div class="row" style="gap:8px;"><span style="font-weight:600; font-size:13px;">Page snapshot — Homepage</span><span class="badge">Measurement</span></div>
+                  <div class="subdued">Sep 18, 2026 · 1,876 real visitors</div>
+                </div>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: Getting Started -->
+      <div class="card">
+        <div class="row between start">
+          <h2 style="font-size:16px;">Getting Started</h2>
+          <button class="btn plain">Dismiss</button>
+        </div>
+      </div>
+
+      <!-- CARD 3: Store snapshot -->
+      <div class="card">
+        <div class="store-grid">
+          <h2 style="font-size:16px;">Store snapshot</h2>
+          <div>
+            <div class="subdued" style="margin-bottom:3px;">Status</div>
+            <span class="badge">Latest ready</span>
+          </div>
+          <div>
+            <div class="subdued" style="margin-bottom:3px;">Captured visits</div>
+            <div style="font-size:14px; font-weight:650;">12,847</div>
+          </div>
+          <div>
+            <div class="subdued" style="margin-bottom:3px;">Audit types</div>
+            <div style="font-size:14px; font-weight:650;">5</div>
+          </div>
+          <div class="row" style="justify-self:end;">
+            <a class="btn" href="store-snapshot-report.html">View latest</a>
+            <button class="btn">Start new</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="assets/admin.js"></script>
+<script>
+  AdminDemo.init("dashboard");
+  AdminDemo.wireTabs("cro-tabs");
+  document.addEventListener("click", function (event) {
+    var pop = document.getElementById("notif-pop");
+    var bell = document.getElementById("bell");
+    if (pop && pop.style.display !== "none" && !bell.contains(event.target)) {
+      pop.style.display = "none";
+    }
+  });
+</script>
+</body>
+</html>

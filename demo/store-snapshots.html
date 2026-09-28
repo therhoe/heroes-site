@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Snapshot Demo — Store snapshots</title>
+<link rel="stylesheet" href="assets/admin.css">
+<style>
+  .tbl.gray-head th { background: #f6f6f7; }
+</style>
+</head>
+<body>
+<div id="shell"></div>
+
+<main class="main">
+  <div class="app-frame">
+    <div id="app-chrome"></div>
+
+    <div class="page">
+      <!-- Page header -->
+      <div class="page-head">
+        <span class="page-title">Store snapshots</span>
+        <div class="actions">
+          <button class="btn primary">Start store snapshot</button>
+        </div>
+      </div>
+
+      <!-- Plan pill row -->
+      <div class="row" style="justify-content:flex-end;">
+        <a class="pill" href="#">Signal · 3/20 store snapshots</a>
+      </div>
+
+      <!-- Storefront tracking status -->
+      <div class="row between">
+        <span class="row" style="gap:10px;">
+          <span class="subdued" style="font-size:13px;">Rich storefront tracking</span>
+          <span class="badge success">Active</span>
+        </span>
+        <span class="subdued" style="font-size:13px;">hero-outfitters.myshopify.com</span>
+      </div>
+
+      <!-- Snapshot history -->
+      <div class="card" style="padding:0;">
+        <div style="padding:16px 20px; border-bottom:1px solid var(--border-subdued);">
+          <h3 style="font-size:14px;">Snapshot history</h3>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="tbl gray-head" style="min-width:760px;">
+            <thead>
+              <tr>
+                <th style="padding:10px 20px;">Snapshot</th>
+                <th class="num" style="padding:10px 20px;">Status</th>
+                <th class="num" style="padding:10px 20px;">Sessions</th>
+                <th class="num" style="padding:10px 20px;">Page Views</th>
+                <th class="num" style="padding:10px 20px;">Started</th>
+                <th style="padding:10px 20px;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:14px 20px;">
+                  <a href="store-snapshot-report.html" style="font-weight:600; color:inherit;">September baseline</a>
+                  <div class="subdued">cm1x8a2b</div>
+                </td>
+                <td class="num" style="padding:14px 20px;"><span class="badge info">Completed</span></td>
+                <td class="num" style="padding:14px 20px;">1,000 humans</td>
+                <td class="num" style="padding:14px 20px;">12,847</td>
+                <td class="num" style="padding:14px 20px;">9/1/2026</td>
+                <td class="num" style="padding:14px 20px;"><a class="btn slim" href="store-snapshot-report.html">Open</a></td>
+              </tr>
+              <tr>
+                <td style="padding:14px 20px;">
+                  <a href="store-snapshot-report.html" style="font-weight:600; color:inherit;">August baseline</a>
+                  <div class="subdued">cm0t4f9c</div>
+                </td>
+                <td class="num" style="padding:14px 20px;"><span class="badge info">Completed</span></td>
+                <td class="num" style="padding:14px 20px;">1,000 humans</td>
+                <td class="num" style="padding:14px 20px;">11,203</td>
+                <td class="num" style="padding:14px 20px;">8/1/2026</td>
+                <td class="num" style="padding:14px 20px;"><a class="btn slim" href="store-snapshot-report.html">Open</a></td>
+              </tr>
+              <tr>
+                <td style="padding:14px 20px;">
+                  <a href="store-snapshot-report.html" style="font-weight:600; color:inherit;">July launch check</a>
+                  <div class="subdued">clzq7d1e</div>
+                </td>
+                <td class="num" style="padding:14px 20px;"><span class="badge info">Completed</span></td>
+                <td class="num" style="padding:14px 20px;">7 days</td>
+                <td class="num" style="padding:14px 20px;">8,911</td>
+                <td class="num" style="padding:14px 20px;">7/8/2026</td>
+                <td class="num" style="padding:14px 20px;"><a class="btn slim" href="store-snapshot-report.html">Open</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="assets/admin.js"></script>
+<script>AdminDemo.init("store");</script>
+</body>
+</html>

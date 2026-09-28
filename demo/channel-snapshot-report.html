@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Snapshot Demo — Paid social push</title>
+<link rel="stylesheet" href="assets/admin.css">
+<style>
+  .tbl.gray-head th { background: #f6f6f7; }
+  .real { color: #0d5c3f; }
+  .zombie { color: #8a6116; }
+  .bot { color: #b5371f; }
+</style>
+</head>
+<body>
+<div id="shell"></div>
+
+<main class="main">
+  <div class="app-frame">
+    <div id="app-chrome"></div>
+
+    <div class="page">
+      <a class="back-link" href="channel-snapshots.html">‹ Channel Snapshots</a>
+      <div class="page-head">
+        <span class="page-title">Paid social push</span>
+        <span class="badge success">Active</span>
+        <div class="actions">
+          <button class="btn">Refresh</button>
+          <button class="btn">Complete snapshot</button>
+          <button class="btn primary">Pause snapshot</button>
+        </div>
+      </div>
+
+      <!-- Progress card -->
+      <div class="card stack" style="gap:12px;">
+        <div class="row between start">
+          <div>
+            <h3>Human sessions captured</h3>
+            <div class="subdued" style="margin-top:2px;">Started Sep 8, 2026 · UTC</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-weight:600;">6,431 / 10,000</div>
+            <div class="subdued">8,912 captured sessions in total</div>
+          </div>
+        </div>
+        <div class="progress" style="height:6px;"><div style="width:64%;"></div></div>
+      </div>
+
+      <!-- Traffic quality by source -->
+      <div class="card" style="padding:0;">
+        <div class="stack" style="padding:16px 20px; border-bottom:1px solid var(--border-subdued); gap:14px;">
+          <div class="row between">
+            <div class="row" style="gap:6px;">
+              <h3>Traffic quality by source</h3>
+              <span class="tip" tabindex="0">
+                <svg class="info-icon" width="15" height="15" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><rect x="9.2" y="8.6" width="1.6" height="5" rx=".8" fill="currentColor"/><circle cx="10" cy="6.3" r="1" fill="currentColor"/></svg>
+                <span class="tip-body">Each session keeps its arrival channel across internal page views; a fresh external or campaign arrival, or 30 minutes of inactivity, starts a new acquisition session. Quality percentages use all sessions in that row. Add-to-cart and conversion rates use human sessions (Real + Zombie), and conversions count sessions that converted, not orders. Snapshot session rules differ from Shopify Analytics, so CVR here is not the dashboard's Shopify CVR. Unknown means the arrival source was not available (not assumed to be Direct); Pending sessions have not yet been classified.</span>
+              </span>
+            </div>
+            <button class="btn plain">Show percentages</button>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:16px;">
+            <label style="font-size:12px;">Channel<br><select class="select" style="width:100%; margin-top:4px;"><option selected>All channels</option><option>Paid Social</option><option>Organic Search</option><option>Direct</option><option>Email</option><option>Unknown</option></select></label>
+            <label style="font-size:12px;">Source<br><select class="select" style="width:100%; margin-top:4px;"><option selected>All sources</option><option>facebook</option><option>instagram</option><option>google</option><option>klaviyo</option><option>No source</option></select></label>
+            <label style="font-size:12px;">Campaign<br><select class="select" style="width:100%; margin-top:4px;"><option selected>All campaigns</option><option>fall-drop-01</option><option>No campaign</option></select></label>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:20px;">
+            <div><div class="subdued">Sessions</div><div style="font-size:17px; font-weight:650;">8,912</div></div>
+            <div><div class="subdued">Human sessions</div><div style="font-size:17px; font-weight:650;">6,431</div></div>
+            <div><div class="subdued">Page views</div><div style="font-size:17px; font-weight:650;">21,384</div></div>
+            <div><div class="subdued">Converted sessions</div><div style="font-size:17px; font-weight:650;">148</div></div>
+            <div><div class="subdued">Snapshot conversion rate</div><div style="font-size:17px; font-weight:650;">2.3%</div></div>
+          </div>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="tbl gray-head" style="min-width:1080px;" aria-label="Traffic quality by acquisition channel, source, and campaign">
+            <thead>
+              <tr>
+                <th style="padding:10px 16px;">Channel / source</th>
+                <th style="padding:10px 16px;">Campaign</th>
+                <th class="num" style="padding:10px 16px;">Sessions</th>
+                <th class="num" style="padding:10px 16px;">Real</th>
+                <th class="num" style="padding:10px 16px;">Zombie</th>
+                <th class="num" style="padding:10px 16px;">Bot</th>
+                <th class="num" style="padding:10px 16px;">Add to cart</th>
+                <th class="num" style="padding:10px 16px;">Conversions</th>
+                <th class="num" style="padding:10px 16px;">Avg time</th>
+                <th class="num" style="padding:10px 16px;">Avg scroll</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:14px 16px; min-width:190px;"><div style="font-weight:600;">Paid Social</div><div class="subdued">facebook / paid_social</div></td>
+                <td style="padding:14px 16px;">fall-drop-01</td>
+                <td class="num" style="padding:14px 16px;">3,204</td>
+                <td class="num real" style="padding:14px 16px;">1,812</td>
+                <td class="num zombie" style="padding:14px 16px;">876</td>
+                <td class="num bot" style="padding:14px 16px;">516</td>
+                <td class="num" style="padding:14px 16px;">254</td>
+                <td class="num" style="padding:14px 16px;">61</td>
+                <td class="num" style="padding:14px 16px;">1:48</td>
+                <td class="num" style="padding:14px 16px;">58.4%</td>
+              </tr>
+              <tr>
+                <td style="padding:14px 16px;"><div style="font-weight:600;">Paid Social</div><div class="subdued">instagram / paid_social</div></td>
+                <td style="padding:14px 16px;">fall-drop-01</td>
+                <td class="num" style="padding:14px 16px;">1,988</td>
+                <td class="num real" style="padding:14px 16px;">1,013</td>
+                <td class="num zombie" style="padding:14px 16px;">642</td>
+                <td class="num bot" style="padding:14px 16px;">333</td>
+                <td class="num" style="padding:14px 16px;">119</td>
+                <td class="num" style="padding:14px 16px;">36</td>
+                <td class="num" style="padding:14px 16px;">1:22</td>
+                <td class="num" style="padding:14px 16px;">51.7%</td>
+              </tr>
+              <tr>
+                <td style="padding:14px 16px;"><div style="font-weight:600;">Organic Search</div><div class="subdued">google / organic</div></td>
+                <td style="padding:14px 16px;">No campaign</td>
+                <td class="num" style="padding:14px 16px;">1,706</td>
+                <td class="num real" style="padding:14px 16px;">1,247</td>
+                <td class="num zombie" style="padding:14px 16px;">301</td>
+                <td class="num bot" style="padding:14px 16px;">158</td>
+                <td class="num" style="padding:14px 16px;">167</td>
+                <td class="num" style="padding:14px 16px;">63</td>
+                <td class="num" style="padding:14px 16px;">2:31</td>
+                <td class="num" style="padding:14px 16px;">64.2%</td>
+              </tr>
+              <tr>
+                <td style="padding:14px 16px;"><div style="font-weight:600;">Direct</div><div class="subdued">No source</div></td>
+                <td style="padding:14px 16px;">No campaign</td>
+                <td class="num" style="padding:14px 16px;">1,411</td>
+                <td class="num real" style="padding:14px 16px;">964</td>
+                <td class="num zombie" style="padding:14px 16px;">296</td>
+                <td class="num bot" style="padding:14px 16px;">151</td>
+                <td class="num" style="padding:14px 16px;">141</td>
+                <td class="num" style="padding:14px 16px;">58</td>
+                <td class="num" style="padding:14px 16px;">2:04</td>
+                <td class="num" style="padding:14px 16px;">61.9%</td>
+              </tr>
+              <tr>
+                <td style="padding:14px 16px;"><div style="font-weight:600;">Email</div><div class="subdued">klaviyo / email</div></td>
+                <td style="padding:14px 16px;">fall-drop-01</td>
+                <td class="num" style="padding:14px 16px;">603</td>
+                <td class="num real" style="padding:14px 16px;">512</td>
+                <td class="num zombie" style="padding:14px 16px;">71</td>
+                <td class="num bot" style="padding:14px 16px;">20</td>
+                <td class="num" style="padding:14px 16px;">85</td>
+                <td class="num" style="padding:14px 16px;">37</td>
+                <td class="num" style="padding:14px 16px;">3:12</td>
+                <td class="num" style="padding:14px 16px;">72.5%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="stack" style="padding:16px 20px; gap:8px;">
+          <span class="subdued">24 sessions have an unknown arrival channel.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="assets/admin.js"></script>
+<script>AdminDemo.init("channel");</script>
+</body>
+</html>
