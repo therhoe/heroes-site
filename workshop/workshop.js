@@ -37,7 +37,7 @@
     ['analytics.html', 'analytics-2.html', 'analytics-3.html', 'analytics-4.html', 'analytics-5.html'],
     ['roadmaps.html', 'review.html', 'review-pace.html',
      'review-pdp.html', 'review-e.html',
-     'roadmaps-intro.html', 'roadmaps-planner.html'],
+     'roadmaps-intro.html', 'prioritize.html', 'roadmaps-planner.html'],
     ['confidence.html']
   ];
 
@@ -102,6 +102,15 @@
   //     or a text input. Later questions stay locked until it's answered.
   //   <input data-key="..."> outside a .q — plain remembered field.
   // (REVIEW_KEY / REVIEW_ORDER are declared up top, before initReview runs)
+
+  // the prioritize slide reads these
+  window.WORKSHOP_REVIEW = {
+    order: REVIEW_ORDER,
+    sent: function () {
+      try { return JSON.parse(localStorage.getItem(REVIEW_KEY + '_sent') || 'null'); } catch (e) { return null; }
+    },
+    inProgress: reviewAnswers
+  };
 
   function reviewStore() {
     try { return JSON.parse(localStorage.getItem(REVIEW_KEY) || '{}'); } catch (e) { return {}; }
@@ -238,8 +247,12 @@
         status.textContent = '// got it. saved.';
         btn.disabled = false;
         // sent — the next review starts from a clean slate
+        // (a copy of what was sent stays behind for the prioritize slide)
         if (form.hasAttribute('data-review')) {
-          try { localStorage.removeItem(REVIEW_KEY); } catch (e) {}
+          try {
+            localStorage.setItem(REVIEW_KEY + '_sent', JSON.stringify(answers));
+            localStorage.removeItem(REVIEW_KEY);
+          } catch (e) {}
         }
         var next = form.getAttribute('data-next');
         if (next) {

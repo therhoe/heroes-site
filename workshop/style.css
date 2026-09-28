@@ -156,6 +156,35 @@ footer {
 }
 footer a { color: #999; }
 
+/* --- prioritize: drag-to-reorder cards --- */
+ol.sortable { list-style: none; margin: 32px 0 0; padding: 0; }
+ol.sortable .card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 10px;
+  padding: 12px 16px;
+  background: #ffffff;
+  border: 1px solid #1a1a1a;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+ol.sortable .card::before { content: none; }
+ol.sortable .card:hover { background: #f4f4f4; }
+ol.sortable .card.dragging {
+  cursor: grabbing;
+  background: #ffc42a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1;
+}
+.card .rank { color: #999; min-width: 2.2em; }
+.card .card-body { flex: 1; display: flex; flex-direction: column; line-height: 1.5; }
+.card .card-section { color: #666; font-size: 13px; }
+.card .card-value { font-weight: 500; }
+.card .grip { color: #999; letter-spacing: -3px; }
+
 /* --- section breaks on the long review page --- */
 hr.divider {
   border: 0;

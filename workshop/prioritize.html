@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Prioritize — Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+
+  <h1 class="title">Prioritize</h1>
+  <p class="tagline">// expert review &amp; roadmaps</p>
+
+  <p class="muted" id="reviewing"></p>
+  <p class="muted">// drag the cards into order — most important at the top</p>
+
+  <ol class="sortable" id="cards"></ol>
+  <p id="empty" class="muted" hidden>// no review yet. <a href="review-pdp.html">do the PDP expert review</a> first, then come back.</p>
+
+</main>
+<script src="workshop.js"></script>
+<script>
+(function () {
+  // what each review answer is about, for the card text
+  var SECTION = { p: 'Prognosis', a: 'Activity', c: 'Criteria' };
+  var LABEL = {
+    p_reiterated: 'problem / pain-point / promise reiterated',
+    p_text_visuals: 'in text or with visuals',
+    p_fold: 'fold',
+    p_implicit: 'implicit or explicit',
+    p_rating: 'overall',
+    a_aligned: 'landing aligned with source',
+    a_describe: 'describe',
+    a_fold: 'fold',
+    a_implicit: 'implicit or explicit',
+    a_rating: 'overall',
+    c_benefits: 'benefits',
+    c_specs: 'specifications',
+    c_proof: 'proof'
+  };
+  var ORDER_KEY = 'workshop_priorities';
+
+  var R = window.WORKSHOP_REVIEW;
+  // the review they sent; if they haven't sent one, whatever they've filled in so far
+  var answers = R.sent() || R.inProgress();
+  var keys = R.order.filter(function (k) { return LABEL[k] && answers[k]; });
+
+  var list = document.getElementById('cards');
+  if (answers.pdp_url) document.getElementById('reviewing').textContent = '// reviewing: ' + answers.pdp_url;
+  if (!keys.length) { document.getElementById('empty').hidden = false; return; }
+
+  // saved order only applies to the same review — a new review starts fresh
+  var sig = JSON.stringify(answers);
+  try {
+    var saved = JSON.parse(localStorage.getItem(ORDER_KEY) || 'null');
+    if (saved && saved.sig === sig) {
+      keys = saved.order.filter(function (k) { return keys.indexOf(k) !== -1; })
+        .concat(keys.filter(function (k) { return saved.order.indexOf(k) === -1; }));
+    }
+  } catch (e) {}
+
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  list.innerHTML = keys.map(function (k) {
+    return '<li class="card" data-key="' + k + '">' +
+      '<span class="rank"></span>' +
+      '<span class="card-body"><span class="card-section">' + SECTION[k[0]] + ' · ' + LABEL[k] + '</span>' +
+      '<span class="card-value">' + esc(answers[k]) + '</span></span>' +
+      '<span class="grip" aria-hidden="true">⋮⋮</span></li>';
+  }).join('');
+
+  function renumber() {
+    Array.prototype.forEach.call(list.children, function (li, i) {
+      li.querySelector('.rank').textContent = (i + 1) + '.';
+    });
+  }
+  function save() {
+    var order = Array.prototype.map.call(list.children, function (li) { return li.getAttribute('data-key'); });
+    try { localStorage.setItem(ORDER_KEY, JSON.stringify({ sig: sig, order: order })); } catch (e) {}
+  }
+  renumber();
+
+  // pointer-based drag: works for mouse and touch alike
+  var dragging = null;
+  list.addEventListener('pointerdown', function (ev) {
+    var card = ev.target.closest('.card');
+    if (!card || ev.button !== 0) return;
+    ev.preventDefault();
+    dragging = card;
+    card.classList.add('dragging');
+    try { card.setPointerCapture(ev.pointerId); } catch (e) {}
+  });
+  list.addEventListener('pointermove', function (ev) {
+    if (!dragging) return;
+    lastY = ev.clientY;
+    place();
+  });
+
+  function place() {
+    var cards = Array.prototype.filter.call(list.children, function (li) { return li !== dragging; });
+    var before = null;
+    for (var i = 0; i < cards.length; i++) {
+      var box = cards[i].getBoundingClientRect();
+      if (lastY < box.top + box.height / 2) { before = cards[i]; break; }
+    }
+    if (before !== dragging.nextElementSibling) {
+      list.insertBefore(dragging, before);
+      renumber();
+    }
+  }
+
+  // held near the top/bottom edge, keep scrolling so the whole list is reachable
+  var lastY = 0;
+  setInterval(function () {
+    if (!dragging) return;
+    var step = lastY < 60 ? -12 : lastY > window.innerHeight - 60 ? 12 : 0;
+    if (step) { window.scrollBy(0, step); place(); }
+  }, 16);
+
+  function drop() {
+    if (!dragging) return;
+    dragging.classList.remove('dragging');
+    dragging = null;
+    save();
+  }
+  list.addEventListener('pointerup', drop);
+  list.addEventListener('pointercancel', drop);
+})();
+</script>
+</body>
+</html>
