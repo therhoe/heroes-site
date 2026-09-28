@@ -30,23 +30,15 @@ around the Snapshot CRO Shopify app.
   HTML (not markdown) wrapped in `{% raw %}`; front matter: `title`,
   `description`, `date`, `substack_url`. Content is verbatim — the casing
   rule below does NOT apply.
-- `_perspectives/*.html` → `/perspectives/<slug>/`, layout `perspective`,
-  hub `perspectives.html` (card list). This is the SECOND incarnation
-  (2026-09-12): other writers' pieces republished WITH WRITTEN CONSENT,
-  Shep's intro/commentary above the piece (site voice, no frame), the
-  article itself in the rhoe-post paper card, `source_url` front matter
-  emits rel=canonical to the original. Front matter: title, author, date,
-  source_url, description (card blurb), intro (multiline, markdownified).
-  Never publish a piece without Shep confirming he has the writer's
-  consent. The whole section is UNLISTED until it has ~10 pieces
-  (2026-09-13): homepage button/panel commented out, noindex on hub and
-  posts, out of sitemap — un-hide only when Shep says launch. (The first incarnation — Shep's own Google-Doc articles — was
-  deleted 2026-09-06; don't resurrect those from git history.)
+- Perspectives (republished pieces by other writers) was removed entirely
+  2026-09-28 (Shep's call) — don't resurrect it from git history. If it
+  ever comes back, republishing someone else's piece needs their written
+  consent first.
 - Migration script: `.claude/scripts/migrate_substack.py` (takes the
   Substack export zip).
 - `_includes/subscribe-email.html` is the email-capture form (posts email
   only to the same Apps Script endpoint as the CRO lead form), used on the
-  homepage, the newsletter hub, and both article layouts.
+  homepage, the newsletter hub, and the newsletter layout.
 - SEO stance: migrated newsletter pages self-canonicalize via `{% seo %}`.
   The Substack copies stay live and also self-claim (Substack can't emit
   cross-domain canonicals). This is intentional — do not "fix" it with

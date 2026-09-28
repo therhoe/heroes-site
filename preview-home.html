@@ -127,25 +127,6 @@ sitemap: false
     #empty { color: #999; display: none; }
 
 
-    /* perspectives cards (same as /perspectives/) */
-    .cards { display: flex; flex-direction: column; gap: 16px; }
-    a.card {
-      display: block;
-      border: 1px solid #d8d8d8;
-      padding: 20px 24px;
-      text-decoration: none;
-      color: #1a1a1a;
-    }
-    a.card:hover {
-      background: #ffffff;
-      color: #1a1a1a;
-      border-color: #1a1a1a;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-    }
-    .card .author { color: #999; font-size: 13px; margin: 0 0 4px; }
-    .card .cardtitle { font-weight: 600; margin: 0 0 8px; }
-    .card .blurb { color: #666; margin: 0; }
-
     /* lead form (same as the services page) */
     form.lead { max-width: 480px; }
     .field { margin: 0 0 14px; }
@@ -199,9 +180,6 @@ sitemap: false
     {% endcomment %}
     <button class="btn" data-panel="panel-services" type="button">services</button>
     <button class="btn" data-panel="panel-posts" type="button">newsletter</button>
-    {% comment %} hidden until perspectives has ~10 pieces
-    <button class="btn" data-panel="panel-perspectives" type="button">perspectives</button>
-    {% endcomment %}
   </div>
 
   <!-- home (auto-open on landing) -->
@@ -306,23 +284,6 @@ sitemap: false
     </ul>
     <p id="empty">nothing matches. try fewer letters.</p>
   </div></div></div>
-
-  <!-- perspectives -->
-  {% comment %} hidden until perspectives has ~10 pieces
-  <div class="panel" id="panel-perspectives"><div class="panel-inner"><div class="panel-content">
-    <p class="muted">favorite pieces from writers we rate — republished with permission, with our take</p>
-    <div class="cards">
-      {% assign pieces = site.perspectives | sort: "date" | reverse %}
-      {% for pp in pieces %}
-      <a class="card" href="{{ pp.url }}">
-        <p class="author">{{ pp.author }}</p>
-        <p class="cardtitle">{{ pp.title }}</p>
-        <p class="blurb">{{ pp.description }}</p>
-      </a>
-      {% endfor %}
-    </div>
-  </div></div></div>
-  {% endcomment %}
 
   <footer>
     {% include subscribe-email.html %}
