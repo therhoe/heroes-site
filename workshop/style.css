@@ -331,6 +331,7 @@ ol.sortable .card.dragging {
 .card .grip { color: var(--ink-3); letter-spacing: -3px; }
 /* feedback tasks among the stages (prioritize round 2) */
 ol.sortable .card.is-task { border-left: 4px solid var(--accent); }
+.export-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
 .card .remove {
   font-family: var(--mono);
   font-size: 20px;

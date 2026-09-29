@@ -4,6 +4,8 @@
 // Cards start most urgent first; once someone drags them, their order is
 // kept (per round) until they start a new review. Round 2 starts from the
 // order they left round 1 in, with the feedback tasks slotted in by urgency.
+//   data-readonly on the list (the conclusion slide) — shows a round's
+//   final order without dragging, plus the copy / download buttons.
 (function () {
   var STAGES = [
     { key: 'p', name: 'P // Prognosis' },
@@ -16,6 +18,7 @@
 
   var list = document.getElementById('cards');
   var round = list.getAttribute('data-round') || '1';
+  var readonly = list.hasAttribute('data-readonly');
   var ORDER_KEY = round === '2' ? 'workshop_priorities_pace_2' : 'workshop_priorities_pace';
 
   var R = window.WORKSHOP_REVIEW;
@@ -32,6 +35,8 @@
     cards.push({
       key: s.key,
       title: s.name,
+      stage: s.name,
+      source: 'expert review',
       urgency: Number(answers[s.key + '_urgency']) || 0,
       notes: answers[s.key + '_notes'] || ''
     });
@@ -41,6 +46,8 @@
       key: 't' + t.id,
       section: 'feedback · ' + [STAGE_NAME[t.stage], t.source].filter(Boolean).join(' · '),
       title: t.task,
+      stage: STAGE_NAME[t.stage] || '',
+      source: t.source || '',
       urgency: Number(t.urgency) || 0
     });
   });
@@ -77,7 +84,7 @@
     return d.innerHTML;
   }
 
-  list.innerHTML = cards.map(function (c) {
+  list.innerHTML = cards.map(function (c, i) {
     // ten-segment meter + the number
     var urgency = c.urgency
       ? '<span class="meter" aria-hidden="true"><span style="width: ' + (c.urgency * 10) + '%"></span></span>' +
@@ -87,17 +94,73 @@
       : c.notes ? '<span class="card-notes">' + esc(c.notes) + '</span>'
       : '<span class="card-notes muted">no notes</span>';
     return '<li class="card' + (c.section ? ' is-task' : '') + '" data-key="' + c.key + '">' +
-      '<span class="rank"></span>' +
+      '<span class="rank">' + (readonly ? (i + 1) + '.' : '') + '</span>' +
       '<span class="card-body">' +
       (c.section ? '<span class="card-section">' + esc(c.section) + '</span>' : '') +
       '<span class="card-value">' + esc(c.title) + '</span>' +
       '<span class="card-urgency">' + urgency + '</span>' + notes + '</span>' +
-      '<span class="grip" aria-hidden="true">⋮⋮</span></li>';
+      (readonly ? '' : '<span class="grip" aria-hidden="true">⋮⋮</span>') + '</li>';
   }).join('');
 
   function save() {
     var order = Array.prototype.map.call(list.children, function (li) { return li.getAttribute('data-key'); });
     try { localStorage.setItem(ORDER_KEY, JSON.stringify({ sig: sig, order: order })); } catch (e) {}
   }
-  R.sortable(list, save);
+  if (!readonly) R.sortable(list, save);
+
+  // --- take it with you: copy / download the list in its current order ---
+  // (no Google sign-in — they paste it into their own sheet)
+  var exp = document.getElementById('export');
+  if (!exp) return;
+  exp.hidden = false;
+  var expStatus = document.getElementById('export-status');
+  var byKey = {};
+  cards.forEach(function (c) { byKey[c.key] = c; });
+
+  function rows() {
+    var out = [['rank', 'item', 'PACE stage', 'source', 'urgency (1-10)', 'notes']];
+    Array.prototype.forEach.call(list.children, function (li, i) {
+      var c = byKey[li.getAttribute('data-key')];
+      out.push([String(i + 1), c.title, c.stage, c.source, c.urgency ? String(c.urgency) : '', c.notes || '']);
+    });
+    if (about) out.push([], ['reviewing', about]);
+    return out;
+  }
+
+  document.getElementById('copy-sheet').addEventListener('click', function () {
+    var data = rows();
+    // Sheets reads the html table (keeps multi-line notes in one cell);
+    // the tab-separated text is the fallback for everything else
+    var html = '<table>' + data.map(function (r) {
+      return '<tr>' + r.map(function (v) { return '<td>' + esc(v).replace(/\n/g, '<br>') + '</td>'; }).join('') + '</tr>';
+    }).join('') + '</table>';
+    var text = data.map(function (r) {
+      return r.map(function (v) { return v.replace(/[\t\r\n]+/g, ' '); }).join('\t');
+    }).join('\n');
+    var copying = window.ClipboardItem && navigator.clipboard.write
+      ? navigator.clipboard.write([new ClipboardItem({
+          'text/html': new Blob([html], { type: 'text/html' }),
+          'text/plain': new Blob([text], { type: 'text/plain' })
+        })])
+      : navigator.clipboard.writeText(text);
+    copying.then(function () {
+      expStatus.innerHTML = 'copied ✓ — now <a href="https://sheets.new" target="_blank" rel="noopener">open a blank Google Sheet</a>, click cell A1, and paste (ctrl/⌘ + V).';
+    }).catch(function () {
+      expStatus.textContent = 'couldn\'t copy in this browser — use download .csv instead, then File → Import in Google Sheets.';
+    });
+  });
+
+  document.getElementById('download-csv').addEventListener('click', function () {
+    var csv = rows().map(function (r) {
+      return r.map(function (v) { return /[",\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(',');
+    }).join('\r\n');
+    var slug = (answers.brand || 'pdp').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv' }));
+    a.download = 'cro-roadmap-' + slug + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    expStatus.textContent = 'downloaded ✓ — in Google Sheets: File → Import → Upload.';
+  });
 })();

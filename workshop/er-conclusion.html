@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Conclusion — Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main data-review-store="workshop_review_pace">
+
+  <h1 class="title">Conclusion</h1>
+  <p class="tagline">// expert review &amp; roadmaps</p>
+
+  <p class="lede">Your roadmap, most urgent first.</p>
+  <p class="muted" id="reviewing"></p>
+
+  <ol class="tasks" id="cards" data-round="2" data-readonly></ol>
+  <p id="empty" class="muted" hidden>// nothing here yet. <a href="er-setup.html">do the PACE expert review</a> and the <a href="er-feedback.html">feedback review</a> first.</p>
+
+  <section id="export" hidden style="margin-top: 48px;">
+    <h1>take it with you</h1>
+    <p>This list only lives in this browser. Copy it into your own Google Sheet (or download it) to keep it as the start of your roadmap.</p>
+    <div class="export-actions">
+      <button type="button" class="send" id="copy-sheet">copy for Google Sheets</button>
+      <button type="button" class="send" id="download-csv">download .csv</button>
+    </div>
+    <p class="status muted" id="export-status"></p>
+  </section>
+
+</main>
+<script src="workshop.js"></script>
+<script src="er-prioritize.js"></script>
+</body>
+</html>

@@ -42,7 +42,7 @@
     ['er.html', 'er-review.html', 'er-pace.html', 'er-ad.html', 'er-setup.html',
      'er-p.html', 'er-a.html', 'er-c.html', 'er-e.html',
      'er-roadmaps.html', 'er-prioritize.html',
-     'er-feedback.html', 'er-prioritize-2.html'],
+     'er-feedback.html', 'er-prioritize-2.html', 'er-conclusion.html'],
     ['confidence.html']
   ];
 
