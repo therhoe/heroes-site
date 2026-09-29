@@ -7,7 +7,7 @@
   <title>E // Events — Workshop</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,51 +17,54 @@
   <p class="tagline">// pace expert review</p>
   <p class="context" data-show="action" data-prefix="// the one action: "></p>
 
-  <p class="stage-q">What do they actually click?</p>
-  <p>This is where the expert review stops and the data starts. Everything in P, A, and C is informed opinion — Events shows whether customers behave the way you predicted. (We dug into the data itself in session two.)</p>
+  <div class="worksheet">
+    <div class="worksheet-main">
+      <p class="lede">What do they actually click?</p>
+      <p>This is where the expert review stops and the data starts. Everything in P, A, and C is informed opinion — Events shows whether customers behave the way you predicted. (We dug into the data itself in session two.)</p>
 
-  <h1>predict, then check</h1>
-  <p>For each problem you noted, write the behavior you'd expect to see if you're right:</p>
-  <ul>
-    <li>"the size guide is hard to find" → few size-guide clicks, back-and-forth around the size picker</li>
-    <li>"the ad's discount isn't visible" → that campaign bounces more than other traffic</li>
-    <li>"reviews are buried" → heavy scrolling before add to cart, clicks on stars that go nowhere</li>
-  </ul>
+      <h1>predict, then check</h1>
+      <p>For each problem you noted, write the behavior you'd expect to see if you're right:</p>
+      <ul>
+        <li>"the size guide is hard to find" → few size-guide clicks, back-and-forth around the size picker</li>
+        <li>"the ad's discount isn't visible" → that campaign bounces more than other traffic</li>
+        <li>"reviews are buried" → heavy scrolling before add to cart, clicks on stars that go nowhere</li>
+      </ul>
 
-  <h1>then look at</h1>
-  <ul>
-    <li>the click path — what add-to-cart visitors click vs. those who leave</li>
-    <li>heatmaps + scroll maps — dead clicks, and whether people ever reach the criteria</li>
-    <li>session recordings — hesitation, rage clicks, errors</li>
-    <li>segments — desktop vs. mobile, by traffic source, by browser</li>
-  </ul>
-  <p class="note">No tracking on add to cart, variants, or the size guide? That's a finding too — fix the tracking first.</p>
-
-  <hr class="divider">
-
-  <div class="field">
-    <label for="f-e-notes">notes — event predictions, what the data showed, test ideas</label>
-    <textarea id="f-e-notes" data-key="e_notes"></textarea>
-  </div>
-
-  <div class="review">
-    <p class="q-prompt">How urgently does Events need CRO work?</p>
-    <div class="q stars" data-key="e_urgency" data-say-1="working fine" data-say-2="minor tweaks" data-say-3="worth improving" data-say-4="needs work soon" data-say-5="urgent — fix first">
-      <button type="button" class="opt" data-v="1" aria-label="1 of 5">★</button>
-      <button type="button" class="opt" data-v="2" aria-label="2 of 5">★</button>
-      <button type="button" class="opt" data-v="3" aria-label="3 of 5">★</button>
-      <button type="button" class="opt" data-v="4" aria-label="4 of 5">★</button>
-      <button type="button" class="opt" data-v="5" aria-label="5 of 5">★</button>
-      <span class="stars-label"></span>
+      <h1>then look at</h1>
+      <ul>
+        <li>the click path — what add-to-cart visitors click vs. those who leave</li>
+        <li>heatmaps + scroll maps — dead clicks, and whether people ever reach the criteria</li>
+        <li>session recordings — hesitation, rage clicks, errors</li>
+        <li>segments — desktop vs. mobile, by traffic source, by browser</li>
+      </ul>
+      <p class="note">No tracking on add to cart, variants, or the size guide? That's a finding too — fix the tracking first.</p>
     </div>
+
+    <aside class="worksheet-panel">
+      <p class="panel-title">// your review — events</p>
+      <div class="field">
+        <label for="f-e-notes">notes — event predictions, what the data showed, test ideas</label>
+        <textarea id="f-e-notes" data-key="e_notes"></textarea>
+      </div>
+
+      <div class="review">
+        <p class="q-prompt">How urgently does Events need CRO work?</p>
+        <div class="q stars" data-key="e_urgency" data-say-1="working fine" data-say-2="minor tweaks" data-say-3="worth improving" data-say-4="needs work soon" data-say-5="urgent — fix first">
+          <button type="button" class="opt" data-v="1" aria-label="1 of 5">★</button>
+          <button type="button" class="opt" data-v="2" aria-label="2 of 5">★</button>
+          <button type="button" class="opt" data-v="3" aria-label="3 of 5">★</button>
+          <button type="button" class="opt" data-v="4" aria-label="4 of 5">★</button>
+          <button type="button" class="opt" data-v="5" aria-label="5 of 5">★</button>
+          <span class="stars-label"></span>
+        </div>
+      </div>
+
+      <form class="exercise" data-review data-exercise="pace-review" data-endpoint="roadmaps" data-next="er-roadmaps.html">
+        <button class="send" type="submit">→ send the review</button>
+        <p class="status muted"></p>
+      </form>
+    </aside>
   </div>
-
-  <hr class="divider">
-
-  <form class="exercise" data-review data-exercise="pace-review" data-endpoint="roadmaps" data-next="er-roadmaps.html">
-    <button class="send" type="submit">→ send the review</button>
-    <p class="status muted"></p>
-  </form>
 
 </main>
 <script src="workshop.js"></script>

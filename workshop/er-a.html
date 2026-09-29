@@ -7,7 +7,7 @@
   <title>A // Activity — Workshop</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,37 +17,42 @@
   <p class="tagline">// pace expert review</p>
   <p class="context" data-show="source" data-prefix="// they're coming from: "></p>
 
-  <p class="stage-q">Is this what I clicked on?</p>
-  <p>The experience doesn't start on the PDP — it starts where the customer came from. Every break between the source and the landing costs attention and trust. This matters most for paid traffic.</p>
-  <p class="note">Do it for real: click the actual ad or email and land on the page the way the customer does.</p>
+  <div class="worksheet">
+    <div class="worksheet-main">
+      <p class="lede">Is this what I clicked on?</p>
+      <p>The experience doesn't start on the PDP — it starts where the customer came from. Every break between the source and the landing costs attention and trust. This matters most for paid traffic.</p>
+      <p class="note">Do it for real: click the actual ad or email and land on the page the way the customer does.</p>
 
-  <h1>look for</h1>
-  <p class="note">lenses: relevance, distraction</p>
-  <ul>
-    <li>message — the hero continues the ad's hook or promise</li>
-    <li>visuals — same product, same variant, same look</li>
-    <li>offer — a discount or free shipping from the source is visible right away</li>
-    <li>intent — cold traffic needs more prognosis; a retargeting email can go straight to criteria</li>
-    <li>interruptions — pop-ups or banners that break the handoff before the product is even visible</li>
-  </ul>
-
-  <hr class="divider">
-
-  <div class="field">
-    <label for="f-a-notes">notes — problems, areas of improvement, test ideas</label>
-    <textarea id="f-a-notes" data-key="a_notes"></textarea>
-  </div>
-
-  <div class="review">
-    <p class="q-prompt">How urgently does Activity need CRO work?</p>
-    <div class="q stars" data-key="a_urgency" data-say-1="working fine" data-say-2="minor tweaks" data-say-3="worth improving" data-say-4="needs work soon" data-say-5="urgent — fix first">
-      <button type="button" class="opt" data-v="1" aria-label="1 of 5">★</button>
-      <button type="button" class="opt" data-v="2" aria-label="2 of 5">★</button>
-      <button type="button" class="opt" data-v="3" aria-label="3 of 5">★</button>
-      <button type="button" class="opt" data-v="4" aria-label="4 of 5">★</button>
-      <button type="button" class="opt" data-v="5" aria-label="5 of 5">★</button>
-      <span class="stars-label"></span>
+      <h1>look for</h1>
+      <p class="note">lenses: relevance, distraction</p>
+      <ul>
+        <li>message — the hero continues the ad's hook or promise</li>
+        <li>visuals — same product, same variant, same look</li>
+        <li>offer — a discount or free shipping from the source is visible right away</li>
+        <li>intent — cold traffic needs more prognosis; a retargeting email can go straight to criteria</li>
+        <li>interruptions — pop-ups or banners that break the handoff before the product is even visible</li>
+      </ul>
     </div>
+
+    <aside class="worksheet-panel">
+      <p class="panel-title">// your review — activity</p>
+      <div class="field">
+        <label for="f-a-notes">notes — problems, areas of improvement, test ideas</label>
+        <textarea id="f-a-notes" data-key="a_notes"></textarea>
+      </div>
+
+      <div class="review">
+        <p class="q-prompt">How urgently does Activity need CRO work?</p>
+        <div class="q stars" data-key="a_urgency" data-say-1="working fine" data-say-2="minor tweaks" data-say-3="worth improving" data-say-4="needs work soon" data-say-5="urgent — fix first">
+          <button type="button" class="opt" data-v="1" aria-label="1 of 5">★</button>
+          <button type="button" class="opt" data-v="2" aria-label="2 of 5">★</button>
+          <button type="button" class="opt" data-v="3" aria-label="3 of 5">★</button>
+          <button type="button" class="opt" data-v="4" aria-label="4 of 5">★</button>
+          <button type="button" class="opt" data-v="5" aria-label="5 of 5">★</button>
+          <span class="stars-label"></span>
+        </div>
+      </div>
+    </aside>
   </div>
 
 </main>

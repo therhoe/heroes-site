@@ -7,7 +7,7 @@
   <title>P // Prognosis — Workshop</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,45 +17,50 @@
   <p class="tagline">// pace expert review</p>
   <p class="context" data-show="promise" data-prefix="// their pain point / problem / promise: "></p>
 
-  <p class="stage-q">Will this get me the outcome I want?</p>
-  <p>The customer didn't come for a product — they came for an outcome. Prognosis asks whether the page reflects their pain point, problem, or promise back to them, clearly and fast.</p>
+  <div class="worksheet">
+    <div class="worksheet-main">
+      <p class="lede">Will this get me the outcome I want?</p>
+      <p>The customer didn't come for a product — they came for an outcome. Prognosis asks whether the page reflects their pain point, problem, or promise back to them, clearly and fast.</p>
 
-  <h1>the 5-second test</h1>
-  <p>Look at the page for five seconds, then look away. Can you say:</p>
-  <ul>
-    <li>what the product is</li>
-    <li>what problem it solves or what it promises — for someone like this customer</li>
-    <li>why to buy it here</li>
-  </ul>
-  <p>If any answer is "not sure," that's your first finding. Clarity beats persuasion.</p>
+      <h1>the 5-second test</h1>
+      <p>Look at the page for five seconds, then look away. Can you say:</p>
+      <ul>
+        <li>what the product is</li>
+        <li>what problem it solves or what it promises — for someone like this customer</li>
+        <li>why to buy it here</li>
+      </ul>
+      <p>If any answer is "not sure," that's your first finding. Clarity beats persuasion.</p>
 
-  <h1>look for</h1>
-  <p class="note">lenses: value, clarity</p>
-  <ul>
-    <li>the outcome as a benefit (what changes for me), not just features</li>
-    <li>the pain point, problem, or promise said explicitly — not left to inference</li>
-    <li>above the fold, not after the specs</li>
-    <li>carried by visuals too: in use, before/after, video</li>
-    <li>the customer's own words, not internal product language</li>
-  </ul>
-
-  <hr class="divider">
-
-  <div class="field">
-    <label for="f-p-notes">notes — problems, areas of improvement, test ideas</label>
-    <textarea id="f-p-notes" data-key="p_notes"></textarea>
-  </div>
-
-  <div class="review">
-    <p class="q-prompt">How urgently does Prognosis need CRO work?</p>
-    <div class="q stars" data-key="p_urgency" data-say-1="working fine" data-say-2="minor tweaks" data-say-3="worth improving" data-say-4="needs work soon" data-say-5="urgent — fix first">
-      <button type="button" class="opt" data-v="1" aria-label="1 of 5">★</button>
-      <button type="button" class="opt" data-v="2" aria-label="2 of 5">★</button>
-      <button type="button" class="opt" data-v="3" aria-label="3 of 5">★</button>
-      <button type="button" class="opt" data-v="4" aria-label="4 of 5">★</button>
-      <button type="button" class="opt" data-v="5" aria-label="5 of 5">★</button>
-      <span class="stars-label"></span>
+      <h1>look for</h1>
+      <p class="note">lenses: value, clarity</p>
+      <ul>
+        <li>the outcome as a benefit (what changes for me), not just features</li>
+        <li>the pain point, problem, or promise said explicitly — not left to inference</li>
+        <li>above the fold, not after the specs</li>
+        <li>carried by visuals too: in use, before/after, video</li>
+        <li>the customer's own words, not internal product language</li>
+      </ul>
     </div>
+
+    <aside class="worksheet-panel">
+      <p class="panel-title">// your review — prognosis</p>
+      <div class="field">
+        <label for="f-p-notes">notes — problems, areas of improvement, test ideas</label>
+        <textarea id="f-p-notes" data-key="p_notes"></textarea>
+      </div>
+
+      <div class="review">
+        <p class="q-prompt">How urgently does Prognosis need CRO work?</p>
+        <div class="q stars" data-key="p_urgency" data-say-1="working fine" data-say-2="minor tweaks" data-say-3="worth improving" data-say-4="needs work soon" data-say-5="urgent — fix first">
+          <button type="button" class="opt" data-v="1" aria-label="1 of 5">★</button>
+          <button type="button" class="opt" data-v="2" aria-label="2 of 5">★</button>
+          <button type="button" class="opt" data-v="3" aria-label="3 of 5">★</button>
+          <button type="button" class="opt" data-v="4" aria-label="4 of 5">★</button>
+          <button type="button" class="opt" data-v="5" aria-label="5 of 5">★</button>
+          <span class="stars-label"></span>
+        </div>
+      </div>
+    </aside>
   </div>
 
 </main>
