@@ -11,7 +11,7 @@
 
   // Expert review & roadmaps workshop — SEPARATE sheet + deployment too.
   // Deploy .claude/scripts/roadmaps-workshop-apps-script.gs, paste the /exec URL here.
-  var ROADMAPS_ENDPOINT = 'https://script.google.com/macros/s/AKfycby4YdL6Dn43QF4DyrE7iFTLtSQN5ysK3mHRO7V3SsgWUjOJRoQMwAl_C7Uhq2QCf4V3Ng/exec';
+  var ROADMAPS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxNhWYNAlQk-xU1CFiSWyT2s3ojqCr96tyhDH_G2pGjUqiVxwrX17CYHYOnpuEpfi0a2Q/exec';
   window.WORKSHOP_ROADMAPS_ENDPOINT = ROADMAPS_ENDPOINT;
 
   // forms with data-endpoint="analytics" / "roadmaps" post to that session's deployment
