@@ -279,8 +279,8 @@ footer { margin-top: 72px; color: var(--ink-3); font-size: 13px; }
 footer a { color: var(--ink-3); }
 
 /* --- prioritize: drag-to-reorder cards ---------------------------------- */
-ol.sortable { list-style: none; margin: 28px 0 0; padding: 0; max-width: 820px; }
-ol.sortable .card {
+ol.sortable, ol.tasks { list-style: none; margin: 28px 0 0; padding: 0; max-width: 820px; }
+ol.sortable .card, ol.tasks .card {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -293,7 +293,8 @@ ol.sortable .card {
   touch-action: none;
   transition: border-color 0.1s;
 }
-ol.sortable .card::before { content: none; }
+ol.sortable .card::before, ol.tasks .card::before { content: none; }
+ol.tasks .card { cursor: default; user-select: text; touch-action: auto; }
 ol.sortable .card:hover { border-color: var(--ink); }
 ol.sortable .card.dragging {
   cursor: grabbing;
@@ -312,6 +313,19 @@ ol.sortable .card.dragging {
 .card .meter span { display: block; height: 100%; background: var(--accent); }
 .card .card-notes { white-space: pre-wrap; font-size: 15px; color: var(--ink-2); margin-top: 4px; }
 .card .grip { color: var(--ink-3); letter-spacing: -3px; }
+/* feedback tasks among the stages (prioritize round 2) */
+ol.sortable .card.is-task { border-left: 4px solid var(--accent); }
+.card .remove {
+  font-family: var(--mono);
+  font-size: 20px;
+  line-height: 1;
+  color: var(--ink-3);
+  background: none;
+  border: 0;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.card .remove:hover { color: var(--ink); }
 
 /* --- section breaks on long pages --------------------------------------- */
 hr.divider { border: 0; border-top: 1px solid var(--line); margin: 56px 0; }

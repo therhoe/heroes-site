@@ -63,7 +63,13 @@ around the Snapshot CRO Shopify app.
   scale, stored under `workshop_review_pace` (key order in
   `REVIEW_ORDERS`, workshop.js), sent from er-e.html as one `pace-review`
   row to the same `ROADMAPS_ENDPOINT`; er-prioritize.html ranks the four
-  stages as drag cards. v1 stays up alongside it. Don't consolidate them; follow the same
+  stages as drag cards. Bonus round: er-feedback.html turns
+  customer feedback (on-page/Google reviews, Meta comments, Reddit,
+  support tickets) into individual tasks (stage + source + 1–10
+  urgency, kept in localStorage `workshop_feedback_tasks`, sent as one
+  `pace-feedback` row); er-prioritize-2.html is round 2 — the stages
+  plus those tasks, starting from the round-1 order. Both prioritize
+  pages share er-prioritize.js. v1 stays up alongside it. Don't consolidate them; follow the same
   pattern for future sessions (script template:
   `.claude/scripts/analytics-workshop-apps-script.gs`).
 

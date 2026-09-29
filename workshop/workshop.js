@@ -41,7 +41,8 @@
     // session three v2: PACE expert review, one page per stage
     ['er.html', 'er-review.html', 'er-pace.html', 'er-setup.html',
      'er-p.html', 'er-a.html', 'er-c.html', 'er-e.html',
-     'er-roadmaps.html', 'er-prioritize.html'],
+     'er-roadmaps.html', 'er-prioritize.html',
+     'er-feedback.html', 'er-prioritize-2.html'],
     ['confidence.html']
   ];
 
@@ -82,6 +83,17 @@
       altReview.querySelectorAll('[data-key]'),
       function (el) { return el.getAttribute('data-key'); });
   }
+
+  // feedback review tasks (er-feedback.html), read by the round 2 prioritize slide
+  var FEEDBACK_KEY = 'workshop_feedback_tasks';
+  window.WORKSHOP_FEEDBACK = {
+    tasks: function () {
+      try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]'); } catch (e) { return []; }
+    },
+    save: function (tasks) {
+      try { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(tasks)); } catch (e) {}
+    }
+  };
 
   initSlide();
   initReview();

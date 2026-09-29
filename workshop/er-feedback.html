@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Feedback Review — Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main data-review-store="workshop_review_pace">
+
+  <h1 class="title">Feedback Review</h1>
+  <p class="tagline">// bonus round</p>
+
+  <div class="worksheet">
+    <div class="worksheet-main">
+      <p class="lede">What are customers already telling you?</p>
+      <p>The expert review is your opinion. Feedback is theirs. Reviews, comments, and support tickets are where customers put their objections, confusion, and disappointments in writing — the qualitative side of what we covered in session two.</p>
+
+      <h1>where to look</h1>
+      <ul>
+        <li>on-page reviews — sort lowest rating first; look for repeated complaints and surprises ("smaller than expected")</li>
+        <li>Google reviews — delivery, service, and trust problems</li>
+        <li>Meta ad comments — the questions and objections people have before they ever click</li>
+        <li>Reddit — the unfiltered version: comparisons, "is it worth it?", what people bought instead</li>
+        <li>support tickets — everything customers had to ask; each repeated question is a gap on the page</li>
+      </ul>
+
+      <h1>turn it into tasks</h1>
+      <ul>
+        <li>one problem per task, written as something to do: "add a fit note under the size picker — 'runs small' in 14 reviews"</li>
+        <li>say where you found it and how often it comes up</li>
+        <li>tag the PACE stage it belongs to</li>
+        <li>rate the urgency the same 1–10 way</li>
+      </ul>
+      <p class="note">Look for patterns, not one-offs. One angry review is an anecdote; the same complaint in ten places is a task.</p>
+    </div>
+
+    <aside class="panel worksheet-panel">
+      <p class="panel-title">// add a task</p>
+      <div class="field">
+        <label for="t-task">task — what should change, and why</label>
+        <textarea id="t-task" style="min-height: 110px;"></textarea>
+      </div>
+      <div class="field">
+        <label id="l-source">found in</label>
+        <div class="q" id="t-source" role="group" aria-labelledby="l-source">
+          <button type="button" class="opt" data-v="on-page reviews">on-page reviews</button>
+          <button type="button" class="opt" data-v="Google">Google</button>
+          <button type="button" class="opt" data-v="Meta">Meta</button>
+          <button type="button" class="opt" data-v="Reddit">Reddit</button>
+          <button type="button" class="opt" data-v="support tickets">support tickets</button>
+          <button type="button" class="opt" data-v="other">other</button>
+        </div>
+      </div>
+      <div class="field">
+        <label id="l-stage">PACE stage</label>
+        <div class="q" id="t-stage" role="group" aria-labelledby="l-stage">
+          <button type="button" class="opt" data-v="p">P</button>
+          <button type="button" class="opt" data-v="a">A</button>
+          <button type="button" class="opt" data-v="c">C</button>
+          <button type="button" class="opt" data-v="e">E</button>
+        </div>
+      </div>
+      <div class="field">
+        <label id="l-urgency">urgency</label>
+        <div class="q scale" id="t-urgency" role="group" aria-labelledby="l-urgency">
+          <button type="button" class="opt" data-v="1">1</button>
+          <button type="button" class="opt" data-v="2">2</button>
+          <button type="button" class="opt" data-v="3">3</button>
+          <button type="button" class="opt" data-v="4">4</button>
+          <button type="button" class="opt" data-v="5">5</button>
+          <button type="button" class="opt" data-v="6">6</button>
+          <button type="button" class="opt" data-v="7">7</button>
+          <button type="button" class="opt" data-v="8">8</button>
+          <button type="button" class="opt" data-v="9">9</button>
+          <button type="button" class="opt" data-v="10">10</button>
+        </div>
+        <p class="scale-ends"><span>1 = nice to have</span><span>10 = urgent, fix first</span></p>
+      </div>
+      <button type="button" class="send" id="t-add">+ add task</button>
+      <p class="status muted" id="t-status"></p>
+    </aside>
+  </div>
+
+  <hr class="divider">
+
+  <h1>your tasks <span class="muted" id="t-count"></span></h1>
+  <ol class="tasks" id="t-list"></ol>
+  <p class="muted" id="t-none">// no tasks yet — add them on the right.</p>
+
+  <form class="exercise" data-exercise="pace-feedback" data-endpoint="roadmaps" data-next="er-prioritize-2.html" style="margin-top: 32px;">
+    <input type="hidden" name="pdp_url" id="t-pdp">
+    <input type="hidden" name="tasks" id="t-tasks">
+    <button class="send" type="submit">→ send tasks + prioritize round 2</button>
+    <p class="status muted"></p>
+  </form>
+
+</main>
+<script src="workshop.js"></script>
+<script>
+(function () {
+  // tasks live in the browser (WORKSHOP_FEEDBACK) so the round 2 prioritize
+  // slide can pick them up; sending also posts them as one pace-feedback row
+  var F = window.WORKSHOP_FEEDBACK;
+  var STAGE = { p: 'P // Prognosis', a: 'A // Activity', c: 'C // Criteria', e: 'E // Events' };
+  var tasks = F.tasks();
+
+  var taskBox = document.getElementById('t-task');
+  var status = document.getElementById('t-status');
+  var list = document.getElementById('t-list');
+
+  // one pick per button row
+  var picked = { source: '', stage: '', urgency: '' };
+  [['source', 't-source'], ['stage', 't-stage'], ['urgency', 't-urgency']].forEach(function (pair) {
+    var row = document.getElementById(pair[1]);
+    row.addEventListener('click', function (ev) {
+      var b = ev.target.closest('button.opt');
+      if (!b) return;
+      picked[pair[0]] = b.getAttribute('data-v');
+      row.querySelectorAll('button.opt').forEach(function (o) { o.classList.toggle('on', o === b); });
+    });
+  });
+
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function render() {
+    list.innerHTML = tasks.map(function (t) {
+      var meta = [STAGE[t.stage], t.source].filter(Boolean).join(' · ');
+      var urgency = t.urgency
+        ? '<span class="meter" aria-hidden="true"><span style="width: ' + (t.urgency * 10) + '%"></span></span> urgency ' + t.urgency + ' / 10'
+        : '<span class="muted">not rated</span>';
+      return '<li class="card" data-id="' + t.id + '">' +
+        '<span class="card-body">' +
+        (meta ? '<span class="card-section">' + esc(meta) + '</span>' : '') +
+        '<span class="card-value">' + esc(t.task) + '</span>' +
+        '<span class="card-urgency">' + urgency + '</span></span>' +
+        '<button type="button" class="remove" aria-label="remove task">×</button></li>';
+    }).join('');
+    document.getElementById('t-count').textContent = tasks.length ? '(' + tasks.length + ')' : '';
+    document.getElementById('t-none').hidden = tasks.length > 0;
+
+    // what the send button posts: one line per task
+    var review = window.WORKSHOP_REVIEW.sent() || window.WORKSHOP_REVIEW.inProgress();
+    document.getElementById('t-pdp').value = review.pdp_url || '';
+    document.getElementById('t-tasks').value = tasks.map(function (t, i) {
+      return (i + 1) + '. ' + t.task + ' [' + [t.stage.toUpperCase(), t.source, t.urgency ? t.urgency + '/10' : ''].filter(Boolean).join(' · ') + ']';
+    }).join('\n');
+  }
+
+  document.getElementById('t-add').addEventListener('click', function () {
+    var text = taskBox.value.trim();
+    if (!text) {
+      status.className = 'status bad';
+      status.textContent = '// write the task first';
+      taskBox.focus();
+      return;
+    }
+    tasks.push({
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), // unique even for fast adds
+      task: text,
+      source: picked.source,
+      stage: picked.stage,
+      urgency: picked.urgency ? Number(picked.urgency) : 0
+    });
+    F.save(tasks);
+    render();
+
+    // clear the form for the next one
+    taskBox.value = '';
+    picked = { source: '', stage: '', urgency: '' };
+    document.querySelectorAll('.worksheet-panel button.opt.on').forEach(function (b) { b.classList.remove('on'); });
+    status.className = 'status ok';
+    status.textContent = '// added. next one?';
+    taskBox.focus();
+  });
+
+  list.addEventListener('click', function (ev) {
+    var b = ev.target.closest('button.remove');
+    if (!b) return;
+    var id = b.closest('.card').getAttribute('data-id');
+    tasks = tasks.filter(function (t) { return t.id !== id; });
+    F.save(tasks);
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
