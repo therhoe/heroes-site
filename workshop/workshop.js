@@ -39,7 +39,7 @@
      'review-pdp.html', 'review-e.html',
      'roadmaps-intro.html', 'prioritize.html', 'roadmaps-planner.html'],
     // session three v2: PACE expert review, one page per stage
-    ['er.html', 'er-review.html', 'er-pace.html', 'er-setup.html',
+    ['er.html', 'er-review.html', 'er-pace.html', 'er-ad.html', 'er-setup.html',
      'er-p.html', 'er-a.html', 'er-c.html', 'er-e.html',
      'er-roadmaps.html', 'er-prioritize.html',
      'er-feedback.html', 'er-prioritize-2.html'],
@@ -69,6 +69,7 @@
   var REVIEW_ORDERS = {
     // session three v2: PACE expert review, one page per stage (er-*.html)
     workshop_review_pace: [
+      'brand', 'ad_hook', 'ad_offer', 'ad_format', 'landing_type',
       'pdp_url', 'device', 'customer', 'promise', 'source', 'action',
       'p_notes', 'p_urgency',
       'a_notes', 'a_urgency',
@@ -76,6 +77,7 @@
       'e_notes', 'e_urgency'
     ]
   };
+  var liveStore = null; // the answers object initReview is saving from
   var altReview = document.querySelector('[data-review-store]');
   if (altReview) {
     REVIEW_KEY = altReview.getAttribute('data-review-store');
@@ -150,6 +152,7 @@
       try { return JSON.parse(localStorage.getItem(REVIEW_KEY + '_sent') || 'null'); } catch (e) { return null; }
     },
     inProgress: reviewAnswers,
+    set: setReviewAnswer,
     sortable: sortable
   };
 
@@ -166,8 +169,18 @@
     return out;
   }
 
+  // save one answer from page code (e.g. filling in a later slide's field).
+  // Goes through the same store object initReview saves from, so the page's
+  // own saves don't overwrite it. (liveStore is declared up top, before
+  // initReview runs.)
+  function setReviewAnswer(key, val) {
+    var store = liveStore || reviewStore();
+    store[key] = val;
+    saveReview(store);
+  }
+
   function initReview() {
-    var store = reviewStore();
+    var store = liveStore = reviewStore();
 
     document.querySelectorAll('[data-show]').forEach(function (el) {
       var val = store[el.getAttribute('data-show')] || '';

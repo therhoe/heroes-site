@@ -89,6 +89,7 @@ code {
 .note { color: var(--ink-2); font-size: 15px; }
 /* an earlier answer echoed back, e.g. "// the customer: ..." */
 .context { font-family: var(--mono); font-size: 13px; color: var(--ink-3); margin: -28px 0 32px; }
+.context + .context { margin-top: -28px; } /* several echoes stack as one block */
 .status { font-family: var(--mono); font-size: 14px; margin: 12px 0 0; }
 
 /* --- centered slide statements ------------------------------------------ */
@@ -228,6 +229,21 @@ button.opt:disabled { cursor: default; background: var(--paper); border-color: v
 .review .field { margin-top: 28px; }
 .verdict .field textarea { min-height: 72px; }
 
+/* --- brand picker: a grid of big choice cards ---------------------------- */
+.q.brands { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.q.brands button.opt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  text-align: left;
+  padding: 16px 18px;
+}
+.q.brands .brand-name { font-size: 16px; font-weight: 600; }
+.q.brands .brand-what { font-family: var(--sans); font-size: 15px; color: var(--ink-2); }
+.q.brands .brand-go { font-size: 12px; color: var(--ink-3); margin-top: 8px; }
+.q.brands button.opt.on .brand-what, .q.brands button.opt.on .brand-go { color: var(--ink); }
+
 /* --- panel: a gray box that holds a form -------------------------------- */
 .panel {
   background: var(--panel);
@@ -332,6 +348,7 @@ hr.divider { border: 0; border-top: 1px solid var(--line); margin: 56px 0; }
 
 /* --- smaller screens ------------------------------------------------------ */
 @media (max-width: 900px) {
+  .q.brands { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .worksheet { grid-template-columns: 1fr; gap: 40px; }
   .worksheet-panel { position: static; }
 }
@@ -344,6 +361,7 @@ hr.divider { border: 0; border-top: 1px solid var(--line); margin: 56px 0; }
   .lede { font-size: 19px; }
   table.defs td:first-child { white-space: normal; }
   .q-label { min-width: 0; flex-basis: 100%; }
+  .q.brands { grid-template-columns: 1fr; }
   /* two rows of five so every number is thumb-sized */
   .q.scale { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
