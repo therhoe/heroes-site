@@ -32,7 +32,6 @@
     { key: 'c', name: 'C // Criteria' },
     { key: 'e', name: 'E // Events' }
   ];
-  var SAY = ['', 'working fine', 'minor tweaks', 'worth improving', 'needs work soon', 'urgent — fix first'];
   var ORDER_KEY = 'workshop_priorities_pace';
 
   var R = window.WORKSHOP_REVIEW;
@@ -67,8 +66,10 @@
   list.innerHTML = keys.map(function (k) {
     var name = STAGES.filter(function (s) { return s.key === k; })[0].name;
     var n = Number(answers[k + '_urgency']) || 0;
-    var stars = n
-      ? '★★★★★'.slice(0, n) + '<span class="dim">' + '★★★★★'.slice(n) + '</span> <span class="muted">' + SAY[n] + '</span>'
+    // ten-segment meter + the number
+    var urgency = n
+      ? '<span class="meter" aria-hidden="true"><span style="width: ' + (n * 10) + '%"></span></span>' +
+        ' urgency ' + n + ' / 10'
       : '<span class="muted">not rated</span>';
     var notes = answers[k + '_notes']
       ? '<span class="card-notes">' + esc(answers[k + '_notes']) + '</span>'
@@ -76,7 +77,7 @@
     return '<li class="card" data-key="' + k + '">' +
       '<span class="rank"></span>' +
       '<span class="card-body"><span class="card-value">' + name + '</span>' +
-      '<span class="card-stars">' + stars + '</span>' + notes + '</span>' +
+      '<span class="card-urgency">' + urgency + '</span>' + notes + '</span>' +
       '<span class="grip" aria-hidden="true">⋮⋮</span></li>';
   }).join('');
 

@@ -59,8 +59,8 @@ around the Snapshot CRO Shopify app.
   (`ROADMAPS_ENDPOINT`; the PDP review is one page, review-pdp.html,
   saved to localStorage as they click and sent as one `pdp-review` row).
   Session three v2 (`er-*.html`, 2026-09-29) is the CXL-style PACE expert
-  review: one page per stage (P/A/C/E), each with notes + a 1–5 urgency
-  star rating, stored under `workshop_review_pace` (key order in
+  review: one page per stage (P/A/C/E), each with notes + a 1–10 urgency
+  scale, stored under `workshop_review_pace` (key order in
   `REVIEW_ORDERS`, workshop.js), sent from er-e.html as one `pace-review`
   row to the same `ROADMAPS_ENDPOINT`; er-prioritize.html ranks the four
   stages as drag cards. v1 stays up alongside it. Don't consolidate them; follow the same

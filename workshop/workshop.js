@@ -126,7 +126,6 @@
   //     (data-stop on a choice = nothing after it on that slide applies),
   //     or a text input. Later questions stay locked until it's answered.
   //     data-multi on the .q = pick any number (stored comma-separated).
-  //     class="q stars" = a 1–5 rating: every star up to the pick lights up.
   //   <input|textarea data-key="..."> outside a .q — plain remembered field.
   //   <p data-show="key" data-prefix="..."> — echoes an earlier answer
   //     (hidden until there is one).
@@ -190,16 +189,12 @@
           if (locked) delete store[key]; // stale answer below a "no" or a gap
           var val = store[key] || '';
           var picked = q.hasAttribute('data-multi') ? val.split(', ') : [val];
-          var stars = q.classList.contains('stars');
           q.classList.toggle('locked', locked);
           q.querySelectorAll('button.opt').forEach(function (b) {
             var v = b.getAttribute('data-v');
             b.disabled = locked;
-            b.classList.toggle('on', !!val &&
-              (stars ? Number(v) <= Number(val) : picked.indexOf(v) !== -1));
+            b.classList.toggle('on', !!val && picked.indexOf(v) !== -1);
           });
-          var readout = q.querySelector('.stars-label');
-          if (readout) readout.textContent = val ? (q.getAttribute('data-say-' + val) || '') : '';
           var input = q.querySelector('input');
           if (input) {
             input.disabled = locked;

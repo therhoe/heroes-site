@@ -34,7 +34,7 @@
       </ul>
     </div>
 
-    <aside class="worksheet-panel">
+    <aside class="panel worksheet-panel">
       <p class="panel-title">// your review — activity</p>
       <div class="field">
         <label for="f-a-notes">notes — problems, areas of improvement, test ideas</label>
@@ -43,14 +43,19 @@
 
       <div class="review">
         <p class="q-prompt">How urgently does Activity need CRO work?</p>
-        <div class="q stars" data-key="a_urgency" data-say-1="working fine" data-say-2="minor tweaks" data-say-3="worth improving" data-say-4="needs work soon" data-say-5="urgent — fix first">
-          <button type="button" class="opt" data-v="1" aria-label="1 of 5">★</button>
-          <button type="button" class="opt" data-v="2" aria-label="2 of 5">★</button>
-          <button type="button" class="opt" data-v="3" aria-label="3 of 5">★</button>
-          <button type="button" class="opt" data-v="4" aria-label="4 of 5">★</button>
-          <button type="button" class="opt" data-v="5" aria-label="5 of 5">★</button>
-          <span class="stars-label"></span>
+        <div class="q scale" data-key="a_urgency">
+          <button type="button" class="opt" data-v="1">1</button>
+          <button type="button" class="opt" data-v="2">2</button>
+          <button type="button" class="opt" data-v="3">3</button>
+          <button type="button" class="opt" data-v="4">4</button>
+          <button type="button" class="opt" data-v="5">5</button>
+          <button type="button" class="opt" data-v="6">6</button>
+          <button type="button" class="opt" data-v="7">7</button>
+          <button type="button" class="opt" data-v="8">8</button>
+          <button type="button" class="opt" data-v="9">9</button>
+          <button type="button" class="opt" data-v="10">10</button>
         </div>
+        <p class="scale-ends"><span>1 = working fine</span><span>10 = urgent, fix first</span></p>
       </div>
     </aside>
   </div>

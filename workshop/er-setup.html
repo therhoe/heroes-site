@@ -18,14 +18,15 @@
 
   <p>Every stage depends on this. Fill it in before you look at the page.</p>
 
-  <div style="max-width: 560px; margin-top: 32px;">
+  <div class="panel" style="max-width: 640px; margin-top: 32px;">
+    <p class="panel-title">// the page you're reviewing</p>
     <div class="field">
       <label for="f-pdp">which PDP are you reviewing? (url)</label>
       <input id="f-pdp" type="url" data-key="pdp_url" placeholder="https://">
     </div>
-    <div class="review" style="margin: 0 0 14px;">
-      <p style="color: #666; font-size: 13px; margin: 0 0 4px;">device</p>
-      <div class="q" data-key="device">
+    <div class="field review">
+      <label id="l-device">device</label>
+      <div class="q" data-key="device" role="group" aria-labelledby="l-device">
         <button type="button" class="opt" data-v="desktop">desktop</button>
         <button type="button" class="opt" data-v="mobile">mobile</button>
       </div>

@@ -9,7 +9,8 @@
   --line: #e4e4e4;    /* hairlines */
   --line-2: #c9c9c9;  /* control borders */
   --paper: #ffffff;
-  --paper-2: #f7f7f5; /* panels */
+  --paper-2: #f4f4f4; /* code, hovers */
+  --panel: #ececec;   /* gray boxes that hold a form */
   --accent: #ffc42a;
   --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
   --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -205,27 +206,43 @@ button.opt {
 button.opt:hover { border-color: var(--ink); }
 button.opt.on { background: var(--accent); border-color: var(--ink); }
 button.opt:disabled { cursor: default; background: var(--paper); border-color: var(--line-2); }
-/* 1–10 scale */
-.q.scale { gap: 6px; }
-.q.scale button.opt { min-width: 44px; padding: 8px 0; text-align: center; }
-.scale-ends { font-family: var(--mono); color: var(--ink-3); font-size: 12px; margin: -4px 0 14px; }
-/* 1–5 stars */
-.q.stars { gap: 0; }
-.q.stars button.opt {
-  font-size: 28px;
-  line-height: 1;
-  padding: 2px 4px;
-  border: 0;
-  background: none;
-  color: var(--line-2);
+/* 1–10 scale: ten equal buttons that fit whatever width they're given */
+.q.scale {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 4px;
+  max-width: 520px;
 }
-.q.stars button.opt:hover { color: var(--ink-3); background: none; }
-.q.stars button.opt.on { color: var(--accent); background: none; }
-.stars-label { margin-left: 10px; font-family: var(--mono); color: var(--ink-2); font-size: 13px; }
+.q.scale button.opt { padding: 8px 0; text-align: center; }
+.scale-ends {
+  display: flex;
+  justify-content: space-between;
+  max-width: 520px;
+  font-family: var(--mono);
+  color: var(--ink-3);
+  font-size: 12px;
+  margin: -4px 0 14px;
+}
 .review > h1:first-child { margin-top: 0; }
 .review > h1::before { content: none; }
 .review .field { margin-top: 28px; }
 .verdict .field textarea { min-height: 72px; }
+
+/* --- panel: a gray box that holds a form -------------------------------- */
+.panel {
+  background: var(--panel);
+  border: 1px solid #dcdcdc;
+  padding: 24px;
+}
+.panel .panel-title {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-2);
+  margin: 0 0 16px;
+}
+.panel .field:last-child { margin-bottom: 0; }
+.panel .field label { color: var(--ink); }
+.panel .scale-ends { color: var(--ink-2); }
 
 /* --- worksheet: reading on the left, your answers on the right ---------- */
 .worksheet {
@@ -235,22 +252,10 @@ button.opt:disabled { cursor: default; background: var(--paper); border-color: v
   align-items: start;
 }
 .worksheet-main > :first-child { margin-top: 0; }
-.worksheet-panel {
-  position: sticky;
-  top: 72px;
-  background: var(--paper-2);
-  border: 1px solid var(--line);
-  padding: 24px;
-}
-.worksheet-panel .panel-title {
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--ink-3);
-  margin: 0 0 16px;
-}
+.worksheet-panel { position: sticky; top: 72px; }
 .worksheet-panel .field textarea { min-height: 200px; }
 .worksheet-panel .q-prompt { margin-top: 8px; font-size: 15px; }
-.worksheet-panel form.exercise { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
+.worksheet-panel form.exercise { margin-top: 24px; padding-top: 20px; border-top: 1px solid #d4d4d4; }
 .worksheet-panel button.send { width: 100%; }
 
 /* --- tables of terms ------------------------------------------------------ */
@@ -302,9 +307,9 @@ ol.sortable .card.dragging {
 .card .card-body { flex: 1; display: flex; flex-direction: column; gap: 2px; line-height: 1.5; }
 .card .card-section { font-family: var(--mono); color: var(--ink-3); font-size: 12px; }
 .card .card-value { font-weight: 600; }
-.card .card-stars { color: var(--accent); letter-spacing: 1px; font-size: 15px; }
-.card .card-stars .dim { color: var(--line-2); }
-.card .card-stars .muted { font-family: var(--mono); font-size: 12px; letter-spacing: 0; }
+.card .card-urgency { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; color: var(--ink-2); }
+.card .meter { display: inline-block; width: 120px; height: 8px; background: var(--line); }
+.card .meter span { display: block; height: 100%; background: var(--accent); }
 .card .card-notes { white-space: pre-wrap; font-size: 15px; color: var(--ink-2); margin-top: 4px; }
 .card .grip { color: var(--ink-3); letter-spacing: -3px; }
 
@@ -325,4 +330,6 @@ hr.divider { border: 0; border-top: 1px solid var(--line); margin: 56px 0; }
   .lede { font-size: 19px; }
   table.defs td:first-child { white-space: normal; }
   .q-label { min-width: 0; flex-basis: 100%; }
+  /* two rows of five so every number is thumb-sized */
+  .q.scale { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
