@@ -72,7 +72,9 @@ around the Snapshot CRO Shopify app.
   urgency, kept in localStorage `workshop_feedback_tasks`, sent as one
   `pace-feedback` row); er-prioritize-2.html is round 2 — the stages
   plus those tasks, starting from the round-1 order. Both prioritize
-  pages share er-prioritize.js. v1 stays up alongside it. Don't consolidate them; follow the same
+  pages share er-prioritize.js. v2 is the live session: the workshop
+  contents page links only er.html (2026-09-29); v1 pages still exist
+  but are unlisted. Don't consolidate them; follow the same
   pattern for future sessions (script template:
   `.claude/scripts/analytics-workshop-apps-script.gs`).
 
