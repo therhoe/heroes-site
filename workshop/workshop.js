@@ -38,6 +38,10 @@
     ['roadmaps.html', 'review.html', 'review-pace.html',
      'review-pdp.html', 'review-e.html',
      'roadmaps-intro.html', 'prioritize.html', 'roadmaps-planner.html'],
+    // session three v2: PACE expert review, one page per stage
+    ['er.html', 'er-review.html', 'er-pace.html', 'er-setup.html',
+     'er-p.html', 'er-a.html', 'er-c.html', 'er-e.html',
+     'er-roadmaps.html', 'er-prioritize.html'],
     ['confidence.html']
   ];
 
@@ -57,6 +61,27 @@
     'a_aligned', 'a_describe', 'a_fold', 'a_implicit', 'a_rating',
     'c_benefits', 'c_specs', 'c_proof'
   ];
+  // other reviews keep their answers under their own key so they never mix
+  // with the main one. Every page of such a review marks it with
+  // data-review-store="<key>" (on <main> or the form). Multi-page reviews
+  // list their order here; a one-page review just uses page order.
+  var REVIEW_ORDERS = {
+    // session three v2: PACE expert review, one page per stage (er-*.html)
+    workshop_review_pace: [
+      'pdp_url', 'device', 'customer', 'promise', 'source', 'action',
+      'p_notes', 'p_urgency',
+      'a_notes', 'a_urgency',
+      'c_notes', 'c_urgency',
+      'e_notes', 'e_urgency'
+    ]
+  };
+  var altReview = document.querySelector('[data-review-store]');
+  if (altReview) {
+    REVIEW_KEY = altReview.getAttribute('data-review-store');
+    REVIEW_ORDER = REVIEW_ORDERS[REVIEW_KEY] || Array.prototype.map.call(
+      altReview.querySelectorAll('[data-key]'),
+      function (el) { return el.getAttribute('data-key'); });
+  }
 
   initSlide();
   initReview();
@@ -100,7 +125,11 @@
   //   <div class="q" data-key="..."> — one question: button.opt choices
   //     (data-stop on a choice = nothing after it on that slide applies),
   //     or a text input. Later questions stay locked until it's answered.
-  //   <input data-key="..."> outside a .q — plain remembered field.
+  //     data-multi on the .q = pick any number (stored comma-separated).
+  //     class="q stars" = a 1–5 rating: every star up to the pick lights up.
+  //   <input|textarea data-key="..."> outside a .q — plain remembered field.
+  //   <p data-show="key" data-prefix="..."> — echoes an earlier answer
+  //     (hidden until there is one).
   // (REVIEW_KEY / REVIEW_ORDER are declared up top, before initReview runs)
 
   // the prioritize slide reads these
@@ -109,7 +138,8 @@
     sent: function () {
       try { return JSON.parse(localStorage.getItem(REVIEW_KEY + '_sent') || 'null'); } catch (e) { return null; }
     },
-    inProgress: reviewAnswers
+    inProgress: reviewAnswers,
+    sortable: sortable
   };
 
   function reviewStore() {
@@ -128,6 +158,12 @@
   function initReview() {
     var store = reviewStore();
 
+    document.querySelectorAll('[data-show]').forEach(function (el) {
+      var val = store[el.getAttribute('data-show')] || '';
+      el.textContent = (el.getAttribute('data-prefix') || '') + val;
+      el.hidden = !val;
+    });
+
     // Enter in a review text box shouldn't send a half-finished review
     document.querySelectorAll('form[data-review] input').forEach(function (el) {
       el.addEventListener('keydown', function (ev) {
@@ -135,7 +171,8 @@
       });
     });
 
-    document.querySelectorAll('input[data-key]:not(.q input)').forEach(function (el) {
+    document.querySelectorAll('input[data-key], textarea[data-key]').forEach(function (el) {
+      if (el.closest('.q')) return;
       el.value = store[el.getAttribute('data-key')] || '';
       el.addEventListener('input', function () {
         store[el.getAttribute('data-key')] = el.value.trim();
@@ -152,11 +189,17 @@
           var key = q.getAttribute('data-key');
           if (locked) delete store[key]; // stale answer below a "no" or a gap
           var val = store[key] || '';
+          var picked = q.hasAttribute('data-multi') ? val.split(', ') : [val];
+          var stars = q.classList.contains('stars');
           q.classList.toggle('locked', locked);
           q.querySelectorAll('button.opt').forEach(function (b) {
+            var v = b.getAttribute('data-v');
             b.disabled = locked;
-            b.classList.toggle('on', !!val && b.getAttribute('data-v') === val);
+            b.classList.toggle('on', !!val &&
+              (stars ? Number(v) <= Number(val) : picked.indexOf(v) !== -1));
           });
+          var readout = q.querySelector('.stars-label');
+          if (readout) readout.textContent = val ? (q.getAttribute('data-say-' + val) || '') : '';
           var input = q.querySelector('input');
           if (input) {
             input.disabled = locked;
@@ -172,7 +215,16 @@
         var key = q.getAttribute('data-key');
         q.querySelectorAll('button.opt').forEach(function (b) {
           b.addEventListener('click', function () {
-            store[key] = b.getAttribute('data-v');
+            var v = b.getAttribute('data-v');
+            if (q.hasAttribute('data-multi')) {
+              // toggle this choice, keeping the page's button order
+              var on = !b.classList.contains('on');
+              store[key] = Array.prototype.filter.call(q.querySelectorAll('button.opt'), function (o) {
+                return o === b ? on : o.classList.contains('on');
+              }).map(function (o) { return o.getAttribute('data-v'); }).join(', ');
+            } else {
+              store[key] = v;
+            }
             render();
           });
         });
@@ -187,6 +239,64 @@
 
       render();
     });
+  }
+
+  // --- drag-to-reorder cards (prioritize slides) ---------------------------
+  // sortable(<ol>, onChange): drag the <li class="card"> children into order
+  // with mouse or touch; the .rank in each card is renumbered as you go and
+  // onChange runs on drop.
+  function sortable(list, onChange) {
+    function renumber() {
+      Array.prototype.forEach.call(list.children, function (li, i) {
+        var r = li.querySelector('.rank');
+        if (r) r.textContent = (i + 1) + '.';
+      });
+    }
+    renumber();
+
+    var dragging = null, lastY = 0;
+    list.addEventListener('pointerdown', function (ev) {
+      var card = ev.target.closest('.card');
+      if (!card || ev.button !== 0) return;
+      ev.preventDefault();
+      dragging = card;
+      card.classList.add('dragging');
+      try { card.setPointerCapture(ev.pointerId); } catch (e) {}
+    });
+    list.addEventListener('pointermove', function (ev) {
+      if (!dragging) return;
+      lastY = ev.clientY;
+      place();
+    });
+
+    function place() {
+      var cards = Array.prototype.filter.call(list.children, function (li) { return li !== dragging; });
+      var before = null;
+      for (var i = 0; i < cards.length; i++) {
+        var box = cards[i].getBoundingClientRect();
+        if (lastY < box.top + box.height / 2) { before = cards[i]; break; }
+      }
+      if (before !== dragging.nextElementSibling) {
+        list.insertBefore(dragging, before);
+        renumber();
+      }
+    }
+
+    // held near the top/bottom edge, keep scrolling so the whole list is reachable
+    setInterval(function () {
+      if (!dragging) return;
+      var step = lastY < 60 ? -12 : lastY > window.innerHeight - 60 ? 12 : 0;
+      if (step) { window.scrollBy(0, step); place(); }
+    }, 16);
+
+    function drop() {
+      if (!dragging) return;
+      dragging.classList.remove('dragging');
+      dragging = null;
+      if (onChange) onChange();
+    }
+    list.addEventListener('pointerup', drop);
+    list.addEventListener('pointercancel', drop);
   }
 
   // --- exercise submissions ----------------------------------------------

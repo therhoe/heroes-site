@@ -193,3 +193,33 @@ hr.divider {
 }
 .review > h1:first-child { margin-top: 0; }
 .review > h1::before { content: none; }
+
+/* --- review v2: 1–10 scales, notes boxes, question hints --- */
+.q.scale { gap: 6px; }
+.q.scale button.opt { min-width: 46px; padding: 8px 0; text-align: center; }
+.scale-ends { color: #999; font-size: 13px; margin: -6px 0 14px; }
+.q-hint { color: #666; font-size: 15px; margin: -10px 0 16px; }
+.review .field { margin-top: 32px; }
+.review .field label { font-size: 15px; }
+.verdict .field textarea { min-height: 64px; }
+.q.stacked { margin-bottom: 22px; }
+.q.stacked .q-label { flex-basis: 100%; line-height: 1.4; }
+
+/* --- PACE expert review v2: urgency stars, context echoes, stage cards --- */
+.q.stars { gap: 2px; }
+.q.stars button.opt {
+  font-size: 30px;
+  line-height: 1;
+  padding: 4px 6px;
+  border: 0;
+  background: none;
+  color: #d8d8d8;
+}
+.q.stars button.opt:hover { background: none; color: #999; }
+.q.stars button.opt.on { color: #ffc42a; background: none; }
+.stars-label { margin-left: 12px; color: #666; font-size: 15px; }
+.context { color: #999; font-size: 15px; margin: -32px 0 32px; }
+.stage-q { font-size: 22px; font-weight: 600; margin: 0 0 16px; }
+.card .card-stars { color: #ffc42a; letter-spacing: 1px; }
+.card .card-stars .dim { color: #d8d8d8; }
+.card .card-notes { white-space: pre-wrap; font-size: 15px; margin-top: 4px; }

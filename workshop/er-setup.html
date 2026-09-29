@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Set the Context — Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main data-review-store="workshop_review_pace">
+
+  <h1 class="title">Set the Context</h1>
+  <p class="tagline">// pace expert review</p>
+
+  <p>Every stage depends on this. Fill it in before you look at the page.</p>
+
+  <div style="max-width: 560px; margin-top: 32px;">
+    <div class="field">
+      <label for="f-pdp">which PDP are you reviewing? (url)</label>
+      <input id="f-pdp" type="url" data-key="pdp_url" placeholder="https://">
+    </div>
+    <div class="review" style="margin: 0 0 14px;">
+      <p style="color: #666; font-size: 13px; margin: 0 0 4px;">device</p>
+      <div class="q" data-key="device">
+        <button type="button" class="opt" data-v="desktop">desktop</button>
+        <button type="button" class="opt" data-v="mobile">mobile</button>
+      </div>
+    </div>
+    <div class="field">
+      <label for="f-customer">who is the customer? (one sentence)</label>
+      <input id="f-customer" type="text" data-key="customer" placeholder="first-time buyer on their phone, comparing two options">
+    </div>
+    <div class="field">
+      <label for="f-promise">what's their pain point, problem, or promise?</label>
+      <input id="f-promise" type="text" data-key="promise">
+    </div>
+    <div class="field">
+      <label for="f-source">where are they coming from? (the ad, email, or referrer)</label>
+      <input id="f-source" type="text" data-key="source">
+    </div>
+    <div class="field">
+      <label for="f-action">what's the one action this page exists for?</label>
+      <input id="f-action" type="text" data-key="action" placeholder="add to cart">
+    </div>
+  </div>
+
+</main>
+<script src="workshop.js"></script>
+</body>
+</html>

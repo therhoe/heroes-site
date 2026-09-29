@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Prioritize — Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main data-review-store="workshop_review_pace">
+
+  <h1 class="title">Prioritize</h1>
+  <p class="tagline">// expert review &amp; roadmaps</p>
+
+  <p class="muted" id="reviewing"></p>
+  <p class="muted">// drag the stages into order — most urgent CRO work at the top</p>
+
+  <ol class="sortable" id="cards"></ol>
+  <p id="empty" class="muted" hidden>// no review yet. <a href="er-setup.html">do the PACE expert review</a> first, then come back.</p>
+
+</main>
+<script src="workshop.js"></script>
+<script>
+(function () {
+  var STAGES = [
+    { key: 'p', name: 'P // Prognosis' },
+    { key: 'a', name: 'A // Activity' },
+    { key: 'c', name: 'C // Criteria' },
+    { key: 'e', name: 'E // Events' }
+  ];
+  var SAY = ['', 'working fine', 'minor tweaks', 'worth improving', 'needs work soon', 'urgent — fix first'];
+  var ORDER_KEY = 'workshop_priorities_pace';
+
+  var R = window.WORKSHOP_REVIEW;
+  // the review they sent; if they haven't sent one, whatever they've filled in so far
+  var answers = R.sent() || R.inProgress();
+  var list = document.getElementById('cards');
+
+  var about = [answers.pdp_url, answers.device].filter(Boolean).join(' · ');
+  if (about) document.getElementById('reviewing').textContent = '// reviewing: ' + about;
+
+  var touched = STAGES.some(function (s) { return answers[s.key + '_notes'] || answers[s.key + '_urgency']; });
+  if (!touched) { document.getElementById('empty').hidden = false; return; }
+
+  // most urgent first (ties keep PACE order), unless they already reordered this review
+  var keys = STAGES.map(function (s) { return s.key; });
+  keys = keys.slice().sort(function (x, y) {
+    return (Number(answers[y + '_urgency']) || 0) - (Number(answers[x + '_urgency']) || 0) ||
+      keys.indexOf(x) - keys.indexOf(y);
+  });
+  var sig = JSON.stringify(answers);
+  try {
+    var saved = JSON.parse(localStorage.getItem(ORDER_KEY) || 'null');
+    if (saved && saved.sig === sig) keys = saved.order;
+  } catch (e) {}
+
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  list.innerHTML = keys.map(function (k) {
+    var name = STAGES.filter(function (s) { return s.key === k; })[0].name;
+    var n = Number(answers[k + '_urgency']) || 0;
+    var stars = n
+      ? '★★★★★'.slice(0, n) + '<span class="dim">' + '★★★★★'.slice(n) + '</span> <span class="muted">' + SAY[n] + '</span>'
+      : '<span class="muted">not rated</span>';
+    var notes = answers[k + '_notes']
+      ? '<span class="card-notes">' + esc(answers[k + '_notes']) + '</span>'
+      : '<span class="card-notes muted">no notes</span>';
+    return '<li class="card" data-key="' + k + '">' +
+      '<span class="rank"></span>' +
+      '<span class="card-body"><span class="card-value">' + name + '</span>' +
+      '<span class="card-stars">' + stars + '</span>' + notes + '</span>' +
+      '<span class="grip" aria-hidden="true">⋮⋮</span></li>';
+  }).join('');
+
+  R.sortable(list, function () {
+    var order = Array.prototype.map.call(list.children, function (li) { return li.getAttribute('data-key'); });
+    try { localStorage.setItem(ORDER_KEY, JSON.stringify({ sig: sig, order: order })); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>

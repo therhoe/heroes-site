@@ -78,62 +78,11 @@
       '<span class="grip" aria-hidden="true">⋮⋮</span></li>';
   }).join('');
 
-  function renumber() {
-    Array.prototype.forEach.call(list.children, function (li, i) {
-      li.querySelector('.rank').textContent = (i + 1) + '.';
-    });
-  }
   function save() {
     var order = Array.prototype.map.call(list.children, function (li) { return li.getAttribute('data-key'); });
     try { localStorage.setItem(ORDER_KEY, JSON.stringify({ sig: sig, order: order })); } catch (e) {}
   }
-  renumber();
-
-  // pointer-based drag: works for mouse and touch alike
-  var dragging = null;
-  list.addEventListener('pointerdown', function (ev) {
-    var card = ev.target.closest('.card');
-    if (!card || ev.button !== 0) return;
-    ev.preventDefault();
-    dragging = card;
-    card.classList.add('dragging');
-    try { card.setPointerCapture(ev.pointerId); } catch (e) {}
-  });
-  list.addEventListener('pointermove', function (ev) {
-    if (!dragging) return;
-    lastY = ev.clientY;
-    place();
-  });
-
-  function place() {
-    var cards = Array.prototype.filter.call(list.children, function (li) { return li !== dragging; });
-    var before = null;
-    for (var i = 0; i < cards.length; i++) {
-      var box = cards[i].getBoundingClientRect();
-      if (lastY < box.top + box.height / 2) { before = cards[i]; break; }
-    }
-    if (before !== dragging.nextElementSibling) {
-      list.insertBefore(dragging, before);
-      renumber();
-    }
-  }
-
-  // held near the top/bottom edge, keep scrolling so the whole list is reachable
-  var lastY = 0;
-  setInterval(function () {
-    if (!dragging) return;
-    var step = lastY < 60 ? -12 : lastY > window.innerHeight - 60 ? 12 : 0;
-    if (step) { window.scrollBy(0, step); place(); }
-  }, 16);
-
-  function drop() {
-    if (!dragging) return;
-    dragging.classList.remove('dragging');
-    dragging = null;
-    save();
-  }
-  list.addEventListener('pointerup', drop);
-  list.addEventListener('pointercancel', drop);
+  R.sortable(list, save);
 })();
 </script>
 </body>
