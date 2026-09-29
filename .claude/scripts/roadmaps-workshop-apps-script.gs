@@ -26,6 +26,7 @@
  * Each tab's columns: timestamp, email, page, screenshots, then one per
  * answer key in the order the site sends them.
  *
+ * <exec url>?version shows which code is live (VERSION below).
  * doGet returns submissions as JSON (?exercise=pace-review reads just that
  * tab). Emails are NEVER included in the doGet output — the endpoint is
  * public. Rows written by the older one-tab version of this script (answers
@@ -82,7 +83,11 @@ function doPost(e) {
   return ContentService.createTextOutput('ok');
 }
 
+var VERSION = 'tabs-2026-09-29';
+
 function doGet(e) {
+  // <exec url>?version — shows which code the live deployment is running
+  if (e.parameter && 'version' in e.parameter) return ContentService.createTextOutput(VERSION);
   var want = (e.parameter && e.parameter.exercise) || '';
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheets = want ? [ss.getSheetByName(tabName_(want))].filter(Boolean) : ss.getSheets();
