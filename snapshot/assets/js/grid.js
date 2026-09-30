@@ -177,40 +177,62 @@
     });
   }
 
-  function buildQuestions(items) {
+  function buildQuestions(items, questions) {
     var list = document.getElementById("questions");
     var section = document.getElementById("questions-section");
-    if (!list || !section) return;
+    if (!list || !section || !Array.isArray(questions)) return;
 
-    var asked = items
-      .map(function (item, index) { return { item: item, index: index }; })
-      .filter(function (entry) { return entry.item.question; });
+    // Card titles are the join key. They read plainly in the data file,
+    // and a typo shows up here rather than silently doing nothing.
+    var indexByTitle = {};
+    items.forEach(function (item, index) {
+      indexByTitle[item.title] = index;
+    });
 
-    if (!asked.length) return;
+    var added = 0;
 
-    asked.forEach(function (entry) {
+    questions.forEach(function (entry) {
+      var index = indexByTitle[entry.card];
+
+      if (index === undefined) {
+        console.warn('Question points at a card that does not exist: "' + entry.card + '"');
+        return;
+      }
+
       var li = document.createElement("li");
       var button = document.createElement("button");
       button.type = "button";
       button.className = "question";
-      button.textContent = entry.item.question;
+      button.textContent = entry.question;
       button.addEventListener("click", function () {
-        var card = cardElements[entry.index];
+        var card = cardElements[index];
         if (card) revealCard(card);
       });
       li.appendChild(button);
       list.appendChild(li);
+      added += 1;
     });
 
-    section.hidden = false;
+    if (added) section.hidden = false;
   }
 
-  fetch("data/items.json")
-    .then(function (response) {
-      if (!response.ok) throw new Error("HTTP " + response.status);
+  function loadJson(path) {
+    return fetch(path).then(function (response) {
+      if (!response.ok) throw new Error(path + ": HTTP " + response.status);
       return response.json();
-    })
-    .then(function (items) {
+    });
+  }
+
+  Promise.all([
+    loadJson("data/items.json"),
+    // Questions are ordered deliberately and more than one can point at
+    // the same card, so they live in their own file rather than as a
+    // field on each item.
+    loadJson("data/questions.json").catch(function () { return []; })
+  ])
+    .then(function (loaded) {
+      var items = loaded[0];
+      var questions = loaded[1];
       root.innerHTML = "";
       if (!Array.isArray(items) || !items.length) return;
 
@@ -245,7 +267,7 @@
       });
 
       root.appendChild(fragment);
-      buildQuestions(items);
+      buildQuestions(items, questions);
 
       root.addEventListener("click", function (e) {
         var card = e.target.closest(".card");

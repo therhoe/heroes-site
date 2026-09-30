@@ -1,0 +1,34 @@
+[
+  {
+    "question": "Which Product Page would make the most money if optimized?",
+    "card": "Sessions by Page"
+  },
+  {
+    "question": "Can I see the conversion rates by marketing channel?",
+    "card": "Traffic Quality by Source"
+  },
+  {
+    "question": "What is my true conversion rate of active visitors?",
+    "card": "Engagement & Conversion Metrics"
+  },
+  {
+    "question": "Are there areas that are ignored on my product pages?",
+    "card": "Engagement by Zone"
+  },
+  {
+    "question": "What percentage of visitors are bots or inactive?",
+    "card": "Traffic Breakdown"
+  },
+  {
+    "question": "Which images do visitors click?",
+    "card": "Sessions by Page"
+  },
+  {
+    "question": "What is the most clicked product on a collection page?",
+    "card": "Engagement by Zone"
+  },
+  {
+    "question": "Where are users exiting from the product page?",
+    "card": "Conversion Funnel"
+  }
+]
