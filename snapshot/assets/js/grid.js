@@ -21,6 +21,8 @@
   var modalSubtitle = modal.querySelector(".modal-subtitle");
   var modalBody = modal.querySelector(".modal-body");
   var closeButton = modal.querySelector(".modal-close");
+  var topButton = modal.querySelector(".modal-top");
+  var panel = modal.querySelector(".modal-panel");
 
   var lastFocused = null;
   var cardElements = [];
@@ -100,6 +102,8 @@
 
     modal.hidden = false;
     document.body.classList.add("modal-open");
+    // A reopened modal would otherwise keep the previous one's scroll.
+    panel.scrollTop = 0;
     closeButton.focus();
   }
 
@@ -288,6 +292,15 @@
   /* ---- close handlers ---- */
 
   closeButton.addEventListener("click", closeModal);
+
+  // Scrolls the panel's own content, not the page behind it.
+  topButton.addEventListener("click", function () {
+    panel.scrollTo({
+      top: 0,
+      behavior: prefersReducedMotion ? "auto" : "smooth"
+    });
+    closeButton.focus({ preventScroll: true });
+  });
 
   // Click the backdrop, but not the panel itself.
   modal.addEventListener("click", function (e) {
