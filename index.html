@@ -8,252 +8,449 @@
   <title>The Real Heroes of Ecommerce</title>
   <meta name="description" content="The Real Heroes of Ecommerce — a boutique CRO agency for Shopify stores. CRO services, the Snapshot CRO app, and the rhoe newsletter for ecommerce operators.">
   <link rel="canonical" href="https://therealheroesofecommerce.com/">
+  <link rel="icon" href="/logo.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
+    /* ====================================================================
+       Homepage. Built to the same shape as /snapshot/ -- wide canvas, a
+       header with a CTA pill, a hero, then a card grid -- because the
+       stacked 728px column read as a document rather than a site.
+       Tokens mirror snapshot/assets/css/style.css so the two pages feel
+       like one product, but the ground stays white: that's the RHOE brand
+       and it doesn't move.
+       ==================================================================== */
+    :root {
+      --fg: #14171a;
+      --muted: #5c6166;
+      --line: #e2e2e2;
+      --accent: #85ff97;        /* snapshot's green. On white it can't carry
+                                   text, so it's only ever a highlight behind
+                                   dark text, or a border. */
+      --yellow: #FFC42A;
+      --maxw: 1200px;
+      --gutter: 24px;
+      --control-height: 48px;
+      --radius: 16px;
+      --shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 14px 32px rgba(0, 0, 0, 0.09);
+      --font: "Space Grotesk", system-ui, sans-serif;
+    }
+
     * { box-sizing: border-box; }
     body {
       margin: 0;
       background: #ffffff;
-      color: #1a1a1a;
-      /* One family for the whole page — Snapshot CRO's. Shep's call
-         2026-10-05: the homepage was running three (mono, Space Grotesk,
-         Spectral) and it read as three sites stapled together. The rest of
-         the site is still IBM Plex Mono. */
-      font-family: "Space Grotesk", system-ui, sans-serif;
+      color: var(--fg);
+      font-family: var(--font);
       font-size: 16px;
-      line-height: 1.65;
-    }
-    main {
-      max-width: 728px;
-      margin: 0 auto;
-      padding: 56px 24px 96px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
     p { margin: 0 0 16px; }
     ul { list-style: none; margin: 0; padding: 0; }
-    li { margin: 0; }
-    a {
-      color: #1a1a1a;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-    a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
-    .muted { color: #999; }
+    a { color: inherit; }
+    .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
 
-    /* --- masthead --- */
-    .logo img {
-      display: block;
-      max-width: 400px;
-      width: 100%;
-      height: auto;
-      margin: 0 0 8px;
-    }
-    .tagline { color: #666; margin: 0 0 28px; }
-    .heroes img {
-      display: block;
-      width: 100%;
-      height: auto;
-      margin: 0 0 28px;
-    }
-    h1.home-headline {
-      font-size: 30px;
-      font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -0.01em;
-      margin: 0 0 16px;
-    }
-
-    /* --- doors ---------------------------------------------------------
-       Three blocks, each styled like the page it opens onto, so the
-       homepage previews its destinations instead of describing them.
-       The page itself stays white — that's the RHOE brand and it doesn't
-       change. Every door shares this box model; only the skin differs.
+    /* --- header --------------------------------------------------------
+       Logo left, nav + pill right on one row at a shared control height so
+       nothing drifts. Sticky, because the CTA is the point of it.
        ------------------------------------------------------------------ */
-    .door {
-      padding: 32px;
-      border-radius: 14px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 12px 28px rgba(0, 0, 0, 0.08);
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: saturate(180%) blur(12px);
     }
-    /* The label sits on the white page above its block, not inside it, so the
-       three read as a labelled set rather than three unrelated panels. */
-    .door-label {
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #666;
-      margin: 48px 0 10px;
-    }
-    .door h2 {
-      font-size: 20px;
-      font-weight: 600;
-      line-height: 1.3;
-      margin: 0 0 12px;
-    }
-    .door p:last-of-type { margin-bottom: 0; }
-    .door-links {
+    .site-header .wrap {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 24px 0 0;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-block: 16px;
+      border-bottom: 1px solid var(--line);
     }
-    .door-links a {
-      display: inline-block;
-      font: inherit;
-      font-weight: 500;
-      padding: 10px 18px;
-      border: 1px solid currentColor;
+    .brand img { display: block; width: 260px; max-width: 48vw; height: auto; }
+    .site-nav { display: flex; align-items: center; gap: 8px; }
+    .site-nav a {
+      display: inline-flex;
+      align-items: center;
+      height: var(--control-height);
+      padding: 0 16px;
+      border-radius: 999px;
+      color: var(--muted);
       text-decoration: none;
+      font-weight: 500;
+      transition: color .15s ease, background-color .15s ease;
     }
+    .site-nav a:hover { color: var(--fg); background: #f2f3f4; }
+    .site-nav a.cta { color: #ffffff; background: var(--fg); padding: 0 24px; }
+    .site-nav a.cta:hover { background: #000000; color: var(--accent); }
 
-    /* door 1 — snapshot cro. colours from snapshot/assets/css/style.css */
-    .door-snapshot {
-      background: #000000;
-      color: #ffffff;
+    /* --- hero --- */
+    .hero { padding: 72px 0 8px; }
+    .hero h1 {
+      max-width: 16ch;
+      margin: 0 0 20px;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -0.03em;
     }
-    .door-snapshot h2 { font-size: 24px; font-weight: 700; line-height: 1.3; }
-    .door-snapshot h2 .accent { color: #85ff97; }
-    .door-snapshot p { color: #b4b4b4; }
-    .door-snapshot a { color: #ffffff; }
-    .door-snapshot .door-links a { border-color: #85ff97; color: #85ff97; }
-    .door-snapshot .door-links a:hover { background: #85ff97; color: #000000; }
-    /* A strip of real app screenshots. The source shots are wide and vary in
-       height, so cover-fitting them into equal boxes shrinks the text to mush.
-       Same trick as the cards on /snapshot/: zoom past the frame and anchor
-       top-left, so each one shows a legible corner of real UI rather than a
-       whole unreadable screenshot. */
-    .shots {
+    /* The green can't carry text on white, so it sits behind it instead --
+       a marker-pen highlight rather than coloured type. */
+    .hero h1 .mark {
+      /* Sized and placed in em, not as a percentage of the line box -- with
+         line-height this tight a percentage stop lands under the glyphs and
+         reads as an underline. In em it tracks the font and stays a
+         highlight: band runs from mid x-height to just past the baseline. */
+      background-image: linear-gradient(var(--accent), var(--accent));
+      background-repeat: no-repeat;
+      background-size: 100% 0.32em;
+      background-position: 0 0.6em;
+      padding-inline: 3px;
+    }
+    .hero .sub {
+      max-width: 54ch;
+      margin: 0;
+      font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 32px 0 0; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      height: var(--control-height);
+      padding: 0 24px;
+      border-radius: 999px;
+      border: 1px solid var(--fg);
+      font-weight: 500;
+      text-decoration: none;
+      transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+    }
+    .btn-solid { background: var(--fg); color: #ffffff; }
+    .btn-solid:hover { background: #000000; color: var(--accent); }
+    .btn-ghost:hover { background: var(--yellow); border-color: var(--yellow); }
+
+    /* 5000x1000 pixel art. It wants to be wide -- in the old 728px column it
+       was only 146px tall; here it reads as a proper band. */
+    .lineup {
+      margin: 48px 0 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #fafafa;
+      border: 1px solid var(--line);
+    }
+    .lineup img { display: block; width: 100%; height: auto; }
+
+    /* --- stats band ----------------------------------------------------
+       Shep's credentials were buried mid-paragraph. Pulled out, they are
+       the fastest proof on the page.
+       ------------------------------------------------------------------ */
+    .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin: 24px 0 0;
+      gap: 24px;
+      margin: 56px 0 0;
+      padding: 32px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
     }
+    .stats .n {
+      display: block;
+      font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .stats .l { color: var(--muted); font-size: 0.95rem; }
+
+    /* --- section heads --- */
+    .section { padding: 80px 0 0; }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0 0 24px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .section-head .eyebrow {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* --- cards ---------------------------------------------------------
+       Each card is a door, skinned like the page it opens onto. The app
+       card spans the grid because it carries the screenshots; the other
+       two sit beside each other.
+       ------------------------------------------------------------------ */
+    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .card {
+      padding: 36px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+    }
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+    }
+    .card .lede { font-size: 1.1rem; color: var(--muted); }
+    .card .card-links { margin-top: auto; padding-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
+
+    /* app card -- /snapshot/'s black and green */
+    .card-app {
+      grid-column: 1 / -1;
+      background: #000000;
+      color: #ffffff;
+      border-color: #000000;
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 40px;
+      align-items: center;
+    }
+    .card-app h3 { font-size: clamp(1.6rem, 2.8vw, 2.3rem); }
+    .card-app h3 .accent { color: var(--accent); }
+    .card-app p { color: #b4b4b4; }
+    .card-app .btn { border-color: var(--accent); color: var(--accent); }
+    .card-app .btn:hover { background: var(--accent); color: #000000; }
+    .card-app .btn-solid { background: var(--accent); color: #000000; }
+    .card-app .btn-solid:hover { background: #ffffff; border-color: #ffffff; }
+    .card-app .card-links { padding-top: 28px; }
+
+    /* The shots are wide and vary in height, so cover-fitting them shrinks
+       the text to mush. Same trick as the cards on /snapshot/: zoom past the
+       frame and anchor top-left, so each shows a legible corner of real UI. */
+    .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .shots span {
       display: block;
       aspect-ratio: 16 / 10;
       overflow: hidden;
+      border-radius: 10px;
       border: 1px solid #2a2a2a;
-      border-radius: 8px;
       background: #ffffff;
     }
-    .shots img {
-      display: block;
-      width: 190%;
-      max-width: none;
-      height: auto;
-    }
+    .shots img { display: block; width: 170%; max-width: none; height: auto; }
 
-    /* door 2 — newsletter. the paper sheet from _layouts/newsletter.html */
-    .door-newsletter {
-      background: #ffffff;
-      border: 1px solid #e2e2e2;
+    /* newsletter card -- the paper sheet from _layouts/newsletter.html.
+       The subscribe include is shared with /newsletter/ and the newsletter
+       layout, which are square-cornered terminal pages, so its pills are
+       re-cut here rather than in the include. Selectors carry the extra
+       class to outrank `.sublead input[type="email"]`. */
+    .card-news .sublead { max-width: none; margin: 4px 0 0; }
+    .card-news .sublead input[type="email"],
+    .card-news .sublead button {
+      height: var(--control-height);
+      padding-inline: 20px;
+      border-radius: 999px;
+      border-color: var(--fg);
     }
-    .door-newsletter .lede { font-size: 18px; line-height: 1.55; }
-    .door-newsletter .issues { margin: 24px 0 0; }
-    .door-newsletter .issues li { margin: 0 0 6px; }
-    .door-newsletter .issues .note { color: #999; }
+    .card-news .sublead button { background: var(--fg); color: #ffffff; }
+    .card-news .sublead button:hover { background: #000000; color: var(--accent); }
 
-    /* door 3 — cro services. the site's own yellow accent */
-    .door-service {
-      background: #ffffff;
-      border: 1px solid #e2e2e2;
+    .card-news .issues { margin: 20px 0 0; border-top: 1px solid var(--line); }
+    .card-news .issues li { border-bottom: 1px solid var(--line); }
+    .card-news .issues a {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 10px 0;
+      text-decoration: none;
+      transition: padding-left .15s ease;
     }
-    .door-service ul { margin: 0 0 16px; }
-    .door-service .door-links a:hover { background: #FFC42A; color: #1a1a1a; }
+    .card-news .issues a:hover { padding-left: 8px; }
+    .card-news .issues .t { font-weight: 500; }
+    .card-news .issues .d { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
+
+    /* service card -- the site's yellow accent */
+    .card-svc ul { margin: 4px 0 20px; }
+    .card-svc li {
+      position: relative;
+      padding: 10px 0 10px 30px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .card-svc li::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 18px;
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      background: var(--yellow);
+    }
+    .card-svc .price { font-weight: 500; }
+    .card-svc .note { color: var(--muted); }
 
     footer {
-      margin-top: 72px;
-      color: #999;
-      font-size: 13px;
+      margin: 96px 0 0;
+      padding: 32px 0 56px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
     }
-    footer a { color: #999; }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+    footer a { text-decoration: underline; text-underline-offset: 3px; }
 
-    @media (max-width: 560px) {
-      main { padding: 40px 18px 72px; }
-      h1.home-headline { font-size: 24px; }
-      .door { padding: 24px 20px; }
-      .door-label { margin-top: 36px; }
-      .door-snapshot h2 { font-size: 19px; }
+    @media (max-width: 900px) {
+      .card-app { grid-template-columns: 1fr; gap: 28px; }
+      .cards { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      :root { --gutter: 18px; }
+      .site-header .wrap { padding-block: 12px; }
+      .site-nav a { padding: 0 12px; }
+      .site-nav a.cta { padding: 0 18px; }
+      .hero { padding-top: 48px; }
+      .section { padding-top: 56px; }
+      .card { padding: 26px 22px; }
+      .stats { grid-template-columns: 1fr; gap: 20px; padding: 26px 22px; }
       .shots { grid-template-columns: 1fr; }
-      .shots span { aspect-ratio: 16 / 9; }
+    }
+    /* The wordmark is 9:1 -- below this it squeezes the nav off the row, so
+       the text links drop and only the pill stays. */
+    @media (max-width: 560px) {
+      .site-nav .nav-text { display: none; }
+      .brand img { width: 190px; }
     }
   </style>
 </head>
 <body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="The Real Heroes of Ecommerce home">
+      <img src="logo.png" alt="The Real Heroes of Ecommerce" width="800" height="85">
+    </a>
+    <nav class="site-nav">
+      <a class="nav-text" href="/snapshot/">snapshot cro</a>
+      <a class="nav-text" href="/newsletter/">newsletter</a>
+      <a class="cta" href="/hire-cro-agency.html">work with us</a>
+    </nav>
+  </div>
+</header>
+
 <main>
 
-  <div class="logo">
-    <img src="logo.png" alt="The Real Heroes of Ecommerce">
-  </div>
-  <p class="tagline">// conversion rate optimization for shopify stores</p>
-
-  <div class="heroes">
-    <img src="heroes-lineup.png" alt="pixel art lineup of the real heroes of ecommerce">
-  </div>
-
-  <h1 class="home-headline">Welcome to The Real Heroes of Ecommerce</h1>
-  <p>I am a conversion optimization nerd. You probably are too if you found your way to this site. Or at the very least, you are nerd-adjacent. So let's have some fun with it.</p>
-  <p>This started as a newsletter, and now I do CRO as a service for Shopify stores and build the tooling I wished existed. Over a decade in the industry, dozens of stores, hundreds of experiments. Three doors below — take whichever one you came for.</p>
-
-  <!-- door 1 — the app.
-       DRAFT COPY (2026-10-05) — Shep to redline the headline and the two
-       paragraphs. Everything else here is structure. -->
-  <p class="door-label">the app</p>
-  <section class="door door-snapshot">
-    <h2>Every <span class="accent">Insight</span> You Need to Lift Conversions, in One Place</h2>
-    <p>Snapshot CRO is our Shopify app. It tells you which page is costing you the most money, then shows you what on that page is losing people — the zones they click, the images they ignore, the step they exit from.</p>
-    <p>Free to start. Sixteen views across your whole store and every page in it.</p>
-    <div class="shots">
-      <span><img src="snapshot/assets/img/cards/conversion-funnel.png" alt="conversion funnel view" loading="lazy"></span>
-      <span><img src="snapshot/assets/img/cards/engagement-by-zone.png" alt="engagement by zone view" loading="lazy"></span>
-      <span><img src="snapshot/assets/img/cards/traffic-quality-by-source.png" alt="traffic quality by source view" loading="lazy"></span>
+  <section class="hero wrap">
+    <h1>Conversion rate optimization for <span class="mark">Shopify</span> stores.</h1>
+    <p class="sub">I am a conversion optimization nerd. You probably are too if you found your way here, or at the very least you are nerd-adjacent. So let's have some fun with it.</p>
+    <div class="hero-actions">
+      <a class="btn btn-solid" href="/hire-cro-agency.html">work with us</a>
+      <a class="btn btn-ghost" href="/snapshot/">see the app</a>
     </div>
-    <div class="door-links">
-      <a href="/snapshot/">see what it shows you &rarr;</a>
-      <a href="https://apps.shopify.com/snapshot-cro">install on shopify &rarr;</a>
+
+    <div class="lineup">
+      <img src="heroes-lineup.png" alt="pixel art lineup of the real heroes of ecommerce" width="5000" height="1000">
+    </div>
+
+    <div class="stats">
+      <div><span class="n">10+ years</span><span class="l">in conversion optimization</span></div>
+      <div><span class="n">dozens</span><span class="l">of Shopify stores</span></div>
+      <div><span class="n">hundreds</span><span class="l">of experiments run</span></div>
     </div>
   </section>
 
-  <!-- door 2 — the newsletter -->
-  <p class="door-label">the newsletter</p>
-  <section class="door door-newsletter">
-    <p class="lede">The building-in-public archive. Experiments that worked, experiments that didn't, and what the numbers actually said. New issues go out by email.</p>
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>Three ways in.</h2>
+      <span class="eyebrow">take whichever one you came for</span>
+    </div>
 
-    {% include subscribe-email.html %}
+    <div class="cards">
 
-    <ul class="issues">
-      {% assign issues = site.newsletter | sort: "date" | reverse %}
-      {% for p in issues limit: 8 %}
-      <li><a href="{{ p.url }}">{{ p.title }}</a> <span class="note">({{ p.date | date: "%b %Y" | downcase }})</span></li>
-      {% endfor %}
-    </ul>
+      <!-- the app.
+           DRAFT COPY (2026-10-05) — Shep to redline the headline and the two
+           paragraphs. Everything else here is structure. -->
+      <article class="card card-app">
+        <div>
+          <h3>Every <span class="accent">Insight</span> You Need to Lift Conversions, in One Place</h3>
+          <p>Snapshot CRO is our Shopify app. It tells you which page is costing you the most money, then shows you what on that page is losing people — the zones they click, the images they ignore, the step they exit from.</p>
+          <p>Free to start. Sixteen views across your whole store and every page in it.</p>
+          <div class="card-links">
+            <a class="btn btn-solid" href="https://apps.shopify.com/snapshot-cro">install on shopify</a>
+            <a class="btn" href="/snapshot/">see what it shows you</a>
+          </div>
+        </div>
+        <div class="shots">
+          <span><img src="snapshot/assets/img/cards/conversion-funnel.png" alt="conversion funnel view" loading="lazy"></span>
+          <span><img src="snapshot/assets/img/cards/engagement-by-zone.png" alt="engagement by zone view" loading="lazy"></span>
+          <span><img src="snapshot/assets/img/cards/traffic-quality-by-source.png" alt="traffic quality by source view" loading="lazy"></span>
+          <span><img src="snapshot/assets/img/cards/sessions-by-page.png" alt="sessions by page view" loading="lazy"></span>
+        </div>
+      </article>
 
-    <div class="door-links">
-      <a href="/newsletter/">all {{ site.newsletter | size }} issues &rarr;</a>
+      <!-- the newsletter -->
+      <article class="card card-news">
+        <h3>The newsletter</h3>
+        <p class="lede">The building-in-public archive. Experiments that worked, experiments that didn't, and what the numbers actually said.</p>
+
+        {% include subscribe-email.html %}
+
+        <ul class="issues">
+          {% assign issues = site.newsletter | sort: "date" | reverse %}
+          {% for p in issues limit: 6 %}
+          <li><a href="{{ p.url }}"><span class="t">{{ p.title }}</span> <span class="d">{{ p.date | date: "%b %Y" | downcase }}</span></a></li>
+          {% endfor %}
+        </ul>
+
+        <div class="card-links">
+          <a class="btn btn-ghost" href="/newsletter/">all {{ site.newsletter | size }} issues</a>
+        </div>
+      </article>
+
+      <!-- cro services -->
+      <article class="card card-svc">
+        <h3>CRO services</h3>
+        <p class="lede">Complete CRO for Shopify stores, ongoing or by project — the same workflow we built into the app.</p>
+        <ul>
+          <li>audit your store for page performance</li>
+          <li>audit pages for leaks and opportunities</li>
+          <li>remove roadblocks and smooth out the buying process</li>
+          <li>test everything</li>
+        </ul>
+        <p class="price">Pricing based on scope.</p>
+        <p class="note">Let us know what you are looking for and we will get back to you promptly.</p>
+        <div class="card-links">
+          <a class="btn btn-ghost" href="/hire-cro-agency.html">get in touch</a>
+        </div>
+      </article>
+
     </div>
   </section>
-
-  <!-- door 3 — the service -->
-  <p class="door-label">cro services</p>
-  <section class="door door-service">
-    <p>We run complete CRO for Shopify stores, on an ongoing or project basis — the same workflow we built into the app:</p>
-    <ul>
-      <li>— audit your store for page performance</li>
-      <li>— audit pages for leaks and opportunities</li>
-      <li>— remove roadblocks and smooth out the buying process</li>
-      <li>— test everything</li>
-    </ul>
-    <p>Pricing based on scope. Let us know what you are looking for and we will get back to you promptly.</p>
-    <div class="door-links">
-      <a href="/hire-cro-agency.html">get in touch &rarr;</a>
-    </div>
-  </section>
-
-  <footer>
-    <p class="copyright">&copy; 2026 the real heroes of ecommerce</p>
-  </footer>
 
 </main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 the real heroes of ecommerce</span>
+    <span>
+      <a href="/snapshot/">snapshot cro</a> &middot;
+      <a href="/newsletter/">newsletter</a> &middot;
+      <a href="/hire-cro-agency.html">cro services</a> &middot;
+      <a href="/privacy-policy.html">privacy</a>
+    </span>
+  </div>
+</footer>
+
 </body>
 </html>

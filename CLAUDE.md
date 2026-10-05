@@ -4,12 +4,18 @@ GitHub Pages + Jekyll. Push to `main` = live in ~1 min. No local build needed.
 
 **Homepage**: pause mode ended 2026-10-05. `index.html` is the real
 homepage again (the Substack redirect stub and `preview-home.html` are
-both gone — don't restore either from git history). It's three "door"
-blocks on the white RHOE base, each skinned like the page it opens onto:
-the app door borrows `/snapshot/`'s black + `#85ff97` + Space Grotesk,
-the newsletter door borrows the newsletter layout's bordered paper sheet
-+ Spectral, the service door is plain terminal + `#FFC42A`. Keep that
-rule if you add a door. No accordion JS — the panels are static.
+both gone — don't restore either from git history). It is built to the
+same shape as `/snapshot/` — 1200px canvas, sticky header with a CTA
+pill, big hero, then a card grid — because the stacked 728px column read
+as a document rather than a site. Ground stays white (Shep: that's the
+RHOE brand and it doesn't move) and the type is Space Grotesk, not IBM
+Plex Mono, so the homepage is the one page off the terminal aesthetic.
+The snapshot green `#85ff97` cannot carry text on white — use it only as
+a highlight behind dark text, or as a border. Each of the three cards is
+skinned like the page it opens onto (app = black/green, newsletter =
+paper, services = yellow accent). The subscribe include is shared with
+the terminal pages, so restyle it from `index.html` scoped under
+`.card-news`, never in `_includes/subscribe-email.html`.
 
 Marketing site for a boutique CRO agency (Shep + one other person), built
 around the Snapshot CRO Shopify app.
