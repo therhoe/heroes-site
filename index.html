@@ -1,17 +1,255 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Real Heroes of Ecommerce</title>
-  <!-- temporary: homepage redirects to substack while the site is reworked
-       in the background. the real homepage lives on at /preview-home.html —
-       to relaunch, copy that back here (minus banner/noindex) and delete
-       this stub. deeper urls (/workshop/, /newsletter/, …) are unaffected. -->
-  <meta http-equiv="refresh" content="0; url=https://heroesofecommerce.substack.com/">
-  <script>location.replace('https://heroesofecommerce.substack.com/');</script>
+  <meta name="description" content="The Real Heroes of Ecommerce — a boutique CRO agency for Shopify stores. CRO services, the Snapshot CRO app, and the rhoe newsletter for ecommerce operators.">
+  <link rel="canonical" href="https://therealheroesofecommerce.com/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&family=Spectral:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: #1a1a1a;
+      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    main {
+      max-width: 728px;
+      margin: 0 auto;
+      padding: 56px 24px 96px;
+    }
+    p { margin: 0 0 16px; }
+    ul { list-style: none; margin: 0; padding: 0; }
+    li { margin: 0; }
+    a {
+      color: #1a1a1a;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
+    .muted { color: #999; }
+
+    /* --- masthead --- */
+    .logo img {
+      display: block;
+      max-width: 400px;
+      width: 100%;
+      height: auto;
+      margin: 0 0 8px;
+    }
+    .tagline { color: #666; margin: 0 0 28px; }
+    .heroes img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0 0 28px;
+    }
+    h1.home-headline {
+      font-size: 15px;
+      font-weight: 500;
+      margin: 0 0 16px;
+    }
+
+    /* --- doors ---------------------------------------------------------
+       Three blocks, each styled like the page it opens onto, so the
+       homepage previews its destinations instead of describing them.
+       The page itself stays white — that's the RHOE brand and it doesn't
+       change. Every door shares this box model; only the skin differs.
+       ------------------------------------------------------------------ */
+    .door {
+      margin: 48px 0 0;
+      padding: 32px;
+    }
+    .door-label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 0 0 20px;
+    }
+    .door h2 {
+      font-size: 15px;
+      font-weight: 500;
+      margin: 0 0 12px;
+    }
+    .door p:last-of-type { margin-bottom: 0; }
+    .door-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px 0 0;
+    }
+    .door-links a {
+      display: inline-block;
+      font: inherit;
+      font-weight: 500;
+      padding: 10px 18px;
+      border: 1px solid currentColor;
+      text-decoration: none;
+    }
+
+    /* door 1 — snapshot cro. tokens from snapshot/assets/css/style.css */
+    .door-snapshot {
+      background: #000000;
+      color: #ffffff;
+      font-family: "Space Grotesk", system-ui, sans-serif;
+    }
+    .door-snapshot .door-label { color: #85ff97; }
+    .door-snapshot h2 { font-size: 24px; font-weight: 700; line-height: 1.3; }
+    .door-snapshot h2 .accent { color: #85ff97; }
+    .door-snapshot p { color: #b4b4b4; }
+    .door-snapshot a { color: #ffffff; }
+    .door-snapshot .door-links a { border-color: #85ff97; color: #85ff97; }
+    .door-snapshot .door-links a:hover { background: #85ff97; color: #000000; }
+    /* A strip of real app screenshots. The source shots are wide and vary in
+       height, so cover-fitting them into equal boxes shrinks the text to mush.
+       Same trick as the cards on /snapshot/: zoom past the frame and anchor
+       top-left, so each one shows a legible corner of real UI rather than a
+       whole unreadable screenshot. */
+    .shots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 24px 0 0;
+    }
+    .shots span {
+      display: block;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+    .shots img {
+      display: block;
+      width: 190%;
+      max-width: none;
+      height: auto;
+    }
+
+    /* door 2 — newsletter. the paper sheet from _layouts/newsletter.html */
+    .door-newsletter {
+      background: #ffffff;
+      border: 1px solid #d8d8d8;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .door-newsletter .door-label { color: #666; }
+    .door-newsletter .lede {
+      font-family: "Spectral", Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .door-newsletter .issues { margin: 24px 0 0; }
+    .door-newsletter .issues li { margin: 0 0 6px; }
+    .door-newsletter .issues .note { color: #999; }
+
+    /* door 3 — cro service. the terminal site, yellow accent */
+    .door-service {
+      background: #ffffff;
+      border: 1px dashed #d8d8d8;
+    }
+    .door-service .door-label { color: #666; }
+    .door-service ul { margin: 0 0 16px; }
+    .door-service .door-links a:hover { background: #FFC42A; color: #1a1a1a; }
+
+    footer {
+      margin-top: 72px;
+      color: #999;
+      font-size: 13px;
+    }
+    footer a { color: #999; }
+
+    @media (max-width: 560px) {
+      main { padding: 40px 18px 72px; }
+      .door { padding: 24px 20px; }
+      .door-snapshot h2 { font-size: 20px; }
+      .shots { grid-template-columns: 1fr; }
+      .shots span { aspect-ratio: 16 / 9; }
+    }
+  </style>
 </head>
 <body>
-  <p><a href="https://heroesofecommerce.substack.com/">Continue to The Real Heroes of Ecommerce on Substack &#8594;</a></p>
+<main>
+
+  <div class="logo">
+    <img src="logo.png" alt="The Real Heroes of Ecommerce">
+  </div>
+  <p class="tagline">// conversion rate optimization for shopify stores</p>
+
+  <div class="heroes">
+    <img src="heroes-lineup.png" alt="pixel art lineup of the real heroes of ecommerce">
+  </div>
+
+  <h1 class="home-headline">Welcome to The Real Heroes of Ecommerce</h1>
+  <p>I am a conversion optimization nerd. You probably are too if you found your way to this site. Or at the very least, you are nerd-adjacent. So let's have some fun with it.</p>
+  <p>This started as a newsletter, and now I do CRO as a service for Shopify stores and build the tooling I wished existed. Over a decade in the industry, dozens of stores, hundreds of experiments. Three doors below — take whichever one you came for.</p>
+
+  <!-- door 1 — the app.
+       DRAFT COPY (2026-10-05) — Shep to redline the headline and the two
+       paragraphs. Everything else here is structure. -->
+  <section class="door door-snapshot">
+    <p class="door-label">the app</p>
+    <h2>Every <span class="accent">Insight</span> You Need to Lift Conversions, in One Place</h2>
+    <p>Snapshot CRO is our Shopify app. It tells you which page is costing you the most money, then shows you what on that page is losing people — the zones they click, the images they ignore, the step they exit from.</p>
+    <p>Free to start. Sixteen views across your whole store and every page in it.</p>
+    <div class="shots">
+      <span><img src="snapshot/assets/img/cards/conversion-funnel.png" alt="conversion funnel view" loading="lazy"></span>
+      <span><img src="snapshot/assets/img/cards/engagement-by-zone.png" alt="engagement by zone view" loading="lazy"></span>
+      <span><img src="snapshot/assets/img/cards/traffic-quality-by-source.png" alt="traffic quality by source view" loading="lazy"></span>
+    </div>
+    <div class="door-links">
+      <a href="/snapshot/">see what it shows you &rarr;</a>
+      <a href="https://apps.shopify.com/snapshot-cro">install on shopify &rarr;</a>
+    </div>
+  </section>
+
+  <!-- door 2 — the newsletter -->
+  <section class="door door-newsletter">
+    <p class="door-label">the newsletter</p>
+    <p class="lede">The building-in-public archive. Experiments that worked, experiments that didn't, and what the numbers actually said. New issues go out by email.</p>
+
+    {% include subscribe-email.html %}
+
+    <ul class="issues">
+      {% assign issues = site.newsletter | sort: "date" | reverse %}
+      {% for p in issues limit: 8 %}
+      <li><a href="{{ p.url }}">{{ p.title }}</a> <span class="note">({{ p.date | date: "%b %Y" | downcase }})</span></li>
+      {% endfor %}
+    </ul>
+
+    <div class="door-links">
+      <a href="/newsletter/">all {{ site.newsletter | size }} issues &rarr;</a>
+    </div>
+  </section>
+
+  <!-- door 3 — the service -->
+  <section class="door door-service">
+    <p class="door-label">the service</p>
+    <p>We run complete CRO for Shopify stores, on an ongoing or project basis — the same workflow we built into the app:</p>
+    <ul>
+      <li>— audit your store for page performance</li>
+      <li>— audit pages for leaks and opportunities</li>
+      <li>— remove roadblocks and smooth out the buying process</li>
+      <li>— test everything</li>
+    </ul>
+    <p>Pricing based on scope. Let us know what you are looking for and we will get back to you promptly.</p>
+    <div class="door-links">
+      <a href="/hire-cro-agency.html">get in touch &rarr;</a>
+    </div>
+  </section>
+
+  <footer>
+    <p class="copyright">&copy; 2026 the real heroes of ecommerce</p>
+  </footer>
+
+</main>
 </body>
 </html>

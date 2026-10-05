@@ -502,3 +502,49 @@ body.modal-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   * { transition-duration: .01ms !important; }
 }
+
+/* ============================================================
+   Back to the parent site. Snapshot CRO is a product of The Real
+   Heroes of Ecommerce; without these the page is a dead end that
+   links nowhere but the App Store. Deliberately quiet — a text
+   link beside the Install pill, not a second button competing
+   with it.
+   ============================================================ */
+.buttons a.parent-link {
+  display: inline-flex;
+  align-items: center;
+  height: var(--control-height);
+  color: var(--muted-bright);
+  font-family: var(--font-text);
+  font-size: .95rem;
+  text-decoration: none;
+  transition: color .15s ease, border-color .15s ease;
+
+  /* undo the pill from `.buttons a` — this sits inside that nav but must
+     not compete with the Install button beside it */
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  padding: 0;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+.buttons a.parent-link:hover,
+.buttons a.parent-link:focus-visible { color: var(--fg); border-bottom-color: var(--accent); }
+
+.site-footer {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding: 48px var(--gutter) 56px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-text);
+  font-size: .9rem;
+}
+.site-footer a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.site-footer a:hover, .site-footer a:focus-visible { color: var(--accent); }
+
+@media (max-width: 720px) {
+  .buttons a.parent-link { height: auto; }
+}

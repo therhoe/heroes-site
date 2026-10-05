@@ -4,111 +4,111 @@
     "title": "Sitewide CVR Tracker",
     "subtitle": "Calculated by Shopify for overview of trends",
     "image": "assets/img/cards/sitewide-cvr-tracker.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "Your store conversion rate over time, taken straight from Shopify Analytics, with the current period laid over the previous one. Every snapshot you run and every A/B test you log is marked on the line, so a change in the rate sits next to the work that might have caused it. The read-out underneath spells out exactly which sessions are in the number, so the rate is never a black box."
   },
   {
     "section": "Store Snapshot",
     "title": "Store Snapshot History",
     "subtitle": "Chronological list with sessions, page view count, and date started",
     "image": "assets/img/cards/store-snapshot-history.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "Every store-wide snapshot you have run, with its status, how many human sessions it collected, page views, and the date it started. A snapshot measures a fixed number of real visitors rather than a date range, so two snapshots are directly comparable no matter how traffic moved between them. Open any one to go back to what the store looked like at that point."
   },
   {
     "section": "Store Snapshot",
     "title": "Traffic Breakdown",
     "subtitle": "Behavior captured across the storefront.",
     "image": "assets/img/cards/traffic-breakdown.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "Your traffic split into humans, zombies, and bots. Zombies are sessions that arrived and did nothing — no scroll, no clicks — and on most stores they are a bigger share than anyone expects. Separating them out is what makes every other number on this page honest."
   },
   {
     "section": "Store Snapshot",
     "title": "Engagement & Conversion Metrics",
-    "subtitle": "Overview of on-sote behavior leading up to conversions.",
+    "subtitle": "Overview of on-site behavior leading up to conversions.",
     "image": "assets/img/cards/engagement-conversion-metrics.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "The behavior leading up to a sale, side by side with the sale itself. On the left, how far people scroll, how long they stay, what they click, search, and filter; on the right, add-to-cart rate, reached-checkout, conversion rate, orders, and attributed revenue. Each one carries its change against the previous snapshot, so you can see engagement move before revenue does."
   },
   {
     "section": "Store Snapshot",
     "title": "Recommended next snapshots",
-    "subtitle": "Providing 8 page snapshots where needs to improve were detected.",
+    "subtitle": "Eight page snapshots where we detected room to improve.",
     "image": "assets/img/cards/recommended-next-snapshots.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "After a store snapshot completes, we rank the pages worth auditing next and tell you why, with a confidence score on each. Each card names the specific problem found — high click-through but no conversions, strong scroll depth but a high exit rate — and starts the focused snapshot for that page in one click. It turns a store-wide read into a CRO to-do list."
   },
   {
     "section": "Store Snapshot",
     "title": "Sessions by Page",
     "subtitle": "Pages metrics rank for CRO roadmap prioritization.",
     "image": "assets/img/cards/sessions-by-page.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "Every page on your storefront ranked by human sessions, with click-through rate, conversion rate, revenue, and a weakness score. Sort by any column to find the page where a few points of lift would be worth the most money. Select up to four and launch focused snapshots on all of them at once."
   },
   {
     "section": "Page Snapshot",
     "title": "Page Snapshots Overview",
     "subtitle": "Combined overview plus snapshot history",
     "image": "assets/img/cards/page-snapshots-overview.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "The roll-up for a single page type — products, collections, homepage, pages, or blogs — across every snapshot you have taken. Conversion rate, add-to-cart, and revenue sit at the top, with the latest run plotted against the previous one underneath. Below that, each page you are tracking shows its own progress toward completion."
   },
   {
     "section": "Page Snapshot",
     "title": "Show Current & Select Previous",
     "subtitle": "Granular look at metrics for all snapshots of page.",
     "image": "assets/img/cards/show-current-select-previous.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "Every snapshot of a page lives in one dropdown, so you can pull up the active run or any run before it without leaving the page. Compare puts two side by side. This is where a before-and-after lives once you have shipped a change."
   },
   {
     "section": "Page Snapshot",
     "title": "Progress Graph",
     "subtitle": "Bar graph for side by side view of previous metrics",
     "image": "assets/img/cards/progress-graph.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "Revenue per visitor, average order value, add-to-cart rate, and conversion rate for each snapshot of the page, as bars you can read across. Each snapshot keeps the name you gave it, so the graph reads as a history of what you tried rather than a list of dates. Filter the whole thing by traffic source to check whether a win held up for paid as well as organic."
   },
   {
     "section": "Page Snapshot",
     "title": "Traffic Quality by Source",
-    "subtitle": "By raw numbers of by percentages.",
+    "subtitle": "By raw numbers or by percentages.",
     "image": "assets/img/cards/traffic-quality-by-source.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "Each traffic source broken into real users, zombies, and bots, alongside time on page, scroll depth, add-to-cart rate, and conversions. A channel that looks strong on sessions often looks very different once the zombies come out. This is the view that tells you where to stop spending."
   },
   {
     "section": "Page Snapshot",
     "title": "Conversion Funnel",
     "subtitle": "User breakdown and exit paths.",
     "image": "assets/img/cards/conversion-funnel.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "All sessions down to real users, added to cart, and converted, with the drop at each step. Next to it, how people actually left — closed the tab, went idle, clicked an internal link, or moved on to checkout. Knowing the shape of the exit tells you whether the page lost them or simply passed them along."
   },
   {
     "section": "Page Snapshot",
     "title": "Demographic Data",
     "subtitle": "By country, city, and device type",
     "image": "assets/img/cards/demographic-data.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "Top countries, top cities, and the device split for the page. Useful for sanity checks more than anything: a mobile-heavy page that was designed on a desktop, or a city at the top of the list that turns out to be a data center. Read it alongside the bot and zombie counts."
   },
   {
     "section": "Page Snapshot",
     "title": "Engagement by Zone",
     "subtitle": "Show outcomes of clicked elements by ATC and CVR.",
     "image": "assets/img/cards/engagement-by-zone.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "Every element in the page body that got clicked, grouped by type, with what happened after the click. For each one you get clicked sessions, how many added to cart, and how many bought — so a button with plenty of clicks and no purchases shows up as the distraction it is. The donut shows where attention went overall: images, buttons, links, or widgets."
   },
   {
     "section": "Page Snapshot",
     "title": "Image Engagement",
     "subtitle": "Show outcomes of clicked images by ATC and CVR.",
     "image": "assets/img/cards/image-engagement.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "Every image on the page ranked by clicks, with add-to-cart and purchase rates underneath each one. It answers which photo is actually selling the product, which is usually not the one in the first gallery slot. Move the winner forward and you have a change worth testing."
   },
   {
     "section": "Page Snapshot",
     "title": "Header & Footer Engagement",
     "subtitle": "Shown by links clicked.",
     "image": "assets/img/cards/header-footer-engagement.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "The links people click in your header and footer, by count. Header clicks tell you what visitors went looking for and could not find on the page; footer clicks usually mean a question the page did not answer, like shipping or returns. Both are cheap signals for what the page is missing."
   },
   {
     "section": "Page Snapshot",
     "title": "Recent Visit",
     "subtitle": "Detailed tracking of user visit and engagement on page.",
     "image": "assets/img/cards/recent-visits.png",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "body": "The last fifty visits, each one expandable into what that person actually did. Device, source and UTM, clicks, duration, scroll depth, whether they added to cart, what they spent, and how they left — then the click-by-click path through the page. When a number elsewhere looks strange, this is where you find out why."
   }
 ]

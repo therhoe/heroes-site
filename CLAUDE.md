@@ -2,12 +2,14 @@
 
 GitHub Pages + Jekyll. Push to `main` = live in ~1 min. No local build needed.
 
-**PAUSE MODE (since 2026-09-15)**: the homepage (`index.html`) is a
-redirect stub to the Substack while Shep reworks the site in the
-background. The real homepage lives at `preview-home.html` — make all
-homepage changes THERE. Deeper URLs (workshop, newsletter, learn) stay
-live and unaffected. To relaunch: copy preview-home back to index.html
-(minus the preview banner / noindex / sitemap:false), delete the stub.
+**Homepage**: pause mode ended 2026-10-05. `index.html` is the real
+homepage again (the Substack redirect stub and `preview-home.html` are
+both gone — don't restore either from git history). It's three "door"
+blocks on the white RHOE base, each skinned like the page it opens onto:
+the app door borrows `/snapshot/`'s black + `#85ff97` + Space Grotesk,
+the newsletter door borrows the newsletter layout's bordered paper sheet
++ Spectral, the service door is plain terminal + `#FFC42A`. Keep that
+rule if you add a door. No accordion JS — the panels are static.
 
 Marketing site for a boutique CRO agency (Shep + one other person), built
 around the Snapshot CRO Shopify app.
@@ -100,10 +102,12 @@ breaks the meaning. Do NOT "fix" grammatical quirks that could be
 deliberate, or creative spellings ("secret layer", "tons of nonsense") —
 when in doubt, keep it verbatim and flag it instead.
 
-**Long lists**: the homepage newsletter panel deliberately shows ALL
-posts uncapped — the length "shows commitment" (Shep). Don't truncate,
-paginate, or scroll-cap it. That's specific to the newsletter archive;
-don't assume other sections want the same.
+**Long lists**: the newsletter hub (`newsletter.html`, `/newsletter/`)
+deliberately shows ALL posts uncapped — the length "shows commitment"
+(Shep). Don't truncate, paginate, or scroll-cap it there. The homepage
+door shows only the 8 most recent plus an "all N issues" link (Shep's
+call, 2026-10-05) so the three doors stay balanced. That's specific to
+the newsletter archive; don't assume other sections want the same.
 
 **EXCEPTION: newsletter posts** (`_newsletter/*.html`) keep their exact
 source formatting and capitalization. Never restyle article content.
