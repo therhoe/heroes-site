@@ -96,6 +96,10 @@ The site mimics a rendered markdown/terminal document. Casing rules:
 - **Bullets / list items**: start lowercase
 - **Taglines** (`// ...`): all lowercase (proper nouns keep caps)
 - **Link labels + `(notes)`** in lists: lowercase
+- **Nav menu items and pill buttons**: normal capitalization (Shep's
+  call, 2026-10-05) — "Snapshot CRO", "Newsletter", "Work with us",
+  "Install on Shopify". This is buttons and nav only; link labels inside
+  lists stay lowercase per the rule above.
 - **Page titles** (`h1.title`) and `<title>`/meta tags: normal capitalization — "Snapshot CRO", "CRO Service"
 - **Paragraph body text**: normal sentence case
 - **Proper nouns** (Shopify, Snapshot CRO, Google) keep their capitalization everywhere

@@ -505,32 +505,39 @@ body.modal-open { overflow: hidden; }
 
 /* ============================================================
    Back to the parent site. Snapshot CRO is a product of The Real
-   Heroes of Ecommerce; without these the page is a dead end that
-   links nowhere but the App Store. Deliberately quiet — a text
-   link beside the Install pill, not a second button competing
-   with it.
+   Heroes of Ecommerce; without this the page is a dead end that
+   links nowhere but the App Store.
+
+   A square icon button to the left of the wordmark, not a text
+   link beside Install: the text version sat in the same nav as
+   the Install pill and competed with it for the eye.
    ============================================================ */
-.buttons a.parent-link {
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+.back {
+  flex: none;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  width: var(--control-height);
   height: var(--control-height);
+  border: 2px solid var(--muted);
+  border-radius: 12px;
   color: var(--muted-bright);
-  font-family: var(--font-text);
-  font-size: .95rem;
   text-decoration: none;
-  transition: color .15s ease, border-color .15s ease;
-
-  /* undo the pill from `.buttons a` — this sits inside that nav but must
-     not compete with the Install button beside it */
-  border: 0;
-  border-bottom: 1px solid transparent;
-  border-radius: 0;
-  padding: 0;
-  font-weight: 400;
-  letter-spacing: normal;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
 }
-.buttons a.parent-link:hover,
-.buttons a.parent-link:focus-visible { color: var(--fg); border-bottom-color: var(--accent); }
+.back svg { display: block; width: 20px; height: 20px; }
+.back:hover,
+.back:focus-visible {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+}
 
 .site-footer {
   width: 100%;
@@ -546,5 +553,7 @@ body.modal-open { overflow: hidden; }
 .site-footer a:hover, .site-footer a:focus-visible { color: var(--accent); }
 
 @media (max-width: 720px) {
-  .buttons a.parent-link { height: auto; }
+  /* The wordmark already runs near edge to edge here, so the back button
+     shrinks with the other controls rather than stealing from it. */
+  .header-left { gap: 10px; }
 }
