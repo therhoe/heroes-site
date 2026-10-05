@@ -9,124 +9,468 @@ permalink: /newsletter/
   <title>Newsletter Archive — The Real Heroes of Ecommerce</title>
   <meta name="description" content="The building-in-public archive of The Real Heroes of Ecommerce newsletter: CRO for Shopify stores, day by day. New issues go out by email.">
   <link rel="canonical" href="https://therealheroesofecommerce.com/newsletter/">
+  <link rel="icon" href="/logo.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
+    /* ====================================================================
+       Newsletter hub. Same shell as the homepage -- wide canvas, sticky
+       header with a CTA pill, big hero, cards -- so the two pages read as
+       one site.
+
+       Every issue still renders: CLAUDE.md records that the uncapped
+       length is the point ("shows commitment"), so nothing here
+       truncates, paginates or scroll-caps. What changed is that 125 rows
+       are no longer served as one undifferentiated column -- they are
+       grouped by year behind sticky headers, with search and year filters
+       over the top. Filtering hides rows client-side; it never drops them
+       from the document.
+       ==================================================================== */
+    :root {
+      --fg: #14171a;
+      --muted: #5c6166;
+      --line: #e2e2e2;
+      --accent: #85ff97;
+      --yellow: #FFC42A;
+      --maxw: 1200px;
+      --gutter: 24px;
+      --control-height: 48px;
+      --radius: 16px;
+      --shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 14px 32px rgba(0, 0, 0, 0.09);
+      --font: "Space Grotesk", system-ui, sans-serif;
+    }
+
     * { box-sizing: border-box; }
     body {
       margin: 0;
       background: #ffffff;
-      color: #1a1a1a;
-      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
-      font-size: 15px;
-      line-height: 1.7;
+      color: var(--fg);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
-    main {
-      max-width: 728px;
-      margin: 0 auto;
-      padding: 56px 24px 96px;
+    p { margin: 0 0 16px; }
+    ul { list-style: none; margin: 0; padding: 0; }
+    a { color: inherit; }
+    .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+
+    /* --- header (shared shape with index.html) --- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: saturate(180%) blur(12px);
     }
-    .topnav {
-      margin: 0 0 48px;
-      font-size: 13px;
+    .site-header .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-block: 16px;
+      border-bottom: 1px solid var(--line);
     }
-    .topnav img {
-      display: block;
-      max-width: 190px;
-      width: 100%;
-      height: auto;
+    .brand img { display: block; width: 260px; max-width: 48vw; height: auto; }
+    .site-nav { display: flex; align-items: center; gap: 8px; }
+    .site-nav a {
+      display: inline-flex;
+      align-items: center;
+      height: var(--control-height);
+      padding: 0 16px;
+      border-radius: 999px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color .15s ease, background-color .15s ease;
+    }
+    .site-nav a:hover { color: var(--fg); background: #f2f3f4; }
+    .site-nav a.cta { color: #ffffff; background: var(--fg); padding: 0 24px; }
+    .site-nav a.cta:hover { background: #000000; color: var(--accent); }
+
+    /* --- hero --- */
+    .hero { padding: 72px 0 0; }
+    .hero h1 {
+      max-width: 14ch;
+      margin: 0 0 20px;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+    }
+    .hero h1 .mark {
+      background-image: linear-gradient(var(--accent), var(--accent));
+      background-repeat: no-repeat;
+      background-size: 100% 0.32em;
+      background-position: 0 0.6em;
+      padding-inline: 3px;
+    }
+    .hero .sub {
+      max-width: 56ch;
+      font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* The subscribe include is shared with the terminal-styled newsletter
+       layout, so its pills are re-cut here rather than in the include. The
+       extra class outranks `.sublead input[type="email"]`. */
+    .subbox { margin: 28px 0 0; }
+    .subbox .sublead { max-width: 520px; }
+    .subbox .sublead input[type="email"],
+    .subbox .sublead button {
+      height: var(--control-height);
+      padding-inline: 20px;
+      border-radius: 999px;
+      border-color: var(--fg);
+    }
+    .subbox .sublead button { background: var(--fg); color: #ffffff; }
+    .subbox .sublead button:hover { background: #000000; color: var(--accent); }
+
+    /* --- latest, as cards --- */
+    .section { padding: 72px 0 0; }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0 0 24px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .section-head .eyebrow {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .latest { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .latest a {
+      display: flex;
+      flex-direction: column;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .latest a:hover {
+      transform: translateY(-3px);
+      border-color: var(--fg);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05), 0 18px 40px rgba(0, 0, 0, 0.11);
+    }
+    .latest .d {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
       margin: 0 0 10px;
     }
-    .topnav a { color: #999; }
-    .topnav a:hover { background: none; color: #1a1a1a; }
-    h1.title {
-      font-size: 22px;
-      font-weight: 600;
-      margin: 0 0 4px;
+    .latest .t { font-size: 1.22rem; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; }
+    .latest .x { margin: 10px 0 0; color: var(--muted); font-size: 0.95rem; }
+    .latest .go { margin-top: auto; padding-top: 18px; font-weight: 500; }
+    .latest a:hover .go { color: #000000; }
+
+    /* --- archive controls --- */
+    .controls {
+      position: sticky;
+      top: var(--header-h, 81px);
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: saturate(180%) blur(12px);
+      padding: 16px 0;
+      margin: 0 0 8px;
+      border-bottom: 1px solid var(--line);
     }
-    .tagline { color: #666; margin: 0 0 40px; }
-    .subhead {
-      font-size: 15px;
-      font-weight: 500;
-      margin: 56px 0 8px;
-    }    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    li { margin: 0; }    a {
-      color: #1a1a1a;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-    a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
-    .note { color: #999; }
+    .controls .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
     #q {
-      width: 100%;
+      flex: 1 1 260px;
+      min-width: 0;
+      height: var(--control-height);
       font: inherit;
       color: inherit;
       background: #ffffff;
-      border: 1px solid #1a1a1a;
-      padding: 8px 12px;
-      margin: 0 0 28px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0 20px;
     }
-    #q:focus { outline: 2px solid #1a1a1a; outline-offset: -1px; }
-    #empty { color: #999; display: none; }
+    #q:focus { outline: none; border-color: var(--fg); }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      font: inherit;
+      font-weight: 500;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+    }
+    .chip:hover { border-color: var(--fg); color: var(--fg); }
+    .chip[aria-pressed="true"] { background: var(--fg); border-color: var(--fg); color: #ffffff; }
+    .chip .c { opacity: 0.55; margin-left: 6px; font-variant-numeric: tabular-nums; }
+    .count { color: var(--muted); font-size: 0.9rem; margin: 12px 0 0; }
+
+    /* --- the archive itself --- */
+    .year { margin: 32px 0 0; }
+    .year > h3 {
+      position: sticky;
+      /* Measured at runtime: the chips wrap at narrow widths, so the
+         controls block has no fixed height and a hardcoded offset sends
+         these sliding underneath it. */
+      top: calc(var(--header-h, 81px) + var(--controls-h, 81px));
+      z-index: 10;
+      margin: 0;
+      padding: 10px 0;
+      background: #ffffff;
+      border-bottom: 1px solid var(--fg);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .year > h3 .c { color: var(--muted); font-weight: 400; font-size: 0.9rem; }
+    .issues li { border-bottom: 1px solid var(--line); }
+    .issues a {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4px 20px;
+      align-items: baseline;
+      padding: 14px 0;
+      text-decoration: none;
+      transition: padding-left .15s ease;
+    }
+    .issues a:hover { padding-left: 10px; }
+    .issues .t { font-weight: 500; }
+    .issues a:hover .t { text-decoration: underline; text-underline-offset: 3px; }
+    .issues .d { color: var(--muted); font-size: 0.85rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .issues .x { grid-column: 1 / 2; color: var(--muted); font-size: 0.92rem; }
+    #empty { display: none; color: var(--muted); padding: 32px 0; }
+
     footer {
-      margin-top: 72px;
-      color: #999;
-      font-size: 13px;
+      margin: 96px 0 0;
+      padding: 32px 0 56px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
     }
-    footer a { color: #999; }
-    footer .copyright { margin: 16px 0 0; }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+    footer a { text-decoration: underline; text-underline-offset: 3px; }
+
+    @media (max-width: 900px) {
+      .latest { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      :root { --gutter: 18px; }
+      .site-header .wrap { padding-block: 12px; }
+      .site-nav a { padding: 0 12px; }
+      .site-nav a.cta { padding: 0 18px; }
+      .hero { padding-top: 48px; }
+      .section { padding-top: 48px; }
+      /* Two sticky layers would eat a third of a phone screen, so below
+         this the controls scroll away and only the year headers stick. */
+      .controls { position: static; }
+      .year > h3 { top: var(--header-h, 73px); }
+      .latest a { padding: 22px; }
+    }
+    @media (max-width: 560px) {
+      .site-nav .nav-text { display: none; }
+      .brand img { width: 190px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .latest a, .issues a { transition: none; }
+      .latest a:hover { transform: none; }
+    }
   </style>
 </head>
 <body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="The Real Heroes of Ecommerce home">
+      <img src="/logo.png" alt="The Real Heroes of Ecommerce" width="800" height="85">
+    </a>
+    <nav class="site-nav">
+      <a class="nav-text" href="/snapshot/">snapshot cro</a>
+      <a class="nav-text" href="/newsletter/">newsletter</a>
+      <a class="cta" href="/hire-cro-agency.html">work with us</a>
+    </nav>
+  </div>
+</header>
+
+{% assign issues = site.newsletter | sort: "date" | reverse %}
+{% assign total = issues | size %}
+{% assign years = issues | group_by_exp: "p", "p.date | date: '%Y'" %}
+
 <main>
 
-  <nav class="topnav">
-    <a href="/"><img src="/logo.png" alt="The Real Heroes of Ecommerce"></a>
-    <a href="/">← return to home</a>
-  </nav>
+  <section class="hero wrap">
+    <h1>Building in <span class="mark">public</span>, one issue at a time.</h1>
+    <p class="sub">Experiments that worked, experiments that didn't, and what the numbers actually said. {{ total }} issues since 2022, all of them here. New ones go out by email.</p>
+    <div class="subbox">
+      {% include subscribe-email.html %}
+    </div>
+  </section>
 
-  <h1 class="title">Newsletter</h1>
-  <p class="tagline">from the Substack</p>
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>Latest issues</h2>
+      <span class="eyebrow">hot off the press</span>
+    </div>
+    <div class="latest">
+      {% for p in issues limit: 3 %}
+      <a href="{{ p.url }}">
+        <p class="d">{{ p.date | date: "%B %-d, %Y" | downcase }}</p>
+        <span class="t">{{ p.title }}</span>
+        {% if p.description and p.description != "" %}<span class="x">{{ p.description }}</span>{% endif %}
+        <span class="go">read it &rarr;</span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
 
-  <input id="q" type="search" placeholder="search by keyword…" aria-label="search newsletter archive">
+  <section class="section wrap" id="archive">
+    <div class="section-head">
+      <h2>The archive</h2>
+      <span class="eyebrow">every issue, nothing hidden</span>
+    </div>
 
-  <ul id="plist">
-    {% assign issues = site.newsletter | sort: "date" | reverse %}
-    {% for p in issues %}
-    <li data-search="{{ p.title | downcase }} {{ p.description | downcase }}">
-      <a href="{{ p.url }}">{{ p.title }}</a> <span class="note">({{ p.date | date: "%b %Y" | downcase }})</span>
-    </li>
+    <div class="controls">
+      <div class="row">
+        <input id="q" type="search" placeholder="search by keyword…" aria-label="search newsletter archive">
+        <div class="chips" role="group" aria-label="filter by year">
+          <button class="chip" type="button" data-year="all" aria-pressed="true">all<span class="c">{{ total }}</span></button>
+          {% for y in years %}
+          <button class="chip" type="button" data-year="{{ y.name }}" aria-pressed="false">{{ y.name }}<span class="c">{{ y.items | size }}</span></button>
+          {% endfor %}
+        </div>
+      </div>
+      <p class="count" id="count" role="status" aria-live="polite"></p>
+    </div>
+
+    {% for y in years %}
+    <div class="year" data-year="{{ y.name }}">
+      <h3>{{ y.name }} <span class="c">{{ y.items | size }} issue{% if y.items.size != 1 %}s{% endif %}</span></h3>
+      <ul class="issues">
+        {% for p in y.items %}
+        <li data-search="{{ p.title | downcase | strip }} {{ p.description | downcase | strip }}">
+          <a href="{{ p.url }}">
+            <span class="t">{{ p.title }}</span>
+            <span class="d">{{ p.date | date: "%b %-d, %Y" | downcase }}</span>
+            {% if p.description and p.description != "" %}<span class="x">{{ p.description }}</span>{% endif %}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
     {% endfor %}
-  </ul>
-  <p id="empty">nothing matches. try fewer letters.</p>
 
-  <footer>
-    {% include subscribe-email.html %}
-    <p class="copyright"><a href="/">← back to index</a> &middot; &copy; 2026 the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a></p>
-  </footer>
+    <p id="empty">nothing matches. try fewer letters.</p>
+  </section>
 
 </main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 the real heroes of ecommerce</span>
+    <span>
+      <a href="/">home</a> &middot;
+      <a href="/snapshot/">snapshot cro</a> &middot;
+      <a href="/hire-cro-agency.html">cro services</a> &middot;
+      <a href="mailto:shep@therealheroesofecommerce.com">email shep</a>
+    </span>
+  </div>
+</footer>
+
 <script>
 (function () {
+  'use strict';
   var q = document.getElementById('q');
-  var items = document.querySelectorAll('#plist li');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var groups = Array.prototype.slice.call(document.querySelectorAll('.year'));
   var empty = document.getElementById('empty');
+  var count = document.getElementById('count');
+  var total = document.querySelectorAll('.issues li').length;
+  var year = 'all';
 
-  q.addEventListener('input', function () {
+  // The sticky offsets depend on the rendered height of the header and the
+  // controls, and the chips wrap at narrow widths -- so measure rather than
+  // hardcode, and re-measure when the viewport changes.
+  var header = document.querySelector('.site-header');
+  var controls = document.querySelector('.controls');
+  function measure() {
+    var root = document.documentElement;
+    root.style.setProperty('--header-h', header.offsetHeight + 'px');
+    root.style.setProperty('--controls-h', controls.offsetHeight + 'px');
+  }
+  measure();
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(measure);
+    ro.observe(header);
+    ro.observe(controls);
+  } else {
+    window.addEventListener('resize', measure);
+  }
+
+  // Rows are only ever hidden, never removed -- the whole archive stays in
+  // the document (and in view-source, and for anyone without JS).
+  function apply() {
     var text = q.value.trim().toLowerCase();
     var shown = 0;
-    items.forEach(function (li) {
-      var show = !text || li.getAttribute('data-search').indexOf(text) !== -1;
-      li.style.display = show ? '' : 'none';
-      if (show) shown++;
+
+    groups.forEach(function (g) {
+      var inYear = year === 'all' || g.getAttribute('data-year') === year;
+      var visibleHere = 0;
+
+      Array.prototype.forEach.call(g.querySelectorAll('li'), function (li) {
+        var hit = inYear && (!text || li.getAttribute('data-search').indexOf(text) !== -1);
+        li.hidden = !hit;
+        if (hit) visibleHere++;
+      });
+
+      g.hidden = visibleHere === 0;
+      shown += visibleHere;
     });
-    empty.style.display = shown ? 'none' : '';
+
+    empty.style.display = shown ? 'none' : 'block';
+    if (!text && year === 'all') {
+      count.textContent = total + ' issues, newest first';
+    } else {
+      count.textContent = shown + ' of ' + total + ' issues';
+    }
+  }
+
+  q.addEventListener('input', apply);
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      year = chip.getAttribute('data-year');
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
+      apply();
+      // Jumping to a year from halfway down the page is disorienting if the
+      // scroll position stays put, so return to the top of the archive.
+      var top = document.getElementById('archive').getBoundingClientRect().top + window.pageYOffset - header.offsetHeight - 8;
+      if (window.pageYOffset > top) window.scrollTo({ top: top, behavior: 'smooth' });
+    });
   });
+
+  apply();
 })();
 </script>
 </body>

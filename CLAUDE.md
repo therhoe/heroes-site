@@ -110,7 +110,13 @@ when in doubt, keep it verbatim and flag it instead.
 
 **Long lists**: the newsletter hub (`newsletter.html`, `/newsletter/`)
 deliberately shows ALL posts uncapped — the length "shows commitment"
-(Shep). Don't truncate, paginate, or scroll-cap it there. The homepage
+(Shep). Don't truncate, paginate, or scroll-cap it there. It was
+restyled to the homepage's shape 2026-10-05 and the rule still holds:
+every issue renders into the document, grouped by year, and the search +
+year chips only ever set `hidden` on rows — they never drop them. The
+two sticky layers (header, controls) measure their own heights into
+`--header-h` / `--controls-h` because the chips wrap at narrow widths;
+don't replace that with hardcoded offsets. The homepage
 door shows only the 8 most recent plus an "all N issues" link (Shep's
 call, 2026-10-05) so the three doors stay balanced. That's specific to
 the newsletter archive; don't assume other sections want the same.
