@@ -3,151 +3,309 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRO Service for Shopify Stores — The Real Heroes of Ecommerce</title>
-  <meta name="description" content="Boutique conversion optimization for Shopify stores: audit for page performance, find leaks, remove roadblocks, test everything. Ongoing engagements start around $3,000/month.">
+  <title>CRO Service — The Real Heroes of Ecommerce</title>
+  <meta name="description" content="Conversion rate optimization for Shopify stores, ongoing or by project. Tell us what you are working on and we will get back to you.">
   <link rel="canonical" href="https://therealheroesofecommerce.com/hire-cro-agency.html">
+  <link rel="icon" href="/logo.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
+    /* ====================================================================
+       CRO service. Same shell as index.html and /newsletter/ -- wide
+       canvas, sticky header with the CTA pill, big hero. Stripped back to
+       one job: say what this is and take the enquiry.
+       ==================================================================== */
+    :root {
+      --fg: #14171a;
+      --muted: #5c6166;
+      --line: #e2e2e2;
+      --accent: #85ff97;
+      --yellow: #FFC42A;
+      --maxw: 1200px;
+      --gutter: 24px;
+      --control-height: 48px;
+      --radius: 16px;
+      --shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 14px 32px rgba(0, 0, 0, 0.09);
+      --font: "Space Grotesk", system-ui, sans-serif;
+    }
+
     * { box-sizing: border-box; }
     body {
       margin: 0;
       background: #ffffff;
-      color: #1a1a1a;
-      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
-      font-size: 15px;
-      line-height: 1.7;
+      color: var(--fg);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
-    main {
-      max-width: 728px;
-      margin: 0 auto;
-      padding: 56px 24px 96px;
-    }
-    .topnav {
-      margin: 0 0 48px;
-      font-size: 13px;
-    }
-    .topnav img {
-      display: block;
-      max-width: 190px;
-      width: 100%;
-      height: auto;
-      margin: 0 0 10px;
-    }
-    .topnav a { color: #999; }
-    .topnav a:hover { background: none; color: #1a1a1a; }
-    h1.title {
-      font-size: 22px;
-      font-weight: 600;
-      margin: 0 0 4px;
-    }
-    .tagline { color: #666; margin: 0 0 48px; }
-    h1 {
-      font-size: 15px;
-      font-weight: 500;
-      margin: 56px 0 8px;
-    }    p { margin: 0 0 16px; }
-    ul { list-style: none; margin: 0 0 16px; padding: 0; }    a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; }
-    a:hover { background: #1a1a1a; color: #ffffff; text-decoration: none; }
-    .muted { color: #999; }
-    .ok { color: #1a7f37; }
-    .bad { color: #c0392b; }
-    .warn { color: #b35900; }
+    p { margin: 0 0 16px; }
+    ul { list-style: none; margin: 0; padding: 0; }
+    a { color: inherit; }
+    .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
 
-    form.lead { max-width: 480px; }
-    .field { margin: 0 0 14px; }
-    .field label { display: block; color: #666; font-size: 13px; margin: 0 0 4px; }
-    .field input, .field textarea {
+    /* --- header --- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: saturate(180%) blur(12px);
+    }
+    .site-header .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-block: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand img { display: block; width: 260px; max-width: 48vw; height: auto; }
+    .site-nav { display: flex; align-items: center; gap: 8px; }
+    .site-nav a {
+      display: inline-flex;
+      align-items: center;
+      height: var(--control-height);
+      padding: 0 16px;
+      border-radius: 999px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 500;
+      white-space: nowrap;   /* a multi-word pill wraps to two lines and
+                                breaks the header's single row */
+      transition: color .15s ease, background-color .15s ease;
+    }
+    .site-nav a:hover { color: var(--fg); background: #f2f3f4; }
+    .site-nav a.cta { color: #ffffff; background: var(--fg); padding: 0 24px; }
+    .site-nav a.cta:hover { background: #000000; color: var(--accent); }
+
+    /* --- hero --- */
+    .hero { padding: 72px 0 0; }
+    .hero h1 {
+      max-width: 15ch;
+      margin: 0 0 20px;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+    }
+    .hero h1 .mark {
+      background-image: linear-gradient(var(--accent), var(--accent));
+      background-repeat: no-repeat;
+      background-size: 100% 0.32em;
+      background-position: 0 0.6em;
+      padding-inline: 3px;
+    }
+    .hero .sub {
+      max-width: 52ch;
+      font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* --- the two columns: what we do, and the form --- */
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 24px;
+      align-items: start;
+      padding: 56px 0 0;
+    }
+    .card {
+      padding: 36px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .card h2 {
+      margin: 0 0 16px;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+    }
+
+    .what li {
+      position: relative;
+      padding: 10px 0 10px 30px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .what li:last-child { border-bottom: 0; }
+    .what li::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 18px;
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      background: var(--yellow);
+    }
+    .what .price { margin: 20px 0 0; font-weight: 500; }
+    .what .price span { color: var(--muted); font-weight: 400; }
+
+    /* --- form --- */
+    .field { margin: 0 0 16px; }
+    .field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 6px;
+    }
+    .field input,
+    .field textarea {
       width: 100%;
       font: inherit;
       color: inherit;
       background: #ffffff;
-      border: 1px solid #1a1a1a;
-      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 16px;
     }
-    .field textarea { min-height: 110px; resize: vertical; }
-    .field input:focus, .field textarea:focus { outline: 2px solid #1a1a1a; outline-offset: -1px; }
+    .field input { height: var(--control-height); }
+    .field textarea { min-height: 130px; resize: vertical; }
+    .field input:focus,
+    .field textarea:focus { outline: none; border-color: var(--fg); }
     .hp { position: absolute; left: -9999px; top: -9999px; }
     button.send {
       font: inherit;
       font-weight: 500;
-      color: #1a1a1a;
-      background: #ffffff;
-      border: 1px solid #1a1a1a;
-      padding: 10px 18px;
+      height: var(--control-height);
+      padding: 0 28px;
+      border-radius: 999px;
+      border: 1px solid var(--fg);
+      background: var(--fg);
+      color: #ffffff;
       cursor: pointer;
+      transition: background-color .15s ease, color .15s ease;
     }
-    button.send:hover { background: #1a1a1a; color: #ffffff; }
+    button.send:hover { background: #000000; color: var(--accent); }
     button.send:disabled { opacity: 0.5; cursor: wait; }
-    #formstatus { margin: 10px 0 0; }
+    #formstatus { margin: 14px 0 0; font-size: 0.9rem; color: var(--muted); }
+    #formstatus.ok { color: #1a7f37; }
+    #formstatus.bad, #formstatus.warn { color: #c0392b; }
 
     footer {
-      margin-top: 72px;
-      color: #999;
-      font-size: 13px;
+      margin: 96px 0 0;
+      padding: 32px 0 56px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
     }
-    footer a { color: #999; }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+    footer a { text-decoration: underline; text-underline-offset: 3px; }
+
+    @media (max-width: 900px) {
+      .split { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      :root { --gutter: 18px; }
+      .site-header .wrap { padding-block: 12px; }
+      .site-nav a { padding: 0 12px; }
+      .site-nav a.cta { padding: 0 18px; }
+      .hero { padding-top: 48px; }
+      .split { padding-top: 40px; }
+      .card { padding: 26px 22px; }
+    }
+    @media (max-width: 560px) {
+      .site-nav .nav-text { display: none; }
+      .brand img { width: 190px; }
+    }
+    /* On the narrowest phones the 9:1 wordmark plus a no-wrap pill is wider
+       than the row, so both give up a little rather than overflowing. */
+    @media (max-width: 400px) {
+      .brand img { width: 140px; }
+      .site-nav a.cta { padding: 0 14px; font-size: 0.95rem; }
+    }
   </style>
 </head>
 <body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="The Real Heroes of Ecommerce home">
+      <img src="/logo.png" alt="The Real Heroes of Ecommerce" width="800" height="85">
+    </a>
+    <nav class="site-nav">
+      <a class="nav-text" href="/snapshot/">Snapshot CRO</a>
+      <a class="nav-text" href="/newsletter/">Newsletter</a>
+      <a class="cta" href="#start">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
 <main>
 
-  <nav class="topnav">
-    <a href="/"><img src="/logo.png" alt="The Real Heroes of Ecommerce"></a>
-    <a href="/">← return to home</a>
-  </nav>
+  <section class="hero wrap">
+    <h1>Want to <span class="mark">work</span> together?</h1>
+    <p class="sub">We run conversion optimization for Shopify stores, ongoing or by project. Tell us what you are working on and we will get back to you — usually within a day.</p>
+  </section>
 
-  <h1 class="title">CRO Service</h1>
-  <p class="tagline">conversion optimization for shopify stores.</p>
+  <section class="split wrap" id="start">
 
-  <p>We built our optimization workflow into our Shopify app — <a href="/snapshot-cro.html">Snapshot CRO</a>:</p>
-  <ul>
-    <li>audit your store for page performance</li>
-    <li>audit pages for leaks and opportunities</li>
-    <li>remove roadblocks and smooth out the buying process</li>
-    <li>test everything</li>
-  </ul>
-
-  <p>We offer complete CRO services on both an ongoing or project basis. Pricing based on scope. Let us know what you are looking for and we will get back to you promptly.</p>
-
-  <p>Interested in CRO for your ecommerce store? Let's talk about it...</p>
-
-  <form class="lead" id="leadform">
-    <div class="field">
-      <label for="f-name">name</label>
-      <input id="f-name" name="name" type="text" autocomplete="name" required>
+    <div class="card what">
+      <h2>What we do</h2>
+      <ul>
+        <li>audit your store for page performance</li>
+        <li>audit pages for leaks and opportunities</li>
+        <li>remove roadblocks and smooth out the buying process</li>
+        <li>test everything</li>
+      </ul>
+      <p class="price">Pricing based on scope.<br><span>Tell us what you need and we will put a number to it.</span></p>
     </div>
-    <div class="field">
-      <label for="f-email">email</label>
-      <input id="f-email" name="email" type="email" autocomplete="email" required>
-    </div>
-    <div class="field">
-      <label for="f-brand">brand / store</label>
-      <input id="f-brand" name="brand" type="text" autocomplete="organization">
-    </div>
-    <div class="field">
-      <label for="f-looking">what's up</label>
-      <textarea id="f-looking" name="looking"></textarea>
-    </div>
-    <div class="hp" aria-hidden="true">
-      <label for="f-company">company</label>
-      <input id="f-company" name="company" type="text" tabindex="-1" autocomplete="off">
-    </div>
-    <button class="send" id="sendbtn" type="submit">→ send it</button>
-    <p id="formstatus" class="muted"></p>
-  </form>
 
-  <p>Or just email me at <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a></p>
+    <div class="card">
+      <h2>Get in touch</h2>
+      <form id="leadform">
+        <div class="field">
+          <label for="f-name">Name</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="f-brand">Brand / store</label>
+          <input id="f-brand" name="brand" type="text" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="f-looking">What's up</label>
+          <textarea id="f-looking" name="looking" placeholder="what you are selling, what is not working, what you have tried…"></textarea>
+        </div>
+        <div class="hp" aria-hidden="true">
+          <label for="f-company">Company</label>
+          <input id="f-company" name="company" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <button class="send" id="sendbtn" type="submit">Send it</button>
+        <p id="formstatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
 
-  <footer>
-    <a href="/">← back to index</a> &middot; &copy; 2026 the real heroes of ecommerce &middot; <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>
-  </footer>
+  </section>
 
 </main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 the real heroes of ecommerce</span>
+    <span>
+      <a href="/">home</a> &middot;
+      <a href="/snapshot/">snapshot cro</a> &middot;
+      <a href="/newsletter/">newsletter</a> &middot;
+      <a href="mailto:shep@therealheroesofecommerce.com">email shep</a>
+    </span>
+  </div>
+</footer>
+
 <script>
 (function () {
-  // Google Apps Script web app URL (bound to the rhoe-cro-leads sheet)
+  // Google Apps Script web app URL (bound to the rhoe-cro-leads sheet).
+  // The field names below must keep matching the sheet's columns.
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyLFgWFPjj3ml9LRYgYggpHXpb4NG8pCHk_Dertri-Q86tgFzbd_zdprpsK_7c3PJlJ/exec';
 
   var form = document.getElementById('leadform');
@@ -156,13 +314,8 @@
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (ENDPOINT.indexOf('https://') !== 0) {
-      status.className = 'warn';
-      status.textContent = 'the form isn\'t wired up yet — use the email below instead.';
-      return;
-    }
     btn.disabled = true;
-    status.className = 'muted';
+    status.className = '';
     status.textContent = 'sending…';
     fetch(ENDPOINT, {
       method: 'POST',
@@ -170,12 +323,12 @@
       body: new URLSearchParams(new FormData(form))
     }).then(function () {
       status.className = 'ok';
-      status.textContent = 'got it. we\'ll be in touch — usually within a day.';
+      status.textContent = 'Got it. We\'ll be in touch — usually within a day.';
       form.reset();
       btn.disabled = false;
     }).catch(function () {
       status.className = 'bad';
-      status.textContent = 'that didn\'t go through — email me instead: shep@therealheroesofecommerce.com';
+      status.textContent = 'That didn\'t go through — email shep@therealheroesofecommerce.com instead.';
       btn.disabled = false;
     });
   });

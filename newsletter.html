@@ -83,6 +83,8 @@ permalink: /newsletter/
       color: var(--muted);
       text-decoration: none;
       font-weight: 500;
+      white-space: nowrap;   /* a multi-word pill wraps to two lines and
+                                breaks the header's single row */
       transition: color .15s ease, background-color .15s ease;
     }
     .site-nav a:hover { color: var(--fg); background: #f2f3f4; }
@@ -292,6 +294,12 @@ permalink: /newsletter/
     @media (max-width: 560px) {
       .site-nav .nav-text { display: none; }
       .brand img { width: 190px; }
+    }
+    /* On the narrowest phones the 9:1 wordmark plus a no-wrap pill is wider
+       than the row, so both give up a little rather than overflowing. */
+    @media (max-width: 400px) {
+      .brand img { width: 140px; }
+      .site-nav a.cta { padding: 0 14px; font-size: 0.95rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       .latest a, .issues a { transition: none; }
