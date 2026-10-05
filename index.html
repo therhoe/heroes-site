@@ -10,16 +10,20 @@
   <link rel="canonical" href="https://therealheroesofecommerce.com/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&family=Spectral:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
       background: #ffffff;
       color: #1a1a1a;
-      font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
-      font-size: 15px;
-      line-height: 1.7;
+      /* One family for the whole page — Snapshot CRO's. Shep's call
+         2026-10-05: the homepage was running three (mono, Space Grotesk,
+         Spectral) and it read as three sites stapled together. The rest of
+         the site is still IBM Plex Mono. */
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
     }
     main {
       max-width: 728px;
@@ -53,8 +57,10 @@
       margin: 0 0 28px;
     }
     h1.home-headline {
-      font-size: 15px;
-      font-weight: 500;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
       margin: 0 0 16px;
     }
 
@@ -65,19 +71,24 @@
        change. Every door shares this box model; only the skin differs.
        ------------------------------------------------------------------ */
     .door {
-      margin: 48px 0 0;
       padding: 32px;
+      border-radius: 14px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 12px 28px rgba(0, 0, 0, 0.08);
     }
+    /* The label sits on the white page above its block, not inside it, so the
+       three read as a labelled set rather than three unrelated panels. */
     .door-label {
       font-size: 13px;
       font-weight: 500;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin: 0 0 20px;
+      color: #666;
+      margin: 48px 0 10px;
     }
     .door h2 {
-      font-size: 15px;
-      font-weight: 500;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.3;
       margin: 0 0 12px;
     }
     .door p:last-of-type { margin-bottom: 0; }
@@ -96,13 +107,11 @@
       text-decoration: none;
     }
 
-    /* door 1 — snapshot cro. tokens from snapshot/assets/css/style.css */
+    /* door 1 — snapshot cro. colours from snapshot/assets/css/style.css */
     .door-snapshot {
       background: #000000;
       color: #ffffff;
-      font-family: "Space Grotesk", system-ui, sans-serif;
     }
-    .door-snapshot .door-label { color: #85ff97; }
     .door-snapshot h2 { font-size: 24px; font-weight: 700; line-height: 1.3; }
     .door-snapshot h2 .accent { color: #85ff97; }
     .door-snapshot p { color: #b4b4b4; }
@@ -138,25 +147,18 @@
     /* door 2 — newsletter. the paper sheet from _layouts/newsletter.html */
     .door-newsletter {
       background: #ffffff;
-      border: 1px solid #d8d8d8;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      border: 1px solid #e2e2e2;
     }
-    .door-newsletter .door-label { color: #666; }
-    .door-newsletter .lede {
-      font-family: "Spectral", Georgia, "Times New Roman", serif;
-      font-size: 18px;
-      line-height: 1.6;
-    }
+    .door-newsletter .lede { font-size: 18px; line-height: 1.55; }
     .door-newsletter .issues { margin: 24px 0 0; }
     .door-newsletter .issues li { margin: 0 0 6px; }
     .door-newsletter .issues .note { color: #999; }
 
-    /* door 3 — cro service. the terminal site, yellow accent */
+    /* door 3 — cro services. the site's own yellow accent */
     .door-service {
       background: #ffffff;
-      border: 1px dashed #d8d8d8;
+      border: 1px solid #e2e2e2;
     }
-    .door-service .door-label { color: #666; }
     .door-service ul { margin: 0 0 16px; }
     .door-service .door-links a:hover { background: #FFC42A; color: #1a1a1a; }
 
@@ -169,8 +171,10 @@
 
     @media (max-width: 560px) {
       main { padding: 40px 18px 72px; }
+      h1.home-headline { font-size: 24px; }
       .door { padding: 24px 20px; }
-      .door-snapshot h2 { font-size: 20px; }
+      .door-label { margin-top: 36px; }
+      .door-snapshot h2 { font-size: 19px; }
       .shots { grid-template-columns: 1fr; }
       .shots span { aspect-ratio: 16 / 9; }
     }
@@ -195,8 +199,8 @@
   <!-- door 1 — the app.
        DRAFT COPY (2026-10-05) — Shep to redline the headline and the two
        paragraphs. Everything else here is structure. -->
+  <p class="door-label">the app</p>
   <section class="door door-snapshot">
-    <p class="door-label">the app</p>
     <h2>Every <span class="accent">Insight</span> You Need to Lift Conversions, in One Place</h2>
     <p>Snapshot CRO is our Shopify app. It tells you which page is costing you the most money, then shows you what on that page is losing people — the zones they click, the images they ignore, the step they exit from.</p>
     <p>Free to start. Sixteen views across your whole store and every page in it.</p>
@@ -212,8 +216,8 @@
   </section>
 
   <!-- door 2 — the newsletter -->
+  <p class="door-label">the newsletter</p>
   <section class="door door-newsletter">
-    <p class="door-label">the newsletter</p>
     <p class="lede">The building-in-public archive. Experiments that worked, experiments that didn't, and what the numbers actually said. New issues go out by email.</p>
 
     {% include subscribe-email.html %}
@@ -231,8 +235,8 @@
   </section>
 
   <!-- door 3 — the service -->
+  <p class="door-label">cro services</p>
   <section class="door door-service">
-    <p class="door-label">the service</p>
     <p>We run complete CRO for Shopify stores, on an ongoing or project basis — the same workflow we built into the app:</p>
     <ul>
       <li>— audit your store for page performance</li>
