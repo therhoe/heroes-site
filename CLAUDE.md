@@ -127,3 +127,8 @@ the newsletter archive; don't assume other sections want the same.
 
 **EXCEPTION: newsletter posts** (`_newsletter/*.html`) keep their exact
 source formatting and capitalization. Never restyle article content.
+(`_layouts/newsletter.html` was brought onto the site's shell
+2026-10-05 — that is presentation only; the post HTML itself is
+untouched. The article body deliberately stays Spectral serif at 725px
+while all the chrome is Space Grotesk: a long read wants a serif, and
+these were written and sent in one. One font-family rule reverts it.)
