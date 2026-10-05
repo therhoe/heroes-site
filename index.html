@@ -8,7 +8,7 @@
   <title>The Real Heroes of Ecommerce</title>
   <meta name="description" content="The Real Heroes of Ecommerce — a boutique CRO agency for Shopify stores. CRO services, the Snapshot CRO app, and the rhoe newsletter for ecommerce operators.">
   <link rel="canonical" href="https://therealheroesofecommerce.com/">
-  <link rel="icon" href="/logo.png" type="image/png">
+  <link rel="icon" href="/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -71,7 +71,7 @@
       padding-block: 16px;
       border-bottom: 1px solid var(--line);
     }
-    .brand img { display: block; width: 260px; max-width: 48vw; height: auto; }
+    .brand img { display: block; width: 190px; max-width: 42vw; height: auto; }
     .site-nav { display: flex; align-items: center; gap: 8px; }
     .site-nav a {
       display: inline-flex;
@@ -90,8 +90,23 @@
     .site-nav a.cta { color: #ffffff; background: var(--fg); padding: 0 24px; }
     .site-nav a.cta:hover { background: #000000; color: var(--accent); }
 
-    /* --- hero --- */
-    .hero { padding: 72px 0 8px; }
+    /* --- hero ----------------------------------------------------------
+       Two columns: copy left, the booth illustration right. The art is
+       square (1000x1000), so it wants roughly equal width to the copy
+       rather than a thin side rail.
+       ------------------------------------------------------------------ */
+    .hero { padding: 64px 0 8px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 48px;
+      align-items: center;
+    }
+    .hero-art img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
     .hero h1 {
       max-width: 16ch;
       margin: 0 0 20px;
@@ -135,17 +150,6 @@
     .btn-solid { background: var(--fg); color: #ffffff; }
     .btn-solid:hover { background: #000000; color: var(--accent); }
     .btn-ghost:hover { background: var(--yellow); border-color: var(--yellow); }
-
-    /* 5000x1000 pixel art. It wants to be wide -- in the old 728px column it
-       was only 146px tall; here it reads as a proper band. */
-    .lineup {
-      margin: 48px 0 0;
-      border-radius: var(--radius);
-      overflow: hidden;
-      background: #fafafa;
-      border: 1px solid var(--line);
-    }
-    .lineup img { display: block; width: 100%; height: auto; }
 
     /* --- stats band ----------------------------------------------------
        Shep's credentials were buried mid-paragraph. Pulled out, they are
@@ -314,8 +318,12 @@
     footer a { text-decoration: underline; text-underline-offset: 3px; }
 
     @media (max-width: 900px) {
-      .card-app { grid-template-columns: 1fr; gap: 28px; }
-      .cards { grid-template-columns: 1fr; }
+      .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+      /* Art first on a phone: the booth is the thing that says what this is
+         faster than the headline does. */
+      .hero-art { order: -1; max-width: 360px; margin-inline: auto; }
+      .card-app { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+      .cards { grid-template-columns: minmax(0, 1fr); }
     }
     @media (max-width: 640px) {
       :root { --gutter: 18px; }
@@ -326,18 +334,18 @@
       .section { padding-top: 56px; }
       .card { padding: 26px 22px; }
       .stats { grid-template-columns: 1fr; gap: 20px; padding: 26px 22px; }
-      .shots { grid-template-columns: 1fr; }
+      .shots { grid-template-columns: minmax(0, 1fr); }
     }
     /* The wordmark is 9:1 -- below this it squeezes the nav off the row, so
        the text links drop and only the pill stays. */
     @media (max-width: 560px) {
       .site-nav .nav-text { display: none; }
-      .brand img { width: 190px; }
+      .brand img { width: 150px; }
     }
     /* On the narrowest phones the 9:1 wordmark plus a no-wrap pill is wider
        than the row, so both give up a little rather than overflowing. */
     @media (max-width: 400px) {
-      .brand img { width: 140px; }
+      .brand img { width: 124px; }
       .site-nav a.cta { padding: 0 14px; font-size: 0.95rem; }
     }
   </style>
@@ -347,7 +355,7 @@
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="/" aria-label="The Real Heroes of Ecommerce home">
-      <img src="logo.png" alt="The Real Heroes of Ecommerce" width="800" height="85">
+      <img src="logo.png" alt="The Real Heroes of Ecommerce" width="1000" height="225">
     </a>
     <nav class="site-nav">
       <a class="nav-text" href="/snapshot/">Snapshot CRO</a>
@@ -360,15 +368,18 @@
 <main>
 
   <section class="hero wrap">
-    <h1>Conversion rate optimization for <span class="mark">Shopify</span> stores.</h1>
-    <p class="sub">I am a conversion optimization nerd. You probably are too if you found your way here, or at the very least you are nerd-adjacent. So let's have some fun with it.</p>
-    <div class="hero-actions">
-      <a class="btn btn-solid" href="/hire-cro-agency.html">Work with us</a>
-      <a class="btn btn-ghost" href="/snapshot/">See the app</a>
-    </div>
-
-    <div class="lineup">
-      <img src="heroes-lineup.png" alt="pixel art lineup of the real heroes of ecommerce" width="5000" height="1000">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1>Conversion rate optimization for <span class="mark">Shopify</span> stores.</h1>
+        <p class="sub">I am a conversion optimization nerd. You probably are too if you found your way here, or at the very least you are nerd-adjacent. So let's have some fun with it.</p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="/hire-cro-agency.html">Work with us</a>
+          <a class="btn btn-ghost" href="/snapshot/">See the app</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <img src="hero-booth.png" alt="a cartoon booth with a sign reading ANALYTICS, help 5 cents, the heroes are in" width="1000" height="1000">
+      </div>
     </div>
 
     <div class="stats">

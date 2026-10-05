@@ -10,6 +10,11 @@ pill, big hero, then a card grid — because the stacked 728px column read
 as a document rather than a site. Ground stays white (Shep: that's the
 RHOE brand and it doesn't move) and the type is Space Grotesk, not IBM
 Plex Mono, so the homepage is the one page off the terminal aesthetic.
+Assets (all transparent PNG, Shep's own art, 2026-10-05): `logo.png`
+is the wordmark at 1000x225 (4.4:1 — it replaced a 9.4:1 one, so header
+sizing is tuned to it), `favicon.png` is the 64x64 pixel face, and
+`hero-booth.png` is the 1000x1000 illustration in the two-column hero.
+`heroes-lineup.png` is the old hero band, now unused but kept.
 The snapshot green `#85ff97` cannot carry text on white — use it only as
 a highlight behind dark text, or as a border. Each of the three cards is
 skinned like the page it opens onto (app = black/green, newsletter =
