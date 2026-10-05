@@ -21,7 +21,7 @@
   var modalSubtitle = modal.querySelector(".modal-subtitle");
   var modalBody = modal.querySelector(".modal-body");
   var closeButton = modal.querySelector(".modal-close");
-  var topButton = modal.querySelector(".modal-top");
+  var footCloseButton = modal.querySelector(".modal-foot-close");
   var panel = modal.querySelector(".modal-panel");
 
   var lastFocused = null;
@@ -293,14 +293,9 @@
 
   closeButton.addEventListener("click", closeModal);
 
-  // Scrolls the panel's own content, not the page behind it.
-  topButton.addEventListener("click", function () {
-    panel.scrollTo({
-      top: 0,
-      behavior: prefersReducedMotion ? "auto" : "smooth"
-    });
-    closeButton.focus({ preventScroll: true });
-  });
+  // This used to scroll the panel back to its top, which on a short card
+  // is a no-op and reads as a dead button. It closes the dialog now.
+  footCloseButton.addEventListener("click", closeModal);
 
   // Click the backdrop, but not the panel itself.
   modal.addEventListener("click", function (e) {

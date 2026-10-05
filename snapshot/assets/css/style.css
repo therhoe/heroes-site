@@ -404,7 +404,9 @@ body.modal-open { overflow: hidden; }
 }
 
 /* Sticky so it stays reachable part-way down a long body, and lands in
-   the corner when the reader gets to the end. */
+   the corner when the reader gets to the end. The button closes the
+   dialog -- it was a back-to-top, which did nothing visible on a card
+   whose body is short enough not to scroll. */
 .modal-foot {
   position: sticky;
   bottom: 0;
@@ -415,7 +417,7 @@ body.modal-open { overflow: hidden; }
   background: var(--panel);
 }
 
-.modal-top {
+.modal-foot-close {
   padding: 10px 18px;
   background: none;
   border: 1px solid var(--panel-line);
@@ -427,8 +429,8 @@ body.modal-open { overflow: hidden; }
   transition: background-color .15s ease, color .15s ease, border-color .15s ease;
 }
 
-.modal-top:hover,
-.modal-top:focus-visible {
+.modal-foot-close:hover,
+.modal-foot-close:focus-visible {
   background: var(--accent);
   border-color: var(--accent);
   color: var(--bg);
