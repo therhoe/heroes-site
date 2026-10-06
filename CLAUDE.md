@@ -1,29 +1,14 @@
 # therealheroesofecommerce.com
 
 GitHub Pages + Jekyll. Push to `main` = live in ~1 min. No local build needed.
-
-**Homepage**: pause mode ended 2026-10-05. `index.html` is the real
-homepage again (the Substack redirect stub and `preview-home.html` are
-both gone — don't restore either from git history). It is built to the
-same shape as `/snapshot/` — 1200px canvas, sticky header with a CTA
-pill, big hero, then a card grid — because the stacked 728px column read
-as a document rather than a site. Ground stays white (Shep: that's the
-RHOE brand and it doesn't move) and the type is Space Grotesk, not IBM
-Plex Mono, so the homepage is the one page off the terminal aesthetic.
-Assets (all transparent PNG, Shep's own art, 2026-10-05): `logo.png`
-is the wordmark at 1000x225 (4.4:1 — it replaced a 9.4:1 one, so header
-sizing is tuned to it), `favicon.png` is the 64x64 pixel face, and
-`hero-booth.png` is the 1000x1000 illustration in the two-column hero.
-`heroes-lineup.png` is the old hero band, now unused but kept.
-The snapshot green `#85ff97` cannot carry text on white — use it only as
-a highlight behind dark text, or as a border. Each of the three cards is
-skinned like the page it opens onto (app = black/green, newsletter =
-paper, services = yellow accent). The subscribe include is shared with
-the terminal pages, so restyle it from `index.html` scoped under
-`.card-news`, never in `_includes/subscribe-email.html`.
+Always `git pull` before starting — Shep edits and commits from his own machine.
 
 Marketing site for a boutique CRO agency (Shep + one other person), built
 around the Snapshot CRO Shopify app.
+
+**Pause mode ended (2026-10)**: the Substack redirect stub and
+`preview-home.html` are gone. `index.html` IS the live homepage again —
+make homepage changes there.
 
 ## Current facts (don't reintroduce stale numbers)
 
@@ -36,6 +21,22 @@ around the Snapshot CRO Shopify app.
 - Substack (`heroesofecommerce.substack.com`) is the email delivery channel
   only; this site is the canonical content home.
 
+## Pages
+
+- `index.html` — homepage. Wide canvas, two-column hero (`hero-booth.png`),
+  three-card grid: app / newsletter / CRO services. Tokens mirror
+  `snapshot/assets/css/style.css` so the two feel like one site.
+- `snapshot/index.html` — the Snapshot CRO product page, with its own
+  `assets/css/style.css`, `assets/js/grid.js`, card images under
+  `assets/img/cards/`, and `data/items.json` + `data/questions.json`
+  driving the card grid and modals. Replaced the old root
+  `snapshot-cro.html` (deleted 2026-10 — don't resurrect it).
+- `hire-cro-agency.html` — the CRO service page (redesigned 2026-10).
+- `snapshot-insights.html` — long-form page on what the app surfaces.
+- `newsletter.html` — newsletter hub (latest issues + year-grouped archive).
+- `snapshot-privacy-policy.html` — the app's privacy policy.
+  `privacy-policy.html` is the site's.
+
 ## Content collections
 
 - `_newsletter/*.html` → `/newsletter/<slug>/`, layout `newsletter`, hub
@@ -43,6 +44,9 @@ around the Snapshot CRO Shopify app.
   HTML (not markdown) wrapped in `{% raw %}`; front matter: `title`,
   `description`, `date`, `substack_url`. Content is verbatim — the casing
   rule below does NOT apply.
+- `_layouts/newsletter.html` wraps posts in the site shell (header, nav,
+  dateline, subscribe CTA, backlink) — restyled 2026-10 to match the
+  homepage.
 - Perspectives (republished pieces by other writers) was removed entirely
   2026-09-28 (Shep's call) — don't resurrect it from git history. If it
   ever comes back, republishing someone else's piece needs their written
@@ -84,56 +88,57 @@ around the Snapshot CRO Shopify app.
   support tickets) into individual tasks (stage + source + 1–10
   urgency, kept in localStorage `workshop_feedback_tasks`, sent as one
   `pace-feedback` row); er-prioritize-2.html is round 2 — the stages
-  plus those tasks, starting from the round-1 order. er-conclusion.html
-  is the last slide: the round-2 order read-only, plus "copy for Google
-  Sheets" (paste into their own sheet — no Google sign-in) and "download
-  .csv". All three pages share er-prioritize.js. v2 is the live session: the workshop
-  contents page links only er.html (2026-09-29); v1 pages still exist
-  but are unlisted. Don't consolidate them; follow the same
-  pattern for future sessions (script template:
+  plus those tasks, starting from the round-1 order. Both prioritize
+  pages share er-prioritize.js. er-conclusion.html closes the deck.
+  v2 is the live session: the workshop contents page links only er.html
+  (2026-09-29); v1 pages still exist but are unlisted. Don't consolidate
+  them; follow the same pattern for future sessions (script template:
   `.claude/scripts/analytics-workshop-apps-script.gs`).
+- Slide order per session lives in the deck table at the top of
+  `workshop/workshop.js` — add new pages there, not just as links.
+- The contents page is `workshop/index.html` (`/workshop/`).
+  `workshop/contents.html` is a noindex redirect stub to it.
 
-## Site style rule (apply to ALL pages)
+## Style
 
-The site mimics a rendered markdown/terminal document. Casing rules:
+Two distinct looks. Don't mix them.
 
-- **Section headings** (`<h1>` with the `## ` prefix): all lowercase — "how we work with clients", "notable posts"
+**Marketing pages** (`index.html`, `snapshot/`, `hire-cro-agency.html`,
+`snapshot-insights.html`, `newsletter.html`, the newsletter layout) —
+redesigned 2026-10 as a real site: Space Grotesk, wide canvas, cards,
+pill buttons. Normal capitalization throughout, including nav items and
+buttons ("Snapshot CRO", "Newsletter", "Work with us", "Install on
+Shopify") — Shep's call, 2026-10-05. Don't lowercase them.
+
+**Workshop pages** (`workshop/*`) — still the rendered-markdown/terminal
+document look (IBM Plex Mono/Sans, `workshop/style.css`). The casing rules
+there:
+
+- **Section headings** (`<h1>` with the `## ` prefix): all lowercase —
+  "how we work with clients", "notable posts"
 - **Bullets / list items**: start lowercase
 - **Taglines** (`// ...`): all lowercase (proper nouns keep caps)
 - **Link labels + `(notes)`** in lists: lowercase
-- **Nav menu items and pill buttons**: normal capitalization (Shep's
-  call, 2026-10-05) — "Snapshot CRO", "Newsletter", "Work with us",
-  "Install on Shopify". This is buttons and nav only; link labels inside
-  lists stay lowercase per the rule above.
-- **Page titles** (`h1.title`) and `<title>`/meta tags: normal capitalization — "Snapshot CRO", "CRO Service"
+- **Page titles** (`h1.title`) and `<title>`/meta tags: normal
+  capitalization — "Snapshot CRO", "Conclusion"
 - **Paragraph body text**: normal sentence case
-- **Proper nouns** (Shopify, Snapshot CRO, Google) keep their capitalization everywhere
+- **Proper nouns** (Shopify, Snapshot CRO, Google) keep their
+  capitalization everywhere
 
 Shep writes with auto-capitalizing tools and pastes copy in inconsistently —
-normalizing pasted copy to this pattern is Claude's job, every time.
+normalizing pasted copy to the destination page's pattern is Claude's job,
+every time.
 
 **Typos in Shep's copy**: fix a missing word or mis-capitalization that
 breaks the meaning. Do NOT "fix" grammatical quirks that could be
 deliberate, or creative spellings ("secret layer", "tons of nonsense") —
 when in doubt, keep it verbatim and flag it instead.
 
-**Long lists**: the newsletter hub (`newsletter.html`, `/newsletter/`)
-deliberately shows ALL posts uncapped — the length "shows commitment"
-(Shep). Don't truncate, paginate, or scroll-cap it there. It was
-restyled to the homepage's shape 2026-10-05 and the rule still holds:
-every issue renders into the document, grouped by year, and the search +
-year chips only ever set `hidden` on rows — they never drop them. The
-two sticky layers (header, controls) measure their own heights into
-`--header-h` / `--controls-h` because the chips wrap at narrow widths;
-don't replace that with hardcoded offsets. The homepage
-door shows only the 8 most recent plus an "all N issues" link (Shep's
-call, 2026-10-05) so the three doors stay balanced. That's specific to
-the newsletter archive; don't assume other sections want the same.
+**Newsletter lists**: the old "show ALL posts uncapped" homepage panel
+went away with the 2026-10 redesign. Now the homepage card shows the
+latest 6 (`index.html`, `limit: 6`) and the hub shows the latest 3 plus
+the full year-grouped archive, which IS uncapped (`newsletter.html`).
+Keep the archive complete — the length "shows commitment" (Shep).
 
 **EXCEPTION: newsletter posts** (`_newsletter/*.html`) keep their exact
 source formatting and capitalization. Never restyle article content.
-(`_layouts/newsletter.html` was brought onto the site's shell
-2026-10-05 — that is presentation only; the post HTML itself is
-untouched. The article body deliberately stays Spectral serif at 725px
-while all the chrome is Space Grotesk: a long read wants a serif, and
-these were written and sent in one. One font-family rule reverts it.)
