@@ -5,9 +5,17 @@
    ============================================================ */
 
 :root {
-  --bg: #000;
-  --fg: #fff;
-  --accent: #85ff97;          /* the green from the wordmark's "n" */
+  /* The page is white and the hero is a black card, mirroring the app
+     card on the homepage -- arriving here should read as that card
+     opened up rather than as a different site. So there are two
+     grounds, not one: --bg/--fg for the page, --ink/--on-ink for the
+     black surfaces (the hero card and the thumbnail frames). */
+  --bg: #fff;
+  --fg: #14171a;
+  --ink: #000;
+  --on-ink: #fff;
+  --on-ink-muted: #b4b4b4;    /* body copy inside a black surface */
+  --accent: #ffc42a;          /* the site's yellow, shared with the homepage */
 
   /* Card thumbnails. The image is deliberately clipped: it sits
      inset from the top-left and runs off the right and bottom, so
@@ -15,23 +23,28 @@
      Tune these two to change how much shows. */
   --thumb-pad: 12%;           /* inset on the top and left only */
   --thumb-zoom: 150%;         /* image width relative to the frame */
-  --thumb-radius: 12px;       /* the green frame's corners */
+  --thumb-radius: 12px;       /* the yellow frame's corners */
   --thumb-img-radius: 8px;    /* the screenshot's own corners */
-  --muted: #8a8a8a;
-  --muted-bright: #b4b4b4;    /* hero subtext — a step up from --muted */
+  --muted: #5c6166;
 
   /* Header logo and header buttons share this, so they stay the same
      height at every breakpoint instead of drifting apart. */
   --control-height: 54px;
 
-  /* The modal reads as paper against the dark page — long body copy is
-     easier on a light ground. */
+  /* The modal reads as paper against the dimmed page — long body copy
+     is easier on a light ground. */
   --panel: #f5f5f5;
   --panel-text: #14171a;
   --panel-muted: #5c6166;
   --panel-line: #d9dcde;
-  --line: #2a2a2a;
+  --line: #e2e2e2;
+  --ink-line: #2a2a2a;        /* hairlines on a black surface */
   --gutter: 20px;
+
+  /* Lifted from the homepage's cards so the hero here and the app card
+     there sit at the same elevation and corner radius. */
+  --card-radius: 16px;
+  --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 14px 32px rgba(0, 0, 0, 0.09);
   --maxw: 1280px;
 
   /* One family at every size. Swap these two to change the whole
@@ -104,17 +117,31 @@ body.modal-open { overflow: hidden; }
   width: auto;
 }
 
-/* ---- hero ---- */
+/* ---- hero ----
 
-/* Shares the container's max-width and gutter so the headline starts
-   on the same line as the logo, the cards and the dividers. */
-.hero {
-  display: grid;
-  justify-items: start;
+   A black card on a white page, cut to the same radius and elevation
+   as the cards on the homepage. The app card there is the door into
+   this page; making the first thing you land on the same object means
+   the click resolves instead of dropping you somewhere new.
+
+   .hero-section carries the container's max-width and gutter, so the
+   card's edges line up with the grid and the dividers below it; .hero
+   is the card itself. */
+.hero-section {
   width: 100%;
   max-width: var(--maxw);
   margin-inline: auto;
-  padding: 64px var(--gutter) 72px;
+  padding: 40px var(--gutter) 64px;
+}
+
+.hero {
+  display: grid;
+  justify-items: start;
+  padding: 56px 48px 60px;
+  background: var(--ink);
+  color: var(--on-ink);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
   text-align: left;
 }
 
@@ -129,7 +156,8 @@ body.modal-open { overflow: hidden; }
   text-wrap: balance;
 }
 
-/* Same green as the card borders. */
+/* Same yellow as the thumbnail frames below. It carries text here
+   because it sits on black; nowhere else on this page does. */
 .hero-title .accent { color: var(--accent); }
 
 .logo {
@@ -147,7 +175,7 @@ body.modal-open { overflow: hidden; }
 .hero-sub {
   max-width: 62ch;
   margin: 32px 0 0;
-  color: var(--muted-bright);
+  color: var(--on-ink-muted);
   font-size: clamp(1rem, 1.5vw, 1.12rem);
   line-height: 1.6;
 }
@@ -175,6 +203,7 @@ body.modal-open { overflow: hidden; }
   border: 2px solid var(--fg);
   border-radius: 999px;
   color: var(--fg);
+  background: var(--bg);
   text-decoration: none;
   font-family: var(--font-display);
   font-weight: 500;
@@ -189,10 +218,14 @@ body.modal-open { overflow: hidden; }
   color: var(--bg);
 }
 
+/* Dark on the white page; the yellow would all but vanish there. On
+   the black hero card it is the other way round. */
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--fg);
   outline-offset: 4px;
 }
+
+.hero :focus-visible { outline-color: var(--accent); }
 
 /* ---- questions ---- */
 
@@ -222,10 +255,13 @@ body.modal-open { overflow: hidden; }
   transition: border-color .15s ease, color .15s ease, background-color .15s ease;
 }
 
+/* Filled rather than outlined: yellow type on white is unreadable, so
+   the accent goes behind the text instead of into it. */
 .question:hover,
 .question:focus-visible {
+  background: var(--accent);
   border-color: var(--accent);
-  color: var(--accent);
+  color: var(--ink);
 }
 
 /* ---- card grid ---- */
@@ -278,7 +314,7 @@ body.modal-open { overflow: hidden; }
   display: block;
   aspect-ratio: 4 / 3;
   padding: var(--thumb-pad) 0 0 var(--thumb-pad);
-  background: var(--bg);
+  background: var(--ink);
   border: 2px solid var(--accent);
   border-radius: var(--thumb-radius);
   overflow: hidden;
@@ -306,12 +342,12 @@ body.modal-open { overflow: hidden; }
    different question. */
 .card.is-highlighted {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--ink);
 }
 
 .card.is-highlighted .card-subtitle { color: rgba(0, 0, 0, .68); }
 
-/* The thumbnail frame keeps its black fill and green border when the
+/* The thumbnail frame keeps its black fill and yellow border when the
    card is highlighted, so the image still sits on black. */
 
 .card-title {
@@ -433,7 +469,7 @@ body.modal-open { overflow: hidden; }
 .modal-foot-close:focus-visible {
   background: var(--accent);
   border-color: var(--accent);
-  color: var(--bg);
+  color: var(--ink);
 }
 
 .modal-image img {
@@ -487,7 +523,8 @@ body.modal-open { overflow: hidden; }
      centred logo over a left-aligned headline reads as a mistake. */
   .site-header { justify-content: flex-start; padding-top: 18px; }
   :root { --control-height: 46px; }
-  .hero { padding: 44px var(--gutter) 56px; }
+  .hero-section { padding: 24px var(--gutter) 48px; }
+  .hero { padding: 36px 24px 40px; }
 }
 
 @media (max-width: 720px) {
@@ -527,9 +564,9 @@ body.modal-open { overflow: hidden; }
   justify-content: center;
   width: var(--control-height);
   height: var(--control-height);
-  border: 2px solid var(--muted);
+  border: 2px solid var(--line);
   border-radius: 12px;
-  color: var(--muted-bright);
+  color: var(--muted);
   text-decoration: none;
   transition: background-color .15s ease, color .15s ease, border-color .15s ease;
 }
@@ -538,7 +575,7 @@ body.modal-open { overflow: hidden; }
 .back:focus-visible {
   background: var(--accent);
   border-color: var(--accent);
-  color: #000;
+  color: var(--ink);
 }
 
 .site-footer {
@@ -552,7 +589,7 @@ body.modal-open { overflow: hidden; }
   font-size: .9rem;
 }
 .site-footer a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
-.site-footer a:hover, .site-footer a:focus-visible { color: var(--accent); }
+.site-footer a:hover, .site-footer a:focus-visible { color: var(--fg); }
 
 @media (max-width: 720px) {
   /* The wordmark already runs near edge to edge here, so the back button

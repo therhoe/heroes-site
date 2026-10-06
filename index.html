@@ -25,10 +25,10 @@
       --fg: #14171a;
       --muted: #5c6166;
       --line: #e2e2e2;
-      --accent: #85ff97;        /* snapshot's green. On white it can't carry
-                                   text, so it's only ever a highlight behind
-                                   dark text, or a border. */
-      --yellow: #FFC42A;
+      --accent: #ffc42a;        /* the site's yellow, shared with /snapshot/.
+                                   On white it can't carry text, so it's only
+                                   ever a highlight behind dark text, or a
+                                   border. On black it carries text fine. */
       --maxw: 1200px;
       --gutter: 24px;
       --control-height: 48px;
@@ -115,7 +115,7 @@
       line-height: 1.04;
       letter-spacing: -0.03em;
     }
-    /* The green can't carry text on white, so it sits behind it instead --
+    /* The yellow can't carry text on white, so it sits behind it instead --
        a marker-pen highlight rather than coloured type. */
     .hero h1 .mark {
       /* Sized and placed in em, not as a percentage of the line box -- with
@@ -149,7 +149,7 @@
     }
     .btn-solid { background: var(--fg); color: #ffffff; }
     .btn-solid:hover { background: #000000; color: var(--accent); }
-    .btn-ghost:hover { background: var(--yellow); border-color: var(--yellow); }
+    .btn-ghost:hover { background: var(--accent); border-color: var(--accent); }
 
     /* --- stats band ----------------------------------------------------
        Shep's credentials were buried mid-paragraph. Pulled out, they are
@@ -221,7 +221,7 @@
     .card .lede { font-size: 1.1rem; color: var(--muted); }
     .card .card-links { margin-top: auto; padding-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
 
-    /* app card -- /snapshot/'s black and green */
+    /* app card -- /snapshot/'s black and yellow */
     .card-app {
       grid-column: 1 / -1;
       background: #000000;
@@ -286,7 +286,7 @@
     .card-news .issues .t { font-weight: 500; }
     .card-news .issues .d { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
 
-    /* service card -- the site's yellow accent */
+    /* service card -- the same yellow, as a bullet marker */
     .card-svc ul { margin: 4px 0 20px; }
     .card-svc li {
       position: relative;
@@ -302,7 +302,7 @@
       width: 12px;
       height: 12px;
       border-radius: 3px;
-      background: var(--yellow);
+      background: var(--accent);
     }
     .card-svc .price { font-weight: 500; }
     .card-svc .note { color: var(--muted); }
