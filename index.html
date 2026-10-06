@@ -327,6 +327,11 @@
     }
     @media (max-width: 640px) {
       :root { --gutter: 18px; }
+      /* The eyebrow is nowrap so it never breaks mid-phrase beside the
+         heading; at this width it cannot share the line at all, so it
+         drops underneath instead of pushing the page sideways. */
+      .section-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .section-head .eyebrow { white-space: normal; }
       .site-header .wrap { padding-block: 12px; }
       .site-nav a { padding: 0 12px; }
       .site-nav a.cta { padding: 0 18px; }
