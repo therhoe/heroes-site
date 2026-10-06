@@ -151,27 +151,6 @@
     .btn-solid:hover { background: #000000; color: var(--accent); }
     .btn-ghost:hover { background: var(--accent); border-color: var(--accent); }
 
-    /* --- stats band ----------------------------------------------------
-       Shep's credentials were buried mid-paragraph. Pulled out, they are
-       the fastest proof on the page.
-       ------------------------------------------------------------------ */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin: 56px 0 0;
-      padding: 32px;
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-    }
-    .stats .n {
-      display: block;
-      font-size: clamp(1.9rem, 3.4vw, 2.6rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-    }
-    .stats .l { color: var(--muted); font-size: 0.95rem; }
 
     /* --- section heads --- */
     .section { padding-block: 80px 0; }
@@ -287,7 +266,10 @@
     .card-news .issues .d { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
 
     /* service card -- the same yellow, as a bullet marker */
-    .card-svc ul { margin: 4px 0 20px; }
+    /* On this card the lede is a credential line, so it reads as a claim
+       rather than as muted supporting copy. */
+    .card-svc .lede { color: var(--fg); font-weight: 600; }
+    .card-svc ul { margin: 16px 0 20px; }
     .card-svc li {
       position: relative;
       padding: 10px 0 10px 30px;
@@ -338,7 +320,6 @@
       .hero { padding-top: 48px; }
       .section { padding-top: 56px; }
       .card { padding: 26px 22px; }
-      .stats { grid-template-columns: 1fr; gap: 20px; padding: 26px 22px; }
       .shots { grid-template-columns: minmax(0, 1fr); }
     }
     /* The wordmark is 9:1 -- below this it squeezes the nav off the row, so
@@ -376,7 +357,7 @@
     <div class="hero-grid">
       <div class="hero-copy">
         <h1>Conversion rate optimization for <span class="mark">Shopify</span> stores.</h1>
-        <p class="sub">I am a conversion optimization nerd. You probably are too if you found your way here, or at the very least you are nerd-adjacent. So let's have some fun with it.</p>
+        <p class="sub">Knowing is half the battle. But it IS the first half, so it is kinda important. We specialize in data &amp; behavioral analytics for CRO to make sure clients stay focused on that true north star&hellip; their customers, the real heroes of ecommerce.</p>
         <div class="hero-actions">
           <a class="btn btn-solid" href="/hire-cro-agency.html">Work with us</a>
           <a class="btn btn-ghost" href="/snapshot/">See the app</a>
@@ -385,12 +366,6 @@
       <div class="hero-art">
         <img src="hero-booth.png" alt="a cartoon booth with a sign reading ANALYTICS, help 5 cents, the heroes are in" width="1000" height="1000">
       </div>
-    </div>
-
-    <div class="stats">
-      <div><span class="n">10+ years</span><span class="l">in conversion optimization</span></div>
-      <div><span class="n">dozens</span><span class="l">of Shopify stores</span></div>
-      <div><span class="n">hundreds</span><span class="l">of experiments run</span></div>
     </div>
   </section>
 
@@ -445,7 +420,8 @@
       <!-- cro services -->
       <article class="card card-svc">
         <h3>CRO services</h3>
-        <p class="lede">Complete CRO for Shopify stores, ongoing or by project — the same workflow we built into the app.</p>
+        <p class="lede">14 years in ecommerce marketing &amp; operations.</p>
+        <p>Our strength is our background in building, operating and scaling ecommerce stores from all different stages of growth. It allows us a unique perspective since we have jumped through the same hoops you have and out-struggled the same struggles you have. And we build our processes and analytics tools from there.</p>
         <ul>
           <li>audit your store for page performance</li>
           <li>audit pages for leaks and opportunities</li>
