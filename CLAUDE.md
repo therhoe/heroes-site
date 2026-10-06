@@ -34,8 +34,24 @@ make homepage changes there.
 - `hire-cro-agency.html` — the CRO service page (redesigned 2026-10).
 - `snapshot-insights.html` — long-form page on what the app surfaces.
 - `newsletter.html` — newsletter hub (latest issues + year-grouped archive).
-- `snapshot-privacy-policy.html` — the app's privacy policy.
-  `privacy-policy.html` is the site's.
+- `snapshot-privacy-policy.html` — the app's privacy policy, and the only
+  one there is. `privacy-policy.html` is NOT a second policy: it is a
+  redirect stub left at the old URL because that address is probably
+  registered as the app's privacy link in the Shopify Partner Dashboard,
+  where a 404 is a review problem. Delete it once that listing is
+  repointed. It keeps the pre-redesign styling on purpose (Shep's call).
+
+## Assets (root, all transparent PNG, Shep's own art)
+
+- `logo.png` — 1000x225 wordmark. It sets its text on TWO lines beside
+  the mascot, so the type is small for the canvas: each line is 81px
+  where the earlier one-line mark was 135px. Header sizing is tuned to
+  that (240px wide, 54px tall), not to the ratio — swap in a one-line
+  mark and it will look oversized.
+- `favicon.png` — 64x64 pixel face, the icon on every page but
+  `/snapshot/`, which keeps the app's own.
+- `hero-booth.png` — 1000x1000 illustration in the homepage hero.
+- `heroes-lineup.png` — the old hero band, unused but kept.
 
 ## Content collections
 
