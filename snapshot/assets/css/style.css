@@ -28,8 +28,16 @@
   --muted: #5c6166;
 
   /* Header logo and header buttons share this, so they stay the same
-     height at every breakpoint instead of drifting apart. */
-  --control-height: 54px;
+     height at every breakpoint instead of drifting apart. Both numbers
+     are the homepage's, so the two headers read as one site: a reader
+     crossing between them should not feel the furniture resize.
+
+     The homepage sizes its logo by width (190px on a 1000x225 file),
+     which lands at ~43px tall. This wordmark has a different ratio, so
+     it matches on height instead -- the dimension the eye reads in a
+     header -- rather than on width. */
+  --control-height: 48px;
+  --brand-height: 43px;
 
   /* The modal reads as paper against the dimmed page — long body copy
      is easier on a light ground. */
@@ -108,13 +116,16 @@ body.modal-open { overflow: hidden; }
   flex: none;
 }
 
-/* Derived from the button height rather than set independently, so
-   the two stay in step at every breakpoint. Deliberately a little
-   shorter than the buttons. */
+/* The wordmark is 7.5:1, so at --brand-height it runs over 300px wide
+   and would overflow a phone. The cap wins there; object-fit keeps it
+   from squashing when it does. */
 .brand img {
   display: block;
-  height: calc(var(--control-height) - 8px);
+  height: var(--brand-height);
   width: auto;
+  max-width: 58vw;
+  object-fit: contain;
+  object-position: left center;
 }
 
 /* ---- hero ----
@@ -199,7 +210,7 @@ body.modal-open { overflow: hidden; }
   display: inline-flex;
   align-items: center;
   height: var(--control-height);
-  padding: 0 28px;
+  padding: 0 24px;
   border: 2px solid var(--fg);
   border-radius: 999px;
   color: var(--fg);
@@ -207,8 +218,7 @@ body.modal-open { overflow: hidden; }
   text-decoration: none;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(.95rem, 1.6vw, 1.15rem);
-  letter-spacing: .02em;
+  font-size: 1rem;
   transition: background-color .15s ease, color .15s ease;
 }
 
@@ -522,7 +532,6 @@ body.modal-open { overflow: hidden; }
   /* Left, not centred — the hero below it is left-aligned, and a
      centred logo over a left-aligned headline reads as a mistake. */
   .site-header { justify-content: flex-start; padding-top: 18px; }
-  :root { --control-height: 46px; }
   .hero-section { padding: 24px var(--gutter) 48px; }
   .hero { padding: 36px 24px 40px; }
 }
