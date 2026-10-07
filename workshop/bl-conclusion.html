@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Conclusion — Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main data-review-store="workshop_review_backlog">
+
+  <h1 class="title">Conclusion</h1>
+  <p class="tagline">// the backlog</p>
+
+  <p class="lede">Your backlog, in the order you'd work it.</p>
+  <p class="muted" id="reviewing"></p>
+
+  <ol class="tasks" id="cards" data-round="1" data-readonly></ol>
+  <p class="muted" id="empty" hidden>// nothing here yet. <a href="bl-hypothesis.html">write your three hypotheses</a> and <a href="bl-ice.html">score them</a> first.</p>
+
+  <section id="export" hidden style="margin-top: 48px;">
+    <h1>take it with you</h1>
+    <p>This list only lives in this browser. Copy it into your own Google Sheet (or download it) to keep it as the start of your program.</p>
+    <div class="export-actions">
+      <button type="button" class="send" id="copy-sheet">copy for Google Sheets</button>
+      <button type="button" class="send" id="download-csv">download .csv</button>
+    </div>
+    <p class="status muted" id="export-status"></p>
+  </section>
+
+  <hr class="divider">
+
+  <h1>four sessions, one sentence each</h1>
+  <ul>
+    <li>one — customers arrive with a question, and the page either answers it or doesn't</li>
+    <li>two — the data tells you where they stopped, never why</li>
+    <li>three — PACE is how you find the why, one stage at a time</li>
+    <li>four — a program is a queue, a model, and a loop that keeps turning</li>
+  </ul>
+
+  <h1>what to do on monday</h1>
+  <ul>
+    <li>run a store snapshot on your own store and read gate one honestly — including which pages the model over-ranks</li>
+    <li>pick the page with traffic and friction, not the one with the worst score</li>
+    <li>run the sample-size numbers before you plan a single test. Most of your pages will route to "ship it", and that's the finding</li>
+    <li>write down what you expect before you ship it. Every time</li>
+  </ul>
+
+  <p class="note">The whole thing collapses to this: narrow with data, decide with judgment, measure as honestly as your traffic allows, and keep the loop turning. Nobody gets the last part for free.</p>
+
+</main>
+<script src="workshop.js"></script>
+<script src="bl.js"></script>
+</body>
+</html>
