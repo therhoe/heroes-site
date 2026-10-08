@@ -272,6 +272,10 @@ button.opt:disabled { cursor: default; background: var(--paper); border-color: v
 }
 .q.brands a.opt:hover { border-color: var(--ink); background: var(--paper); color: var(--ink); }
 
+/* --- shots: a grid of screenshots, two up ------------------------------- */
+.shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 28px 0 0; }
+.shots img { display: block; width: 100%; height: auto; border: 1px solid #d8d8d8; }
+
 /* --- panel: a gray box that holds a form -------------------------------- */
 .panel {
   background: var(--panel);
@@ -503,6 +507,7 @@ hr.divider { border: 0; border-top: 1px solid var(--line); margin: 56px 0; }
   table.data th, table.data td { padding-right: 12px; }
   .q-label { min-width: 0; flex-basis: 100%; }
   .q.brands, .q.brands.two { grid-template-columns: 1fr; }
+  .shots { grid-template-columns: 1fr; }
   /* two rows of five so every number is thumb-sized */
   .q.scale { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
