@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Estimating revenue lift — Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+
+  <h1 class="title">Estimating revenue lift</h1>
+  <p class="tagline">// the backlog</p>
+
+  <p class="lede">Here is a simple way to estimate the lift in revenue to score which page will have a higher impact when increasing revenue is the primary goal.</p>
+
+  <p>It's rough, not accurate. Use it to point the team at the right page — not as a number for a report.</p>
+
+  <h1>the calculation</h1>
+  <p>Snapshot gives you sessions, CVR and revenue per page. Three steps turn those into an estimated gain.</p>
+  <ul>
+    <li>orders = sessions &times; CVR &mdash; 336 &times; 7.7% = <strong>26 orders</strong></li>
+    <li>revenue per order = revenue &divide; orders &mdash; $1,845 &divide; 26 = <strong>$70.96</strong></li>
+    <li>pick the lift you think is realistic, and apply it &mdash; +10% of 26 = <strong>2.6 more orders</strong></li>
+    <li>estimated gain = extra orders &times; revenue per order &mdash; 2.6 &times; $70.96 = <strong>$184.50</strong></li>
+  </ul>
+
+  <h1>all three pages</h1>
+  <div class="scroller">
+    <table class="data">
+      <tr>
+        <th>Page</th>
+        <th class="num">Sessions</th>
+        <th class="num">CVR</th>
+        <th class="num">Orders</th>
+        <th class="num">Revenue</th>
+        <th class="num">Per order</th>
+        <th class="num">+10% CVR</th>
+      </tr>
+      <tr>
+        <td>Correct Toes | The Original Toe Spacer</td>
+        <td class="num">336</td><td class="num">7.7%</td><td class="num">26</td>
+        <td class="num">$1,845</td><td class="num">$70.96</td><td class="num win">+$184.50</td>
+      </tr>
+      <tr>
+        <td>Correct Toes SPORT&reg;</td>
+        <td class="num">169</td><td class="num">11.2%</td><td class="num">19</td>
+        <td class="num">$1,097</td><td class="num">$57.74</td><td class="num">+$109.70</td>
+      </tr>
+      <tr>
+        <td>Correct Toes&reg; StableToe</td>
+        <td class="num">149</td><td class="num">6.7%</td><td class="num">10</td>
+        <td class="num">$492</td><td class="num">$49.20</td><td class="num">+$49.20</td>
+      </tr>
+    </table>
+  </div>
+
+  <p style="margin-top: 28px;">The Original Toe Spacer wins on nearly double the next page. Its CVR is the <em>lowest</em> of the three &mdash; it earns the top spot on traffic and revenue, not on how well it converts.</p>
+
+  <h1>the shortcut</h1>
+  <p>A 10% lift on orders is a 10% lift on that page's revenue, so the estimated gain is just <strong>revenue &times; your lift</strong>. The per-order figure sets the size of the number, never the ranking &mdash; if revenue is your goal, the revenue column already tells you the order.</p>
+  <p>Working it out the long way is still worth it: the order count is what tells you whether a test on that page could ever reach significance.</p>
+
+  <h1>two things it is not</h1>
+  <ul>
+    <li>revenue per order is not AOV &mdash; Snapshot splits each order's total across the distinct products in it, so a page's share sits below the real basket value</li>
+    <li>a bigger estimate is not a better bet &mdash; it says nothing about whether the lift is achievable, or testable on that page's traffic</li>
+  </ul>
+
+</main>
+<script src="workshop.js"></script>
+</body>
+</html>

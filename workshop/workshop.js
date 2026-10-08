@@ -14,11 +14,20 @@
   var ROADMAPS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwMOk9LqM5mZtvbIdIJftAboBASi7Kj22pLbpNO3dNJ-7w4du3_NOTps471SV65y2ckgg/exec';
   window.WORKSHOP_ROADMAPS_ENDPOINT = ROADMAPS_ENDPOINT;
 
-  // forms with data-endpoint="analytics" / "roadmaps" post to that session's deployment
+  // The backlog workshop (session four). EMPTY ON PURPOSE until Shep decides
+  // whether session four gets its own deployment + sheet (the standing rule)
+  // or reuses ROADMAPS_ENDPOINT. While it is '', the send button says so
+  // rather than writing rows into another session's sheet.
+  var BACKLOG_ENDPOINT = '';
+  window.WORKSHOP_BACKLOG_ENDPOINT = BACKLOG_ENDPOINT;
+
+  // forms with data-endpoint="analytics" / "roadmaps" / "backlog" post to that
+  // session's deployment
   function endpointFor(form) {
     var which = form.getAttribute('data-endpoint');
     if (which === 'analytics') return ANALYTICS_ENDPOINT;
     if (which === 'roadmaps') return ROADMAPS_ENDPOINT;
+    if (which === 'backlog') return BACKLOG_ENDPOINT;
     return ENDPOINT;
   }
 
@@ -43,7 +52,10 @@
      'er-p.html', 'er-a.html', 'er-c.html', 'er-e.html',
      'er-roadmaps.html', 'er-prioritize.html',
      'er-feedback.html', 'er-prioritize-2.html', 'er-conclusion.html'],
-    ['confidence.html']
+    // session four: the backlog
+    ['confidence.html', 'bl-backlog.html', 'bl-lift.html',
+     'bl-funnel.html', 'bl-funnel-1.html', 'bl-funnel-2.html', 'bl-funnel-3.html',
+     'bl-funnel-answers.html']
   ];
 
   // left over from the old email gate — still read so submissions from
@@ -75,7 +87,9 @@
       'a_notes', 'a_urgency',
       'c_notes', 'c_urgency',
       'e_notes', 'e_urgency'
-    ]
+    ],
+    // session four: checkout funnels (bl-funnel-*.html)
+    workshop_review_funnels: ['funnel_1', 'funnel_2', 'funnel_3']
   };
   var liveStore = null; // the answers object initReview is saving from
   var altReview = document.querySelector('[data-review-store]');

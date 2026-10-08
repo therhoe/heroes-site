@@ -286,6 +286,110 @@ table.defs td:last-child { color: var(--ink-2); padding-right: 0; }
 .slide-center table.defs td { padding-top: 20px; padding-bottom: 20px; }
 .slide-center table.defs td:first-child { font-size: 17px; }
 
+/* --- data tables ---------------------------------------------------------- */
+.scroller { overflow-x: auto; max-width: 100%; margin: 28px 0 0; }
+table.data { border-collapse: collapse; font-family: var(--mono); font-size: 13px; min-width: 560px; }
+table.data th, table.data td {
+  padding: 10px 18px 10px 0; border-bottom: 1px solid var(--line);
+  text-align: left; white-space: nowrap;
+}
+table.data th { font-weight: 600; font-size: 12px; color: var(--ink-3); border-bottom-color: var(--line-2); }
+table.data th.num, table.data td.num { text-align: right; }
+table.data td:first-child, table.data th:first-child {
+  font-family: var(--sans); font-weight: 600; white-space: normal; min-width: 150px;
+}
+table.data tr:last-child td { border-bottom: none; }
+table.data td.win { font-weight: 600; }
+
+/* --- GA4 funnel exploration mock ------------------------------------------ */
+/* Deliberately NOT the workshop palette: this imitates Google's UI so it reads
+   as an embedded screenshot. Bars are scaled the way GA4 actually scales them
+   — to a y-axis set by step 2, with step 1 clipped at full height. */
+.ga4 {
+  --g-blue: #4285f4; --g-ink: #202124; --g-grey: #5f6368;
+  --g-line: #dadce0; --g-amber: #c5500f;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  color: var(--g-ink); background: #fff;
+  border: 1px solid var(--g-line); border-radius: 8px; overflow: hidden;
+  margin: 24px 0 0; box-shadow: 0 1px 3px rgba(60,64,67,0.12);
+}
+.ga4-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px; border-bottom: 1px solid var(--g-line);
+}
+.ga4-bar .dot { width: 22px; height: 22px; border-radius: 50%; background: var(--g-blue); flex: none; }
+.ga4-bar .tab { font-size: 13px; font-weight: 500; }
+.ga4-bar .spacer { flex: 1; }
+.ga4-bar .ico { width: 16px; height: 16px; border-radius: 3px; background: #e8eaed; }
+
+.ga4-grid { display: grid; grid-template-columns: 52px repeat(4, minmax(0, 1fr)); }
+.ga4-grid > .hd, .ga4-grid > .pl, .ga4-grid > .ft { border-right: 1px dashed var(--g-line); min-width: 0; }
+.ga4-grid > *:nth-child(5n) { border-right: none; }
+
+.hd { padding: 10px 12px 12px; }
+.hd .n { font-size: 11px; color: var(--g-grey); }
+.hd .row { display: flex; align-items: baseline; gap: 8px; margin-top: 2px; }
+.hd .name {
+  font-size: 13px; font-weight: 500; flex: 1; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.hd .pct { font-size: 13px; font-weight: 500; white-space: nowrap; }
+
+.pl { height: 150px; display: flex; align-items: flex-end; padding: 0 12px; }
+.pl i { display: block; width: 100%; background: var(--g-blue); }
+
+.ax { position: relative; }
+.ax.scale { height: 150px; }
+.ax.scale span {
+  position: absolute; right: 8px; font-size: 10px; color: var(--g-grey);
+  transform: translateY(50%);
+}
+.ax.scale .t { top: -1px; transform: none; }
+.ax.scale .m { top: 50%; }
+.ax.scale .b { bottom: -1px; transform: none; }
+
+.ft, .ax.below { border-top: 1px solid var(--g-line); }
+.ft { padding: 10px 12px 12px; min-height: 54px; }
+.ft .lbl { font-size: 11px; color: var(--g-grey); }
+.ft .val { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 12px; }
+.ft .sq { width: 9px; height: 9px; background: var(--g-blue); flex: none; }
+.ft .rate { color: var(--g-amber); }
+
+table.ga4-tbl { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.ga4-tbl th, table.ga4-tbl td { padding: 11px 14px; border-bottom: 1px solid #eceff1; text-align: right; white-space: nowrap; }
+table.ga4-tbl th { color: var(--g-grey); font-weight: 400; border-bottom-color: var(--g-line); }
+table.ga4-tbl th span { border-bottom: 1px solid var(--g-grey); }
+table.ga4-tbl td.step, table.ga4-tbl th.step { text-align: left; font-weight: 500; white-space: normal; }
+table.ga4-tbl td.idx, table.ga4-tbl th.idx { text-align: left; color: var(--g-grey); font-weight: 400; width: 1%; padding-right: 0; }
+table.ga4-tbl tr:last-child td { border-bottom: none; }
+table.ga4-tbl tr.lit td { background: #f1f3f4; }
+
+/* generic funnel: same component, no numbers — just the shape and the names */
+.ga4.generic .ga4-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.ga4.generic .ga4-grid > * { border-right: 1px dashed var(--g-line); }
+.ga4.generic .ga4-grid > *:nth-child(4n) { border-right: none; }
+.ga4.generic .hd .name { font-weight: 500; }
+
+/* their own answer, echoed back on the recap slide */
+.recap { white-space: pre-wrap; margin: 6px 0 0; }
+.recap:empty, .recap[hidden] { display: none; }
+.recap-q { font-family: var(--mono); font-size: 13px; color: var(--ink-3); margin: 28px 0 0; }
+
+.ga4-caption { font-family: var(--mono); font-size: 13px; color: var(--ink-3); margin: 12px 0 0; }
+
+@media (max-width: 700px) {
+  .ga4-grid { grid-template-columns: 40px repeat(4, minmax(0, 1fr)); }
+  .pl, .ax.scale { height: 104px; }
+  .hd { padding: 8px 7px 10px; }
+  .hd .name { font-size: 11px; }
+  .hd .pct { font-size: 11px; }
+  .hd .n, .ft .lbl { font-size: 10px; }
+  .pl { padding: 0 7px; }
+  .ft { padding: 8px 7px 10px; }
+  .ft .val { font-size: 11px; gap: 4px; }
+  table.ga4-tbl th, table.ga4-tbl td { padding: 9px 7px; font-size: 11px; }
+}
+
 /* --- answers pages: one block per team ---------------------------------- */
 .team { border: 1px solid var(--line); padding: 20px 24px; margin: 0 0 20px; }
 .team h2 { margin: 0 0 12px; }
@@ -362,6 +466,8 @@ hr.divider { border: 0; border-top: 1px solid var(--line); margin: 56px 0; }
   .slide-sub { font-size: 18px; }
   .lede { font-size: 19px; }
   table.defs td:first-child { white-space: normal; }
+  table.data { font-size: 12px; }
+  table.data th, table.data td { padding-right: 12px; }
   .q-label { min-width: 0; flex-basis: 100%; }
   .q.brands { grid-template-columns: 1fr; }
   /* two rows of five so every number is thumb-sized */
