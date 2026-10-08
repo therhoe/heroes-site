@@ -53,7 +53,8 @@
     // session four: the backlog
     ['confidence.html', 'bl-backlog.html', 'bl-lift.html',
      'bl-funnel.html', 'bl-funnel-1.html', 'bl-funnel-2.html', 'bl-funnel-3.html',
-     'bl-funnel-answers.html']
+     'bl-funnel-answers.html',
+     'bl-confidence.html', 'bl-confidence-tests.html']
   ];
 
   // left over from the old email gate — still read so submissions from
