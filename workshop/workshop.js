@@ -43,10 +43,7 @@
      'er-p.html', 'er-a.html', 'er-c.html', 'er-e.html',
      'er-roadmaps.html', 'er-prioritize.html',
      'er-feedback.html', 'er-prioritize-2.html', 'er-conclusion.html'],
-    // session four: the backlog — priorities & confidence
-    ['confidence.html', 'bl-program.html', 'bl-store.html', 'bl-priority.html',
-     'bl-pdp.html', 'bl-hypothesis.html', 'bl-ice.html', 'bl-mde.html',
-     'bl-route.html', 'bl-backlog.html', 'bl-cadence.html', 'bl-conclusion.html']
+    ['confidence.html']
   ];
 
   // left over from the old email gate — still read so submissions from
@@ -78,16 +75,6 @@
       'a_notes', 'a_urgency',
       'c_notes', 'c_urgency',
       'e_notes', 'e_urgency'
-    ],
-    // session four: the backlog (bl-*.html)
-    workshop_review_backlog: [
-      'page_pick', 'page_why',
-      'trust_score', 'priority_notes',
-      'pdp_findings',
-      'h1', 'h1_impact', 'h1_confidence', 'h1_ease', 'h1_route',
-      'h2', 'h2_impact', 'h2_confidence', 'h2_ease', 'h2_route',
-      'h3', 'h3_impact', 'h3_confidence', 'h3_ease', 'h3_route',
-      'mde_sessions', 'mde_cvr', 'mde_lift'
     ]
   };
   var liveStore = null; // the answers object initReview is saving from

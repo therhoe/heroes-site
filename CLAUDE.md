@@ -84,9 +84,7 @@ make homepage changes there.
 - Email-as-identity is fine (Shep's explicit call, 2026-09-11): no
   passwords, honor system. Nothing sensitive is collected.
 - Each workshop session gets its OWN Apps Script deployment + sheet
-  (Shep's call, 2026-09-15) — with one deliberate exception, session
-  four, which reuses the roadmaps deployment (see below).
-  Pace workshop → `rhoe-workshop-submissions`
+  (Shep's call, 2026-09-15). Pace workshop → `rhoe-workshop-submissions`
   (`ENDPOINT` in workshop.js, answers.html); analytics workshop →
   `rhoe-analytics-workshop-submissions` (`ANALYTICS_ENDPOINT`,
   analytics-answers.html); expert review & roadmaps workshop (session 3,
@@ -112,49 +110,6 @@ make homepage changes there.
   (2026-09-29); v1 pages still exist but are unlisted. Don't consolidate
   them; follow the same pattern for future sessions (script template:
   `.claude/scripts/analytics-workshop-apps-script.gs`).
-- Session four (`bl-*.html` + `confidence.html`, 2026-10-07) is
-  **The Backlog: Priorities & Confidence** — how to build a CRO program.
-  Twelve slides, structured as three gates: which page to work on
-  (traffic x weakness), what to test on it (findings -> hypotheses ->
-  ICE), and whether you can learn anything (sample size / MDE).
-  It **stands alone on a shared mock store** — Shep's call, 2026-10-07:
-  it deliberately does NOT read session three's localStorage, so
-  everyone works the same numbers and the discussion is comparable.
-  Entry point is `confidence.html` (kept at that filename because the
-  contents page and deck table already point there; its title is
-  "The Backlog").
-  - The mock store is "Northbound Supply", 8 pages, embedded directly
-    in `bl-store.html` and `bl-priority.html`. **The weakness /
-    opportunity / priority / confidence scores are computed from
-    Snapshot's real formulas** in `scorePageAggregate`,
-    `app/utils/store-snapshot.server.ts` of the **sibling**
-    `mousewhisperer` repo (one level up from this one — the app source
-    is NOT in heroes-site). They are not invented: the whole exercise
-    is attendees auditing them, so don't hand-edit a number without
-    recomputing the rest. Three traps are load-bearing: the top-ranked
-    page has 42 sessions (because `trafficScore` saturates at 20
-    sessions and revenue at $1,000, so `priority` collapses into
-    "weakness, halved"), a blog post ties a $890/mo product page, and a
-    policy page is penalised for a high exit rate. Every page reads
-    100% confidence because that figure is just `sessions / 30`.
-  - `bl-pdp.html` converges everyone on the Trail Runner 2 PDP. Its
-    five mock cards cross-foot against the store table (1,911 visits ->
-    1,204 real -> 51 add-to-cart -> 13 orders -> $2,412); keep them
-    consistent if you edit any of it.
-  - Answers live in localStorage `workshop_review_backlog` (key order in
-    `REVIEW_ORDERS`, workshop.js). Two rows go to the **existing
-    `ROADMAPS_ENDPOINT`** via `data-endpoint="roadmaps"`: `backlog-review`
-    (all 23 keys, sent from bl-route.html) and `backlog-order` (the
-    ranked list, sent from bl-backlog.html). The roadmaps Apps Script
-    makes one tab per exercise and appends unknown answer keys as new
-    columns, so **no script or endpoint change was needed** — that is
-    why session four has no deployment of its own.
-  - `workshop/bl.js` loads after workshop.js on four slides and
-    self-guards on `#ice` (live ICE readout), `#mde` (sample-size
-    calculator, 16*p*(1-p)/(p*lift)^2 at 95%/80%), and `#cards`
-    (drag-rank, `workshop_priorities_backlog`, plus the read-only
-    conclusion + CSV export). It mirrors `er-prioritize.js` — keep them
-    structurally similar rather than merging them.
 - Slide order per session lives in the deck table at the top of
   `workshop/workshop.js` — add new pages there, not just as links.
 - The contents page is `workshop/index.html` (`/workshop/`).

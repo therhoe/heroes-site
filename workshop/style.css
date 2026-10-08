@@ -286,40 +286,6 @@ table.defs td:last-child { color: var(--ink-2); padding-right: 0; }
 .slide-center table.defs td { padding-top: 20px; padding-bottom: 20px; }
 .slide-center table.defs td:first-child { font-size: 17px; }
 
-/* --- data tables (snapshot readouts) -------------------------------------- */
-.scroller { overflow-x: auto; max-width: 100%; margin: 28px 0 0; }
-table.data { border-collapse: collapse; font-family: var(--mono); font-size: 13px; min-width: 620px; }
-table.data th, table.data td {
-  padding: 10px 18px 10px 0; border-bottom: 1px solid var(--line);
-  text-align: left; white-space: nowrap;
-}
-table.data th { font-weight: 600; font-size: 12px; color: var(--ink-3); border-bottom-color: var(--line-2); }
-table.data th.num, table.data td.num { text-align: right; }
-table.data td:first-child, table.data th:first-child {
-  font-family: var(--sans); font-weight: 600; white-space: normal; min-width: 170px;
-}
-table.data tr:last-child td { border-bottom: none; }
-table.data tr.marked td { background: var(--paper-2); }
-table.data caption {
-  caption-side: bottom; text-align: left; font-family: var(--mono);
-  font-size: 13px; color: var(--ink-3); padding-top: 14px; white-space: normal;
-}
-
-/* score badges inside a data table */
-.pill {
-  display: inline-block; min-width: 32px; text-align: center;
-  padding: 2px 9px; border-radius: 999px; font-weight: 600;
-  background: var(--paper-2); border: 1px solid var(--line-2);
-}
-.pill.hot  { background: #fbd3cb; border-color: #eda593; color: #8a1f0f; }
-.pill.warm { background: #ffeab0; border-color: var(--accent); color: #6b4e00; }
-.pill.cool { background: #d8efde; border-color: #9ed4ae; color: #0f5132; }
-
-/* live computed readouts (ICE scores, the sample-size verdict) */
-.readout { font-family: var(--mono); font-size: 14px; font-weight: 600; margin: 10px 0 0; }
-.readout .big { font-size: 30px; font-weight: 600; letter-spacing: -0.5px; }
-.readout.empty { color: var(--ink-3); font-weight: 400; }
-
 /* --- answers pages: one block per team ---------------------------------- */
 .team { border: 1px solid var(--line); padding: 20px 24px; margin: 0 0 20px; }
 .team h2 { margin: 0 0 12px; }
@@ -396,8 +362,6 @@ hr.divider { border: 0; border-top: 1px solid var(--line); margin: 56px 0; }
   .slide-sub { font-size: 18px; }
   .lede { font-size: 19px; }
   table.defs td:first-child { white-space: normal; }
-  table.data { font-size: 12px; }
-  table.data th, table.data td { padding-right: 12px; }
   .q-label { min-width: 0; flex-basis: 100%; }
   .q.brands { grid-template-columns: 1fr; }
   /* two rows of five so every number is thumb-sized */
