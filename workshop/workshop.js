@@ -54,6 +54,7 @@
     ['confidence.html', 'bl-backlog.html', 'bl-lift.html',
      'bl-funnel.html', 'bl-funnel-1.html', 'bl-funnel-2.html', 'bl-funnel-3.html',
      'bl-funnel-answers.html',
+     'bl-fix.html',
      'bl-confidence.html', 'bl-confidence-tests.html']
   ];
 

@@ -33,6 +33,14 @@ main {
   padding: 72px 48px 120px;
 }
 
+/* --- section step marker ("step 3 / 4" above a section's title) -------- */
+.stepn {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-3);
+  margin: 0 0 10px;
+}
+
 /* --- type --------------------------------------------------------------- */
 h1.title {
   font-family: var(--mono);
@@ -243,6 +251,26 @@ button.opt:disabled { cursor: default; background: var(--paper); border-color: v
 .q.brands .brand-what { font-family: var(--sans); font-size: 15px; color: var(--ink-2); }
 .q.brands .brand-go { font-size: 12px; color: var(--ink-3); margin-top: 8px; }
 .q.brands button.opt.on .brand-what, .q.brands button.opt.on .brand-go { color: var(--ink); }
+/* brand cards that are plain links — no answer is saved, they just open the
+   page (session four). Needs its own rules: the .opt styles are button-only,
+   and the global a:hover inverts to a black fill. */
+.q.brands.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.q.brands a.opt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  text-align: left;
+  padding: 16px 18px;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line-2);
+  text-decoration: none;
+  transition: border-color 0.1s;
+}
+.q.brands a.opt:hover { border-color: var(--ink); background: var(--paper); color: var(--ink); }
 
 /* --- panel: a gray box that holds a form -------------------------------- */
 .panel {
@@ -474,7 +502,7 @@ hr.divider { border: 0; border-top: 1px solid var(--line); margin: 56px 0; }
   table.data { font-size: 12px; }
   table.data th, table.data td { padding-right: 12px; }
   .q-label { min-width: 0; flex-basis: 100%; }
-  .q.brands { grid-template-columns: 1fr; }
+  .q.brands, .q.brands.two { grid-template-columns: 1fr; }
   /* two rows of five so every number is thumb-sized */
   .q.scale { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
