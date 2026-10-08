@@ -14,11 +14,9 @@
   var ROADMAPS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwMOk9LqM5mZtvbIdIJftAboBASi7Kj22pLbpNO3dNJ-7w4du3_NOTps471SV65y2ckgg/exec';
   window.WORKSHOP_ROADMAPS_ENDPOINT = ROADMAPS_ENDPOINT;
 
-  // The backlog workshop (session four). EMPTY ON PURPOSE until Shep decides
-  // whether session four gets its own deployment + sheet (the standing rule)
-  // or reuses ROADMAPS_ENDPOINT. While it is '', the send button says so
-  // rather than writing rows into another session's sheet.
-  var BACKLOG_ENDPOINT = '';
+  // The backlog workshop (session four) — SEPARATE sheet + deployment too.
+  // Deploy .claude/scripts/backlog-workshop-apps-script.gs, paste the /exec URL here.
+  var BACKLOG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxWGaHFR71m4hcyPvHTE5RUT0yU8eqpG5FSD18hbNi3yMSOZctUxOSvg1pSKCwl3kQ6/exec';
   window.WORKSHOP_BACKLOG_ENDPOINT = BACKLOG_ENDPOINT;
 
   // forms with data-endpoint="analytics" / "roadmaps" / "backlog" post to that
