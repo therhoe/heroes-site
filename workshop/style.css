@@ -368,7 +368,7 @@ table.data td.win { font-weight: 600; }
 .hd .pct { font-size: 13px; font-weight: 500; white-space: nowrap; }
 
 .pl { height: 150px; display: flex; align-items: flex-end; padding: 0 12px; }
-.pl i { display: block; width: 100%; background: var(--g-blue); }
+.pl i { display: block; width: 100%; min-height: 2px; background: var(--g-blue); }
 
 .ax { position: relative; }
 .ax.scale { height: 150px; }
