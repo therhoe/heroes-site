@@ -23,7 +23,12 @@ feed:
   collections:
     - newsletter
 
+# Workshop pages are offline (2026-10-09, Shep's call): excluding the
+# directory keeps every file in the repo but stops Jekyll publishing it,
+# so /workshop/* 404s for past attendees and crawlers. Delete this one
+# line to put the whole deck back online — nothing else to undo.
 exclude:
+  - workshop
   - .claude
   - README.md
   - CLAUDE.md
