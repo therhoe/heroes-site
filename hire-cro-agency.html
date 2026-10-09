@@ -103,14 +103,16 @@
       line-height: 1.5;
     }
 
-    /* --- the two columns: what we do, and the form --- */
+    /* --- the form card ---
+       A single card since "what we do" was removed: centred and width-capped
+       so it does not stretch across the full 1200px canvas. */
     .split {
       display: grid;
-      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-      gap: 24px;
-      align-items: start;
+      grid-template-columns: minmax(0, 1fr);
+      justify-items: start;   /* left edge lines up with the headline above */
       padding-block: 56px 0;
     }
+    .split .card { width: 100%; max-width: 640px; }
     .card {
       padding: 36px;
       border-radius: var(--radius);
@@ -123,26 +125,6 @@
       font-weight: 700;
       letter-spacing: -0.015em;
     }
-
-    .what li {
-      position: relative;
-      padding: 10px 0 10px 30px;
-      border-bottom: 1px solid var(--line);
-      color: var(--muted);
-    }
-    .what li:last-child { border-bottom: 0; }
-    .what li::before {
-      content: "";
-      position: absolute;
-      left: 2px;
-      top: 18px;
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      background: var(--accent);
-    }
-    .what .price { margin: 20px 0 0; font-weight: 500; }
-    .what .price span { color: var(--muted); font-weight: 400; }
 
     /* --- form --- */
     .field { margin: 0 0 16px; }
@@ -198,9 +180,6 @@
     footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
     footer a { text-decoration: underline; text-underline-offset: 3px; }
 
-    @media (max-width: 900px) {
-      .split { grid-template-columns: 1fr; }
-    }
     @media (max-width: 640px) {
       :root { --gutter: 18px; }
       .site-header .wrap { padding-block: 12px; }
@@ -240,22 +219,11 @@
 <main>
 
   <section class="hero wrap">
-    <h1>Want to <span class="mark">work</span> together?</h1>
-    <p class="sub">We run conversion optimization for Shopify stores, ongoing or by project. Tell us what you are working on and we will get back to you — usually within a day.</p>
+    <h1>Work with <span class="mark">us</span></h1>
+    <p class="sub">Tell us what you are working on and what you need help with!</p>
   </section>
 
   <section class="split wrap" id="start">
-
-    <div class="card what">
-      <h2>What we do</h2>
-      <ul>
-        <li>audit your store for page performance</li>
-        <li>audit pages for leaks and opportunities</li>
-        <li>remove roadblocks and smooth out the buying process</li>
-        <li>test everything</li>
-      </ul>
-      <p class="price">Pricing based on scope.<br><span>Tell us what you need and we will put a number to it.</span></p>
-    </div>
 
     <div class="card">
       <h2>Get in touch</h2>

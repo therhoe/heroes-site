@@ -132,8 +132,17 @@
       max-width: 54ch;
       margin: 0;
       font-size: clamp(1.05rem, 1.6vw, 1.3rem);
-      color: var(--muted);
+      color: var(--fg);
       line-height: 1.5;
+    }
+    /* The supporting paragraph under the sub: smaller and grey, so the sub
+       stays the one line that gets read and this fills in the detail. */
+    .hero .note {
+      max-width: 58ch;
+      margin: 16px 0 0;
+      font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+      color: var(--muted);
+      line-height: 1.55;
     }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 32px 0 0; }
     .btn {
@@ -166,14 +175,6 @@
       font-size: clamp(1.5rem, 2.6vw, 2.1rem);
       font-weight: 700;
       letter-spacing: -0.02em;
-    }
-    .section-head .eyebrow {
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      white-space: nowrap;
     }
 
     /* --- cards ---------------------------------------------------------
@@ -266,9 +267,6 @@
     .card-news .issues .d { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
 
     /* service card -- the same yellow, as a bullet marker */
-    /* On this card the lede is a credential line, so it reads as a claim
-       rather than as muted supporting copy. */
-    .card-svc .lede { color: var(--fg); font-weight: 600; }
     .card-svc ul { margin: 16px 0 20px; }
     .card-svc li {
       position: relative;
@@ -286,7 +284,6 @@
       border-radius: 3px;
       background: var(--accent);
     }
-    .card-svc .price { font-weight: 500; }
     .card-svc .note { color: var(--muted); }
 
     footer {
@@ -309,11 +306,6 @@
     }
     @media (max-width: 640px) {
       :root { --gutter: 18px; }
-      /* The eyebrow is nowrap so it never breaks mid-phrase beside the
-         heading; at this width it cannot share the line at all, so it
-         drops underneath instead of pushing the page sideways. */
-      .section-head { flex-direction: column; align-items: flex-start; gap: 4px; }
-      .section-head .eyebrow { white-space: normal; }
       .site-header .wrap { padding-block: 12px; }
       .site-nav a { padding: 0 12px; }
       .site-nav a.cta { padding: 0 18px; }
@@ -356,10 +348,11 @@
   <section class="hero wrap">
     <div class="hero-grid">
       <div class="hero-copy">
-        <h1>Conversion rate optimization for <span class="mark">Shopify</span> stores.</h1>
-        <p class="sub">Knowing is half the battle. But it IS the first half, so it is kinda important. We specialize in data &amp; behavioral analytics for CRO to make sure clients stay focused on that true north star&hellip; their customers, the real heroes of ecommerce.</p>
+        <h1>Office <span class="mark">Hours</span></h1>
+        <p class="sub">Get your questions answered in a one-on-one call with an expert in ecommerce CRO.</p>
+        <p class="note">Whether you are starting a new conversion optimization program, need help with analytics, or just need to bounce some ideas off someone who has probably done it before, this is your chance. Dial it in.</p>
         <div class="hero-actions">
-          <a class="btn btn-solid" href="/hire-cro-agency.html">Work with us</a>
+          <a class="btn btn-solid" href="https://calendly.com/therealheroes/office-hours">Book an hour</a>
           <a class="btn btn-ghost" href="/snapshot/">See the app</a>
         </div>
       </div>
@@ -371,8 +364,7 @@
 
   <section class="section wrap">
     <div class="section-head">
-      <h2>Three ways in.</h2>
-      <span class="eyebrow">take whichever one you came for</span>
+      <h2>What we're working on</h2>
     </div>
 
     <div class="cards">
@@ -383,8 +375,7 @@
       <article class="card card-app">
         <div>
           <h3>Every <span class="accent">Insight</span> You Need to Lift Conversions, in One Place</h3>
-          <p>Snapshot CRO is our Shopify app. It tells you which page is costing you the most money, then shows you what on that page is losing people — the zones they click, the images they ignore, the step they exit from.</p>
-          <p>Free to start. Sixteen views across your whole store and every page in it.</p>
+          <p>This is the analytics app built specifically for CROs. It shows you which pages are making bank and which ones need work, and most importantly, it gives you the page level behavioral analytics you need to optimize those pages.</p>
           <div class="card-links">
             <a class="btn btn-solid" href="https://apps.shopify.com/snapshot-cro">Install on Shopify</a>
             <a class="btn" href="/snapshot/">See what it shows you</a>
@@ -400,8 +391,8 @@
 
       <!-- the newsletter -->
       <article class="card card-news">
-        <h3>The newsletter</h3>
-        <p class="lede">The building-in-public archive. Experiments that worked, experiments that didn't, and what the numbers actually said.</p>
+        <h3>The Real Heroes Newsletter</h3>
+        <p class="lede">A somewhat regular newsletter about conversion rate optimization, customer psychology, and happenings in the ecommerce world.</p>
 
         {% include subscribe-email.html %}
 
@@ -419,17 +410,14 @@
 
       <!-- cro services -->
       <article class="card card-svc">
-        <h3>CRO services</h3>
-        <p class="lede">14 years in ecommerce marketing &amp; operations.</p>
-        <p>Our strength is our background in building, operating and scaling ecommerce stores from all different stages of growth. It allows us a unique perspective since we have jumped through the same hoops you have and out-struggled the same struggles you have. And we build our processes and analytics tools from there.</p>
+        <h3>Work with us</h3>
+        <p class="lede">We have been operating and scaling ecommerce stores since before Shopify got its sea legs. That gives us a practical perspective on what businesses are going through, and allows us to work with you and not in a silo away from your business needs.</p>
         <ul>
-          <li>audit your store for page performance</li>
-          <li>audit pages for leaks and opportunities</li>
-          <li>remove roadblocks and smooth out the buying process</li>
-          <li>test everything</li>
+          <li>Store &amp; page audits</li>
+          <li>Conversion funnel audit</li>
+          <li>Experimentation development</li>
         </ul>
-        <p class="price">Pricing based on scope.</p>
-        <p class="note">Let us know what you are looking for and we will get back to you promptly.</p>
+        <p class="note">If you need an extension to your web team, reach out.</p>
         <div class="card-links">
           <a class="btn btn-ghost" href="/hire-cro-agency.html">Get in touch</a>
         </div>
