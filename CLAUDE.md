@@ -79,12 +79,11 @@ make homepage changes there.
 
 ## Workshop data decisions
 
-- **Offline since 2026-10-09** (Shep's call): `workshop` is listed in
-  `exclude` in `_config.yml`, so Jekyll does not publish it and every
-  `/workshop/*` URL 404s — past attendees and crawlers both get nothing.
-  The files are all still in the repo, unchanged. To run a session again,
-  delete that one `- workshop` line; there is nothing else to undo. Don't
-  re-add links to `/workshop/` from live pages while it is excluded.
+- **Back online 2026-10-20** at the attending team's request: the
+  `- workshop` exclude added 2026-10-09 is gone, so `/workshop/*` is
+  published again. No live page links to it — the Office Hours repoint
+  stands and the deck is reachable by URL only. Don't re-exclude it
+  without asking.
 
 - Scale target is ~100 low-concurrency users: Google Sheets + Apps Script
   is the right backend — do NOT propose Firebase/Supabase/auth systems.
