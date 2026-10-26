@@ -7,8 +7,18 @@ Marketing site for a boutique CRO agency (Shep + one other person), built
 around the Snapshot CRO Shopify app.
 
 **Pause mode ended (2026-10)**: the Substack redirect stub and
-`preview-home.html` are gone. `index.html` IS the live homepage again —
+`preview-home.html` are gone. `index.html` IS the live homepage —
 make homepage changes there.
+
+**The site is a one-pager as of 2026-10-26** (Shep's call). The homepage
+is Shep's letter and three off-site links, and it links to nothing else
+on this site. Every other page is still published and still cross-links
+to its siblings — they are just not reachable from the front door any
+more. That includes `/newsletter/` and its ~100 archived issues, which
+this site is the canonical home for; orphaning them from the homepage
+was the accepted cost, not an oversight. If the archive's traffic
+matters later, the cheapest fix is pointing the first ask at
+`/newsletter/` instead of Substack.
 
 ## Current facts (don't reintroduce stale numbers)
 
@@ -23,9 +33,16 @@ make homepage changes there.
 
 ## Pages
 
-- `index.html` — homepage. Wide canvas, two-column hero (`hero-booth.png`),
-  three-card grid: app / newsletter / CRO services. Tokens mirror
-  `snapshot/assets/css/style.css` so the two feel like one site.
+- `index.html` — homepage, rebuilt 2026-10-26 as a one-pager on the shape
+  of idiosync.site's index: a drawing at ~36% of the measure, the
+  headline "CRO is a test" with the yellow highlight, Shep's letter at a
+  64ch measure, and three plain text links (Substack, the App Store
+  listing, LinkedIn). One black pill in the header is the page's whole
+  allowance for raising its voice. It replaced the wide two-column hero
+  and the three-card grid wholesale — that version is in git at
+  `2b182c7~1`. It is **set in Bryndan Write, not Space Grotesk** — see
+  Style. No cards, no feature list: anything added here has to beat
+  "nothing".
 - `snapshot/index.html` — the Snapshot CRO product page, with its own
   `assets/css/style.css`, `assets/js/grid.js`, card images under
   `assets/img/cards/`, and `data/items.json` + `data/questions.json`
@@ -50,8 +67,15 @@ make homepage changes there.
   mark and it will look oversized.
 - `favicon.png` — 64x64 pixel face, the icon on every page but
   `/snapshot/`, which keeps the app's own.
-- `hero-booth.png` — 1000x1000 illustration in the homepage hero.
+- `hero-booth-cro.png` — 1000x1000, the booth with a "Conversion rate
+  optimization" sign and white panels. This is the homepage drawing.
+- `hero-booth.png` — the earlier booth, yellow panels and an "ANALYTICS /
+  Help 5¢" sign. Unused since the 2026-10-26 one-pager but kept. Don't
+  consolidate the two.
 - `heroes-lineup.png` — the old hero band, unused but kept.
+
+Not art, but it lives with it: `assets/fonts/bryndan-write.woff2`, 23KB,
+the homepage's typeface. See Style.
 
 ## Content collections
 
@@ -125,12 +149,36 @@ make homepage changes there.
 
 Two distinct looks. Don't mix them.
 
-**Marketing pages** (`index.html`, `snapshot/`, `hire-cro-agency.html`,
+**Marketing pages** (`snapshot/`, `hire-cro-agency.html`,
 `snapshot-insights.html`, `newsletter.html`, the newsletter layout) —
 redesigned 2026-10 as a real site: Space Grotesk, wide canvas, cards,
 pill buttons. Normal capitalization throughout, including nav items and
 buttons ("Snapshot CRO", "Newsletter", "Work with us", "Install on
 Shopify") — Shep's call, 2026-10-05. Don't lowercase them.
+
+**The homepage is its own third look** as of 2026-10-26. It keeps the
+marketing tokens — the #14171a ink, the #ffc42a highlight, normal
+capitalization — but it is set in **Bryndan Write**, self-hosted at
+`assets/fonts/bryndan-write.woff2`, copied from the idiosync repo.
+Things that follow from the face, and that will bite anyone editing it:
+
+- **It ships ONE weight.** `font-synthesis-weight: none` is on the body,
+  so a bold request degrades to regular rather than being faked. The h1
+  is 400 and nothing is above 500. Hierarchy is carried by scale.
+- It has no italic either, so `<em>` is a browser-synthesized slant.
+- **It is not the raw FontSpace TTF.** That one has no curly quotes, no
+  em dash and no ellipsis, all of which are in Shep's letter. The file
+  here is the patched + Latin-1-subset build; the only way to regenerate
+  it is `.claude/scripts/build-bryndan-woff2.py` in the idiosync repo.
+- It is wider than Space Grotesk, so display sizes come down and
+  measures go up relative to the other pages.
+- **The licence is unresolved and that was a decision.** The FontSpace
+  page says "Freeware" and nothing more, a commercial-use question there
+  went unanswered for six years, and the embedded copyright is
+  FontForge's default placeholder. Shep shipped it on idiosync
+  2026-10-13 and brought it here knowingly. Don't quietly re-open it; if
+  a claim ever arrives the swap is one `@font-face` and one `--font`
+  line, and Shantell Sans (Google Fonts, OFL) is the closest match.
 
 **Workshop pages** (`workshop/*`) — still the rendered-markdown/terminal
 document look (IBM Plex Mono/Sans, `workshop/style.css`). The casing rules

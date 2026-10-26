@@ -1,40 +1,95 @@
----
----
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Light only. Also stops the browser darkening form controls and
+       scrollbars on a dark-mode machine. -->
+  <meta name="color-scheme" content="light">
   <title>The Real Heroes of Ecommerce</title>
-  <meta name="description" content="The Real Heroes of Ecommerce — a boutique CRO agency for Shopify stores. CRO services, the Snapshot CRO app, and the rhoe newsletter for ecommerce operators.">
+  <meta name="description" content="CRO is a test, and the market does the grading. Shep writes The Real Heroes of Ecommerce, trains CRO programs for small and medium brands, and built Snapshot CRO for Shopify.">
   <link rel="canonical" href="https://therealheroesofecommerce.com/">
   <link rel="icon" href="/favicon.png" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- The page is set entirely in this one face, so it is worth fetching
+       before the stylesheet asks for it. Self-hosted and same-origin, but
+       fonts are always fetched in CORS mode -- without `crossorigin` the
+       browser downloads it twice. -->
+  <link rel="preload" href="/assets/fonts/bryndan-write.woff2" as="font" type="font/woff2" crossorigin>
   <style>
     /* ====================================================================
-       Homepage. Built to the same shape as /snapshot/ -- wide canvas, a
-       header with a CTA pill, a hero, then a card grid -- because the
-       stacked 728px column read as a document rather than a site.
-       Tokens mirror snapshot/assets/css/style.css so the two pages feel
-       like one product, but the ground stays white: that's the RHOE brand
-       and it doesn't move.
+       HOMEPAGE. Shep's call, 2026-10-26: the site collapses to this one
+       page. It replaced the wide two-column hero and the three-card grid
+       -- app / newsletter / CRO services -- wholesale; that version is in
+       git at 2b182c7~1 if it is ever wanted back.
+
+       The shape is lifted from idiosync.site's homepage -- one drawing,
+       one headline, one piece of writing, and the links at the end of it.
+
+       The rest of the site is still published and still cross-links to
+       itself; it just is not linked from here any more. The three asks
+       below go off-site on purpose (Substack, the App Store listing,
+       LinkedIn), which means /newsletter/, /snapshot/ and
+       hire-cro-agency.html have no inbound link from the front door. That
+       is the known cost of the one-pager, not an oversight -- see
+       CLAUDE.md.
+
+       What is NOT lifted is the type and colour. idiosync is set in a
+       hand-drawn face on flat white with a single ink; this site has its
+       own look -- Space Grotesk, the #14171a ink, the #ffc42a highlight --
+       and the tokens here are the same ones as index.html and
+       snapshot/assets/css/style.css so it still reads as this site. The
+       layout is the borrowed part.
+
+       There are no cards and no feature list on purpose. The letter is
+       the argument; a grid underneath it asking you to compare three
+       things would be arguing with it. Anything added here has to beat
+       "nothing", which is a higher bar than it sounds.
        ==================================================================== */
+    /* Bryndan Write, copied over from idiosync.site 2026-10-26 (Shep's
+       pick). One weight, no italic. `font-display: swap` means
+       the letter is readable in the system stack for the moment before the
+       face lands -- 23KB, so that moment is short.
+
+       The file is NOT the raw FontSpace TTF: the shipped face has no curly
+       quotes, no em dash and no ellipsis, all three of which are in Shep's
+       letter, so every apostrophe would drop to system sans mid-word. The
+       copy here is the patched + subset build from the idiosync repo
+       (`.claude/scripts/build-bryndan-woff2.py` over there is the only way
+       it should ever be regenerated). It covers Latin-1 plus punctuation
+       and nothing else.
+
+       Licence: the FontSpace page says "Freeware" and no more, and nobody
+       has claimed it in ten years. That was Shep's call on the other site,
+       2026-10-13, and using it here puts the same unresolved licence on
+       this domain's front page. If a claim ever arrives the swap is one
+       @font-face and one --font line; Shantell Sans (Google Fonts, OFL)
+       is the closest match. */
+    @font-face {
+      font-family: "Bryndan Write";
+      src: url("/assets/fonts/bryndan-write.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root {
       --fg: #14171a;
       --muted: #5c6166;
       --line: #e2e2e2;
-      --accent: #ffc42a;        /* the site's yellow, shared with /snapshot/.
-                                   On white it can't carry text, so it's only
-                                   ever a highlight behind dark text, or a
-                                   border. On black it carries text fine. */
-      --maxw: 1200px;
+      --accent: #ffc42a;        /* can't carry text on white, so it is only
+                                   ever a highlight behind dark text */
+      --maxw: 1040px;           /* narrower than index.html's 1200: this is
+                                   a page you read, not a canvas to lay
+                                   cards out on */
       --gutter: 24px;
       --control-height: 48px;
-      --radius: 16px;
-      --shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 14px 32px rgba(0, 0, 0, 0.09);
-      --font: "Space Grotesk", system-ui, sans-serif;
+      /* The face has ONE weight. Anything asking for bold gets a
+         browser-synthesized smear, which on a drawn face reads as a
+         printing fault -- so nothing on this page sets a weight above 500,
+         and the h1 is 400. Hierarchy here is carried by scale, not weight.
+         The fallback list is ordered to keep the reflow small rather than
+         to look like Bryndan, which nothing in a system stack does. */
+      --font: "Bryndan Write", "Space Grotesk", system-ui, sans-serif;
     }
 
     * { box-sizing: border-box; }
@@ -43,27 +98,30 @@
       background: #ffffff;
       color: var(--fg);
       font-family: var(--font);
+      /* Without this, a browser asked for bold draws it by smearing the
+         outline. Anything bold here degrades to regular instead. */
+      font-synthesis-weight: none;
       font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
     p { margin: 0 0 16px; }
-    ul { list-style: none; margin: 0; padding: 0; }
     a { color: inherit; }
     .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
 
     /* --- header --------------------------------------------------------
-       Logo left, nav + pill right on one row at a shared control height so
-       nothing drifts. Sticky, because the CTA is the point of it.
+       Wordmark left, one pill right. Not sticky: on a page this short
+       there is nothing to follow you down it, and the links at the end of
+       the letter are the real ask.
+
+       The rule sits on the inner row, inside the gutter, so it starts and
+       stops where the writing does rather than running the full window
+       like a toolbar.
+
+       240x54 for the mark is index.html's sizing, tuned to the two-line
+       wordmark -- see CLAUDE.md before swapping in a different logo.
        ------------------------------------------------------------------ */
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: saturate(180%) blur(12px);
-    }
-    .site-header .wrap {
+    .site-header .bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -71,260 +129,150 @@
       padding-block: 16px;
       border-bottom: 1px solid var(--line);
     }
+    .brand { display: inline-flex; align-items: center; }
     .brand img { display: block; width: 240px; max-width: 46vw; height: auto; }
-    .site-nav { display: flex; align-items: center; gap: 8px; }
-    .site-nav a {
+    .site-nav a.cta {
       display: inline-flex;
       align-items: center;
       height: var(--control-height);
-      padding: 0 16px;
+      padding: 0 24px;
       border-radius: 999px;
-      color: var(--muted);
+      color: #ffffff;
+      background: var(--fg);
       text-decoration: none;
       font-weight: 500;
       white-space: nowrap;   /* a multi-word pill wraps to two lines and
                                 breaks the header's single row */
-      transition: color .15s ease, background-color .15s ease;
+      transition: background-color .15s ease, color .15s ease;
     }
-    .site-nav a:hover { color: var(--fg); background: #f2f3f4; }
-    .site-nav a.cta { color: #ffffff; background: var(--fg); padding: 0 24px; }
     .site-nav a.cta:hover { background: #000000; color: var(--accent); }
 
     /* --- hero ----------------------------------------------------------
-       Two columns: copy left, the booth illustration right. The art is
-       square (1000x1000), so it wants roughly equal width to the copy
-       rather than a thin side rail.
+       Asset paths are relative so the page also renders opened straight
+       off disk, which is how a candidate page usually gets eyeballed.
+
+       The booth drawing is left-justified at about a third of the measure
+       -- a mark the column can hold, not art the page is built around. It
+       is square (1000x1000), so even that is a tall object; any wider and
+       the headline ends up below the fold on a laptop.
+
+       `hero-booth-cro.png` (Shep, 2026-10-26) is this page's own art and
+       is NOT the `hero-booth.png` index.html uses -- same booth, but the
+       top sign reads "Conversion rate optimization" and the panels are
+       white rather than yellow. Transparent, so it sits on the page with
+       no box around it. Don't consolidate the two files; the live
+       homepage still wants the yellow one.
        ------------------------------------------------------------------ */
-    .hero { padding-block: 64px 8px; }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-      gap: 48px;
-      align-items: center;
-    }
+    .hero { padding-block: 64px 0; }
+    .hero-art { margin: 0 0 36px; }
     .hero-art img {
       display: block;
-      width: 100%;
+      width: 36%;
+      min-width: 200px;
       height: auto;
     }
     .hero h1 {
-      max-width: 16ch;
+      max-width: 24ch;      /* Bryndan is a noticeably wider face than
+                               Space Grotesk, so the same line needs more
+                               room before it breaks */
       margin: 0 0 20px;
-      font-size: clamp(2.4rem, 6vw, 4.2rem);
-      font-weight: 700;
+      font-size: clamp(2.2rem, 5.4vw, 3.4rem);
+      font-weight: 400;     /* see the note on --font: 700 would be faked */
       line-height: 1.04;
       letter-spacing: -0.03em;
     }
-    /* The yellow can't carry text on white, so it sits behind it instead --
-       a marker-pen highlight rather than coloured type. */
+    /* The yellow sits behind the type rather than in it -- a marker-pen
+       highlight. Sized in em, not percentages: with the line-height this
+       tight a percentage stop lands under the glyphs and reads as an
+       underline. Same values as index.html. */
     .hero h1 .mark {
-      /* Sized and placed in em, not as a percentage of the line box -- with
-         line-height this tight a percentage stop lands under the glyphs and
-         reads as an underline. In em it tracks the font and stays a
-         highlight: band runs from mid x-height to just past the baseline. */
       background-image: linear-gradient(var(--accent), var(--accent));
       background-repeat: no-repeat;
       background-size: 100% 0.32em;
       background-position: 0 0.6em;
       padding-inline: 3px;
     }
+    /* Not a deck: same ink and nearly the same measure as the letter, so
+       it reads as the letter's first paragraph rather than a caption. A
+       notch larger is the only thing marking it as the opening. */
     .hero .sub {
-      max-width: 54ch;
+      max-width: 60ch;
       margin: 0;
-      font-size: clamp(1.05rem, 1.6vw, 1.3rem);
-      color: var(--fg);
-      line-height: 1.5;
-    }
-    /* The supporting paragraph under the sub: smaller and grey, so the sub
-       stays the one line that gets read and this fills in the detail. */
-    .hero .note {
-      max-width: 58ch;
-      margin: 16px 0 0;
-      font-size: clamp(0.95rem, 1.15vw, 1.05rem);
-      color: var(--muted);
-      line-height: 1.55;
-    }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 32px 0 0; }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      height: var(--control-height);
-      padding: 0 24px;
-      border-radius: 999px;
-      border: 1px solid var(--fg);
-      font-weight: 500;
-      text-decoration: none;
-      transition: background-color .15s ease, color .15s ease, border-color .15s ease;
-    }
-    .btn-solid { background: var(--fg); color: #ffffff; }
-    .btn-solid:hover { background: #000000; color: var(--accent); }
-    .btn-ghost:hover { background: var(--accent); border-color: var(--accent); }
-
-
-    /* --- section heads --- */
-    .section { padding-block: 80px 0; }
-    .section-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 16px;
-      margin: 0 0 24px;
-    }
-    .section-head h2 {
-      margin: 0;
-      font-size: clamp(1.5rem, 2.6vw, 2.1rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-size: clamp(1.05rem, 1.6vw, 1.22rem);
+      line-height: 1.6;
     }
 
-    /* --- cards ---------------------------------------------------------
-       Each card is a door, skinned like the page it opens onto. The app
-       card spans the grid because it carries the screenshots; the other
-       two sit beside each other.
+    /* --- the letter ----------------------------------------------------
+       64-character measure: this is reading, not scanning, so it gets a
+       line you can track across and a loose leading for the same reason.
+
+       It is not a separate band from the hero -- the gap below is one
+       paragraph space, because a headline and the body under it are one
+       thing. Shep's one-line paragraphs are his beats; they stay
+       paragraphs rather than <br>s so they keep their air on a phone.
        ------------------------------------------------------------------ */
-    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-    .card {
-      padding: 36px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid var(--line);
-      display: flex;
-      flex-direction: column;
+    .letter { padding-block: 24px 0; }
+    .letter p {
+      max-width: 64ch;
+      margin: 0 0 22px;
+      font-size: 1.0625rem;
+      line-height: 1.7;
     }
-    .card h3 {
-      margin: 0 0 12px;
-      font-size: 1.45rem;
-      font-weight: 700;
-      letter-spacing: -0.015em;
-      line-height: 1.2;
-    }
-    .card .lede { font-size: 1.1rem; color: var(--muted); }
-    .card .card-links { margin-top: auto; padding-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
 
-    /* app card -- /snapshot/'s black and yellow */
-    .card-app {
-      grid-column: 1 / -1;
-      background: #000000;
-      color: #ffffff;
-      border-color: #000000;
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-      gap: 40px;
-      align-items: center;
+    /* --- the three links -----------------------------------------------
+       Text links, one per line, not three buttons. The letter's case is
+       that there is a person on each side of this; a row of pills under
+       it would be the page raising its voice at the moment the writing
+       stops. The header pill is this page's whole allowance for that.
+       ------------------------------------------------------------------ */
+    .asks {
+      margin: 34px 0 0;
+      padding: 0;
+      list-style: none;
+      font-size: 1.0625rem;
     }
-    .card-app h3 { font-size: clamp(1.6rem, 2.8vw, 2.3rem); }
-    .card-app h3 .accent { color: var(--accent); }
-    .card-app p { color: #b4b4b4; }
-    .card-app .btn { border-color: var(--accent); color: var(--accent); }
-    .card-app .btn:hover { background: var(--accent); color: #000000; }
-    .card-app .btn-solid { background: var(--accent); color: #000000; }
-    .card-app .btn-solid:hover { background: #ffffff; border-color: #ffffff; }
-    .card-app .card-links { padding-top: 28px; }
+    .asks li { margin: 0 0 12px; }
+    .asks a {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+      font-weight: 500;
+    }
+    .asks a:hover { text-decoration-thickness: 2px; }
 
-    /* The shots are wide and vary in height, so cover-fitting them shrinks
-       the text to mush. Same trick as the cards on /snapshot/: zoom past the
-       frame and anchor top-left, so each shows a legible corner of real UI. */
-    .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .shots span {
-      display: block;
-      aspect-ratio: 16 / 10;
-      overflow: hidden;
-      border-radius: 10px;
-      border: 1px solid #2a2a2a;
-      background: #ffffff;
+    /* Shep's two <u>s in the closing line. Browsers draw a default
+       underline hard against the baseline, which next to this page's
+       link underlines (4px off) reads as a third, broken style. Same
+       offset, so the page has one underline. */
+    .letter u {
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
     }
-    .shots img { display: block; width: 170%; max-width: none; height: auto; }
 
-    /* newsletter card -- the paper sheet from _layouts/newsletter.html.
-       The subscribe include is shared with /newsletter/ and the newsletter
-       layout, which are square-cornered terminal pages, so its pills are
-       re-cut here rather than in the include. Selectors carry the extra
-       class to outrank `.sublead input[type="email"]`. */
-    .card-news .sublead { max-width: none; margin: 4px 0 0; }
-    .card-news .sublead input[type="email"],
-    .card-news .sublead button {
-      height: var(--control-height);
-      padding-inline: 20px;
-      border-radius: 999px;
-      border-color: var(--fg);
-    }
-    .card-news .sublead button { background: var(--fg); color: #ffffff; }
-    .card-news .sublead button:hover { background: #000000; color: var(--accent); }
-
-    .card-news .issues { margin: 20px 0 0; border-top: 1px solid var(--line); }
-    .card-news .issues li { border-bottom: 1px solid var(--line); }
-    .card-news .issues a {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 16px;
-      padding: 10px 0;
-      text-decoration: none;
-      transition: padding-left .15s ease;
-    }
-    .card-news .issues a:hover { padding-left: 8px; }
-    .card-news .issues .t { font-weight: 500; }
-    .card-news .issues .d { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
-
-    /* service card -- the same yellow, as a bullet marker */
-    .card-svc ul { margin: 16px 0 20px; }
-    .card-svc li {
-      position: relative;
-      padding: 10px 0 10px 30px;
-      border-bottom: 1px solid var(--line);
-      color: var(--muted);
-    }
-    .card-svc li::before {
-      content: "";
-      position: absolute;
-      left: 2px;
-      top: 18px;
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      background: var(--accent);
-    }
-    .card-svc .note { color: var(--muted); }
+    .signoff { margin: 34px 0 0; font-size: 1.0625rem; }
+    .signoff p { margin: 0; }
 
     footer {
       margin: 96px 0 0;
-      padding: 32px 0 56px;
+      padding: 28px 0 48px;
       border-top: 1px solid var(--line);
-      color: var(--muted);
       font-size: 0.9rem;
+      color: var(--muted);
     }
     footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
     footer a { text-decoration: underline; text-underline-offset: 3px; }
 
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
-      /* Art first on a phone: the booth is the thing that says what this is
-         faster than the headline does. */
-      .hero-art { order: -1; max-width: 360px; margin-inline: auto; }
-      .card-app { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-      .cards { grid-template-columns: minmax(0, 1fr); }
-    }
-    @media (max-width: 640px) {
+    @media (max-width: 600px) {
       :root { --gutter: 18px; }
-      .site-header .wrap { padding-block: 12px; }
-      .site-nav a { padding: 0 12px; }
-      .site-nav a.cta { padding: 0 18px; }
-      .hero { padding-top: 48px; }
-      .section { padding-top: 56px; }
-      .card { padding: 26px 22px; }
-      .shots { grid-template-columns: minmax(0, 1fr); }
+      .hero { padding-top: 44px; }
+      .hero-art img { width: 52%; }
+      /* No .letter override on purpose -- more air here on a phone would
+         undo the join and split the page into two blocks. */
     }
-    /* The wordmark is 9:1 -- below this it squeezes the nav off the row, so
-       the text links drop and only the pill stays. */
-    @media (max-width: 560px) {
-      .site-nav .nav-text { display: none; }
+    @media (max-width: 420px) {
+      .site-header .bar { gap: 12px; }
       .brand img { width: 180px; }
-    }
-    /* On the narrowest phones the 9:1 wordmark plus a no-wrap pill is wider
-       than the row, so both give up a little rather than overflowing. */
-    @media (max-width: 400px) {
-      .brand img { width: 150px; }
-      .site-nav a.cta { padding: 0 14px; font-size: 0.95rem; }
+      .site-nav a.cta { height: 40px; padding: 0 14px; font-size: 0.9rem; }
     }
   </style>
 </head>
@@ -332,111 +280,85 @@
 
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="The Real Heroes of Ecommerce home">
-      <img src="logo.png" alt="The Real Heroes of Ecommerce" width="1000" height="225">
-    </a>
-    <nav class="site-nav">
-      <a class="nav-text" href="/snapshot/">Snapshot CRO</a>
-      <a class="nav-text" href="/newsletter/">Newsletter</a>
-      <a class="cta" href="/hire-cro-agency.html">Work with us</a>
-    </nav>
+    <div class="bar">
+      <a class="brand" href="./" aria-label="The Real Heroes of Ecommerce home">
+        <img src="logo.png" alt="The Real Heroes of Ecommerce" width="1000" height="225">
+      </a>
+      <nav class="site-nav">
+        <a class="cta" href="https://apps.shopify.com/snapshot-cro">Install Snapshot</a>
+      </nav>
+    </div>
   </div>
 </header>
 
 <main>
 
+  <!-- Shep's copy, 2026-10-26. The opening two sentences are pulled up as
+       the headline and the sub; everything after them runs as the letter,
+       in his order, nothing cut. -->
   <section class="hero wrap">
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <h1>Office <span class="mark">Hours</span></h1>
-        <p class="sub">Get your questions answered in a one-on-one call with an expert in ecommerce CRO.</p>
-        <p class="note">Whether you are starting a new conversion optimization program, need help with analytics, or just need to bounce some ideas off someone who has probably done it before, this is your chance. Dial it in.</p>
-        <div class="hero-actions">
-          <a class="btn btn-solid" href="https://calendly.com/therealheroes/office-hours">Book an hour</a>
-          <a class="btn btn-ghost" href="/snapshot/">See the app</a>
-        </div>
-      </div>
-      <div class="hero-art">
-        <img src="hero-booth.png" alt="a cartoon booth with a sign reading ANALYTICS, help 5 cents, the heroes are in" width="1000" height="1000">
-      </div>
+    <div class="hero-art">
+      <img src="hero-booth-cro.png" width="1000" height="1000"
+           alt="An illustrated booth: a sign reading &quot;Conversion rate optimization&quot;, the pixel hero behind the counter, and a lower sign reading &quot;The Heroes are in&quot;.">
     </div>
+    <h1>CRO is <span class="mark">a test</span></h1>
+    <p class="sub">Not like an A/B test. It’s more like the tests we used to take in school that gets graded. Only it’s the market that does the grading.</p>
   </section>
 
-  <section class="section wrap">
-    <div class="section-head">
-      <h2>What we're working on</h2>
-    </div>
+  <!-- Shep's copy, revised 2026-10-26. Verbatim apart from outright
+       typos: "the grade our website gest" -> gets, "My background in is"
+       -> "My background is in", "It a lot of halves" -> "It's a lot of
+       halves", copy-pasteing -> copy-pasting, "better way to understand"
+       -> ways, shopify -> Shopify, and "if you focus are those two
+       things" -> "if you focus on those two things".
 
-    <div class="cards">
+       His quirks are HIS and stay: "the tests we used to take in school
+       that gets graded", "the lens in which I view CRO", "as long as
+       transaction is a word", and the our/your pronouns sliding about in
+       the second paragraph. Don't tidy them.
 
-      <!-- the app.
-           DRAFT COPY (2026-10-05) — Shep to redline the headline and the two
-           paragraphs. Everything else here is structure. -->
-      <article class="card card-app">
-        <div>
-          <h3>Every <span class="accent">Insight</span> You Need to Lift Conversions, in One Place</h3>
-          <p>This is the analytics app built specifically for CROs. It shows you which pages are making bank and which ones need work, and most importantly, it gives you the page level behavioral analytics you need to optimize those pages.</p>
-          <div class="card-links">
-            <a class="btn btn-solid" href="https://apps.shopify.com/snapshot-cro">Install on Shopify</a>
-            <a class="btn" href="/snapshot/">See what it shows you</a>
-          </div>
-        </div>
-        <div class="shots">
-          <span><img src="snapshot/assets/img/cards/conversion-funnel.png" alt="conversion funnel view" loading="lazy"></span>
-          <span><img src="snapshot/assets/img/cards/engagement-by-zone.png" alt="engagement by zone view" loading="lazy"></span>
-          <span><img src="snapshot/assets/img/cards/traffic-quality-by-source.png" alt="traffic quality by source view" loading="lazy"></span>
-          <span><img src="snapshot/assets/img/cards/sessions-by-page.png" alt="sessions by page view" loading="lazy"></span>
-        </div>
-      </article>
+       The two underlines in the last line are Shep's own <u>. They are
+       the only underlined words on the page that are not links, which is
+       a small risk -- but they sit in a sentence with no link anywhere
+       near it, and the three real links below are the only other
+       underlines, each on its own line. -->
+  <section class="letter wrap">
+    <p>And the grade our website gets directly correlates to revenue. It doesn’t matter what our classmates or teachers think… they are not the ones paying your tuition. The only thing that matters is how our customers respond.</p>
 
-      <!-- the newsletter -->
-      <article class="card card-news">
-        <h3>The Real Heroes Newsletter</h3>
-        <p class="lede">A somewhat regular newsletter about conversion rate optimization, customer psychology, and happenings in the ecommerce world.</p>
+    <p>My background is in ecommerce marketing and qualitative research, so the lens in which I view CRO is a little different. I am much more concerned with the customer’s psychology, perspective, and intent rather than copy-pasting tactics. Because the customer journey starts long before they land on a pixel-perfect page.</p>
 
-        {% include subscribe-email.html %}
+    <p>And those customers are grading your site based on their own terms.</p>
 
-        <ul class="issues">
-          {% assign issues = site.newsletter | sort: "date" | reverse %}
-          {% for p in issues limit: 6 %}
-          <li><a href="{{ p.url }}"><span class="t">{{ p.title }}</span> <span class="d">{{ p.date | date: "%b %Y" | downcase }}</span></a></li>
-          {% endfor %}
-        </ul>
+    <p>CRO &amp; marketing is an intersection of many skills. It’s a lot of halves. Half research &amp; analytics, half copywriting, half design, and a healthy scoop of psychology. A lot of halves make for a whole lot of whole… which is why it is so confusing yet so fun at the same time.</p>
 
-        <div class="card-links">
-          <a class="btn btn-ghost" href="/newsletter/">All {{ site.newsletter | size }} issues</a>
-        </div>
-      </article>
+    <p>I started writing The Real Heroes of Ecommerce years ago as a way to talk about ecommerce from this perspective, and to explore ideas on better ways to understand our customers — because they are <em>the real heroes.</em> But it has evolved quite a bit. I now work with and train many growing brands to improve their CRO programs. I still write, but not as much. And we recently launched a Shopify app designed for CROs to use in their analytics suite.</p>
 
-      <!-- cro services -->
-      <article class="card card-svc">
-        <h3>Work with us</h3>
-        <p class="lede">We have been operating and scaling ecommerce stores since before Shopify got its sea legs. That gives us a practical perspective on what businesses are going through, and allows us to work with you and not in a silo away from your business needs.</p>
-        <ul>
-          <li>Store &amp; page audits</li>
-          <li>Conversion funnel audit</li>
-          <li>Experimentation development</li>
-        </ul>
-        <p class="note">If you need an extension to your web team, reach out.</p>
-        <div class="card-links">
-          <a class="btn btn-ghost" href="/hire-cro-agency.html">Get in touch</a>
-        </div>
-      </article>
+    <p>But through all of that, and through the conversation around AI and agentic commerce, and through all the new technology, new ways to market, and new avenues for distribution… one thing remains the same. One thing that will never change as long as transaction is a word.</p>
 
+    <p>Business will always be <u>you</u> on one side and <u>your customer</u> on the other.</p>
+
+    <p>And everything in the middle will pan out if you focus on those two things.</p>
+
+    <ul class="asks">
+      <li><a href="https://heroesofecommerce.substack.com/">Sign up for The Real Heroes of Ecommerce.</a></li>
+      <li><a href="https://apps.shopify.com/snapshot-cro">Install Snapshot on your Shopify store.</a></li>
+      <li><a href="https://www.linkedin.com/in/jasonsdshepherd/">Hit me up if you want to talk about CRO.</a></li>
+    </ul>
+
+    <div class="signoff">
+      <p>Cheers,</p>
+      <p>—Shep</p>
     </div>
   </section>
 
 </main>
 
+<!-- The privacy link stays, whatever else comes off the page: it is the
+     address registered as Snapshot's privacy policy. -->
 <footer>
   <div class="wrap">
-    <span>&copy; 2026 the real heroes of ecommerce</span>
-    <span>
-      <a href="/snapshot/">snapshot cro</a> &middot;
-      <a href="/newsletter/">newsletter</a> &middot;
-      <a href="/hire-cro-agency.html">cro services</a> &middot;
-      <a href="/snapshot-privacy-policy.html">privacy</a>
-    </span>
+    <span>&copy; 2026 The Real Heroes of Ecommerce</span>
+    <span><a href="/snapshot-privacy-policy.html">Privacy</a></span>
   </div>
 </footer>
 
