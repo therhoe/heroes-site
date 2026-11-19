@@ -43,11 +43,38 @@ matters later, the cheapest fix is pointing the first ask at
   `2b182c7~1`. It is **set in Bryndan Write, not Space Grotesk** — see
   Style. No cards, no feature list: anything added here has to beat
   "nothing".
-- `snapshot/index.html` — the Snapshot CRO product page, with its own
-  `assets/css/style.css`, `assets/js/grid.js`, card images under
-  `assets/img/cards/`, and `data/items.json` + `data/questions.json`
-  driving the card grid and modals. Replaced the old root
-  `snapshot-cro.html` (deleted 2026-10 — don't resurrect it).
+- `snapshot/index.html` — the Snapshot CRO landing page, ported
+  2026-11-19 from the standalone site at
+  `snapshot.therealheroesofecommerce.com` (repo `therhoe/snapshot-site`,
+  hand-written `index.html` + `style.css`, no build step). **The same
+  page now lives at two addresses and both are live** — there is no
+  shared source, so a change to one has to be made in the other by
+  hand. If that gets tiresome the cheap fix is redirecting one at the
+  other; nobody has decided which yet, and neither copy declares a
+  canonical.
+  It is **a third look again** — Archivo Black poster type, hard
+  offset shadows, the `#fcc42a` amber, giant P/A/C/E letters — and it
+  does NOT follow the marketing-page styling of the other pages.
+  Its stylesheet is `snapshot/assets/css/style.css`, page-local like
+  every other stylesheet here. Two things in it are fragile: `.btn` is
+  `white-space: nowrap`, and the offer section's long label ("Book Your
+  1:1 PACE Session — $90") only fits one line at 375px because the
+  720px media query steps that button down to the base font size and
+  trims its side padding; under ~340px it is allowed to wrap. And the
+  amber `--hot` is a light colour that only works as a fill — the two
+  places the accent is text use `--hot-deep: #8a6000`.
+  The only thing added in the port is the back button to `/` in the
+  header, the convention the sub-pages here use.
+- `snapshot/grid.html` — the card-grid product page that was at
+  `/snapshot/` until 2026-11-19, still published but unlisted and
+  linked from nowhere. It keeps its own `assets/css/grid.css` (renamed
+  from `style.css` in the same commit), `assets/js/grid.js`, card
+  images under `assets/img/cards/`, and `data/items.json` +
+  `data/questions.json`. It shares generic class names (`.site-header`,
+  `.hero`, `.btn`, `.site-footer`) with the landing page above, so the
+  two stylesheets must never be loaded by the same document. It
+  replaced the old root `snapshot-cro.html` (deleted 2026-10 — don't
+  resurrect it).
 - `hire-cro-agency.html` — the CRO service page (redesigned 2026-10).
 - `snapshot-insights.html` — long-form page on what the app surfaces.
 - `newsletter.html` — newsletter hub (latest issues + year-grouped archive).
@@ -66,7 +93,13 @@ matters later, the cheapest fix is pointing the first ask at
   that (240px wide, 54px tall), not to the ratio — swap in a one-line
   mark and it will look oversized.
 - `favicon.png` — 64x64 pixel face, the icon on every page but
-  `/snapshot/`, which keeps the app's own.
+  `/snapshot/` and `/snapshot/grid.html`, which keep the app's own
+  (`snapshot/assets/img/logo.png`, the black wordmark). The standalone
+  snapshot-site uses a white wordmark there, which is invisible on a
+  browser tab — the black one was kept on purpose, and it is the one
+  deliberate difference between the two copies of the page.
+  `snapshot/assets/img/logo-black.png` is the big wordmark in the
+  landing page's header, copied from that repo.
 - `hero-booth-cro.png` — 1000x1000, the booth with a "Conversion rate
   optimization" sign and white panels. This is the homepage drawing.
 - `hero-booth.png` — the earlier booth, yellow panels and an "ANALYTICS /
@@ -147,9 +180,11 @@ the homepage's typeface. See Style.
 
 ## Style
 
-Two distinct looks. Don't mix them.
+Four distinct looks now. Don't mix them. The newest is `/snapshot/`,
+which is its own thing entirely and shares nothing with the other
+three — see Pages.
 
-**Marketing pages** (`snapshot/`, `hire-cro-agency.html`,
+**Marketing pages** (`snapshot/grid.html`, `hire-cro-agency.html`,
 `snapshot-insights.html`, `newsletter.html`, the newsletter layout) —
 redesigned 2026-10 as a real site: Space Grotesk, wide canvas, cards,
 pill buttons. Normal capitalization throughout, including nav items and
