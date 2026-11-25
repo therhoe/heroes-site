@@ -1,0 +1,451 @@
+---
+title: CRO Strategy
+permalink: /cro-strategy/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Light only, same as the homepage: also stops the browser darkening
+       form controls and scrollbars on a dark-mode machine. -->
+  <meta name="color-scheme" content="light">
+  <title>Get Your CRO Roadmap in 60 Minutes</title>
+  <meta name="description" content="Choose a product that you know should be converting more, and we’ll build a roadmap to maximize sales. A PACE review and a 3-test roadmap in 60 minutes.">
+  <link rel="canonical" href="https://therealheroesofecommerce.com/cro-strategy/">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <!-- Space Grotesk, the marketing pages' face -- /snapshot/ loads the
+       same three weights from the same URL, so a reader crossing between
+       them gets a cache hit rather than a second download. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ====================================================================
+       /cro-strategy/ -- the 60-minute CRO roadmap session.
+       Shep's call, 2026-11-25.
+
+       The LAYOUT is index.html's one-pager -- one headline with the
+       yellow highlight, writing you read straight through at a ~64ch
+       measure, plain text links at the end of it, one black pill in the
+       header and nothing else raising its voice -- with ONE structural
+       change Shep asked for: the hero is two columns. Headline and intro
+       left, a card with his photo and his own copy right. Everything
+       below the hero stays single-column at the reading measure, because
+       a two-column body would turn a letter into a brochure.
+
+       The TYPE is the marketing pages' -- Space Grotesk, loaded the way
+       /snapshot/ loads it -- NOT the homepage's Bryndan Write. That is
+       the other deliberate departure, and it has consequences worth
+       knowing before editing:
+
+         - Space Grotesk ships 400/500/700, so bold is REAL here. The
+           homepage's `font-synthesis-weight: none` guard is gone and the
+           h1 is 700, because on that page a bold request would have been
+           faked and on this one it is not.
+         - It is a narrower face than Bryndan, so display sizes go back UP
+           and measures come back DOWN relative to the homepage. The h1
+           cap is 20ch here against the homepage's 24ch for the same
+           reason, in reverse.
+
+       The ink (#14171a), the highlight (#ffc42a), the 48px control
+       height, the 16px card radius and the card shadow are all the
+       site's existing tokens, unchanged -- those are what keep this page
+       on the same site as the other two looks.
+
+       The file sits at the repo root as cro-strategy.html, and the
+       front matter's `permalink: /cro-strategy/` is what puts it at the
+       slug -- the same trick newsletter.html uses, which is why it is
+       written that way rather than as cro-strategy/index.html.
+
+       That front matter is also what makes Jekyll PROCESS this file
+       instead of copying it through as a static asset. There is no
+       Liquid in here today; if any ever gets pasted in, `{{` and `{%`
+       are now live and will be evaluated.
+
+       Every asset path here is root-absolute (/logo.png, /shep.jpg) and
+       has to stay that way. The source file is at the root but the page
+       is SERVED from /cro-strategy/, so a relative src would resolve
+       against that directory and 404. Don't "tidy" them to match the
+       homepage's relative paths.
+
+       ==================================================================== */
+    :root {
+      --fg: #14171a;
+      --muted: #5c6166;
+      --line: #e2e2e2;
+      --accent: #ffc42a;        /* can't carry text on white, so it is only
+                                   ever a highlight behind dark text */
+      --maxw: 1120px;           /* a notch over the homepage's 1040: the
+                                   hero now has to hold two columns, and
+                                   1040 squeezed the card. Still well
+                                   under the 1280 the card pages use. */
+      --gutter: 24px;
+      --control-height: 48px;
+      /* Lifted from snapshot/assets/css/style.css so the card here sits
+         at the same elevation and radius as the cards over there. */
+      --card-radius: 16px;
+      --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 14px 32px rgba(0, 0, 0, 0.09);
+      /* One family at every size, the way the snapshot stylesheet does
+         it -- swap this line to change the page's whole type. */
+      --font: "Space Grotesk", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--fg);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    p { margin: 0 0 16px; }
+    a { color: inherit; }
+    .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+
+    /* --- header --------------------------------------------------------
+       Wordmark left, one pill right, rule on the inner row so it starts
+       and stops where the writing does. Not sticky -- the links at the
+       end of the page are the real ask.
+
+       240x54 for the mark is the homepage's sizing, tuned to the
+       two-line wordmark. See CLAUDE.md before swapping in a one-line
+       logo: it will look oversized at this width.
+       ------------------------------------------------------------------ */
+    .site-header .bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-block: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { display: inline-flex; align-items: center; }
+    .brand img { display: block; width: 240px; max-width: 46vw; height: auto; }
+    .site-nav a.cta {
+      display: inline-flex;
+      align-items: center;
+      height: var(--control-height);
+      padding: 0 24px;
+      border-radius: 999px;
+      color: #ffffff;
+      background: var(--fg);
+      text-decoration: none;
+      font-weight: 500;
+      white-space: nowrap;   /* a multi-word pill wraps to two lines and
+                                breaks the header's single row */
+      transition: background-color .15s ease, color .15s ease;
+    }
+    .site-nav a.cta:hover { background: #000000; color: var(--accent); }
+
+    /* --- hero: two columns ---------------------------------------------
+       Asymmetric on purpose. The left column is the page's argument and
+       gets the room; the card is a sidebar, so it is sized by what a
+       portrait and a short block of copy need (~360px) rather than by
+       splitting the page down the middle. `start` alignment, not
+       `center` -- the card's top edge lines up with the top of the
+       headline, which is the only alignment a reader actually notices.
+
+       The breakpoint is 880px rather than the usual 768: the card stops
+       being a card somewhere around 300px wide, and below that the
+       portrait is doing nothing a stacked layout wouldn't do better.
+       ------------------------------------------------------------------ */
+    .hero { padding-block: 64px 0; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* The headline is the promise and the time it takes, in one line:
+       "Get Your CRO Roadmap for 1 Product in 60 Minutes" (Shep,
+       2026-11-25). It replaced "Workshop 1 Product Page to Maximize
+       Conversions", which had to be read carefully to parse -- workshop
+       as a verb, 1 as a count of pages -- and was read wrong at a glance
+       as "session one of a series".
+
+       The highlight is on "60 Minutes" rather than on the deliverable.
+       The roadmap is what you get; an hour is the reason you believe you
+       can have it today, and that is the harder thing to say.
+
+       The nbsp in "60&nbsp;Minutes" is load-bearing: without it the line
+       breaks between the two words at this measure, and the yellow comes
+       apart into a stub at the end of one line and a word at the start
+       of the next, which reads as two highlights rather than one phrase.
+       Keep any marked phrase unbreakable. */
+    .hero h1 {
+      max-width: 20ch;      /* Space Grotesk is narrower than the
+                               homepage's face, so the same line breaks
+                               later and needs less room, not more */
+      margin: 0 0 20px;
+      font-size: clamp(2.3rem, 4.6vw, 3.4rem);
+      font-weight: 700;     /* real bold here -- see the note up top */
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+    }
+    /* The yellow sits behind the type rather than in it -- a marker-pen
+       highlight. Sized in em, not percentages: with the line-height this
+       tight a percentage stop lands under the glyphs and reads as an
+       underline. Same values as the homepage and the service page. */
+    .hero h1 .mark {
+      background-image: linear-gradient(var(--accent), var(--accent));
+      background-repeat: no-repeat;
+      background-size: 100% 0.32em;
+      background-position: 0 0.6em;
+      padding-inline: 3px;
+    }
+    /* The intro. Not a deck: same ink and a measure close to the body's,
+       so it reads as the first paragraph rather than as a caption. A
+       notch larger is the only thing marking it as the opening. */
+    .hero .sub {
+      max-width: 46ch;      /* narrower than the homepage's 60ch -- this
+                               one shares its row with the card */
+      margin: 0;
+      font-size: clamp(1.05rem, 1.5vw, 1.18rem);
+      line-height: 1.6;
+    }
+
+    /* --- the bio card -------------------------------------------------
+       The page's one box, and the only thing on it with a shadow. It
+       earns that by being a different kind of content from everything
+       else here: a person, not an argument.
+
+       The portrait is a small avatar, NOT the full-bleed 4:5 header an
+       earlier draft had. That is forced by the file: shep.jpg is
+       200x200, a LinkedIn-sized crop. Filling a 360px-wide card header
+       with it meant a 2.25x upscale and a visibly soft face, and 4:5
+       would have cropped the sides off a square. At 96px it is still
+       sharp on a 2x screen with room to spare.
+
+       If a proper portrait ever turns up -- 800x1000 or better -- the
+       full-bleed header is worth going back to: give .avatar
+       `width:100%; height:auto; aspect-ratio:4/5; border-radius:0`, move
+       the card's 24px padding off .bio-card and onto a wrapper around
+       the two <p>s, and add `overflow:hidden` to .bio-card so the photo
+       takes the card's corner radius.
+       ------------------------------------------------------------------ */
+    .bio-card {
+      border: 1px solid var(--line);
+      border-radius: var(--card-radius);
+      box-shadow: var(--card-shadow);
+      background: #ffffff;
+      padding: 24px;
+    }
+    .bio-card .avatar {
+      display: block;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;     /* a square crop of a face reads as an ID
+                                 badge; the circle reads as a person */
+      object-fit: cover;
+      margin: 0 0 18px;
+      background: #f3f3f3;    /* shows for the moment before it loads */
+    }
+    /* A step down from the 1.0625rem body copy: the card is a sidebar,
+       and matching the body's size would make it compete with the thing
+       it sits beside. */
+    .bio-card p {
+      margin: 0 0 12px;
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+    .bio-card p:last-child { margin-bottom: 0; }
+    .bio-card a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 500;
+    }
+
+    /* --- the offer, in the left column ---------------------------------
+       Everything from here down lives in the hero's left column, beside
+       the card, not in a band under it. The hairline above it is the
+       only divider on the page: it marks where the hook stops and the
+       what-you-get starts, which is the one break a reader needs.
+
+       The measure is the column, not a 64ch cap -- the column is already
+       about 56 characters at full width, so capping it again would only
+       make it ragged.
+       ------------------------------------------------------------------ */
+    .offer {
+      margin: 34px 0 0;
+      padding-top: 30px;
+      border-top: 1px solid var(--line);
+    }
+    /* "PACE Review + 3-test Roadmap" -- the deliverable, named. Set as a
+       heading rather than a bold paragraph because it is one: the h2
+       under the h1. Small-caps-ish scale, not display scale; it should
+       land as a label on the offer, not as a second headline arguing
+       with the first. */
+    .offer h2 {
+      margin: 0 0 14px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+    }
+    .offer p {
+      margin: 0 0 20px;
+      font-size: 1.0625rem;
+      line-height: 1.7;
+    }
+    /* The lead-in to the list. Tighter margin than a normal paragraph
+       because the list under it is the rest of the sentence. */
+    .offer p.promise { margin-bottom: 12px; font-weight: 500; }
+
+    /* A prose list, not a feature grid: same size and leading as the
+       paragraphs above it so it reads as part of the writing. The
+       homepage's "anything added here has to beat nothing" bar applies
+       to this page too -- these three lines are the offer, which is why
+       they are the one list on it. */
+    .offer ul.points {
+      margin: 0 0 28px;
+      padding-left: 1.1em;
+      font-size: 1.0625rem;
+      line-height: 1.7;
+    }
+    .offer ul.points li { margin: 0 0 8px; }
+
+    /* --- the button ----------------------------------------------------
+       The homepage allows itself exactly one pill, in the header, and
+       ends on plain text links instead. This page is a different job: it
+       is asking for a booking, so the ask gets a button. It is the same
+       pill as the header's -- same height, same radius, same hover --
+       just wider, so the page still only has one button SHAPE even
+       though it now has two of them.
+       ------------------------------------------------------------------ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--control-height);
+      padding: 0 32px;
+      border-radius: 999px;
+      color: #ffffff;
+      background: var(--fg);
+      text-decoration: none;
+      font-size: 1.0625rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: background-color .15s ease, color .15s ease;
+    }
+    .btn:hover { background: #000000; color: var(--accent); }
+
+    footer {
+      margin: 96px 0 0;
+      padding: 28px 0 48px;
+      border-top: 1px solid var(--line);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+    footer a { text-decoration: underline; text-underline-offset: 3px; }
+
+    /* Stacked: card under the intro, before the body copy. It keeps its
+       source order, so nothing has to be reordered for a phone. Capped
+       and centred rather than run full-width -- a portrait the width of a
+       tablet is a lot of face. */
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+      .bio-card { max-width: 420px; }
+      .hero .sub { max-width: 60ch; }   /* no card beside it any more, so
+                                           it gets the homepage's measure
+                                           back */
+    }
+    @media (max-width: 600px) {
+      :root { --gutter: 18px; }
+      .hero { padding-top: 44px; }
+      .bio-card { max-width: none; }
+      /* No .letter override on purpose -- more air here on a phone would
+         undo the join and split the page into two blocks. */
+    }
+    @media (max-width: 420px) {
+      .site-header .bar { gap: 12px; }
+      .brand img { width: 180px; }
+      .site-nav a.cta { height: 40px; padding: 0 14px; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="/" aria-label="The Real Heroes of Ecommerce home">
+        <img src="/logo.png" alt="The Real Heroes of Ecommerce" width="1000" height="225">
+      </a>
+      <nav class="site-nav">
+        <a class="cta" href="https://apps.shopify.com/snapshot-cro">Install Snapshot</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero wrap">
+    <div class="hero-grid">
+
+      <div class="hero-main">
+        <!-- Shep's copy, revised 2026-11-25, verbatim. The sub ends
+             without a full stop; that is how he wrote it and it is not
+             a typo that changes the meaning, so it stays. -->
+        <h1>Get Your CRO Roadmap in <span class="mark">60&nbsp;Minutes</span></h1>
+        <p class="sub">Choose a product that you know should be converting more, and we&rsquo;ll build a roadmap to maximize sales</p>
+
+        <div class="offer">
+          <h2>PACE Review + 3-test Roadmap</h2>
+
+          <p>Get an expert review of the page based on the PACE framework to break down user intent and psychology based on product, position, and traffic source.</p>
+
+          <p class="promise">Before you hang up, you’ll have:</p>
+
+          <ul class="points">
+            <li>Clear intent of visitor</li>
+            <li>Analytics Process to repeat on other pages</li>
+            <li>3 AB tests to lift conversions</li>
+          </ul>
+
+          <!-- PLACEHOLDER href. Shep has not given the booking URL, so
+               this points at the LinkedIn profile the rest of the site
+               already uses -- a real destination rather than a dead "#",
+               but NOT a booking page. Swap it for the Calendly/booking
+               link before this goes out. -->
+          <a class="btn" href="https://www.linkedin.com/in/jasonsdshepherd/">Book Your CRO Call</a>
+        </div>
+      </div>
+
+      <!-- Shep's copy, 2026-11-25. One change: his last sentence
+           arrived as "I make a comic about it write about it The RHOE
+           newsletter" -- two phrasings run together with a word missing
+           either side. Set below as the likeliest reading. If it was
+           meant to be only the comic, or only the writing, this needs
+           his correction rather than mine.
+
+           No name/role heading: the copy opens with "Hi, my name is
+           Shep", so a label above it would say it twice. -->
+      <aside class="bio-card">
+        <img class="avatar" src="/shep.jpg" width="200" height="200"
+             alt="Shep">
+        <p>Hi, my name is Shep, and I am an ecommerce CRO.</p>
+        <p>I&rsquo;ve been in optimization since 2019 and work with all sorts of brands at all sorts of stages of growth. Every week or so, I make a comic about it and write about it in <a href="https://heroesofecommerce.substack.com/">The RHOE newsletter</a>.</p>
+      </aside>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- The privacy link stays on every page: it is the address registered as
+     Snapshot's privacy policy. -->
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 The Real Heroes of Ecommerce</span>
+    <span><a href="/snapshot-privacy-policy.html">Privacy</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
