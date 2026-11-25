@@ -10,8 +10,8 @@ permalink: /cro-strategy/
   <!-- Light only, same as the homepage: also stops the browser darkening
        form controls and scrollbars on a dark-mode machine. -->
   <meta name="color-scheme" content="light">
-  <title>Get Your CRO Roadmap in 60 Minutes</title>
-  <meta name="description" content="Let’s analyze and build a 3 experiment roadmap to maximize conversions for one product page. A 30 minute PACE review and 30 minutes of data analysis.">
+  <title>Get Your CRO Roadmap Set in One Hour</title>
+  <meta name="description" content="Pick one product and we go through it together, live. You leave with 2–3 tests to run first, and the reasoning behind each.">
   <link rel="canonical" href="https://therealheroesofecommerce.com/cro-strategy/">
   <link rel="icon" href="/favicon.png" type="image/png">
   <!-- Space Grotesk, the marketing pages' face -- /snapshot/ loads the
@@ -79,6 +79,9 @@ permalink: /cro-strategy/
        homepage's relative paths.
 
        ==================================================================== */
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
     :root {
       --fg: #14171a;
       --muted: #5c6166;
@@ -176,15 +179,16 @@ permalink: /cro-strategy/
        as a verb, 1 as a count of pages -- and was read wrong at a glance
        as "session one of a series".
 
-       The highlight is on "60 Minutes" rather than on the deliverable.
-       The roadmap is what you get; an hour is the reason you believe you
-       can have it today, and that is the harder thing to say.
+       2026-11-25, second pass: the headline lost its yellow highlight.
+       The accent now does its work in the primary button and the
+       timeline below, and a highlight as well as those made three
+       yellow things compete in one screen. .hero h1 .mark is kept
+       BELOW, unused, because the redesign is still arriving in pieces
+       and the highlight may come back; delete it if it does not.
 
-       The nbsp in "60&nbsp;Minutes" is load-bearing: without it the line
-       breaks between the two words at this measure, and the yellow comes
-       apart into a stub at the end of one line and a word at the start
-       of the next, which reads as two highlights rather than one phrase.
-       Keep any marked phrase unbreakable. */
+       If a marked phrase ever returns, keep it unbreakable with an
+       nbsp -- a highlight split across two lines reads as two
+       highlights rather than one phrase. */
     .hero h1 {
       max-width: 20ch;      /* Space Grotesk is narrower than the
                                homepage's face, so the same line breaks
@@ -290,79 +294,338 @@ permalink: /cro-strategy/
       font-weight: 500;
     }
 
-    /* --- the offer, in the left column ---------------------------------
-       Everything from here down lives in the hero's left column, beside
-       the card, not in a band under it. The hairline above it is the
-       only divider on the page: it marks where the hook stops and the
-       what-you-get starts, which is the one break a reader needs.
+    /* --- the client logo marquee ----------------------------------------
+       The seven brands Shep has worked on, pulled from each store's own
+       header (assets/logos/, 2026-11-25).
 
-       The measure is the column, not a 64ch cap -- the column is already
-       about 56 characters at full width, so capping it again would only
-       make it ragged.
+       They are rendered MONOCHROME, and that is not a style
+       preference: the source artwork is irreconcilable. Mean luminance
+       of the opaque pixels, measured rather than guessed --
+
+         Correct Toes        254   light artwork, for a dark header
+         Tender Loving E.    249   light artwork, for a dark header
+         LoudPuff            142   a dark badge with knockout text
+         Hulala Home          60   dark artwork, for a white header
+         Ativafit             41   dark artwork, for a white header
+         The Hemp Collect     25   dark artwork, for a white header
+         FIRMABS              23   dark artwork, for a white header
+
+       -- so on any single background colour about a third of them
+       vanish. The two light ones are inverted; everything else is only
+       desaturated. Do NOT reach for brightness(0) to flatten the lot:
+       it turns LoudPuff into a solid black blob, because its text is
+       knocked out of the badge rather than drawn on it.
+
+       FIRMABS shipped as a JPEG on a flat white field; the PNG here was
+       made by knocking out every pixel above 238 on all three channels.
+
+       If a brand ever supplies a proper dark-on-transparent mark, drop
+       it in and leave the classes off.
+
+       The track is repeated THREE times and each copy translates by
+       -100% of its own width. Two copies is the usual recipe and it
+       tears on a wide monitor: the loop is only seamless while the
+       repeated run is wider than the viewport, and seven logos come to
+       roughly 1400px.
        ------------------------------------------------------------------ */
-    .offer {
-      margin: 34px 0 0;
-      padding-top: 30px;
-      border-top: 1px solid var(--line);
-    }
-    /* "30 min PACE Review + 30 min Data Analysis" -- the deliverable, named. Set as a
-       heading rather than a bold paragraph because it is one: the h2
-       under the h1. Small-caps-ish scale, not display scale; it should
-       land as a label on the offer, not as a second headline arguing
-       with the first. */
-    .offer h2 {
-      margin: 0 0 14px;
-      font-size: 1.3rem;
-      font-weight: 700;
-      line-height: 1.25;
-      letter-spacing: -0.015em;
-    }
-    .offer p {
+    .logos { padding-block: 8px 44px; }
+    .logos-label {
       margin: 0 0 20px;
-      font-size: 1.0625rem;
-      line-height: 1.7;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
-    /* The lead-in to the list. Tighter margin than a normal paragraph
-       because the list under it is the rest of the sentence. */
-    .offer p.promise { margin-bottom: 12px; font-weight: 500; }
+    .marquee {
+      display: flex;
+      overflow: hidden;
+      /* fade the ends so logos enter and leave rather than being cut */
+      mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    }
+    .marquee-track {
+      display: flex;
+      flex: none;
+      align-items: center;
+      gap: 64px;
+      padding-right: 64px;
+      margin: 0;
+      list-style: none;
+      animation: marquee-scroll 42s linear infinite;
+    }
+    @keyframes marquee-scroll { to { transform: translateX(-100%); } }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    .marquee img {
+      display: block;
+      height: 34px;
+      width: auto;
+      filter: grayscale(1);
+      opacity: 0.5;
+    }
+    /* Light artwork, drawn for a dark header: inverted so it reads on
+       white. Only these two -- see the table above. */
+    .marquee img.is-light { filter: grayscale(1) invert(1); }
+    /* LoudPuff's mark is nearly square where the rest are wide, so a
+       shared height leaves it looking half the size of its neighbours.
+       Matched by eye, not by maths. */
+    .marquee img.is-square { height: 50px; }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track { animation: none; }
+      .marquee { overflow-x: auto; }
+      .marquee-track + .marquee-track { display: none; }
+    }
 
-    /* A prose list, not a feature grid: same size and leading as the
-       paragraphs above it so it reads as part of the writing. The
-       homepage's "anything added here has to beat nothing" bar applies
-       to this page too -- these three lines are the offer, which is why
-       they are the one list on it. */
-    .offer ul.points {
-      margin: 0 0 28px;
-      padding-left: 1.1em;
-      font-size: 1.0625rem;
-      line-height: 1.7;
+    /* --- "here's what we cover": the five-step timeline -------------
+       From the redesign screenshots, 2026-11-25. It replaced the offer
+       block that used to sit in the hero's left column (the "30 min
+       PACE Review + 30 min Data Analysis" heading, its paragraph and
+       the three promise bullets) -- that block said the same things
+       this timeline says, and having both would have said them twice.
+       It is in git if it is wanted back.
+
+       The line is drawn per step, not as one element behind the row:
+       each dot's ::after reaches from its own right edge to the next
+       column's left edge, which is exactly the grid gap. That means
+       the line cannot fall out of step with the dots at any width, and
+       the last step simply does not draw one.
+       ------------------------------------------------------------------ */
+    /* padding-BLOCK, not the shorthand: .wrap supplies the side
+       gutters, and a shorthand here would reset them to 0 and run the
+       section full-bleed on a phone. */
+    .cover { padding-block: 76px 96px; }
+    #what-we-cover { scroll-margin-top: 28px; }
+    .cover h2 {
+      margin: 0 0 14px;
+      font-size: clamp(1.55rem, 2.6vw, 2.05rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
     }
-    .offer ul.points li { margin: 0 0 8px; }
+    .cover .lede {
+      max-width: 58ch;
+      margin: 0 0 52px;
+      color: var(--muted);
+      font-size: 1.0625rem;
+      line-height: 1.6;
+    }
+    .steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0 24px;
+    }
+    .step .dot { position: relative; height: 18px; margin: 0 0 18px; }
+    .step .dot::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0;
+      width: 18px; height: 18px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--fg);
+    }
+    /* right: -24px == the grid gap, so this lands on the next dot. */
+    .step .dot::after {
+      content: "";
+      position: absolute;
+      left: 18px; right: -24px; top: 8px;
+      height: 2px;
+      background: var(--accent);
+    }
+    .step:last-child .dot::after { display: none; }
+    .step:last-child .dot::before { background: var(--fg); }
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;   /* written in normal case in the
+                                      markup so the source stays
+                                      readable; the caps are styling */
+      color: var(--muted);
+    }
+    .step h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+    .step p { margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--muted); }
+
+    /* --- the PACE cards -------------------------------------------------
+       Shep's call, 2026-11-25: the heading sits on the page, and each
+       of the four aspects is its OWN card rather than four cells in one
+       panel. Four cards say "four separate things to think about",
+       which is what they are; one panel said "one topic, subdivided".
+
+       Card styling is the bio card's -- white, same border, radius and
+       shadow -- so the page has exactly one kind of card on it.
+
+       The glyph is the accent used the only way it may be used: as a
+       fill with dark text on it. Its radius is 12 -- between the
+       card's 16 and the buttons' 8, which is where a 56px tile wants
+       to sit between the two.
+       ------------------------------------------------------------------ */
+    .pace { padding-block: 0 96px; }
+    .pace h2 {
+      margin: 0 0 34px;
+      font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+    }
+    .pace-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+    .pace-item {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--card-radius);
+      box-shadow: var(--card-shadow);
+      padding: 28px;
+    }
+    .glyph {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px; height: 56px;
+      margin: 0 0 16px;
+      border-radius: 12px;
+      background: var(--accent);
+      color: var(--fg);
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .pace-item h3 { margin: 0 0 8px; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
+    .pace-item p { margin: 0; color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+
+    /* --- what you get, and the booking card ----------------------------
+       The card keeps the design's flat grey and no shadow, which is the
+       one place it disagrees with the PACE panel above now that that
+       one has been moved to the bio card's styling. Worth settling in
+       one direction or the other.
+       ------------------------------------------------------------------ */
+    .outcome { padding-block: 0 100px; }
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
+      gap: 56px;
+      align-items: start;
+    }
+    .gets-col h2 {
+      margin: 0 0 26px;
+      font-size: clamp(1.55rem, 2.6vw, 2.05rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+    }
+    .gets { list-style: none; margin: 0; padding: 0; }
+    .gets li { padding: 20px 0; border-top: 1px solid var(--line); }
+    .gets li:first-child { border-top: 0; padding-top: 0; }
+    .gets h3 { margin: 0 0 6px; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
+    .gets p { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.6; }
+
+    .book-card { background: #f1f1f1; border-radius: var(--card-radius); padding: 28px; }
+    .book-title { margin: 0 0 2px; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
+    .price {
+      margin: 0;
+      font-size: clamp(1.75rem, 3vw, 2.15rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+    .incl-label {
+      margin: 22px 0 14px;
+      padding-top: 22px;
+      border-top: 1px solid #dcdcdc;
+      font-size: 0.95rem;
+    }
+    .checks { list-style: none; margin: 0 0 24px; padding: 0; }
+    .checks li {
+      position: relative;
+      margin: 0 0 12px;
+      padding-left: 28px;
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+    .checks li:last-child { margin-bottom: 0; }
+    .checks li::before {
+      content: "✓";
+      position: absolute;
+      left: 0; top: 0;
+      font-weight: 700;
+    }
+    .btn--block { display: flex; width: 100%; height: 56px; }
+    /* Decorative: the card already names Shep in words, so alt="". */
+    .btn-avatar {
+      flex: none;
+      width: 26px; height: 26px;
+      margin-right: 10px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .fineprint { margin: 14px 0 0; text-align: center; color: var(--muted); font-size: 0.85rem; }
 
     /* --- the button ----------------------------------------------------
        The homepage allows itself exactly one pill, in the header, and
        ends on plain text links instead. This page is a different job: it
-       is asking for a booking, so the ask gets a button. It is the same
-       pill as the header's -- same height, same radius, same hover --
-       just wider, so the page still only has one button SHAPE even
-       though it now has two of them.
+       is asking for a booking, so the ask gets a button.
+
+       2026-11-25, second pass: the hero now carries TWO buttons, a
+       filled primary and an outlined secondary, as rounded rectangles
+       rather than the header's pill. That is the design Shep is
+       working from. It does mean the page holds two button shapes --
+       the header pill and these -- which is the one place the new
+       hero and the old chrome disagree. Settle it by moving the header
+       to the same radius, not by re-pilling these.
+
+       The primary is the accent as a FILL with dark text on it, which
+       is the only way --accent is allowed to be used: it cannot carry
+       text itself on white. See the token.
        ------------------------------------------------------------------ */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       height: var(--control-height);
-      padding: 0 32px;
-      border-radius: 999px;
+      padding: 0 24px;
+      border-radius: 8px;
       color: #ffffff;
       background: var(--fg);
+      border: 1px solid var(--fg);
       text-decoration: none;
       font-size: 1.0625rem;
       font-weight: 500;
       white-space: nowrap;
-      transition: background-color .15s ease, color .15s ease;
+      transition: background-color .15s ease, color .15s ease, border-color .15s ease;
     }
     .btn:hover { background: #000000; color: var(--accent); }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 28px 0 0;
+    }
+    .btn--primary {
+      background: var(--accent);
+      color: var(--fg);
+      border: 1px solid var(--accent);
+    }
+    .btn--primary:hover { background: #f0b400; border-color: #f0b400; color: var(--fg); }
+    .btn--ghost {
+      background: #ffffff;
+      color: var(--fg);
+      border: 1px solid var(--line);
+    }
+    .btn--ghost:hover { background: #ffffff; border-color: var(--fg); color: var(--fg); }
 
     footer {
       margin: 96px 0 0;
@@ -384,11 +647,40 @@ permalink: /cro-strategy/
       .hero .sub { max-width: 60ch; }   /* no card beside it any more, so
                                            it gets the homepage's measure
                                            back */
+      /* Five columns stop being readable well before they stop fitting.
+         Stacked, the same ::after becomes the vertical run between dots. */
+      .steps { grid-template-columns: minmax(0, 1fr); gap: 0; }
+      .step { position: relative; padding: 0 0 30px 34px; }
+      .step .dot { position: absolute; left: 0; top: 3px; width: 18px; margin: 0; }
+      /* Stacked, the run between dots is drawn on the STEP, not the
+         dot: a dot is 18px tall and the gap to the next one is however
+         tall this step's text is, so a line hung off the dot can only
+         ever be a stub. The step box reaches the next step exactly. */
+      .step .dot::after { display: none; }
+      .step::before {
+        content: "";
+        position: absolute;
+        left: 8px; top: 23px; bottom: -3px;
+        width: 2px;
+        background: var(--accent);
+      }
+      .step:last-child::before { display: none; }
+      .step:last-child { padding-bottom: 0; }
+      .outcome-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+      .book-card { max-width: 420px; }
     }
     @media (max-width: 600px) {
       :root { --gutter: 18px; }
       .hero { padding-top: 44px; }
       .bio-card { max-width: none; }
+      .book-card { max-width: none; }
+      /* Tender Loving Empire's wordmark is nearly 11:1, so at 34px it
+         is 370px wide and fills a phone on its own. Smaller here, with
+         a tighter gap, so more than one brand is on screen at a time. */
+      .marquee img { height: 24px; }
+      .marquee img.is-square { height: 36px; }
+      .marquee-track { gap: 40px; padding-right: 40px; }
+      .pace-grid { grid-template-columns: minmax(0, 1fr); gap: 30px; }
       /* No .letter override on purpose -- more air here on a phone would
          undo the join and split the page into two blocks. */
     }
@@ -420,31 +712,22 @@ permalink: /cro-strategy/
     <div class="hero-grid">
 
       <div class="hero-main">
-        <!-- Shep's copy, revised 2026-11-25, verbatim. The sub ends
-             without a full stop; that is how he wrote it and it is not
-             a typo that changes the meaning, so it stays. -->
-        <h1>Get Your CRO Roadmap in <span class="mark">60&nbsp;Minutes</span></h1>
-        <p class="sub">Let&rsquo;s analyze and build a 3 experiment roadmap to maximize conversions for one product page.</p>
+        <!-- Copy transcribed from the redesign screenshots, 2026-11-25,
+             verbatim. The en dashes in "2–3" are the design's, not
+             hyphens -- keep them. -->
+        <h1>Get your CRO roadmap set in one hour</h1>
+        <p class="sub">Pick one product. We go through it together, live: who buys it, what they do on the page, and where they stall. You leave with 2&ndash;3 tests to run first, and the reasoning behind each.</p>
 
-        <div class="offer">
-          <h2>30 min PACE Review + 30 min Data Analysis</h2>
-
-          <p>Using my PACE framework, we will break down customer intent and psychology before we dive into the numbers and develop your roadmap.</p>
-
-          <p class="promise">Before you hang up, you’ll:</p>
-
-          <ul class="points">
-            <li>Know the PACE of your customers</li>
-            <li>Complete a CRO analysis you can repeat</li>
-            <li>Have a solid AB testing roadmap in hand</li>
-          </ul>
-
-          <!-- PLACEHOLDER href. Shep has not given the booking URL, so
-               this points at the LinkedIn profile the rest of the site
-               already uses -- a real destination rather than a dead "#",
-               but NOT a booking page. Swap it for the Calendly/booking
-               link before this goes out. -->
-          <a class="btn" href="https://www.linkedin.com/in/jasonsdshepherd/">Book Your CRO Call</a>
+        <div class="btn-row">
+          <!-- PLACEHOLDER href, still. Shep has not given the booking
+               URL, so this points at the LinkedIn profile the rest of
+               the site already uses -- a real destination rather than a
+               dead "#", but NOT a booking page. Swap it for the
+               Calendly/booking link. -->
+          <a class="btn btn--primary" href="https://www.linkedin.com/in/jasonsdshepherd/">Book 1:1 CRO Session</a>
+          <!-- Same-page jump. The target carries scroll-margin-top so the
+               heading does not land flush against the viewport edge. -->
+          <a class="btn btn--ghost" href="#what-we-cover">See what we cover</a>
         </div>
       </div>
 
@@ -465,6 +748,178 @@ permalink: /cro-strategy/
         </div>
         <p>Hi, my name is Shep, and I am an ecommerce CRO.</p>
         <p>I&rsquo;ve been a CRO since 2019, building and optimizing Shopify stores at every stage of growth. Every week or so, I make a comic and write about it in <a href="https://heroesofecommerce.substack.com/">The RHOE newsletter</a>.</p>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- The client strip. Placement is my call, not the screenshots':
+       straight under the hero, which is where social proof usually
+       earns its keep, and it pushes the timeline down by one band. The
+       other natural slot is between the PACE cards and "What you get".
+
+       Copies two and three are aria-hidden and carry empty alt, so a
+       screen reader hears the seven names once rather than 21 times. -->
+  <section class="logos wrap">
+    <p class="logos-label">Brands I&rsquo;ve worked with</p>
+    <div class="marquee">
+      <ul class="marquee-track">
+        <li><img class="logo" src="/assets/logos/ativafit.png" alt="Ativafit"></li>
+        <li><img class="logo is-light" src="/assets/logos/tender-loving-empire.png" alt="Tender Loving Empire"></li>
+        <li><img class="logo is-light" src="/assets/logos/correct-toes.png" alt="Correct Toes"></li>
+        <li><img class="logo" src="/assets/logos/firmabs.png" alt="FIRMABS"></li>
+        <li><img class="logo" src="/assets/logos/hulalahome.png" alt="Hulala Home"></li>
+        <li><img class="logo is-square" src="/assets/logos/loudpuff.png" alt="LoudPuff"></li>
+        <li><img class="logo" src="/assets/logos/hempcollect.png" alt="The Hemp Collect"></li>
+      </ul>
+      <ul class="marquee-track" aria-hidden="true">
+        <li><img class="logo" src="/assets/logos/ativafit.png" alt=""></li>
+        <li><img class="logo is-light" src="/assets/logos/tender-loving-empire.png" alt=""></li>
+        <li><img class="logo is-light" src="/assets/logos/correct-toes.png" alt=""></li>
+        <li><img class="logo" src="/assets/logos/firmabs.png" alt=""></li>
+        <li><img class="logo" src="/assets/logos/hulalahome.png" alt=""></li>
+        <li><img class="logo is-square" src="/assets/logos/loudpuff.png" alt=""></li>
+        <li><img class="logo" src="/assets/logos/hempcollect.png" alt=""></li>
+      </ul>
+      <ul class="marquee-track" aria-hidden="true">
+        <li><img class="logo" src="/assets/logos/ativafit.png" alt=""></li>
+        <li><img class="logo is-light" src="/assets/logos/tender-loving-empire.png" alt=""></li>
+        <li><img class="logo is-light" src="/assets/logos/correct-toes.png" alt=""></li>
+        <li><img class="logo" src="/assets/logos/firmabs.png" alt=""></li>
+        <li><img class="logo" src="/assets/logos/hulalahome.png" alt=""></li>
+        <li><img class="logo is-square" src="/assets/logos/loudpuff.png" alt=""></li>
+        <li><img class="logo" src="/assets/logos/hempcollect.png" alt=""></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section 2. Copy transcribed from the redesign screenshots,
+       2026-11-25, verbatim. The two middle steps share one eyebrow
+       ("Part 2 / Analytics") because they are both part two -- that
+       repeat is in the design, not a copy-paste slip here. -->
+  <section class="cover wrap" id="what-we-cover">
+    <h2>One product, one hour. Here&rsquo;s what we cover.</h2>
+    <p class="lede">A whole store is too much for one call. One product is enough to find the pattern, and what we learn there carries to the rest of your pages.</p>
+
+    <ol class="steps">
+      <li class="step">
+        <div class="dot"></div>
+        <p class="eyebrow">Before the call</p>
+        <h3>Pick one product</h3>
+        <p>Your best seller, or the page that should be doing better than it is.</p>
+      </li>
+      <li class="step">
+        <div class="dot"></div>
+        <p class="eyebrow">Part 1 &middot; PACE review</p>
+        <h3>Map how its buyer decides</h3>
+        <p>Four questions about the customer, answered for this one product.</p>
+      </li>
+      <li class="step">
+        <div class="dot"></div>
+        <p class="eyebrow">Part 2 &middot; Analytics</p>
+        <h3>Read on-page behavior</h3>
+        <p>What shoppers actually look at and click on the page, and where they stall.</p>
+      </li>
+      <li class="step">
+        <div class="dot"></div>
+        <p class="eyebrow">Part 2 &middot; Analytics</p>
+        <h3>Form 2&ndash;3 hypotheses</h3>
+        <p>Why they stall, based on the PACE answers and the behavior data together.</p>
+      </li>
+      <li class="step">
+        <div class="dot"></div>
+        <p class="eyebrow">You leave with</p>
+        <h3>2&ndash;3 test ideas</h3>
+        <p>Specific experiments to run on that product first.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Section 3. The design had these four across inside a flat grey
+       panel; Shep's call 2026-11-25 is a 2x2 in the bio card's styling
+       instead -- white, same border, same radius, same shadow. Four
+       across made each question a column barely wider than its own
+       heading, and the four are read as a set, not a sequence. -->
+  <section class="pace wrap">
+    <p class="eyebrow">Part 1, up close</p>
+    <h2>PACE Framework: Four Aspects of the Customer Journey</h2>
+
+    <div class="pace-grid">
+      <div class="pace-item">
+        <span class="glyph" aria-hidden="true">P</span>
+        <h3>Prognosis</h3>
+        <p>What does the customer expect from this purchase?</p>
+      </div>
+      <div class="pace-item">
+        <span class="glyph" aria-hidden="true">A</span>
+        <h3>Activities</h3>
+        <p>What do customers do when they shop for this product?</p>
+      </div>
+      <div class="pace-item">
+        <span class="glyph" aria-hidden="true">C</span>
+        <h3>Criteria</h3>
+        <p>What are the top things that qualify or disqualify it for them?</p>
+      </div>
+      <div class="pace-item">
+        <span class="glyph" aria-hidden="true">E</span>
+        <h3>Event</h3>
+        <p>Which activity actually leads to the sale?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4. The price -- $150 for the hour -- comes straight from
+       Shep's screenshot, so it is his number. Noting it because
+       CLAUDE.md says not to put a price on this site without asking:
+       the rule is about the CRO retainer, whose public figure was
+       pulled in 2026-09, and this is a different thing being sold. -->
+  <section class="outcome wrap">
+    <div class="outcome-grid">
+
+      <div class="gets-col">
+        <h2>What you get out of the call</h2>
+        <ul class="gets">
+          <li>
+            <h3>A PACE profile of your product&rsquo;s buyer</h3>
+            <p>What they expect, how they shop, what makes them buy or leave, and what triggers the sale.</p>
+          </li>
+          <li>
+            <h3>A read on where shoppers stall</h3>
+            <p>From real on-page behavior on that product, not from a hunch or a competitor&rsquo;s site.</p>
+          </li>
+          <li>
+            <h3>2&ndash;3 hypotheses</h3>
+            <p>Each one a reason shoppers aren&rsquo;t converting, tied to something we saw.</p>
+          </li>
+          <li>
+            <h3>2&ndash;3 tests to run after the call</h3>
+            <p>Your roadmap. Run them, keep the winners, then carry what you learn to your other pages.</p>
+          </li>
+        </ul>
+      </div>
+
+      <aside class="book-card">
+        <p class="book-title">Book a Snapshot CRO Session</p>
+        <p class="price">$150 / 1 hour</p>
+
+        <p class="incl-label">Live 1:1 session gets you:</p>
+        <ul class="checks">
+          <li>PACE review of one product</li>
+          <li>On-page behavior analysis</li>
+          <li>2&ndash;3 hypotheses on what&rsquo;s holding it back</li>
+          <li>2&ndash;3 tests to run after the call</li>
+        </ul>
+
+        <!-- PLACEHOLDER href, still LinkedIn -- see the hero. The fine
+             print below promises a time picker, so this one is more
+             visibly wrong than the hero's until the real URL lands.
+             The photo rides inside the button rather than heading the
+             card: Shep's call 2026-11-25, to make it less prominent. -->
+        <a class="btn btn--primary btn--block" href="https://www.linkedin.com/in/jasonsdshepherd/">
+          <img class="btn-avatar" src="/shep.jpg" width="200" height="200" alt="">
+          Book 1:1 CRO Session
+        </a>
+        <p class="fineprint">Pick a time on the next screen. Bring one product.</p>
       </aside>
 
     </div>
