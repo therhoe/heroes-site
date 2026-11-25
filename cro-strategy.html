@@ -507,6 +507,112 @@ permalink: /cro-strategy/
     .pace-item h3 { margin: 0 0 8px; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
     .pace-item p { margin: 0; color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
 
+    /* --- the data analytics cards ---------------------------------------
+       Shep's layout, 2026-11-25: one tall card on the left for his own
+       app, two stacked on the right for the tools. The two columns are
+       the SAME HEIGHT by construction -- the right column is a grid of
+       two equal rows, and align-items defaults to stretch -- so the
+       left card gains whatever height the two on the right come to,
+       and that extra room is where Snapshot gets explained at length.
+       That is the point of the arrangement, so if the left card's copy
+       ever shrinks back to a paragraph, use a plain three-up instead.
+
+       The three logos do not match: Snapshot is a wide wordmark, GA4
+       and Clarity are square app icons. They are sized to equal
+       optical weight rather than equal height -- the icons at 34px,
+       the wordmark at 26px, which is roughly where a 3.4:1 lockup
+       stops shouting next to a square.
+       ------------------------------------------------------------------ */
+    /* The bridge between the two halves. Wider measure than the body
+       and no heading of its own: it is a hinge, not a section. The
+       top margin is negative against .pace's bottom padding so it
+       reads as attached to what it follows. */
+    /* Inside a .wrap, NOT carrying .wrap itself: a max-width on the
+       wrapper would beat .wrap's own and drop the paragraph out of the
+       content column, which is exactly what happened the first time. */
+    .segue {
+      max-width: 62ch;
+      margin: -52px 0 44px;
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .analytics { padding-block: 0 96px; }
+    .analytics h2 {
+      margin: 0 0 34px;
+      font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+    }
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+    .analytics-right {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 24px;
+      min-width: 0;
+    }
+    .tool-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--card-radius);
+      box-shadow: var(--card-shadow);
+      padding: 28px;
+    }
+    .tool-logo { display: flex; align-items: center; height: 34px; margin: 0 0 18px; }
+    .tool-logo img { display: block; width: auto; height: 34px; }
+    .tool-logo img.is-wordmark { height: 26px; }
+    .tool-card h3 { margin: 0 0 8px; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
+    .tool-card p { margin: 0 0 12px; color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+    .tool-card p:last-child { margin-bottom: 0; }
+    .tool-card .tool-link {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--fg);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* --- the walkthrough video -----------------------------------------
+       NOT a file. It is the Loom embed already used on the standalone
+       snapshot site (snapshot-site, v3 and v4 -- neither of which is
+       the live page there). Same share id, so there is one recording
+       behind both, and re-recording it updates every page at once.
+
+       The 16:9 box is held by aspect-ratio with the iframe pinned to
+       its edges, so the frame keeps its shape before Loom has loaded
+       anything and the page does not jump when it does.
+       ------------------------------------------------------------------ */
+    .video { margin: 36px 0 0; }
+    .video-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--card-radius);
+      box-shadow: var(--card-shadow);
+      background: #14171a;   /* behind the player while it loads */
+    }
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .video figcaption {
+      margin: 12px 0 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
     /* --- what you get, and the booking card ----------------------------
        The card keeps the design's flat grey and no shadow, which is the
        one place it disagrees with the PACE panel above now that that
@@ -667,6 +773,11 @@ permalink: /cro-strategy/
       .step:last-child::before { display: none; }
       .step:last-child { padding-bottom: 0; }
       .outcome-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+      /* Stacked, the two columns are no longer beside each other, so
+         the equal-height trick has nothing to equalise -- the rows
+         just size to their own copy. */
+      .analytics-grid { grid-template-columns: minmax(0, 1fr); }
+      .analytics-right { grid-template-rows: auto auto; }
       .book-card { max-width: 420px; }
     }
     @media (max-width: 600px) {
@@ -866,6 +977,71 @@ permalink: /cro-strategy/
         <p>Which activity actually leads to the sale?</p>
       </div>
     </div>
+  </section>
+
+  <!-- Shep's segue, 2026-11-25, verbatim. It carries the reader from
+       the PACE questions into the analytics half of the call, so it
+       sits between the two sections rather than inside either. -->
+  <div class="wrap"><p class="segue">The PACE framework gives us the perspective and psychology of the customer before we dive into the data and view their on-page behavior.</p></div>
+
+  <!-- Section: the analytics half. Card copy below is MINE, not
+       Shep's -- drafted from the Snapshot landing page's own wording
+       so it does not claim anything the app does not do. Replace it
+       freely.
+
+       The GA4 mark is Google's and the Clarity mark is Microsoft's,
+       used here to name the tools. Snapshot's is the black wordmark
+       copied from snapshot/assets/img/logo-black.png. -->
+  <section class="analytics wrap">
+    <p class="eyebrow">Part 2, up close</p>
+    <h2>Data Analytics</h2>
+
+    <div class="analytics-grid">
+
+      <div class="tool-card">
+        <div class="tool-logo">
+          <img class="is-wordmark" src="/assets/logos/tools/snapshot.png" alt="Snapshot CRO" width="920" height="270">
+        </div>
+        <h3>The one I built</h3>
+        <p>There is nothing worse than too much data. Most analytics drown a store in numbers that never point anywhere, so Snapshot captures the behavioural data that actually bears on conversion and leaves the rest alone.</p>
+        <p>A site snapshot shows the conversion rate and revenue coming from each page&rsquo;s visitors, so we can tell which page is worth the hour before we spend it. A page snapshot then shows where those visitors came from and what they do once they land.</p>
+        <p>On the call this is usually what settles the argument: it turns &ldquo;this page feels wrong&rdquo; into a specific thing that happens to real shoppers, at a specific point on the page.</p>
+        <a class="tool-link" href="/snapshot/">See how Snapshot works</a>
+      </div>
+
+      <div class="analytics-right">
+        <div class="tool-card">
+          <div class="tool-logo">
+            <img src="/assets/logos/tools/ga4.svg" alt="Google Analytics 4" width="192" height="192">
+          </div>
+          <h3>Google Analytics 4</h3>
+          <p>The baseline your store already has, read properly: where the traffic came from, what it did across the session, and which routes actually end in an order.</p>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-logo">
+            <img src="/assets/logos/tools/clarity.png" alt="Microsoft Clarity" width="256" height="256">
+          </div>
+          <h3>Microsoft Clarity</h3>
+          <p>Heatmaps and session recordings. Watching a real shopper hesitate, scroll past the thing they needed, and leave tells you what no funnel chart will.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- The same Loom recording the standalone snapshot site embeds.
+         Taken from snapshot-site/v3/index.html, share id
+         8635dcac40f84cc8bc35df5056b1b7d1. -->
+    <figure class="video">
+      <div class="video-frame">
+        <iframe src="https://www.loom.com/embed/8635dcac40f84cc8bc35df5056b1b7d1"
+                title="Snapshot CRO walkthrough"
+                loading="lazy"
+                allow="fullscreen"
+                allowfullscreen></iframe>
+      </div>
+      <figcaption>A walkthrough of Snapshot, the view we work from on the call.</figcaption>
+    </figure>
   </section>
 
   <!-- Section 4. The price -- $150 for the hour -- comes straight from
