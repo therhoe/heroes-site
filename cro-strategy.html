@@ -59,9 +59,18 @@ permalink: /cro-strategy/
        written that way rather than as cro-strategy/index.html.
 
        That front matter is also what makes Jekyll PROCESS this file
-       instead of copying it through as a static asset. There is no
-       Liquid in here today; if any ever gets pasted in, `{{` and `{%`
-       are now live and will be evaluated.
+       instead of copying it through as a static asset, so Liquid tags
+       are live in here -- including inside comments like this one.
+       Jekyll parses the file before a browser ever sees it, and HTML
+       comments do not hide anything from it.
+
+       Do not write a Liquid delimiter here, even as an example. The
+       first draft of this comment spelled the two opening delimiters
+       out to warn about exactly this, and that alone failed the Pages
+       build and 404'd the page. If you need to talk about them, name
+       them in words: double-brace, and brace-percent. If you ever need
+       real literal ones in the markup, wrap that part in a raw tag, the
+       way the newsletter documents do.
 
        Every asset path here is root-absolute (/logo.png, /shep.jpg) and
        has to stay that way. The source file is at the root but the page
