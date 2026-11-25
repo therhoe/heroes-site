@@ -11,7 +11,7 @@ permalink: /cro-strategy/
        form controls and scrollbars on a dark-mode machine. -->
   <meta name="color-scheme" content="light">
   <title>Get Your CRO Roadmap in 60 Minutes</title>
-  <meta name="description" content="Choose a product that you know should be converting more, and we’ll build a roadmap to maximize sales. A PACE review and a 3-test roadmap in 60 minutes.">
+  <meta name="description" content="Let’s analyze and build a 3 experiment roadmap to maximize conversions for one product page. A 30 minute PACE review and 30 minutes of data analysis.">
   <link rel="canonical" href="https://therealheroesofecommerce.com/cro-strategy/">
   <link rel="icon" href="/favicon.png" type="image/png">
   <!-- Space Grotesk, the marketing pages' face -- /snapshot/ loads the
@@ -222,19 +222,22 @@ permalink: /cro-strategy/
        earns that by being a different kind of content from everything
        else here: a person, not an argument.
 
-       The portrait is a small avatar, NOT the full-bleed 4:5 header an
-       earlier draft had. That is forced by the file: shep.jpg is
-       200x200, a LinkedIn-sized crop. Filling a 360px-wide card header
-       with it meant a 2.25x upscale and a visibly soft face, and 4:5
-       would have cropped the sides off a square. At 96px it is still
-       sharp on a 2x screen with room to spare.
+       The portrait is a small avatar, NOT a full-bleed 4:5 header. That
+       is forced by the file: shep.jpg is 200x200, a LinkedIn-sized crop.
+       Filling a 360px-wide card header with it meant a 2.25x upscale and
+       a visibly soft face. At 88px it is still sharp on a 2x screen with
+       room to spare, and the source being square means a square frame
+       crops nothing.
 
-       If a proper portrait ever turns up -- 800x1000 or better -- the
-       full-bleed header is worth going back to: give .avatar
-       `width:100%; height:auto; aspect-ratio:4/5; border-radius:0`, move
-       the card's 24px padding off .bio-card and onto a wrapper around
-       the two <p>s, and add `overflow:hidden` to .bio-card so the photo
-       takes the card's corner radius.
+       Shep's call, 2026-11-25: square with rounded corners, titles
+       beside it rather than under it. The radius is deliberately
+       SMALLER than the card's own --card-radius -- a box inside a box
+       sharing one radius reads as a mistake, and the photo should sit
+       in the card, not echo it.
+
+       The titles are the only place the roles are named, so the copy
+       below still opens with "Hi, my name is Shep" rather than
+       repeating them.
        ------------------------------------------------------------------ */
     .bio-card {
       border: 1px solid var(--line);
@@ -243,16 +246,35 @@ permalink: /cro-strategy/
       background: #ffffff;
       padding: 24px;
     }
+    .bio-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 18px;
+    }
     .bio-card .avatar {
       display: block;
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;     /* a square crop of a face reads as an ID
-                                 badge; the circle reads as a person */
+      flex: none;             /* the titles wrap; the photo never shrinks */
+      width: 88px;
+      height: 88px;
+      border-radius: 10px;
       object-fit: cover;
-      margin: 0 0 18px;
+      margin: 0;
       background: #f3f3f3;    /* shows for the moment before it loads */
     }
+    /* Roles, not a sentence -- a list, set tighter and a touch smaller
+       than the card's body copy so it reads as a label block beside the
+       photo rather than a third paragraph. */
+    .bio-titles {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1.35;
+    }
+    .bio-titles li { margin: 0 0 6px; }
+    .bio-titles li:last-child { margin-bottom: 0; }
     /* A step down from the 1.0625rem body copy: the card is a sidebar,
        and matching the body's size would make it compete with the thing
        it sits beside. */
@@ -283,7 +305,7 @@ permalink: /cro-strategy/
       padding-top: 30px;
       border-top: 1px solid var(--line);
     }
-    /* "PACE Review + 3-test Roadmap" -- the deliverable, named. Set as a
+    /* "30 min PACE Review + 30 min Data Analysis" -- the deliverable, named. Set as a
        heading rather than a bold paragraph because it is one: the h2
        under the h1. Small-caps-ish scale, not display scale; it should
        land as a label on the offer, not as a second headline arguing
@@ -402,19 +424,19 @@ permalink: /cro-strategy/
              without a full stop; that is how he wrote it and it is not
              a typo that changes the meaning, so it stays. -->
         <h1>Get Your CRO Roadmap in <span class="mark">60&nbsp;Minutes</span></h1>
-        <p class="sub">Choose a product that you know should be converting more, and we&rsquo;ll build a roadmap to maximize sales</p>
+        <p class="sub">Let&rsquo;s analyze and build a 3 experiment roadmap to maximize conversions for one product page.</p>
 
         <div class="offer">
-          <h2>PACE Review + 3-test Roadmap</h2>
+          <h2>30 min PACE Review + 30 min Data Analysis</h2>
 
-          <p>Get an expert review of the page based on the PACE framework to break down user intent and psychology based on product, position, and traffic source.</p>
+          <p>Using my PACE framework, we will break down customer intent and psychology before we dive into the numbers and develop your roadmap.</p>
 
-          <p class="promise">Before you hang up, you’ll have:</p>
+          <p class="promise">Before you hang up, you’ll:</p>
 
           <ul class="points">
-            <li>Clear intent of visitor</li>
-            <li>Analytics Process to repeat on other pages</li>
-            <li>3 AB tests to lift conversions</li>
+            <li>Know the PACE of your customers</li>
+            <li>Complete a CRO analysis you can repeat</li>
+            <li>Have a solid AB testing roadmap in hand</li>
           </ul>
 
           <!-- PLACEHOLDER href. Shep has not given the booking URL, so
@@ -426,20 +448,23 @@ permalink: /cro-strategy/
         </div>
       </div>
 
-      <!-- Shep's copy, 2026-11-25. One change: his last sentence
-           arrived as "I make a comic about it write about it The RHOE
-           newsletter" -- two phrasings run together with a word missing
-           either side. Set below as the likeliest reading. If it was
-           meant to be only the comic, or only the writing, this needs
-           his correction rather than mine.
+      <!-- Shep's copy, rewritten by him 2026-11-25. Verbatim: the
+           earlier garbled last sentence is gone, resolved by his own
+           rewrite rather than by a guess here.
 
-           No name/role heading: the copy opens with "Hi, my name is
-           Shep", so a label above it would say it twice. -->
+           The two titles beside the photo are Shep's wording, including
+           the mixed "@" and "at" -- that is how he gave them. -->
       <aside class="bio-card">
-        <img class="avatar" src="/shep.jpg" width="200" height="200"
-             alt="Shep">
+        <div class="bio-head">
+          <img class="avatar" src="/shep.jpg" width="200" height="200"
+               alt="Shep">
+          <ul class="bio-titles">
+            <li>Founder @ Snapshot CRO</li>
+            <li>Cartoonist at The RHOE</li>
+          </ul>
+        </div>
         <p>Hi, my name is Shep, and I am an ecommerce CRO.</p>
-        <p>I&rsquo;ve been in optimization since 2019 and work with all sorts of brands at all sorts of stages of growth. Every week or so, I make a comic about it and write about it in <a href="https://heroesofecommerce.substack.com/">The RHOE newsletter</a>.</p>
+        <p>I&rsquo;ve been a CRO since 2019, building and optimizing Shopify stores at every stage of growth. Every week or so, I make a comic and write about it in <a href="https://heroesofecommerce.substack.com/">The RHOE newsletter</a>.</p>
       </aside>
 
     </div>
