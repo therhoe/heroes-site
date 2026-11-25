@@ -1,0 +1,32 @@
+{%- comment -%}
+  The site footer, shared by every public page. Shep's call 2026-11-25:
+  one footer everywhere, with these four links and no others.
+
+  It lives here rather than being pasted into each page because it had
+  drifted badly -- the homepage and /cro-strategy/ carried a copyright
+  and a Privacy link, newsletter.html carried four lowercase links of
+  which two (/snapshot/, /hire-cro-agency.html) were 404s by then, and
+  the newsletter layout carried a different four. Those are the pages
+  this replaces.
+
+  It is MARKUP ONLY. Every page styles `footer` itself, because the
+  looks are deliberately different -- the homepage is Bryndan Write,
+  /cro-strategy/ and the newsletter pages are Space Grotesk, and the
+  privacy policy is system sans. Do not put styling in here.
+
+  Note what this changes about the homepage: it had linked to nothing
+  else on this site since the 2026-10-26 one-pager, which is how the
+  newsletter archive came to be orphaned. These links are the way back
+  in. That is Shep's call, and it supersedes the note in CLAUDE.md.
+{%- endcomment -%}
+<footer>
+  <div class="wrap">
+    <span>&copy; {{ site.time | date: "%Y" }} The Real Heroes of Ecommerce</span>
+    <span>
+      <a href="/">Home</a> &middot;
+      <a href="/cro-strategy/">Work with me</a> &middot;
+      <a href="/newsletter/">Newsletter</a> &middot;
+      <a href="/snapshot-privacy-policy.html">Privacy Policy</a>
+    </span>
+  </div>
+</footer>

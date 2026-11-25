@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +50,24 @@
       font-size: 1.05rem;
       margin: 24px 0 8px;
     }
+    /* The shared footer arrived here 2026-11-25; this page had none.
+       Styled to this page's own look -- system sans, the same 760px
+       measure as main -- rather than to the other pages'. */
+    footer {
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    footer .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      justify-content: space-between;
+    }
+    footer a { color: var(--muted); }
     ul { padding-left: 22px; }
     li { margin-bottom: 6px; }
     a { color: var(--accent); }
@@ -180,5 +200,6 @@
   <p>For questions about this Privacy Policy or to make a privacy request, contact us by e-mail at <a href="mailto:shep@therealheroesofecommerce.com">shep@therealheroesofecommerce.com</a>.</p>
 
 </main>
+{% include site-footer.html %}
 </body>
 </html>
