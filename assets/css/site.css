@@ -1,0 +1,176 @@
+/* ===================================================================
+   site.css -- the shared look, 2026-11-25.
+
+   Shep's call: /cro-strategy/ was the page whose styling he wanted,
+   so this file IS that page's design system, lifted out so every page
+   draws from one source instead of four drifting copies. The footer
+   went the same way earlier the same day (_includes/site-footer.html);
+   this is the stylesheet half of the same move.
+
+   WHAT LIVES HERE: tokens, base type, .wrap, the header bar, nav and
+   buttons, the card primitive, the eyebrow, the footer. Anything one
+   page alone needs -- a hero, a marquee, an article measure -- stays
+   in that page's own <style> block.
+
+   LOAD ORDER MATTERS: link this BEFORE the page's <style>, so a page
+   can still override a token or a rule. Every page does.
+
+   The one deliberate exception is the homepage, which re-points --font
+   at Bryndan Write and keeps font-synthesis-weight: none. That was
+   Shep's explicit carve-out: same rounding, shadows, controls and
+   spacing as everywhere else, its own face. See CLAUDE.md on why that
+   face cannot be asked for bold.
+
+   Not loaded by: the 62 workshop decks, which are a separate terminal
+   look on purpose, and privacy-policy.html, a redirect stub.
+   =================================================================== */
+
+:root {
+  --fg: #14171a;
+  --muted: #5c6166;
+  --line: #e2e2e2;
+  --accent: #ffc42a;        /* can't carry text on white, so it is only
+                               ever a highlight or a fill behind dark text */
+  --maxw: 1120px;
+  --gutter: 24px;
+  --control-height: 48px;
+  --card-radius: 16px;
+  --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 14px 32px rgba(0, 0, 0, 0.09);
+  --font: "Space Grotesk", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+p { margin: 0 0 16px; }
+a { color: inherit; }
+
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;   /* written in normal case in the markup so
+                                  the source stays readable; caps are styling */
+  color: var(--muted);
+}
+
+/* --- header ---------------------------------------------------------
+   Wordmark left, nav right, rule on the inner row so it starts and
+   stops where the writing does. Not sticky.
+
+   The markup is .site-header > .wrap > .bar everywhere. newsletter.html
+   and the newsletter layout used .wrap as the flex row itself and had
+   no .bar; they were given one so this rule fits them too.
+   ------------------------------------------------------------------ */
+.site-header .bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-block: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.brand { display: inline-flex; align-items: center; }
+.brand img { display: block; width: 240px; max-width: 46vw; height: auto; }
+
+.site-nav { display: inline-flex; align-items: center; gap: 4px; }
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  height: var(--control-height);
+  padding: 0 16px;
+  border-radius: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;   /* a multi-word label wraps to two lines and
+                            breaks the header's single row */
+  transition: color .15s ease, background-color .15s ease;
+}
+.site-nav a:hover { color: var(--fg); }
+
+/* The header's one filled control. 8px like every other button here --
+   it was a 999px pill on every page until 2026-11-25, the only fully
+   round thing in the system. */
+.site-nav a.cta {
+  padding: 0 24px;
+  color: var(--fg);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+}
+.site-nav a.cta:hover { background: #f0b400; border-color: #f0b400; color: var(--fg); }
+
+/* --- buttons -------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--control-height);
+  padding: 0 24px;
+  border-radius: 8px;
+  color: #ffffff;
+  background: var(--fg);
+  border: 1px solid var(--fg);
+  text-decoration: none;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+.btn:hover { background: #000000; color: var(--accent); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 0; }
+
+/* The modifiers MUST stay after .btn -- same specificity, so source
+   order is what decides. They were above it once and both buttons on
+   /cro-strategy/ came out black. */
+.btn--primary { background: var(--accent); color: var(--fg); border: 1px solid var(--accent); }
+.btn--primary:hover { background: #f0b400; border-color: #f0b400; color: var(--fg); }
+.btn--ghost { background: #ffffff; color: var(--fg); border: 1px solid var(--line); }
+.btn--ghost:hover { background: #ffffff; border-color: var(--fg); color: var(--fg); }
+
+/* --- the card ------------------------------------------------------- */
+.card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: 28px;
+}
+
+/* --- footer --------------------------------------------------------- */
+footer {
+  margin: 96px 0 0;
+  padding: 28px 0 48px;
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+footer a { text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 600px) {
+  :root { --gutter: 18px; }
+}
+@media (max-width: 420px) {
+  .site-header .bar { gap: 12px; }
+  .brand img { width: 180px; }
+  .site-nav a { padding: 0 12px; }
+  .site-nav a.cta { padding: 0 14px; font-size: 0.95rem; }
+}

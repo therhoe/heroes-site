@@ -13,6 +13,7 @@ permalink: /newsletter/
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/site.css">
   <style>
     /* ====================================================================
        Newsletter hub. Same shell as the homepage -- wide canvas, sticky
@@ -27,29 +28,11 @@ permalink: /newsletter/
        over the top. Filtering hides rows client-side; it never drops them
        from the document.
        ==================================================================== */
-    :root {
-      --fg: #14171a;
-      --muted: #5c6166;
-      --line: #e2e2e2;
-      --accent: #ffc42a;
-      --maxw: 1200px;
-      --gutter: 24px;
-      --control-height: 48px;
-      --radius: 16px;
-      --shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 14px 32px rgba(0, 0, 0, 0.09);
-      --font: "Space Grotesk", system-ui, sans-serif;
-    }
+    /* Tokens, base type, .wrap, the header bar, nav, buttons and the
+       footer all come from /assets/css/site.css now. What is left in
+       this block is only what the archive itself needs. The canvas was
+       1200px here and is 1120 everywhere now. */
 
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: #ffffff;
-      color: var(--fg);
-      font-family: var(--font);
-      font-size: 16px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
     p { margin: 0 0 16px; }
     ul { list-style: none; margin: 0; padding: 0; }
     a { color: inherit; }
@@ -63,32 +46,6 @@ permalink: /newsletter/
       background: rgba(255, 255, 255, 0.92);
       backdrop-filter: saturate(180%) blur(12px);
     }
-    .site-header .wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding-block: 16px;
-      border-bottom: 1px solid var(--line);
-    }
-    .brand img { display: block; width: 240px; max-width: 46vw; height: auto; }
-    .site-nav { display: flex; align-items: center; gap: 8px; }
-    .site-nav a {
-      display: inline-flex;
-      align-items: center;
-      height: var(--control-height);
-      padding: 0 16px;
-      border-radius: 999px;
-      color: var(--muted);
-      text-decoration: none;
-      font-weight: 500;
-      white-space: nowrap;   /* a multi-word pill wraps to two lines and
-                                breaks the header's single row */
-      transition: color .15s ease, background-color .15s ease;
-    }
-    .site-nav a:hover { color: var(--fg); background: #f2f3f4; }
-    .site-nav a.cta { color: #ffffff; background: var(--fg); padding: 0 24px; }
-    .site-nav a.cta:hover { background: #000000; color: var(--accent); }
 
     /* --- hero --- */
     .hero { padding-block: 72px 0; }
@@ -123,7 +80,7 @@ permalink: /newsletter/
     .subbox .sublead button {
       height: var(--control-height);
       padding-inline: 20px;
-      border-radius: 999px;
+      border-radius: 8px;   /* was 999px -- the site is 8px everywhere since 2026-11-25 */
       border-color: var(--fg);
     }
     .subbox .sublead button { background: var(--fg); color: #ffffff; }
@@ -159,8 +116,8 @@ permalink: /newsletter/
       flex-direction: column;
       padding: 28px;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      border-radius: var(--card-radius);
+      box-shadow: var(--card-shadow);
       text-decoration: none;
       transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
     }
@@ -202,7 +159,7 @@ permalink: /newsletter/
       color: inherit;
       background: #ffffff;
       border: 1px solid var(--line);
-      border-radius: 999px;
+      border-radius: 8px;   /* was 999px -- the site is 8px everywhere since 2026-11-25 */
       padding: 0 20px;
     }
     #q:focus { outline: none; border-color: var(--fg); }
@@ -212,7 +169,7 @@ permalink: /newsletter/
       font-weight: 500;
       height: 40px;
       padding: 0 16px;
-      border-radius: 999px;
+      border-radius: 8px;   /* was 999px -- the site is 8px everywhere since 2026-11-25 */
       border: 1px solid var(--line);
       background: #ffffff;
       color: var(--muted);
@@ -264,15 +221,6 @@ permalink: /newsletter/
     .issues .x { grid-column: 1 / 2; color: var(--muted); font-size: 0.92rem; }
     #empty { display: none; color: var(--muted); padding: 32px 0; }
 
-    footer {
-      margin: 96px 0 0;
-      padding: 32px 0 56px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-    footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
-    footer a { text-decoration: underline; text-underline-offset: 3px; }
 
     @media (max-width: 900px) {
       .latest { grid-template-columns: 1fr; }
@@ -284,7 +232,7 @@ permalink: /newsletter/
          drops underneath instead of pushing the page sideways. */
       .section-head { flex-direction: column; align-items: flex-start; gap: 4px; }
       .section-head .eyebrow { white-space: normal; }
-      .site-header .wrap { padding-block: 12px; }
+      .site-header .bar { padding-block: 12px; }
       .site-nav a { padding: 0 12px; }
       .site-nav a.cta { padding: 0 18px; }
       .hero { padding-top: 48px; }
@@ -315,14 +263,21 @@ permalink: /newsletter/
 
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="The Real Heroes of Ecommerce home">
-      <img src="/logo.png" alt="The Real Heroes of Ecommerce" width="1000" height="225">
-    </a>
-    <nav class="site-nav">
-      <a class="nav-text" href="/snapshot/">Snapshot CRO</a>
-      <a class="nav-text" href="/newsletter/">Newsletter</a>
-      <a class="cta" href="/hire-cro-agency.html">Work with us</a>
-    </nav>
+    <div class="bar">
+      <a class="brand" href="/" aria-label="The Real Heroes of Ecommerce home">
+        <img src="/logo.png" alt="The Real Heroes of Ecommerce" width="1000" height="225">
+      </a>
+      <!-- Both of these pointed at pages deleted earlier today
+           (/snapshot/, /hire-cro-agency.html). Repointed rather than
+           left as 404s in a header being rewritten anyway: the app
+           listing is what "Snapshot CRO" meant, and /cro-strategy/ is
+           what "Work with us" meant. -->
+      <nav class="site-nav">
+        <a class="nav-text" href="https://apps.shopify.com/snapshot-cro">Snapshot CRO</a>
+        <a class="nav-text" href="/newsletter/">Newsletter</a>
+        <a class="cta" href="/cro-strategy/">Work with me</a>
+      </nav>
+    </div>
   </div>
 </header>
 

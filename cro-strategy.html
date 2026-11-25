@@ -20,6 +20,7 @@ permalink: /cro-strategy/
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/site.css">
   <style>
     /* ====================================================================
        /cro-strategy/ -- the 60-minute CRO roadmap session.
@@ -82,40 +83,12 @@ permalink: /cro-strategy/
     html { scroll-behavior: smooth; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
-    :root {
-      --fg: #14171a;
-      --muted: #5c6166;
-      --line: #e2e2e2;
-      --accent: #ffc42a;        /* can't carry text on white, so it is only
-                                   ever a highlight behind dark text */
-      --maxw: 1120px;           /* a notch over the homepage's 1040: the
-                                   hero now has to hold two columns, and
-                                   1040 squeezed the card. Still well
-                                   under the 1280 the card pages use. */
-      --gutter: 24px;
-      --control-height: 48px;
-      /* Lifted from snapshot/assets/css/style.css so the card here sits
-         at the same elevation and radius as the cards over there. */
-      --card-radius: 16px;
-      --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 14px 32px rgba(0, 0, 0, 0.09);
-      /* One family at every size, the way the snapshot stylesheet does
-         it -- swap this line to change the page's whole type. */
-      --font: "Space Grotesk", system-ui, sans-serif;
-    }
+    /* This page's tokens, base type, .wrap, header bar, nav, buttons,
+       .eyebrow and footer were lifted into /assets/css/site.css on
+       2026-11-25 and now come from there -- this was the page Shep
+       picked as the site's look, so it is the source. What is left in
+       this block is what only this page has. */
 
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: #ffffff;
-      color: var(--fg);
-      font-family: var(--font);
-      font-size: 16px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-    p { margin: 0 0 16px; }
-    a { color: inherit; }
-    .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
 
     /* --- header --------------------------------------------------------
        Wordmark left, one pill right, rule on the inner row so it starts
@@ -126,15 +99,6 @@ permalink: /cro-strategy/
        two-line wordmark. See CLAUDE.md before swapping in a one-line
        logo: it will look oversized at this width.
        ------------------------------------------------------------------ */
-    .site-header .bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding-block: 16px;
-      border-bottom: 1px solid var(--line);
-    }
-    .brand { display: inline-flex; align-items: center; }
     /* Shep's call 2026-11-25: the header wears the SNAPSHOT wordmark
        here, not the site's own -- this page sells the app's session.
        Sized differently from the rest of the site on purpose: that mark
@@ -146,29 +110,6 @@ permalink: /cro-strategy/
        The file here is byte-identical to the one that used to live
        there; it was already in the repo for the analytics card. */
     .brand img { display: block; width: 190px; max-width: 40vw; height: auto; }
-    .site-nav a.cta {
-      display: inline-flex;
-      align-items: center;
-      height: var(--control-height);
-      padding: 0 24px;
-      /* 8px, the same corner as .btn -- Shep's call 2026-11-25. It was
-         a 999px pill, the only fully-round control on the page. */
-      border-radius: 8px;
-      /* Shep's call 2026-11-25: the header pill is the SAME offer and
-         the SAME button as the hero's, so it takes .btn--primary's
-         amber rather than the black it used to wear as "Install
-         Snapshot". Accent on dark text, which is the only way this
-         yellow may carry type. */
-      color: var(--fg);
-      background: var(--accent);
-      border: 1px solid var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-      white-space: nowrap;   /* a multi-word pill wraps to two lines and
-                                breaks the header's single row */
-      transition: background-color .15s ease, color .15s ease;
-    }
-    .site-nav a.cta:hover { background: #f0b400; border-color: #f0b400; color: var(--fg); }
 
     /* --- hero: two columns ---------------------------------------------
        Asymmetric on purpose. The left column is the page's argument and
@@ -466,16 +407,6 @@ permalink: /cro-strategy/
     }
     .step:last-child .dot::after { display: none; }
     .step:last-child .dot::before { background: var(--fg); }
-    .eyebrow {
-      margin: 0 0 8px;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;   /* written in normal case in the
-                                      markup so the source stays
-                                      readable; the caps are styling */
-      color: var(--muted);
-    }
     .step h3 {
       margin: 0 0 8px;
       font-size: 1.05rem;
@@ -743,51 +674,7 @@ permalink: /cro-strategy/
        is the only way --accent is allowed to be used: it cannot carry
        text itself on white. See the token.
        ------------------------------------------------------------------ */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: var(--control-height);
-      padding: 0 24px;
-      border-radius: 8px;
-      color: #ffffff;
-      background: var(--fg);
-      border: 1px solid var(--fg);
-      text-decoration: none;
-      font-size: 1.0625rem;
-      font-weight: 500;
-      white-space: nowrap;
-      transition: background-color .15s ease, color .15s ease, border-color .15s ease;
-    }
-    .btn:hover { background: #000000; color: var(--accent); }
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin: 28px 0 0;
-    }
-    .btn--primary {
-      background: var(--accent);
-      color: var(--fg);
-      border: 1px solid var(--accent);
-    }
-    .btn--primary:hover { background: #f0b400; border-color: #f0b400; color: var(--fg); }
-    .btn--ghost {
-      background: #ffffff;
-      color: var(--fg);
-      border: 1px solid var(--line);
-    }
-    .btn--ghost:hover { background: #ffffff; border-color: var(--fg); color: var(--fg); }
 
-    footer {
-      margin: 96px 0 0;
-      padding: 28px 0 48px;
-      border-top: 1px solid var(--line);
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-    footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
-    footer a { text-decoration: underline; text-underline-offset: 3px; }
 
     /* Stacked: card under the intro, before the body copy. It keeps its
        source order, so nothing has to be reordered for a phone. Capped
@@ -827,7 +714,6 @@ permalink: /cro-strategy/
       .book-card { max-width: 420px; }
     }
     @media (max-width: 600px) {
-      :root { --gutter: 18px; }
       .hero { padding-top: 44px; }
       .bio-card { max-width: none; }
       .book-card { max-width: none; }
@@ -846,9 +732,11 @@ permalink: /cro-strategy/
          gap takes a third of the text column -- step both down. */
       .pace-item { padding: 22px; gap: 14px; }
       .glyph { width: 44px; height: 44px; font-size: 1.25rem; border-radius: 10px; }
-      .site-header .bar { gap: 12px; }
+      /* site.css already narrows the bar and the pill here; this page
+         only overrides the mark, because it wears the wider Snapshot
+         wordmark rather than the site's own. */
       .brand img { width: 150px; }
-      .site-nav a.cta { height: 40px; padding: 0 14px; font-size: 0.9rem; }
+      .site-nav a.cta { height: 40px; }
     }
   </style>
 </head>

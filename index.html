@@ -17,6 +17,7 @@
        fonts are always fetched in CORS mode -- without `crossorigin` the
        browser downloads it twice. -->
   <link rel="preload" href="/assets/fonts/bryndan-write.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/site.css">
   <style>
     /* ====================================================================
        HOMEPAGE. Shep's call, 2026-10-26: the site collapses to this one
@@ -74,17 +75,15 @@
       font-display: swap;
     }
 
+    /* Everything the rest of the site shares -- tokens, .wrap, the
+       header bar, the nav pill, buttons, the footer -- comes from
+       /assets/css/site.css as of 2026-11-25. This page takes all of
+       it, including the 8px corners, the amber pill and the 1120
+       canvas it used to set to 1040.
+
+       The ONE carve-out is Shep's: the face stays Bryndan Write. That
+       is the whole of what makes this page look like itself now. */
     :root {
-      --fg: #14171a;
-      --muted: #5c6166;
-      --line: #e2e2e2;
-      --accent: #ffc42a;        /* can't carry text on white, so it is only
-                                   ever a highlight behind dark text */
-      --maxw: 1040px;           /* narrower than index.html's 1200: this is
-                                   a page you read, not a canvas to lay
-                                   cards out on */
-      --gutter: 24px;
-      --control-height: 48px;
       /* The face has ONE weight. Anything asking for bold gets a
          browser-synthesized smear, which on a drawn face reads as a
          printing fault -- so nothing on this page sets a weight above 500,
@@ -94,22 +93,11 @@
       --font: "Bryndan Write", "Space Grotesk", system-ui, sans-serif;
     }
 
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: #ffffff;
-      color: var(--fg);
-      font-family: var(--font);
-      /* Without this, a browser asked for bold draws it by smearing the
-         outline. Anything bold here degrades to regular instead. */
-      font-synthesis-weight: none;
-      font-size: 16px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-    p { margin: 0 0 16px; }
-    a { color: inherit; }
-    .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+    /* Without this, a browser asked for bold draws Bryndan by smearing
+       the outline. Anything bold here degrades to regular instead.
+       It has to stay on this page: site.css does not set it, because
+       every other page is set in a face that has a real bold. */
+    body { font-synthesis-weight: none; }
 
     /* --- header --------------------------------------------------------
        Wordmark left, one pill right. Not sticky: on a page this short
@@ -123,31 +111,6 @@
        240x54 for the mark is index.html's sizing, tuned to the two-line
        wordmark -- see CLAUDE.md before swapping in a different logo.
        ------------------------------------------------------------------ */
-    .site-header .bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding-block: 16px;
-      border-bottom: 1px solid var(--line);
-    }
-    .brand { display: inline-flex; align-items: center; }
-    .brand img { display: block; width: 240px; max-width: 46vw; height: auto; }
-    .site-nav a.cta {
-      display: inline-flex;
-      align-items: center;
-      height: var(--control-height);
-      padding: 0 24px;
-      border-radius: 999px;
-      color: #ffffff;
-      background: var(--fg);
-      text-decoration: none;
-      font-weight: 500;
-      white-space: nowrap;   /* a multi-word pill wraps to two lines and
-                                breaks the header's single row */
-      transition: background-color .15s ease, color .15s ease;
-    }
-    .site-nav a.cta:hover { background: #000000; color: var(--accent); }
 
     /* --- hero ----------------------------------------------------------
        Asset paths are relative so the page also renders opened straight
@@ -254,18 +217,8 @@
     .signoff { margin: 34px 0 0; font-size: 1.0625rem; }
     .signoff p { margin: 0; }
 
-    footer {
-      margin: 96px 0 0;
-      padding: 28px 0 48px;
-      border-top: 1px solid var(--line);
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-    footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
-    footer a { text-decoration: underline; text-underline-offset: 3px; }
 
     @media (max-width: 600px) {
-      :root { --gutter: 18px; }
       .hero { padding-top: 44px; }
       .hero-art img { width: 52%; }
       /* No .letter override on purpose -- more air here on a phone would
