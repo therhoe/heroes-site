@@ -253,6 +253,47 @@ permalink: /cro-strategy/
       font-weight: 500;
     }
 
+    /* --- client quotes --------------------------------------------------
+       Under the marquee: the logos say who, these say what it was like.
+       Uses the shared .card, so nothing here styles the box itself.
+
+       The columns are 1.5fr / 1fr rather than even, because the two
+       quotes are very different lengths -- Shep's mock-up had the same
+       asymmetry and it is what keeps the short one from floating in a
+       half-empty card.
+
+       The photos are SMALL on purpose (Shep's call): 52px circles in
+       the caption row, not portraits the card is built around. Files
+       are 160px square so they stay sharp on a 3x screen.
+       ------------------------------------------------------------------ */
+    .says { padding-block: 76px 44px; }
+    .says h2 {
+      margin: 0 0 24px;
+      font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+    }
+    .says-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .say { margin: 0; display: flex; flex-direction: column; gap: 20px; }
+    .say blockquote { margin: 0; }
+    .say blockquote p { margin: 0; font-size: 1.05rem; line-height: 1.6; }
+    .say-who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+    .say-photo {
+      flex: none;
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+    .say-name { display: flex; flex-direction: column; font-weight: 500; font-size: 0.95rem; }
+    .say-meta { font-weight: 400; font-size: 0.9rem; color: var(--muted); }
+
     /* --- the client logo marquee ----------------------------------------
        The seven brands Shep has worked on, pulled from each store's own
        header (assets/logos/, 2026-11-25).
@@ -721,6 +762,7 @@ permalink: /cro-strategy/
       .marquee img.is-square { height: 36px; }
       .marquee-track { gap: 40px; padding-right: 40px; }
       .pace-grid { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+      .says-grid { grid-template-columns: minmax(0, 1fr); }
       /* No .letter override on purpose -- more air here on a phone would
          undo the join and split the page into two blocks. */
     }
@@ -840,6 +882,50 @@ permalink: /cro-strategy/
         <li><img class="logo is-square" src="/assets/logos/loudpuff.png" alt=""></li>
         <li><img class="logo" src="/assets/logos/hempcollect.png" alt=""></li>
       </ul>
+    </div>
+  </section>
+
+  <!-- Client quotes. Shep's content, 2026-11-25, transcribed from the
+       mock-up he sent -- the wording is the clients' own and is
+       verbatim, including "it's ever been". Do not tidy it.
+
+       These are real named people at real companies, so two rules:
+       don't edit a quote, and don't add one that was not given.
+
+       PHOTO MAPPING IS AN INFERENCE, worth checking: Shep sent two
+       photos without saying which was whose. The outdoor portrait is
+       on Dr. Ray (NWFA is Northwest Foot & Ankle in Portland) and the
+       studio portrait on Leo (AT Fitness, Shanghai). If that is the
+       wrong way round the fix is swapping two src attributes.
+
+       The mock also had a logo chip in each card. Left out: there is
+       no NWFA mark in assets/logos/, and inventing one for a real
+       company is not on. -->
+  <section class="says wrap">
+    <h2>What clients say&hellip;</h2>
+
+    <div class="says-grid">
+
+      <figure class="say card">
+        <blockquote>
+          <p>&ldquo;We were very excited and eager to see the results we could achieve from CRO. But we were surprised at how much our sales improved. Deeply appreciate the detail and help Shep brought to this experience.&rdquo;</p>
+        </blockquote>
+        <figcaption class="say-who">
+          <img class="say-photo" src="/assets/testimonials/dr-ray.jpg" alt="" width="160" height="160" loading="lazy">
+          <span class="say-name">Dr. Ray<span class="say-meta">NWFA &middot; Portland, OR</span></span>
+        </figcaption>
+      </figure>
+
+      <figure class="say card">
+        <blockquote>
+          <p>&ldquo;Our site is the best it&rsquo;s ever been. Thanks for the hard work!&rdquo;</p>
+        </blockquote>
+        <figcaption class="say-who">
+          <img class="say-photo" src="/assets/testimonials/leo.jpg" alt="" width="160" height="160" loading="lazy">
+          <span class="say-name">Leo<span class="say-meta">AT Fitness &middot; Shanghai, CN</span></span>
+        </figcaption>
+      </figure>
+
     </div>
   </section>
 
