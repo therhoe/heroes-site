@@ -546,15 +546,9 @@ permalink: /cro-strategy/
     .tool-card h3 { margin: 0 0 8px; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
     .tool-card p { margin: 0 0 12px; color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
     .tool-card p:last-child { margin-bottom: 0; }
-    .tool-card .tool-link {
-      display: inline-block;
-      margin-top: 4px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--fg);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
+    /* The button at the foot of the Snapshot card. The paragraph above
+       it keeps its 12px, so this only adds a little. */
+    .tool-card .btn { margin-top: 10px; }
 
     /* --- the walkthrough video -----------------------------------------
        NOT a file. It is the Loom embed already used on the standalone
@@ -714,6 +708,9 @@ permalink: /cro-strategy/
       .book-card { max-width: 420px; }
     }
     @media (max-width: 600px) {
+      /* "Install - Shopify App Store" is a long label in a narrow card,
+         and .btn never wraps. Full width rather than overflowing. */
+      .tool-card .btn { display: flex; width: 100%; padding-inline: 12px; font-size: 1rem; }
       .hero { padding-top: 44px; }
       .bio-card { max-width: none; }
       .book-card { max-width: none; }
@@ -950,10 +947,14 @@ permalink: /cro-strategy/
         <p>There is nothing worse than too much data. Most analytics drown a store in numbers that never point anywhere, so Snapshot captures the behavioural data that actually bears on conversion and leaves the rest alone.</p>
         <p>A site snapshot shows the conversion rate and revenue coming from each page&rsquo;s visitors, so we can tell which page is worth the hour before we spend it. A page snapshot then shows where those visitors came from and what they do once they land.</p>
         <p>On the call this is usually what settles the argument: it turns &ldquo;this page feels wrong&rdquo; into a specific thing that happens to real shoppers, at a specific point on the page.</p>
-        <!-- Was /snapshot/, deleted 2026-11-25. The App Store listing
-             is the only Snapshot page left, and it is what this link
-             was offering to show. Last 404 on the site. -->
-        <a class="tool-link" href="https://apps.shopify.com/snapshot-cro">See how Snapshot works</a>
+        <!-- A full button since 2026-11-25 (Shep's call); it was an
+             underlined text link reading "See how Snapshot works".
+             Deliberately the plain dark .btn, NOT .btn--primary: the
+             amber on this page means "book the session", and there are
+             three of those already. Installing the app is the other
+             thing a reader might do, so it gets a button but not that
+             button. -->
+        <a class="btn" href="https://apps.shopify.com/snapshot-cro">Install - Shopify App Store</a>
       </div>
 
       <div class="analytics-right">
