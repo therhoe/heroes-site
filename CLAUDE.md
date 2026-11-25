@@ -10,15 +10,20 @@ around the Snapshot CRO Shopify app.
 `preview-home.html` are gone. `index.html` IS the live homepage —
 make homepage changes there.
 
-**The site is a one-pager as of 2026-10-26** (Shep's call). The homepage
-is Shep's letter and three off-site links, and it links to nothing else
-on this site. Every other page is still published and still cross-links
-to its siblings — they are just not reachable from the front door any
-more. That includes `/newsletter/` and its ~100 archived issues, which
-this site is the canonical home for; orphaning them from the homepage
-was the accepted cost, not an oversight. If the archive's traffic
-matters later, the cheapest fix is pointing the first ask at
-`/newsletter/` instead of Substack.
+**The homepage was a one-pager from 2026-10-26 to 2026-11-25**: Shep's
+letter and three off-site links, deliberately linking to nothing else
+on this site, with the newsletter archive orphaned as the accepted
+cost. **That ended 2026-11-25** (Shep's call) when a shared footer went
+on every page — Home · Work with me · Newsletter · Privacy Policy. The
+archive is reachable from the front door again. The letter itself is
+untouched; it is the footer that links out, not the copy.
+
+**The site was cut down hard on 2026-11-25** (Shep's call). Deleted,
+with their assets: `hire-cro-agency.html`, `snapshot/` entire (both the
+landing page and `grid.html`), `snapshot-insights.html`, `demo/` (10
+pages) and `learn/` (4). That took the site from 210 live URLs to 192.
+All of it is in git; none of it was the only copy. `/snapshot/` is
+being redone later — don't rebuild it from history without asking.
 
 ## Current facts (don't reintroduce stale numbers)
 
@@ -37,53 +42,41 @@ matters later, the cheapest fix is pointing the first ask at
   of idiosync.site's index: a drawing at ~36% of the measure, the
   headline "CRO is a test" with the yellow highlight, Shep's letter at a
   64ch measure, and three plain text links (Substack, the App Store
-  listing, LinkedIn). One black pill in the header is the page's whole
-  allowance for raising its voice. It replaced the wide two-column hero
-  and the three-card grid wholesale — that version is in git at
-  `2b182c7~1`. It is **set in Bryndan Write, not Space Grotesk** — see
-  Style. No cards, no feature list: anything added here has to beat
-  "nothing".
-- `snapshot/index.html` — the Snapshot CRO landing page, ported
-  2026-11-19 from the standalone site at
-  `snapshot.therealheroesofecommerce.com` (repo `therhoe/snapshot-site`,
-  hand-written `index.html` + `style.css`, no build step). **The same
-  page now lives at two addresses and both are live** — there is no
-  shared source, so a change to one has to be made in the other by
-  hand. If that gets tiresome the cheap fix is redirecting one at the
-  other; nobody has decided which yet, and neither copy declares a
-  canonical.
-  It is **a third look again** — Archivo Black poster type, hard
-  offset shadows, the `#fcc42a` amber, giant P/A/C/E letters — and it
-  does NOT follow the marketing-page styling of the other pages.
-  Its stylesheet is `snapshot/assets/css/style.css`, page-local like
-  every other stylesheet here. Two things in it are fragile: `.btn` is
-  `white-space: nowrap`, and the offer section's long label ("Book Your
-  1:1 PACE Session — $90") only fits one line at 375px because the
-  720px media query steps that button down to the base font size and
-  trims its side padding; under ~340px it is allowed to wrap. And the
-  amber `--hot` is a light colour that only works as a fill — the two
-  places the accent is text use `--hot-deep: #8a6000`.
-  The only thing added in the port is the back button to `/` in the
-  header, the convention the sub-pages here use.
-- `snapshot/grid.html` — the card-grid product page that was at
-  `/snapshot/` until 2026-11-19, still published but unlisted and
-  linked from nowhere. It keeps its own `assets/css/grid.css` (renamed
-  from `style.css` in the same commit), `assets/js/grid.js`, card
-  images under `assets/img/cards/`, and `data/items.json` +
-  `data/questions.json`. It shares generic class names (`.site-header`,
-  `.hero`, `.btn`, `.site-footer`) with the landing page above, so the
-  two stylesheets must never be loaded by the same document. It
-  replaced the old root `snapshot-cro.html` (deleted 2026-10 — don't
-  resurrect it).
-- `hire-cro-agency.html` — the CRO service page (redesigned 2026-10).
-- `snapshot-insights.html` — long-form page on what the app surfaces.
-- `newsletter.html` — newsletter hub (latest issues + year-grouped archive).
+  listing, LinkedIn). It replaced the wide two-column hero and the
+  three-card grid wholesale — that version is in git at `2b182c7~1`. It
+  is **set in Bryndan Write, not Space Grotesk** — see Style. No cards,
+  no feature list: anything added here has to beat "nothing".
+  The header pill was black and round until 2026-11-25; it is now the
+  site's amber 8px control like every other page's.
+- `cro-strategy.html` → `/cro-strategy/` — the CRO service page, built
+  2026-11-24/25 from a redesign a friend made in Claude, which Shep
+  preferred to his own. It is **the page the site's styling comes
+  from** — see Style. Hero with a bio card, a client logo marquee, a
+  four-step timeline, the PACE cards, a Data Analytics section
+  (Snapshot / GA4 / Clarity) with a Loom walkthrough, and a $150
+  booking card. All three CTAs point at
+  `https://cal.com/jason-shepherd-fblx2v/snapshot-cro`; change one,
+  change all three. **`/snapshot/` on the standalone site still
+  advertises the same session at $90** — the two prices have not been
+  reconciled.
+  Its header wears the SNAPSHOT wordmark, not the site's, at its own
+  190px sizing: that mark is 3.4:1 against `logo.png`'s 4.4:1, so the
+  240px used elsewhere stands 70px tall and bursts the bar.
+- `newsletter.html` → `/newsletter/` — newsletter hub (latest issues +
+  year-grouped archive, 125 issues). Moved onto `site.css` 2026-11-25;
+  its canvas came down from 1200 to the shared 1120.
 - `snapshot-privacy-policy.html` — the app's privacy policy, and the only
-  one there is. `privacy-policy.html` is NOT a second policy: it is a
-  redirect stub left at the old URL because that address is probably
-  registered as the app's privacy link in the Shopify Partner Dashboard,
-  where a 404 is a review problem. Delete it once that listing is
-  repointed. It keeps the pre-redesign styling on purpose (Shep's call).
+  one there is. Restyled 2026-11-25 onto `site.css`: it had been the
+  site's outlier, system sans with its own blue links and greys and no
+  header. It keeps a 760px measure (`.wrap` is overridden) because it
+  is prose end to end. `privacy-policy.html` is NOT a second policy: it
+  is a redirect stub left at the old URL because that address is
+  probably registered as the app's privacy link in the Shopify Partner
+  Dashboard, where a 404 is a review problem. Delete it once that
+  listing is repointed. It keeps the pre-redesign styling on purpose
+  (Shep's call) and is the one page that does NOT load `site.css`.
+  **Check whether the Partner Dashboard still links `/snapshot/`** —
+  that page is a 404 now.
 
 ## Assets (root, all transparent PNG, Shep's own art)
 
@@ -92,14 +85,20 @@ matters later, the cheapest fix is pointing the first ask at
   where the earlier one-line mark was 135px. Header sizing is tuned to
   that (240px wide, 54px tall), not to the ratio — swap in a one-line
   mark and it will look oversized.
-- `favicon.png` — 64x64 pixel face, the icon on every page but
-  `/snapshot/` and `/snapshot/grid.html`, which keep the app's own
-  (`snapshot/assets/img/logo.png`, the black wordmark). The standalone
-  snapshot-site uses a white wordmark there, which is invisible on a
-  browser tab — the black one was kept on purpose, and it is the one
-  deliberate difference between the two copies of the page.
-  `snapshot/assets/img/logo-black.png` is the big wordmark in the
-  landing page's header, copied from that repo.
+- `favicon.png` — 64x64 pixel face, the icon on every page. The
+  `/snapshot/` pages that kept the app's own icon were deleted
+  2026-11-25.
+- `assets/logos/` — the seven client marks in `/cro-strategy/`'s
+  marquee, sourced from each brand's own site 2026-11-25. They are
+  normalised in CSS, not in the files: `grayscale(1)`, with
+  `.is-light` adding `invert(1)` for the two light marks and
+  `.is-square` sizing the one square badge. Don't use
+  `filter: brightness(0)` — it flattens knockout text into the badge.
+- `assets/logos/tools/` — `snapshot.png`, `ga4.svg`, `clarity.png` for
+  the Data Analytics cards. **`snapshot.png` is load-bearing twice**:
+  it is also `/cro-strategy/`'s header wordmark, because the copy it
+  used to use (`snapshot/assets/img/logo-black.png`) was deleted with
+  that directory.
 - `hero-booth-cro.png` — 1000x1000, the booth with a "Conversion rate
   optimization" sign and white panels. This is the homepage drawing.
 - `hero-booth.png` — the earlier booth, yellow panels and an "ANALYTICS /
@@ -118,14 +117,24 @@ the homepage's typeface. See Style.
   `description`, `date`, `substack_url`. Content is verbatim — the casing
   rule below does NOT apply.
 - `_layouts/newsletter.html` wraps posts in the site shell (header, nav,
-  dateline, subscribe CTA, backlink) — restyled 2026-10 to match the
-  homepage.
+  dateline, subscribe CTA, backlink). It moved onto `site.css`
+  2026-11-25. **Every edit here lands on all 125 issues at once** — it
+  is the most-repeated markup on the site, which is why its two dead
+  nav links were the site's most-repeated 404s.
 - Perspectives (republished pieces by other writers) was removed entirely
   2026-09-28 (Shep's call) — don't resurrect it from git history. If it
   ever comes back, republishing someone else's piece needs their written
   consent first.
 - Migration script: `.claude/scripts/migrate_substack.py` (takes the
   Substack export zip).
+- `_includes/site-footer.html` is the footer on every public page: Home ·
+  Work with me · Newsletter · Privacy Policy, and nothing else.
+  `index.html` and `snapshot-privacy-policy.html` had no front matter
+  before 2026-11-25, so Jekyll copied them verbatim and never ran
+  Liquid on them; both now carry an empty front matter block so the
+  include renders. **Check a page for literal `{{` / `{%` before
+  adding front matter to it** — that is what broke the Pages build in
+  `ab3aebc`.
 - `_includes/subscribe-email.html` is the email-capture form (posts email
   only to the same Apps Script endpoint as the CRO lead form), used on the
   homepage, the newsletter hub, and the newsletter layout.
@@ -180,20 +189,39 @@ the homepage's typeface. See Style.
 
 ## Style
 
-Four distinct looks now. Don't mix them. The newest is `/snapshot/`,
-which is its own thing entirely and shares nothing with the other
-three — see Pages.
+**TWO looks now, not four** (Shep's call, 2026-11-25). The public site
+is one system; the workshop decks are the other. The `/snapshot/` look
+and the separate "marketing pages" look went with the pages that wore
+them.
 
-**Marketing pages** (`snapshot/grid.html`, `hire-cro-agency.html`,
-`snapshot-insights.html`, `newsletter.html`, the newsletter layout) —
-redesigned 2026-10 as a real site: Space Grotesk, wide canvas, cards,
-pill buttons. Normal capitalization throughout, including nav items and
-buttons ("Snapshot CRO", "Newsletter", "Work with us", "Install on
-Shopify") — Shep's call, 2026-10-05. Don't lowercase them.
+**`assets/css/site.css` is the system, and `/cro-strategy/` is where it
+came from** — Shep picked that page's styling and it was lifted out so
+every page draws from one file instead of four drifting copies. It
+owns the tokens, base type, `.wrap`, the header bar, nav, buttons, the
+card primitive, `.eyebrow` and the footer. A page's own `<style>` block
+keeps only what that page alone needs.
 
-**The homepage is its own third look** as of 2026-10-26. It keeps the
-marketing tokens — the #14171a ink, the #ffc42a highlight, normal
-capitalization — but it is set in **Bryndan Write**, self-hosted at
+- **Link `site.css` BEFORE the page's `<style>`** so the page can still
+  override. Every page does.
+- Corners are **8px** everywhere. Every 999px pill on the site was
+  squared 2026-11-25 — don't reintroduce one.
+- Cards are `--card-radius` + `--card-shadow`. The old
+  `--radius`/`--shadow` names are gone.
+- `--accent` (#ffc42a) **cannot carry text on white**. It is only ever
+  a fill or a highlight, with dark text on it.
+- `.btn--primary` / `.btn--ghost` must stay AFTER `.btn` in source
+  order — same specificity, and they were once above it, which made
+  both hero buttons black.
+- `_includes/site-footer.html` is the footer on every page. Markup
+  only: styling lives in `site.css`. Four links, no others.
+- Normal capitalization throughout, including nav items and buttons —
+  Shep's call, 2026-10-05. Don't lowercase them.
+- `newsletter.html` and the newsletter layout keep a **sticky** header.
+  That is behaviour their year headers need, not a style difference.
+
+**The homepage is the one carve-out.** It takes all of `site.css` —
+8px corners, the amber pill, the shared footer, the 1120 canvas — but
+re-points `--font` at **Bryndan Write**, self-hosted at
 `assets/fonts/bryndan-write.woff2`, copied from the idiosync repo.
 Things that follow from the face, and that will bite anyone editing it:
 
@@ -207,6 +235,9 @@ Things that follow from the face, and that will bite anyone editing it:
   it is `.claude/scripts/build-bryndan-woff2.py` in the idiosync repo.
 - It is wider than Space Grotesk, so display sizes come down and
   measures go up relative to the other pages.
+- `font-synthesis-weight: none` has to stay in the page's own block —
+  `site.css` does not set it, because every other page is set in a face
+  that has a real bold.
 - **The licence is unresolved and that was a decision.** The FontSpace
   page says "Freeware" and nothing more, a commercial-use question there
   went unanswered for six years, and the embedded copyright is
@@ -215,9 +246,10 @@ Things that follow from the face, and that will bite anyone editing it:
   a claim ever arrives the swap is one `@font-face` and one `--font`
   line, and Shantell Sans (Google Fonts, OFL) is the closest match.
 
-**Workshop pages** (`workshop/*`) — still the rendered-markdown/terminal
-document look (IBM Plex Mono/Sans, `workshop/style.css`). The casing rules
-there:
+**Workshop pages** (`workshop/*`) — the rendered-markdown/terminal
+document look (IBM Plex Mono/Sans, `workshop/style.css`). They do NOT
+load `site.css` and were deliberately left out of the 2026-11-25
+unification (Shep's call, asked and answered). The casing rules there:
 
 - **Section headings** (`<h1>` with the `## ` prefix): all lowercase —
   "how we work with clients", "notable posts"
