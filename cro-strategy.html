@@ -135,22 +135,35 @@ permalink: /cro-strategy/
       border-bottom: 1px solid var(--line);
     }
     .brand { display: inline-flex; align-items: center; }
-    .brand img { display: block; width: 240px; max-width: 46vw; height: auto; }
+    /* Shep's call 2026-11-25: the header wears the SNAPSHOT wordmark
+       here, not the site's own -- this page sells the app's session.
+       Sized differently from the rest of the site on purpose: that mark
+       is 920x270 (3.4:1) against logo.png's 4.4:1, so the 240px width
+       used elsewhere would stand 70px tall and burst the bar. */
+    .brand img { display: block; width: 190px; max-width: 40vw; height: auto; }
     .site-nav a.cta {
       display: inline-flex;
       align-items: center;
       height: var(--control-height);
       padding: 0 24px;
-      border-radius: 999px;
-      color: #ffffff;
-      background: var(--fg);
+      /* 8px, the same corner as .btn -- Shep's call 2026-11-25. It was
+         a 999px pill, the only fully-round control on the page. */
+      border-radius: 8px;
+      /* Shep's call 2026-11-25: the header pill is the SAME offer and
+         the SAME button as the hero's, so it takes .btn--primary's
+         amber rather than the black it used to wear as "Install
+         Snapshot". Accent on dark text, which is the only way this
+         yellow may carry type. */
+      color: var(--fg);
+      background: var(--accent);
+      border: 1px solid var(--accent);
       text-decoration: none;
       font-weight: 500;
       white-space: nowrap;   /* a multi-word pill wraps to two lines and
                                 breaks the header's single row */
       transition: background-color .15s ease, color .15s ease;
     }
-    .site-nav a.cta:hover { background: #000000; color: var(--accent); }
+    .site-nav a.cta:hover { background: #f0b400; border-color: #f0b400; color: var(--fg); }
 
     /* --- hero: two columns ---------------------------------------------
        Asymmetric on purpose. The left column is the page's argument and
@@ -328,7 +341,12 @@ permalink: /cro-strategy/
        repeated run is wider than the viewport, and seven logos come to
        roughly 1400px.
        ------------------------------------------------------------------ */
-    .logos { padding-block: 8px 44px; }
+    /* Shep's call 2026-11-25: the air ABOVE this band has to match the
+       air below it. Below is 44 here + .cover's 76 = 120px to the
+       "Pick a product" heading, so the top is 120 too. It was 8px,
+       which left the band stuck to the hero -- most visible once the
+       hero stacks and the bio card is the thing it was stuck to. */
+    .logos { padding-block: 120px 44px; }
     .logos-label {
       margin: 0 0 20px;
       font-size: 0.7rem;
@@ -376,8 +394,13 @@ permalink: /cro-strategy/
       .marquee-track + .marquee-track { display: none; }
     }
 
-    /* --- "here's what we cover": the five-step timeline -------------
-       From the redesign screenshots, 2026-11-25. It replaced the offer
+    /* --- "here's what we'll cover": the four-step timeline ----------
+       From the redesign screenshots, 2026-11-25. The opening "Before
+       the call / Pick one product" step came out later the same day --
+       the row read as busy, and the heading now says "Pick a product,
+       pick an hour", which does that step's job in the title.
+
+       It replaced the offer
        block that used to sit in the hero's left column (the "30 min
        PACE Review + 30 min Data Analysis" heading, its paragraph and
        the three promise bullets) -- that block said the same things
@@ -414,7 +437,7 @@ permalink: /cro-strategy/
       margin: 0;
       padding: 0;
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 0 24px;
     }
     .step .dot { position: relative; height: 18px; margin: 0 0 18px; }
@@ -490,13 +513,21 @@ permalink: /cro-strategy/
       border-radius: var(--card-radius);
       box-shadow: var(--card-shadow);
       padding: 28px;
+      /* Shep's call 2026-11-25: the tile sits BESIDE the text, not above
+         it. flex-start keeps it level with the heading instead of
+         centring itself against a paragraph that is now five lines
+         long. */
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
     }
     .glyph {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       width: 56px; height: 56px;
-      margin: 0 0 16px;
+      flex: none;           /* or the tile squashes as the copy grows */
+      margin: 0;
       border-radius: 12px;
       background: var(--accent);
       color: var(--fg);
@@ -504,8 +535,18 @@ permalink: /cro-strategy/
       font-weight: 700;
       line-height: 1;
     }
-    .pace-item h3 { margin: 0 0 8px; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
+    .pace-body { min-width: 0; }
+    .pace-item h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      /* The tile is 56px tall and the heading one line, so nudge the
+         heading down a hair to optically centre it against the letter. */
+      padding-top: 2px;
+    }
     .pace-item p { margin: 0; color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+    .pace-item em { font-style: italic; }
 
     /* --- the data analytics cards ---------------------------------------
        Shep's layout, 2026-11-25: one tall card on the left for his own
@@ -753,7 +794,7 @@ permalink: /cro-strategy/
       .hero .sub { max-width: 60ch; }   /* no card beside it any more, so
                                            it gets the homepage's measure
                                            back */
-      /* Five columns stop being readable well before they stop fitting.
+      /* Four columns stop being readable well before they stop fitting.
          Stacked, the same ::after becomes the vertical run between dots. */
       .steps { grid-template-columns: minmax(0, 1fr); gap: 0; }
       .step { position: relative; padding: 0 0 30px 34px; }
@@ -796,8 +837,12 @@ permalink: /cro-strategy/
          undo the join and split the page into two blocks. */
     }
     @media (max-width: 420px) {
+      /* Side-by-side still works on a phone, but a 56px tile plus a 20px
+         gap takes a third of the text column -- step both down. */
+      .pace-item { padding: 22px; gap: 14px; }
+      .glyph { width: 44px; height: 44px; font-size: 1.25rem; border-radius: 10px; }
       .site-header .bar { gap: 12px; }
-      .brand img { width: 180px; }
+      .brand img { width: 150px; }
       .site-nav a.cta { height: 40px; padding: 0 14px; font-size: 0.9rem; }
     }
   </style>
@@ -808,10 +853,10 @@ permalink: /cro-strategy/
   <div class="wrap">
     <div class="bar">
       <a class="brand" href="/" aria-label="The Real Heroes of Ecommerce home">
-        <img src="/logo.png" alt="The Real Heroes of Ecommerce" width="1000" height="225">
+        <img src="/snapshot/assets/img/logo-black.png" alt="Snapshot CRO" width="920" height="270">
       </a>
       <nav class="site-nav">
-        <a class="cta" href="https://apps.shopify.com/snapshot-cro">Install Snapshot</a>
+        <a class="cta" href="https://cal.com/jason-shepherd-fblx2v/snapshot-cro">Book 1:1 CRO Session</a>
       </nav>
     </div>
   </div>
@@ -830,12 +875,11 @@ permalink: /cro-strategy/
         <p class="sub">Pick one product. We go through it together, live: who buys it, what they do on the page, and where they stall. You leave with 2&ndash;3 tests to run first, and the reasoning behind each.</p>
 
         <div class="btn-row">
-          <!-- PLACEHOLDER href, still. Shep has not given the booking
-               URL, so this points at the LinkedIn profile the rest of
-               the site already uses -- a real destination rather than a
-               dead "#", but NOT a booking page. Swap it for the
-               Calendly/booking link. -->
-          <a class="btn btn--primary" href="https://www.linkedin.com/in/jasonsdshepherd/">Book 1:1 CRO Session</a>
+          <!-- The real booking page, given 2026-11-25. All THREE buttons
+               on this page -- header pill, this one, and the one in the
+               booking card -- point at the same cal.com link. Change
+               one, change all three. -->
+          <a class="btn btn--primary" href="https://cal.com/jason-shepherd-fblx2v/snapshot-cro">Book 1:1 CRO Session</a>
           <!-- Same-page jump. The target carries scroll-margin-top so the
                heading does not land flush against the viewport edge. -->
           <a class="btn btn--ghost" href="#what-we-cover">See what we cover</a>
@@ -846,19 +890,24 @@ permalink: /cro-strategy/
            earlier garbled last sentence is gone, resolved by his own
            rewrite rather than by a guess here.
 
-           The two titles beside the photo are Shep's wording, including
-           the mixed "@" and "at" -- that is how he gave them. -->
+           The two titles beside the photo are Shep's wording. Rewritten
+           2026-11-25: the bio is one paragraph now, about the route into
+           CRO rather than the comic, and the second title says "Author @
+           The Real Heroes" instead of "Cartoonist at The RHOE". That
+           took the only Substack link in the hero out with it -- the old
+           bio linked the newsletter in its last sentence and this one
+           does not mention it. Left unlinked on purpose; ask before
+           adding one back. -->
       <aside class="bio-card">
         <div class="bio-head">
           <img class="avatar" src="/shep.jpg" width="200" height="200"
                alt="Shep">
           <ul class="bio-titles">
             <li>Founder @ Snapshot CRO</li>
-            <li>Cartoonist at The RHOE</li>
+            <li>Author @ The Real Heroes</li>
           </ul>
         </div>
-        <p>Hi, my name is Shep, and I am an ecommerce CRO.</p>
-        <p>I&rsquo;ve been a CRO since 2019, building and optimizing Shopify stores at every stage of growth. Every week or so, I make a comic and write about it in <a href="https://heroesofecommerce.substack.com/">The RHOE newsletter</a>.</p>
+        <p>Hi, my name is Shep, and I&rsquo;ve been in CRO since 2019. I started in qualitative research, transitioned to marketing, and then decided crafting web optimization is the most efficient means of ecommerce growth.</p>
       </aside>
 
     </div>
@@ -909,16 +958,10 @@ permalink: /cro-strategy/
        ("Part 2 / Analytics") because they are both part two -- that
        repeat is in the design, not a copy-paste slip here. -->
   <section class="cover wrap" id="what-we-cover">
-    <h2>One product, one hour. Here&rsquo;s what we cover.</h2>
+    <h2>Pick a product, pick an hour. Here&rsquo;s what we&rsquo;ll cover</h2>
     <p class="lede">A whole store is too much for one call. One product is enough to find the pattern, and what we learn there carries to the rest of your pages.</p>
 
     <ol class="steps">
-      <li class="step">
-        <div class="dot"></div>
-        <p class="eyebrow">Before the call</p>
-        <h3>Pick one product</h3>
-        <p>Your best seller, or the page that should be doing better than it is.</p>
-      </li>
       <li class="step">
         <div class="dot"></div>
         <p class="eyebrow">Part 1 &middot; PACE review</p>
@@ -958,23 +1001,31 @@ permalink: /cro-strategy/
     <div class="pace-grid">
       <div class="pace-item">
         <span class="glyph" aria-hidden="true">P</span>
-        <h3>Prognosis</h3>
-        <p>What does the customer expect from this purchase?</p>
+        <div class="pace-body">
+          <h3>Prognosis</h3>
+          <p>What is the <strong><em>prognosis</em></strong> a customer imagines? Will they solve a problem or pain-point? Are they attracted by the promise a product offers? What do they see happening after they buy it?</p>
+        </div>
       </div>
       <div class="pace-item">
         <span class="glyph" aria-hidden="true">A</span>
-        <h3>Activities</h3>
-        <p>What do customers do when they shop for this product?</p>
+        <div class="pace-body">
+          <h3>Activities</h3>
+          <p>What actions do they take once they have decided to purchase an item? Are they researching benefits, comparing price, looking for reviews, or just slowly browsing until something catches their eye.</p>
+        </div>
       </div>
       <div class="pace-item">
         <span class="glyph" aria-hidden="true">C</span>
-        <h3>Criteria</h3>
-        <p>What are the top things that qualify or disqualify it for them?</p>
+        <div class="pace-body">
+          <h3>Criteria</h3>
+          <p>What are the criteria which qualifies or disqualifies your product in their minds? Are they finding that info on your site or off of your site. Is it clear and getting the point across?</p>
+        </div>
       </div>
       <div class="pace-item">
         <span class="glyph" aria-hidden="true">E</span>
-        <h3>Event</h3>
-        <p>Which activity actually leads to the sale?</p>
+        <div class="pace-body">
+          <h3>Event</h3>
+          <p>Is there an event that drives conversions, whether it is a landing page, email, or a sale? Does the triggering event get interrupted anywhere in the conversion funnel? What opportunities are there to nudge more events.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -1086,12 +1137,12 @@ permalink: /cro-strategy/
           <li>2&ndash;3 tests to run after the call</li>
         </ul>
 
-        <!-- PLACEHOLDER href, still LinkedIn -- see the hero. The fine
-             print below promises a time picker, so this one is more
-             visibly wrong than the hero's until the real URL lands.
-             The photo rides inside the button rather than heading the
-             card: Shep's call 2026-11-25, to make it less prominent. -->
-        <a class="btn btn--primary btn--block" href="https://www.linkedin.com/in/jasonsdshepherd/">
+        <!-- Same cal.com booking link as the hero and the header pill;
+             the fine print's "pick a time on the next screen" is true
+             now. The photo rides inside the button rather than heading
+             the card: Shep's call 2026-11-25, to make it less
+             prominent. -->
+        <a class="btn btn--primary btn--block" href="https://cal.com/jason-shepherd-fblx2v/snapshot-cro">
           <img class="btn-avatar" src="/shep.jpg" width="200" height="200" alt="">
           Book 1:1 CRO Session
         </a>
