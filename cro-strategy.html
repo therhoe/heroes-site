@@ -139,7 +139,12 @@ permalink: /cro-strategy/
        here, not the site's own -- this page sells the app's session.
        Sized differently from the rest of the site on purpose: that mark
        is 920x270 (3.4:1) against logo.png's 4.4:1, so the 240px width
-       used elsewhere would stand 70px tall and burst the bar. */
+       used elsewhere would stand 70px tall and burst the bar.
+
+       It is served from assets/logos/tools/, NOT from snapshot/ --
+       /snapshot/ was deleted 2026-11-25 and took its copy with it.
+       The file here is byte-identical to the one that used to live
+       there; it was already in the repo for the analytics card. */
     .brand img { display: block; width: 190px; max-width: 40vw; height: auto; }
     .site-nav a.cta {
       display: inline-flex;
@@ -853,7 +858,7 @@ permalink: /cro-strategy/
   <div class="wrap">
     <div class="bar">
       <a class="brand" href="/" aria-label="The Real Heroes of Ecommerce home">
-        <img src="/snapshot/assets/img/logo-black.png" alt="Snapshot CRO" width="920" height="270">
+        <img src="/assets/logos/tools/snapshot.png" alt="Snapshot CRO" width="920" height="270">
       </a>
       <nav class="site-nav">
         <a class="cta" href="https://cal.com/jason-shepherd-fblx2v/snapshot-cro">Book 1:1 CRO Session</a>
